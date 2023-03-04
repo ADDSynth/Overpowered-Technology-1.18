@@ -60,7 +60,7 @@ description="Core mod required by all of ADDSynth's mods. Also adds a few basic 
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[40.1.0,)" #mandatory
+    versionRange="[40.2.0,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -101,7 +101,7 @@ description="Library by ADDSynth, for ADDSynth's mods. Adds Energy Wire, a Gener
 [[dependencies.overpowered]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[40.1.0,)" #mandatory
+    versionRange="[40.2.0,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.overpowered]]
@@ -133,7 +133,7 @@ description="This mod adds a bunch of really cool science and tech stuff."
 [[dependencies.overpowered]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[40.1.0,)" #mandatory
+    versionRange="[40.2.0,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.overpowered]]

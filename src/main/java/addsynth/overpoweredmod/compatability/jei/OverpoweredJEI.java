@@ -33,10 +33,18 @@ public final class OverpoweredJEI implements IModPlugin {
     final ArrayList<ItemStack> blacklist = new ArrayList<>(1);
     blacklist.add(new ItemStack(OverpoweredItems.portal_image));
     if(CompatabilityManager.are_rings_enabled()){
-      blacklist.add(new ItemStack(OverpoweredItems.magic_ring_0));
-      blacklist.add(new ItemStack(OverpoweredItems.magic_ring_1));
-      blacklist.add(new ItemStack(OverpoweredItems.magic_ring_2));
-      blacklist.add(new ItemStack(OverpoweredItems.magic_ring_3));
+      if(OverpoweredItems.magic_ring_0.isPresent()){
+        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_0.get()));
+      }
+      if(OverpoweredItems.magic_ring_1.isPresent()){
+        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_1.get()));
+      }
+      if(OverpoweredItems.magic_ring_2.isPresent()){
+        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_2.get()));
+      }
+      if(OverpoweredItems.magic_ring_3.isPresent()){
+        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_3.get()));
+      }
     }
     blacklist.add(new ItemStack(OverpoweredItems.bridge_image));
     jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blacklist);

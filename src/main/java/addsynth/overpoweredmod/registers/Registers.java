@@ -9,6 +9,8 @@ import addsynth.overpoweredmod.game.core.*;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
+import addsynth.overpoweredmod.items.Ring;
+import addsynth.overpoweredmod.items.UnidentifiedItem;
 import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
@@ -186,14 +188,14 @@ public final class Registers {
         for(Item armor : armor_set){ game.register(armor); }
       }
       if(CompatabilityManager.are_rings_enabled()){
-        game.register(OverpoweredItems.ring_0);
-        game.register(OverpoweredItems.ring_1);
-        game.register(OverpoweredItems.ring_2);
-        game.register(OverpoweredItems.ring_3);
-        game.register(OverpoweredItems.magic_ring_0);
-        game.register(OverpoweredItems.magic_ring_1);
-        game.register(OverpoweredItems.magic_ring_2);
-        game.register(OverpoweredItems.magic_ring_3);
+        game.register(new UnidentifiedItem(0));
+        game.register(new UnidentifiedItem(1));
+        game.register(new UnidentifiedItem(2));
+        game.register(new UnidentifiedItem(3));
+        game.register(new Ring(0));
+        game.register(new Ring(1));
+        game.register(new Ring(2));
+        game.register(new Ring(3));
       }
     }
     

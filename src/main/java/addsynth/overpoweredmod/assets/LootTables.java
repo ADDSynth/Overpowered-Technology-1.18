@@ -56,10 +56,10 @@ public final class LootTables {
     loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][3]).setWeight(diamond_weight));
     if(CompatabilityManager.are_rings_enabled()){
       final int      ring_weight = Values.ring_drop_weight.get();
-      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_0).setWeight(ring_weight));
-      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_1).setWeight(ring_weight));
-      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_2).setWeight(ring_weight));
-      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_3).setWeight(ring_weight));
+      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_0.get()).setWeight(ring_weight));
+      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_1.get()).setWeight(ring_weight));
+      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_2.get()).setWeight(ring_weight));
+      loot.add(LootItem.lootTableItem(OverpoweredItems.ring_3.get()).setWeight(ring_weight));
     }
     loot.when(LootItemKilledByPlayerCondition.killedByPlayer());
     loot.when(LootItemRandomChanceCondition.randomChance(drop_chance));

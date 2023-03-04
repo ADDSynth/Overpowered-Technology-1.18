@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.game.reference;
 
-import addsynth.core.compat.Compatibility;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.core.game.item.constants.EquipmentType;
@@ -13,6 +12,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class OverpoweredItems {
 
@@ -65,24 +66,15 @@ public final class OverpoweredItems {
     }
   }
 
-  public static final Item ring_0 = new UnidentifiedItem(0);
-  public static final Item ring_1 = new UnidentifiedItem(1);
-  public static final Item ring_2 = new UnidentifiedItem(2);
-  public static final Item ring_3 = new UnidentifiedItem(3);
+  public static final RegistryObject<Item> ring_0 = RegistryObject.create(Names.UNIDENTIFIED_RING[0], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> ring_1 = RegistryObject.create(Names.UNIDENTIFIED_RING[1], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> ring_2 = RegistryObject.create(Names.UNIDENTIFIED_RING[2], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> ring_3 = RegistryObject.create(Names.UNIDENTIFIED_RING[3], ForgeRegistries.ITEMS);
   
-  public static Item magic_ring_0;
-  public static Item magic_ring_1;
-  public static Item magic_ring_2;
-  public static Item magic_ring_3;
-
-  static {
-    if(Compatibility.CURIOS.loaded){
-      magic_ring_0 = new Ring(0);
-      magic_ring_1 = new Ring(1);
-      magic_ring_2 = new Ring(2);
-      magic_ring_3 = new Ring(3);
-    }
-  }
+  public static final RegistryObject<Item> magic_ring_0 = RegistryObject.create(Names.MAGIC_RING[0], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> magic_ring_1 = RegistryObject.create(Names.MAGIC_RING[1], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> magic_ring_2 = RegistryObject.create(Names.MAGIC_RING[2], ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> magic_ring_3 = RegistryObject.create(Names.MAGIC_RING[3], ForgeRegistries.ITEMS);
 
   /** Item form of Portal, used only for Achievement icon. Does not show up in jei or creative tab.
    *  But players can still get it by using the /give command. */

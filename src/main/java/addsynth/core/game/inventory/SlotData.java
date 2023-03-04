@@ -8,6 +8,11 @@ import net.minecraft.world.item.ItemStack;
  *  {@link InputInventory} uses this. */
 public final class SlotData {
 
+  @Deprecated
+  // PRIORITY: Instead of passing an array of items as a filter, pass in a static function
+  //           with which we can use to test whether the item is accepted by the machine or not.
+  //           Must pass in the Item and slot number, and return a boolean
+  //           I must create my own @FunctionalInterface to describe the function we need as an argument.
   private Item[] filter;
   public final int stack_limit;
 

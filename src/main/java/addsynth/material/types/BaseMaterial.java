@@ -1,6 +1,5 @@
 package addsynth.material.types;
 
-import javax.annotation.Nonnull;
 import addsynth.core.game.RegistryUtil;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -38,11 +37,11 @@ public class BaseMaterial extends AbstractMaterial {
    * @param item
    * @param block
    */
-  public BaseMaterial(final boolean custom, final String name, final Item item, @Nonnull final Block block){
+  public BaseMaterial(final boolean custom, final String name, final Item item, final Block block){
     super(custom, name);
     this.item = item;
     this.block = block;
-    this.block_item = RegistryUtil.getItemBlock(this.block);
+    this.block_item = block != null ? RegistryUtil.getItemBlock(block) : null;
   }
 
 }

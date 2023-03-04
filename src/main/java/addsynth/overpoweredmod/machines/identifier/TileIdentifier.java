@@ -36,11 +36,22 @@ public final class TileIdentifier extends TileStandardWorkMachine implements Men
     OverpoweredItems.unidentified_armor[3],
     OverpoweredItems.unidentified_armor[4]
   );
-  private static final Item[] rings = {
-    OverpoweredItems.ring_0, OverpoweredItems.ring_1, OverpoweredItems.ring_2, OverpoweredItems.ring_3
-  };
-  public static final Item[] input_filter = CompatabilityManager.are_rings_enabled() ?
-    ArrayUtil.combine_arrays(unidentified_armor, rings) : unidentified_armor;
+
+  public static final Item[] input_filter = create_input_filter();
+
+  private static final Item[] create_input_filter(){
+    if(CompatabilityManager.are_rings_enabled()){
+      return ArrayUtil.combine_arrays(unidentified_armor,
+        new Item[]{
+          OverpoweredItems.ring_0.get(),
+          OverpoweredItems.ring_1.get(),
+          OverpoweredItems.ring_2.get(),
+          OverpoweredItems.ring_3.get()
+        }
+      );
+    }
+    return unidentified_armor;
+  }
 
   public TileIdentifier(BlockPos position, BlockState blockstate){
     super(Tiles.IDENTIFIER, position, blockstate, 1, input_filter, 1, MachineValues.identifier);
@@ -63,10 +74,10 @@ public final class TileIdentifier extends TileStandardWorkMachine implements Men
         if(item.ring_id >= 0){
           // Identify Ring
           final ItemStack stack = switch(item.ring_id){ // New switch expression, standardized in Java 14
-            case 0 -> new ItemStack(OverpoweredItems.magic_ring_0);
-            case 1 -> new ItemStack(OverpoweredItems.magic_ring_1);
-            case 2 -> new ItemStack(OverpoweredItems.magic_ring_2);
-            case 3 -> new ItemStack(OverpoweredItems.magic_ring_3);
+            case 0 -> new ItemStack(OverpoweredItems.magic_ring_0.get());
+            case 1 -> new ItemStack(OverpoweredItems.magic_ring_1.get());
+            case 2 -> new ItemStack(OverpoweredItems.magic_ring_2.get());
+            case 3 -> new ItemStack(OverpoweredItems.magic_ring_3.get());
             default -> null;
           };
           if(stack != null){

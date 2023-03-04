@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:celestial_gem"
+    },
+    "title": {
+      "translate": "advancements.overpowered.celestial_gem.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.celestial_gem.description"
+    }
+  },
+  "parent": "overpowered:overpowered/all_gems",
+  "criteria": {
+    "celestial_gem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_gem"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

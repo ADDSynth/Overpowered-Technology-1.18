@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dimensional_anchor",
+  "pattern": [
+    " p ",
+    "pdp",
+    " p "
+  ],
+  "key": {
+    "p": {"item": "overpowered:plasma"},
+    "d": {"item": "overpowered:dimensional_flux"}
+  },
+  "result": {
+    "item": "overpowered:dimensional_anchor"
+  }
+}

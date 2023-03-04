@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "overpowered:void_crystal"},
+    {"item": "addsynth_energy:advanced_power_core"},
+    {"tag": "forge:silicon"}
+  ],
+  "result": {
+    "item": "overpowered:nullified_power_core"
+  }
+}

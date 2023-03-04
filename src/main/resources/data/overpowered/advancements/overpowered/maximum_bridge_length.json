@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:cyan_energy_bridge"
+    },
+    "title": {
+      "translate": "advancements.overpowered.maximum_bridge_length.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.maximum_bridge_length.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "overpowered:overpowered/energy_suspension_bridge",
+  "criteria": {
+    "maximum_bridge_length": {
+      "trigger": "minecraft:impossible"
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:energy_suspension_bridge"
+    }
+  ]
+}

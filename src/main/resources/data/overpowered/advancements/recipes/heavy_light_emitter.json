@@ -1,0 +1,60 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "beam_emitter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:beam_emitter"
+            ]
+          }
+        ]
+      }
+    },
+    "matter_energy_converter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_converter"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:heavy_light_emitter"
+      }
+    },
+    "has_heavy_light_emitter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:heavy_light_emitter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "beam_emitter",
+      "matter_energy_converter",
+      "has_recipe",
+      "has_heavy_light_emitter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:heavy_light_emitter"
+    ]
+  }
+}

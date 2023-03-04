@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:magic_infuser"
+    },
+    "title": {
+      "translate": "advancements.overpowered.magic_infuser.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.magic_infuser.description"
+    }
+  },
+  "parent": "overpowered:overpowered/matter_energy_converter",
+  "criteria": {
+    "magic_infuser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:magic_infuser"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:magic_infuser"
+    }
+  ]
+}

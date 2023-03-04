@@ -1,0 +1,156 @@
+# This is an example mods.toml file. It contains the data relating to the loading mods.
+# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
+# The overall format is standard TOML format, v0.5.0.
+# Note that there are a couple of TOML lists in this file.
+# Find more information on toml format here:  https://github.com/toml-lang/toml
+
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="Creative Commons BY-NC-ND"
+
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://github.com/ADDSynth/Overpowered-Technology-1.18/issues" #optional
+
+
+
+
+
+
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+
+# The modid of the mod
+modId="addsynthcore" #mandatory
+
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+#version="${file.jarVersion}" #mandatory
+version="1.0"
+
+# A display name for the mod
+displayName="ADDSynthCore" #mandatory
+
+# A URL to query for updates for this mod. See the JSON update specification <here>
+#updateJSONURL="http://www.gyrostudiostechnology.com/minecraft/mods/overpowered/update.json" #optional
+
+# A URL for the "homepage" for this mod, displayed in the mod UI
+displayURL="http://www.gyrostudiostechnology.com/minecraft/mods/addsynthcore/index.html" #optional
+
+# A file name (in the root of the mod JAR) containing a logo for display
+logoFile="addsynth_core_logo.png" #optional
+
+# A text field displayed in the mod UI
+credits="Mojang, and the Forge Development Team" #optional
+
+# A text field displayed in the mod UI
+authors="ADDSynth" #optional
+
+# The description text for the mod (multi line!) (#mandatory)
+description="Core mod required by all of ADDSynth's mods. Also adds a few basic things by itself."
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.overpowered]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[40.1.0,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.overpowered]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2]"
+    ordering="NONE"
+    side="BOTH"
+
+[[mods]]
+modId="addsynth_materials"
+version="1.0"
+displayName="ADDSynth Materials"
+displayURL="http://www.gyrostudiostechnology.com/minecraft/mods/materials/index.html"
+logoFile="addsynth_materials_logo.png"
+credits=""
+authors="ADDSynth"
+description="Extra Materials"
+[[dependencies.addsynth_materials]]
+    modId="addsynthcore"
+    mandatory=true
+    versionRange="[1.0,]"
+    ordering="BEFORE"
+    side="BOTH"
+
+[[mods]]
+modId="addsynth_energy"
+version="1.0"
+displayName="ADDSynth Energy"
+displayURL="http://www.gyrostudiostechnology.com/minecraft/mods/addsynth_energy/index.html"
+logoFile="addsynth_energy_logo.png"
+credits="Mojang, and the Forge Development Team"
+authors="ADDSynth"
+description="Library by ADDSynth, for ADDSynth's mods. Adds Energy Wire, a Generator, an Electric Furnace, and the Universal Energy Interface."
+[[dependencies.overpowered]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[40.1.0,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.overpowered]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.overpowered]]
+    modId="addsynthcore"
+    mandatory=true
+    versionRange="[1,)"
+    ordering="BEFORE"
+    side="BOTH"
+
+
+[[mods]]
+modId="overpowered" #mandatory
+version="1.5" #mandatory
+displayName="Overpowered Technology" #mandatory
+updateJSONURL="http://www.gyrostudiostechnology.com/minecraft/mods/overpowered/update.json" #optional
+displayURL="http://www.gyrostudiostechnology.com/minecraft/mods/overpowered/index.html" #optional
+logoFile="overpowered_technology_logo.png" #optional
+credits="Mojang, and the Forge Development Team" #optional
+authors="ADDSynth" #optional
+description="This mod adds a bunch of really cool science and tech stuff."
+
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.overpowered]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[40.1.0,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.overpowered]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.overpowered]]
+    modId="addsynthcore"
+    mandatory=true
+    versionRange="[1,)"
+    ordering="BEFORE"
+    side="BOTH"
+[[dependencies.overpowered]]
+    modId="addsynth_energy"
+    mandatory=true
+    versionRange="[1,)"
+    ordering="BEFORE"
+    side="BOTH"

@@ -1,0 +1,84 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "aluminum_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/aluminum"
+          }
+        ]
+      }
+    },
+    "energy_crystal_shards": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energy_crystal_shards"
+            ]
+          }
+        ]
+      }
+    },
+    "scanning_laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:scanning_laser"
+            ]
+          }
+        ]
+      }
+    },
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_5"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:gem_converter"
+      }
+    },
+    "has_gem_converter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:gem_converter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "aluminum_plate",
+      "energy_crystal_shards",
+      "scanning_laser",
+      "circuit",
+      "has_recipe",
+      "has_gem_converter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:gem_converter"
+    ]
+  }
+}

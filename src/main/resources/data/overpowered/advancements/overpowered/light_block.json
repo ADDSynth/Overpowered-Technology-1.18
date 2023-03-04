@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:light_block"
+    },
+    "title": {
+      "translate": "advancements.overpowered.light_block.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.light_block.description"
+    }
+  },
+  "parent": "overpowered:overpowered/celestial_gem",
+  "criteria": {
+    "light_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:light_block"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:light_block"
+    }
+  ]
+}

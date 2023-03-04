@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:portal"
+    },
+    "title": {
+      "translate": "advancements.overpowered.portal.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.portal.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/craft_portal",
+  "criteria": {
+    "portal": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

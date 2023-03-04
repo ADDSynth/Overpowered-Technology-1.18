@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ioi",
+    "oco",
+    "ioi"
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "o": {
+      "tag": "forge:obsidian"
+    },
+    "c": {
+      "item": "overpowered:vacuum_container"
+    }
+  },
+  "result": {
+    "item": "overpowered:portal_frame"
+  }
+}

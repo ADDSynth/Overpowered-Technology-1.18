@@ -1,0 +1,7 @@
+{
+  "parent": "overpowered:block/laser_cannon",
+   "textures": {
+    "laser_side": "overpowered:blocks/lasers/fusion_control_laser_side",
+    "laser_front": "overpowered:blocks/lasers/fusion_control_laser_front"
+  }
+}

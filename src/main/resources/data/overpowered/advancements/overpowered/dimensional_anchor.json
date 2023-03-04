@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:dimensional_anchor"
+    },
+    "title": {
+      "translate": "advancements.overpowered.dimensional_anchor.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.dimensional_anchor.description"
+    }
+  },
+  "parent": "overpowered:overpowered/inverter",
+  "criteria": {
+    "dimensional_anchor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_anchor"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:dimensional_anchor"
+    }
+  ]
+}

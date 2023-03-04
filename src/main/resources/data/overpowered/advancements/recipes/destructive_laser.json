@@ -1,0 +1,60 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "beam_emitter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:beam_emitter"
+            ]
+          }
+        ]
+      }
+    },
+    "power_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:power_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:destructive_laser"
+      }
+    },
+    "has_destructive_laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:destructive_laser"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "beam_emitter",
+      "power_core",
+      "has_recipe",
+      "has_destructive_laser"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:destructive_laser"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "overpowered:fusion_core"},
+    {"item": "overpowered:dimensional_flux"}
+  ],
+  "result": {
+    "item": "overpowered:black_hole"
+  }
+}

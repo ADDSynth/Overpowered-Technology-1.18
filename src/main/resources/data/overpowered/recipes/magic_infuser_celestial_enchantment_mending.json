@@ -1,0 +1,7 @@
+{
+  "type": "overpowered:magic_infuser",
+  "input": {
+    "item": "overpowered:celestial_gem"
+  },
+  "enchantment": "minecraft:mending"
+}

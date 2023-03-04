@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:dimensional_flux"
+    },
+    "title": {
+      "translate": "advancements.overpowered.dimensional_flux.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.dimensional_flux.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/portal",
+  "criteria": {
+    "dimensional_flux": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_flux"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

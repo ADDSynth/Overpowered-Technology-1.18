@@ -1,0 +1,34 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:dimensional_flux"
+      }
+    },
+    "has_dimensional_flux": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_flux"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_recipe",
+      "has_dimensional_flux"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:dimensional_flux"
+    ]
+  }
+}

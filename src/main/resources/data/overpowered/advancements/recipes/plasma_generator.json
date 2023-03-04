@@ -1,0 +1,110 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "silver_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/silver"
+          }
+        ]
+      }
+    },
+    "destructive_laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:destructive_laser"
+            ]
+          }
+        ]
+      }
+    },
+    "energy_stabilizer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energy_stabilizer"
+            ]
+          }
+        ]
+      }
+    },
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_4"
+            ]
+          }
+        ]
+      }
+    },
+    "energized_power_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energized_power_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:plasma_generator"
+      }
+    },
+    "has_plasma_generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:plasma_generator"
+            ]
+          }
+        ]
+      }
+    },
+    "has_plasma": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:plasma"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "silver_plate",
+      "destructive_laser",
+      "circuit",
+      "energy_stabilizer",
+      "energized_power_core",
+      "has_recipe",
+      "has_plasma_generator",
+      "has_plasma"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:plasma_generator"
+    ]
+  }
+}

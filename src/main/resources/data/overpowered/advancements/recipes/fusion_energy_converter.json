@@ -1,0 +1,79 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "titanium_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/titanium"
+          }
+        ]
+      }
+    },
+    "nullified_power_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:nullified_power_core"
+            ]
+          }
+        ]
+      }
+    },
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_8"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:fusion_energy_converter"
+      }
+    },
+    "has_alternate_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:fusion_energy_converter_alternate"
+      }
+    },
+    "has_machine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:fusion_energy_converter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "titanium_plate",
+      "nullified_power_core",
+      "circuit",
+      "has_recipe",
+      "has_alternate_recipe",
+      "has_machine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:fusion_energy_converter",
+      "overpowered:fusion_energy_converter_alternate"
+    ]
+  }
+}

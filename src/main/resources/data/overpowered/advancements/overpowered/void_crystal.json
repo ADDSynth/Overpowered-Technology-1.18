@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:void_crystal"
+    },
+    "title": {
+      "translate": "advancements.overpowered.void_crystal.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.void_crystal.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/dimensional_flux",
+  "criteria": {
+    "void_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:void_crystal"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "steel_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/steel"
+          }
+        ]
+      }
+    },
+    "plasma": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:plasma"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:energy_grid"
+      }
+    },
+    "has_energy_grid": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energy_grid"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "steel_plate",
+      "plasma",
+      "has_recipe",
+      "has_energy_grid"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:energy_grid"
+    ]
+  }
+}

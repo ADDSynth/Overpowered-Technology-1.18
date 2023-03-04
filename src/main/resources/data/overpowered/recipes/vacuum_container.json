@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "gsg",
+    " g "
+  ],
+  "key": {
+    "g": {
+      "tag": "forge:glass_panes/colorless"
+    },
+    "s": {
+      "tag": "forge:slimeballs"
+    }
+  },
+  "result": {
+    "item": "overpowered:vacuum_container"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "dimensional_flux": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_flux"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:dimensional_flux"
+      }
+    },
+    "has_void_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:void_crystal"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dimensional_flux",
+      "has_recipe",
+      "has_void_crystal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:void_crystal"
+    ]
+  }
+}

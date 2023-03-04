@@ -1,0 +1,60 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "scanning_laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:scanning_laser"
+            ]
+          }
+        ]
+      }
+    },
+    "matter_energy_converter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_converter"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:matter_energy_transformer"
+      }
+    },
+    "has_matter_energy_transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_transformer"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scanning_laser",
+      "matter_energy_converter",
+      "has_recipe",
+      "has_matter_energy_transformer"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:matter_energy_transformer"
+    ]
+  }
+}

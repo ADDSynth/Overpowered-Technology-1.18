@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "overpowered:blocks/machines/fusion_control_unit"
+	}
+}

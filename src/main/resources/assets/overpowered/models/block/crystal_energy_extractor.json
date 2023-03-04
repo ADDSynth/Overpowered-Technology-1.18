@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top":    "overpowered:blocks/machines/dark_top_texture",
+    "side":   "overpowered:blocks/machines/crystal_energy_extractor",
+    "bottom": "overpowered:blocks/machines/dark_bottom_texture"
+  }
+}

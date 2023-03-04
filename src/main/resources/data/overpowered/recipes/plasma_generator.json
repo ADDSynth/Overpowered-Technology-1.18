@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sds",
+    "tet",
+    "scs"
+  ],
+  "key": {
+    "s": {
+      "tag": "forge:plates/silver"
+    },
+    "e": {
+      "item": "overpowered:energized_power_core"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_4"
+    },
+    "t": {
+      "item": "overpowered:energy_stabilizer"
+    },
+    "d": {
+      "item": "overpowered:destructive_laser"
+    }
+  },
+  "result": {
+    "item": "overpowered:plasma_generator"
+  }
+}

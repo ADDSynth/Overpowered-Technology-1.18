@@ -1,0 +1,97 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "bookshelf": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bookshelf"
+            ]
+          }
+        ]
+      }
+    },
+    "matter_energy_transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_transformer"
+            ]
+          }
+        ]
+      }
+    },
+    "energy_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energy_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "aluminum_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/aluminum"
+          }
+        ]
+      }
+    },
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_5"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:magic_infuser"
+      }
+    },
+    "has_magic_infuser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:magic_infuser"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "bookshelf",
+      "matter_energy_transformer",
+      "energy_crystal",
+      "aluminum_plate",
+      "circuit",
+      "has_recipe",
+      "has_magic_infuser"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:magic_infuser"
+    ]
+  }
+}

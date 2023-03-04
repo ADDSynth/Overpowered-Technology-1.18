@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "asa",
+    "wgw",
+    "aca"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:plates/aluminum"
+    },
+    "s": {
+      "item": "overpowered:matter_energy_transformer"
+    },
+    "w": {
+      "item": "addsynth_energy:energy_wire"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_5"
+    },
+    "g": {
+      "item": "overpowered:vacuum_container"
+    }
+  },
+  "result": {
+    "item": "overpowered:crystal_energy_extractor"
+  }
+}

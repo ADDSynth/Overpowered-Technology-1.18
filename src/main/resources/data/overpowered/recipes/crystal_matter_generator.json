@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "psp",
+    "ece",
+    "pnp"
+  ],
+  "key": {
+    "p": {
+      "tag": "forge:plates/platinum"
+    },
+    "s": {
+      "item": "overpowered:matter_energy_transformer"
+    },
+    "e": {
+      "item": "overpowered:energized_power_core"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_7"
+    },
+    "n": {
+      "item": "overpowered:nullified_power_core"
+    }
+  },
+  "result": {
+    "item": "overpowered:crystal_matter_generator"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sns",
+    "cfc",
+    "ses"
+  ],
+  "key": {
+    "s": {
+      "tag": "forge:plates/steel"
+    },
+    "n": {
+      "item": "overpowered:nullified_power_core"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_7"
+    },
+    "f": {
+      "item": "addsynth_energy:electric_furnace"
+    },
+    "e": {
+      "item": "overpowered:energy_grid"
+    }
+  },
+  "result": {
+    "item": "overpowered:advanced_ore_refinery"
+  }
+}

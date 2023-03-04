@@ -1,0 +1,7 @@
+{
+  "type": "overpowered:magic_infuser",
+  "input": {
+    "item": "overpowered:void_crystal"
+  },
+  "enchantment": "minecraft:vanishing_curse"
+}

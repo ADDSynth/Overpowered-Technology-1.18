@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "overpowered:beam_emitter"},
+    {"item": "addsynth_energy:power_core"},
+    {"item": "overpowered:beam_emitter"}
+  ],
+  "result": {
+    "item": "overpowered:destructive_laser",
+    "count": 2
+  }
+}

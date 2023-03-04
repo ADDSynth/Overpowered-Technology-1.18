@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "fff",
+    "fpf",
+    "fff"
+  ],
+  "key": {
+    "f": {
+      "item": "minecraft:blaze_powder"
+    },
+    "p": {
+      "item": "overpowered:plasma"
+    }
+  },
+  "result": {
+    "item": "overpowered:fusion_core"
+  }
+}

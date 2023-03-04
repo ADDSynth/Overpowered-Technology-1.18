@@ -1,0 +1,56 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "slimeball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeballs"
+          }
+        ]
+      }
+    },
+    "glass_panes": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:glass_panes/colorless"
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:vacuum_container"
+      }
+    },
+    "has_container": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:vacuum_container"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "slimeball",
+      "glass_panes",
+      "has_recipe",
+      "has_container"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:vacuum_container"
+    ]
+  }
+}

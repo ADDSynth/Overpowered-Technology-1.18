@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:plates/iron"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:glass_panes/colorless"
+    }
+  ],
+  "result": {
+    "item": "overpowered:beam_emitter"
+  }
+}

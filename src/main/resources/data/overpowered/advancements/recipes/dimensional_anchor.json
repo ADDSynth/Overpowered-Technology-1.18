@@ -1,0 +1,47 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "dimensional_flux": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_flux"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:dimensional_anchor"
+      }
+    },
+    "has_dimensional_anchor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:dimensional_anchor"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "dimensional_flux",
+      "has_recipe",
+      "has_dimensional_anchor"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:dimensional_anchor"
+    ]
+  }
+}

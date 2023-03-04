@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:unimatter"
+    },
+    "title": {
+      "translate": "advancements.overpowered.unimatter.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.unimatter.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/black_hole",
+  "criteria": {
+    "unimatter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:unimatter"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

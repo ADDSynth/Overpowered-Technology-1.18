@@ -1,0 +1,60 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "beam_emitter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:beam_emitter"
+            ]
+          }
+        ]
+      }
+    },
+    "circuit_tier_2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_2"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:scanning_laser"
+      }
+    },
+    "has_scanning_laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:scanning_laser"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "beam_emitter",
+      "circuit_tier_2",
+      "has_recipe",
+      "has_scanning_laser"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:scanning_laser"
+    ]
+  }
+}

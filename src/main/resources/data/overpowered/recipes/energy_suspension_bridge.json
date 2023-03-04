@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sls",
+    "lcl",
+    "sls"
+  ],
+  "key": {
+    "s": {
+      "tag": "forge:plates/steel"
+    },
+    "l": {
+      "item": "overpowered:heavy_light_emitter"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_5"
+    }
+  },
+  "result": {
+    "item": "overpowered:energy_suspension_bridge",
+    "count": 2
+  }
+}

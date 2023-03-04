@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "overpowered:blocks/lasers/cyan_laser_beam"
+	}
+}

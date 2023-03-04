@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:fusion_core"
+    },
+    "title": {
+      "translate": "advancements.overpowered.fusion_energy.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.fusion_energy.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/fusion_structure",
+  "criteria": {
+    "fusion_energy": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:fusion_energy_converter"
+    }
+  ]
+}

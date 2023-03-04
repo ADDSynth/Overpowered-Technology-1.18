@@ -1,0 +1,95 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_6"
+            ]
+          }
+        ]
+      }
+    },
+    "data_cable": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:data_cable"
+            ]
+          }
+        ]
+      }
+    },
+    "aluminum_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/aluminum"
+          }
+        ]
+      }
+    },
+    "ender_pearl": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ender_pearls"
+          }
+        ]
+      }
+    },
+    "has_portal_frame": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:portal_frame"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:portal_control_panel"
+      }
+    },
+    "has_portal_control_panel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:portal_control_panel"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "circuit",
+      "data_cable",
+      "aluminum_plate",
+      "ender_pearl",
+      "has_portal_frame",
+      "has_recipe",
+      "has_portal_control_panel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:portal_control_panel"
+    ]
+  }
+}

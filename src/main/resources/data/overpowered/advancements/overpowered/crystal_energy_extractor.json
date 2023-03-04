@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:crystal_energy_extractor"
+    },
+    "title": {
+      "translate": "advancements.overpowered.crystal_energy_extractor.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.crystal_energy_extractor.description"
+    },
+    "frame": "goal"
+  },
+  "parent": "overpowered:overpowered/matter_energy_converter",
+  "criteria": {
+    "crystal_energy_extractor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:crystal_energy_extractor"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:crystal_energy_extractor"
+    }
+  ]
+}

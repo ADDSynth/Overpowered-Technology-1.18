@@ -1,0 +1,100 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:celestial_sword"
+    },
+    "title": {
+      "translate": "advancements.overpowered.celestial_tools.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.celestial_tools.description"
+    }
+  },
+  "parent": "overpowered:overpowered/celestial_gem",
+  "criteria": {
+    "celestial_sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_sword"
+            ]
+          }
+        ]
+      }
+    },
+    "celestial_shovel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_shovel"
+            ]
+          }
+        ]
+      }
+    },
+    "celestial_axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_axe"
+            ]
+          }
+        ]
+      }
+    },
+    "celestial_pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_pickaxe"
+            ]
+          }
+        ]
+      }
+    },
+    "celestial_hoe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:celestial_hoe"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "celestial_sword",
+      "celestial_shovel",
+      "celestial_axe",
+      "celestial_pickaxe",
+      "celestial_hoe"
+    ]
+  ],
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:item_exists",
+          "item": "overpowered:celestial_pickaxe"
+        },
+        {
+          "type": "forge:item_exists",
+          "item": "overpowered:celestial_sword"
+        }
+      ]
+    }
+  ]
+}

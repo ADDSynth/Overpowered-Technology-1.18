@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": "addsynth_materials:steel_ingot",
+  "experience": 0.0,
+  "cookingtime": 400,
+  "conditions": [
+    {
+      "type": "addsynth_materials:steel_mod_absent"
+    }
+  ]
+}

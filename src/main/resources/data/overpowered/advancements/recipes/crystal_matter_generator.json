@@ -1,0 +1,71 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "platinum_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/platinum"
+          }
+        ]
+      }
+    },
+    "matter_energy_transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_transformer"
+            ]
+          }
+        ]
+      }
+    },
+    "nullified_power_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:nullified_power_core"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:crystal_matter_generator"
+      }
+    },
+    "has_machine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:crystal_matter_generator"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "platinum_plate",
+      "matter_energy_transformer",
+      "nullified_power_core",
+      "has_recipe",
+      "has_machine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:crystal_matter_generator"
+    ]
+  }
+}

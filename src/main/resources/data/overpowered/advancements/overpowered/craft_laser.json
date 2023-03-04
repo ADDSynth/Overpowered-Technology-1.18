@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:laser_housing"
+    },
+    "title": {
+      "translate": "advancements.overpowered.craft_laser.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.craft_laser.description"
+    }
+  },
+  "parent": "overpowered:overpowered/root",
+  "criteria": {
+    "laser": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:laser_housing"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:laser_housing"
+    }
+  ]
+}

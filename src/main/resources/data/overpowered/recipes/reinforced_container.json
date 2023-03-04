@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"tag": "forge:plates/titanium"},
+    {"item": "overpowered:vacuum_container"},
+    {"tag": "forge:plates/titanium"}
+  ],
+  "result": {
+    "item": "overpowered:reinforced_container"
+  }
+}

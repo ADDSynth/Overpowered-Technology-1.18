@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:portal_control_panel"
+    },
+    "title": {
+      "translate": "advancements.overpowered.craft_portal.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.craft_portal.description"
+    }
+  },
+  "parent": "overpowered:overpowered/matter_energy_converter",
+  "criteria": {
+    "portal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:portal_control_panel"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

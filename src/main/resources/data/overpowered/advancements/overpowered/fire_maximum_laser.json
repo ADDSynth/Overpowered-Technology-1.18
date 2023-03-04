@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:fusion_control_laser"
+    },
+    "title": {
+      "translate": "advancements.overpowered.fire_maximum_laser.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.fire_maximum_laser.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "overpowered:overpowered/fire_laser",
+  "criteria": {
+    "fire_maximum_laser": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:laser_housing"
+    }
+  ]
+}

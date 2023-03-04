@@ -1,0 +1,45 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "titanium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ingots/titanium"
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:reinforced_container"
+      }
+    },
+    "has_reinforced_container": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:reinforced_container"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "titanium",
+      "has_recipe",
+      "has_reinforced_container"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:reinforced_container"
+    ]
+  }
+}

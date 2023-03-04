@@ -1,0 +1,84 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "power_regulator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:power_regulator"
+            ]
+          }
+        ]
+      }
+    },
+    "energized_power_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energized_power_core"
+            ]
+          }
+        ]
+      }
+    },
+    "steel_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/steel"
+          }
+        ]
+      }
+    },
+    "plasma": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:plasma"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:matter_energy_converter"
+      }
+    },
+    "has_matter_energy_converter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_converter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "power_regulator",
+      "energized_power_core",
+      "steel_plate",
+      "plasma",
+      "has_recipe",
+      "has_matter_energy_converter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:matter_energy_converter"
+    ]
+  }
+}

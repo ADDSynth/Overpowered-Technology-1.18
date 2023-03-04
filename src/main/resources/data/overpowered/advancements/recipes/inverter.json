@@ -1,0 +1,48 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "void_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:void_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:inverter"
+      }
+    },
+    "has_inverter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:inverter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "void_crystal",
+      "has_recipe",
+      "has_inverter"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:inverter",
+      "overpowered:inverter_alternate"
+    ]
+  }
+}

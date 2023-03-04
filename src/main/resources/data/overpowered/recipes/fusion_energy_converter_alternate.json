@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "fusion_energy_converter",
+  "pattern": [
+    "tat",
+    "ecn",
+    "tat"
+  ],
+  "key": {
+    "t": {
+      "tag": "forge:plates/titanium"
+    },
+    "a": {
+      "item": "addsynth_energy:advanced_power_core"
+    },
+    "n": {
+      "item": "overpowered:nullified_power_core"
+    },
+    "e": {
+      "item": "overpowered:energized_power_core"
+    },
+    "c": {
+      "item": "addsynth_energy:circuit_tier_8"
+    }
+  },
+  "result": {
+    "item": "overpowered:fusion_energy_converter"
+  }
+}

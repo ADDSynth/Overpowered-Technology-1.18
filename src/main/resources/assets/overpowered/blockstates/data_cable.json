@@ -1,0 +1,23 @@
+{
+  "multipart": [
+    { "apply": { "model": "overpowered:block/data_cable_base" }},
+    { "when": { "west": "true" },
+      "apply": { "model": "overpowered:block/data_cable_left" }
+    },
+    { "when": { "north": "true" },
+      "apply": { "model": "overpowered:block/data_cable_left", "y": 90 }
+    },
+    { "when": { "east": "true" },
+      "apply": { "model": "overpowered:block/data_cable_left", "y": 180 }
+    },
+    { "when": { "down": "true" },
+      "apply": { "model": "overpowered:block/data_cable_up" }
+    },
+    { "when": { "south": "true" },
+      "apply": { "model": "overpowered:block/data_cable_up", "x": 90 }
+    },
+    { "when": { "up": "true" },
+      "apply": { "model": "overpowered:block/data_cable_up", "x": 180 }
+    }
+  ]
+}

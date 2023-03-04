@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "aea",
+    "dnd",
+    "aea"
+  ],
+  "key": {
+    "a": {
+      "tag": "forge:plates/aluminum"
+    },
+    "e": {
+      "tag": "forge:ender_pearls"
+    },
+    "d": {
+      "item": "overpowered:data_cable"
+    },
+    "n": {
+      "item": "addsynth_energy:circuit_tier_6"
+    }
+  },
+  "result": {
+    "item": "overpowered:portal_control_panel"
+  }
+}

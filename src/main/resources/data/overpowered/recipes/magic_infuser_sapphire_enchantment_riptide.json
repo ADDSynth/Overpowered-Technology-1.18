@@ -1,0 +1,7 @@
+{
+  "type": "overpowered:magic_infuser",
+  "input": {
+    "tag": "forge:gems/sapphire"
+  },
+  "enchantment": "minecraft:riptide"
+}

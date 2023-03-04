@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "inverter",
+  "pattern": [
+    "sbs",
+    "egv",
+    "sas"
+  ],
+  "key": {
+    "b": {
+      "item": "overpowered:matter_energy_transformer"
+    },
+    "s": {
+      "tag": "forge:plates/silver"
+    },
+    "e": {
+      "item": "overpowered:energized_power_core"
+    },
+    "v": {
+      "item": "overpowered:nullified_power_core"
+    },
+    "g": {
+      "item": "addsynth_energy:circuit_tier_7"
+    },
+    "a": {
+      "item": "addsynth_energy:advanced_power_core"
+    }
+  },
+  "result": {
+    "item": "overpowered:inverter"
+  }
+}

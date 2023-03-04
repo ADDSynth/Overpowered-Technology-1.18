@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ttt",
+    "wew",
+    "ttt"
+  ],
+  "key": {
+    "t": {
+      "tag": "forge:plates/tin"
+    },
+    "w": {
+      "item": "addsynth_energy:energy_wire"
+    },
+    "e": {
+      "item": "addsynth_energy:circuit_tier_3"
+    }
+  },
+  "result": {
+    "item": "overpowered:laser_housing",
+    "count": 3
+  }
+}

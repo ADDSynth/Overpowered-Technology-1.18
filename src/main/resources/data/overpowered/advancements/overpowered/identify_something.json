@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:diamond_chestplate"
+    },
+    "title": {
+      "translate": "advancements.overpowered.identify_something.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.identify_something.description"
+    }
+  },
+  "parent": "overpowered:overpowered/craft_identifier",
+  "criteria": {
+    "identify": {
+      "trigger": "minecraft:impossible"
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:identifier"
+    }
+  ]
+}

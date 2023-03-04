@@ -1,0 +1,477 @@
+v1.5 - December 22, 2022
+INFO:
+  I was originally planning to split the mod into 3 separate files, starting with
+    this version. However, development is taking longer than expected, and that's
+    why I've decided to delay some of the things I was planning for this version
+    until the next major release.
+NEW:
+  Added new items. (Power Regulator, Dimensional Flux, and Matter/Energy Converter)
+  Added 5 new beam emitter type items, but 1 is unused.
+   - Heavy-Light Emitter, Energy Stabilizer, Matter/Energy Transformer, and High-Intensity Laser.
+  Added Circuit Tier 9.
+  Added Plasma Generator machine.
+   - Deleted the crafting recipe for Plasma that was added in version 1.4.
+  ReAdded Ring drops, if you have the Curios mod loaded.
+   - Added the ability to disable Rings.
+  The Dimensional Anchor now works! It protects you from Black Holes, and prevents
+    you from traveling to other dimensions!
+  Added the Survivor advancement.
+  Added more mods to detect:
+    Archer's Paradox, Create, CraftTweaker, CoFH Core, Cyclops Core, Ensorcellation,
+    Environmental, Environmental Materials, Environmental Tech, Ex Nihilo: Sequentia,
+    Integration Foregoing, Integrated Dynamics, Integrated Tunnels, Integrated Terminals,
+    Inventory Tweaks Renewed, Mouse Tweaks, No Cubes, No Cubes Reloaded, Patchouli,
+    The Thermal Series of mods, Tool's Complement, and XNet.
+  Added Energy Diagnostics block.
+    Attaches to an Energy Network and displays the energy variables of all machines
+      on the Energy Network.
+    - Only supports a maximum of 16 machines right now.
+  The Circuit Fabricator now supports additional recipes than just the circuit items.
+  Added a new item called Unimatter, which is made from a new machine called the Matter Compressor.
+   - As is always the case with my work, new stuff is sort of considered as beta content.
+     Unimatter currently doesn't do anything.
+  Portal spawn time can now be configured.
+  Added an advancement that is awarded when you activate an Energy Suspension Bridge
+    with the maximum possible length.
+  Added additional machine states to indicate output is full or machine isn't getting energy.
+  Added a config option to ADDSynthCore that let's you change whether Project E EMC values
+    are defined by the developer, or calculated accurately.
+  Unidentified Item Mob Drop configuration settings:
+   - Has moved to the Values config file.
+   - You can now configure the drop chance for each enemy mob.
+   - You can now also configure the weight values for the different types of drops.
+   - You can now configure the Ring type weights for when you identify a Ring.
+   - Mini-boss mobs such as the Elder Guardian, Evoker, and Ravager will now always drop
+       an unidentified item.
+   // - Now drop for boss mobs, and will always drop 7 unidentified items by default.
+   - TODO: doesn't drop more than once! Need to use something other than LootItemRandomChanceCondition.
+  Mouse scrollwheel can now scroll the lists next to scrollbars.
+  Magic Infuser recipes now show up in JEI.
+  Added an advancement for the Crystal Energy Extractor.
+CHANGED:
+  Increased the chance to drop an Unidentified Ring when killing enemy mobs.
+   - But decreased the chance of dropping unidentified things overall? I have no idea actually.
+     I don't have the time to fully test this.
+  The Dimensional Anchor is now registered as a Curios Charm, if you have the Curios mod installed.
+  Changed Energy Storage Container's default maximum capacity from 1,000,000 to 200,000.
+    - This is mainly because I plan to add different types of batteries in the future.
+  Some Machine State status messages are now color-coded.
+  Removed any top-level sections in Config files.
+   - This will cause most of your config files to be reset. Sorry!
+  Raised the generation of Titanium Ore back up to where it was in versions 1.3.x.
+  Increased Silicon Ore generation. (mainly because a lot of crafting recipes have changed as well.)
+  Also adjusted machine values.
+  Reduced the volume of the Compressor since it WAS too loud. Also randomized the pitch slightly.
+  Increased the number of Energy Wires you get from crafting them from 8 to 12.
+FIXED:
+  Fixed Unidentified Chainmail armor dropping as often as Gold armor.
+  Optimized Lasers:
+    - Doesn't use any TileEntities at all, so there should be much less lag.
+    - Lasers stay in-world if you log out and get back in again.
+    - Lasers beams continue moving even if the Laser is removed.
+  Fixed Laser machines counting adjacent lasers even though they weren't attached
+    or the proper laser type.
+  Fixed de_de.json language files. Fixed "Lasers" and "Auto Shutoff" not being translated.
+    See: https://github.com/ADDSynth/Overpowered-Forge-1.14/commit/5f4418eadb862447e4b58be2b637d0f230d717f4
+  Fixed Energy Suspension Bridge maximum length was actually 1 less than what is set
+    in the configuration.
+    - Maybe. I'm still not sure exactly.
+  Fix not loading MachineValues config correctly. Yay! Sorry about that!
+  Fix the Fusion Energy advancement was never being awarded to players.
+   - I misspelled one character. Of course I did. God Dammit.
+  Since Dimension IDs have switched to using ResourceLocations instead of integers starting
+    with Minecraft version 1.16, the Black Hole has been updated to accept a list of String IDs
+    to blacklist dimensions specified in the config file.
+  Fix being able to mine ores with any tool in the Minecraft 1.16 version.
+  Fix not being able to mine Light Blocks in the Minecraft 1.17 version.
+REMOVED:
+  Before now, you could still edit the config to separate Tools into their own Creative Tab,
+    we've finally removed that.
+KNOWN PROBLEMS:
+  If you edit the configuration option that changes the Maximum Energy Suspension Bridge
+    Length to a lower value, while you have a bridge active in your world, then the
+    Energy Suspension Bridge will not recognize it, and won't be able to turn it off.
+    The energy bridge will exist as actual indestructible blocks in the world, not controlled
+    by the Energy Suspsension Bridge.
+    - I will try to fix this as soon as I can!
+  Passive Machines (Crystal Matter Generator and Plasma Generator) will continue consuming energy
+    even though the output slot is full and can't insert any more items.
+  The Electric Furnace doesn't take burn-time into consideration, and will always smelt items
+    at the default speed of 10 seconds.
+DEVELOPER ONLY:
+  Magic Infuser recipes are now defined by .json recipe files in a DataPack. You can define
+  your own recipes, as long as they are formatted properly.
+   - I would've much preferred to allow people to add recipes using the config, but I couldn't
+     figure out how to do that, and didn't have much time.
+   - TODO: Perhaps I could've just used a custom JSON config file.
+
+
+
+v1.4.2 - June 15, 2022
+NEW:
+  Added an alternate crafting recipe for the Inverter.
+  Added Project E EMC values to Silicon and Circuit items.
+   - Only for versions of Minecraft that Project E was released for,
+     AKA, Minecraft versions 1.16 and lower.
+  The drawn ItemStacks in the Portal Control Panel gui now cycle between all
+    valid Gem Blocks that can be accepted in the Portal Frames, and also show
+    an Item tooltip if you mouse over them, just like the drawn ItemStacks in
+    the Circuit Fabricator gui.
+  Added Issue Tracker link to the mods.toml file.
+CHANGED:
+  The Fusion Core is now crafted with Blaze Powder instead of Fire Charges.
+  Power Cycle time (Portal Control Panel & Crystal Matter Generator) is now
+    drawn with the status message instead of using the work percentage.
+  Removed Crafting Table as a trigger for the Circuit Fabricator recipe advancement
+    so players don't unlock the recipe so early in the game.
+FIXED:
+  Fixed es_es.json language files.
+  Efficiency text in the Crystal Matter Generator was overlapping itself.
+  Fixed the drawn ItemStacks in the Circuit Fabricator gui glitching while the
+    machine was running.
+  Fixed text in Rotate button of the Energy Suspension Bridge was misaligned.
+KNOWN PROBLEMS:
+  Batteries' Time to Full Charge isn't calculated correctly if they're not all
+    connected to Energy Wire.
+    - This is because the Batteries are on a separate Energy Network and their
+      energy is balanced across all batteries, but the gui only checks the Energy
+      object of THAT battery.
+
+
+
+v1.4.1 - January 6, 2022
+NEW:
+  Added 2 commands to ADDSynthCore that help in determining the number of ore blocks
+    in a given area. Mostly useful to developers.
+  Added furnace smelting recipes for the Energy Crystal and Steel Ingots, so these can be
+    automated using electric furnaces from other mods.
+    - But using the Blast Furnace is still more efficient if you're not getting free energy.
+  Added another crafting recipe for the Light Block that uses Energy Crystals.
+    - Because I'm sure I'm not the only one that keeps making 9 Energy Crystals
+      only to realize you can't make a Light Block from them.
+CHANGED:
+  Was definitely not generating enough Silicon Ore, so we've changed the default generation
+    config values in this update to generate more Silicon.
+  No longer registers a Bronze Ingot crafting recipe if Immersive Engineering or Mekanism is installed.
+  Changed the Black Hole erase algorithm default speed from 50% of a tick to 20%.
+  The Black Hole no longer has a collision box, similar to the Null Block. This means you won't
+    be able to break the Black Hole to stop it from erasing the world.
+FIXED:
+  Fixed the Fusion Chamber not dropping when mined.
+  Fixed Ores that drop an item not being affected by Pickaxes with the Fortune enchantment.
+  Fixed gem ores generating in a straight line at coordinates (0,0) in a chunk.
+    - Error only occurred in the Minecraft 1.16 version.
+  Finally added the Job system. Now the Magic Infuser and Circuit Fabricator
+    (machines with more than 1 input slot) will now show their Time Remaining correctly.
+  More recipe advancement fixes.
+
+
+
+v1.4 - July 26, 2021
+INFO:
+  Moved all materials to a new ADDSynth Materials mod.
+   - This once again breaks your old worlds, and Forge will warn you of the missing items.
+   - Hopefully this should be the last time, because I'm not planning on splitting off
+      items into a new mod again.
+   - This time I tried to use a DataFixer to seamlessly convert your world data to the new
+      format, but the DataFixer stuff was much too complicated for me to figure it out
+      without documentation, so I have to wait for someone to explain how it works before
+      I can use it.
+  The Overpowered mod was renamed to Overpowered Technology.
+  Starting in version 1.5.x, the mod_id for Overpowered Technology will be renamed
+    from overpowered to overpowered_technology.
+  Starting in version 1.5.x, ADDSynthCore, ADDSynth Energy, and Overpowered Technology
+    will be split apart into 3 separate files.
+NEW:
+  Added Silicon and Rose Quartz.
+  Added more mods to detect:
+    The One Probe, Hwyla, The Beneath, Cooking for Blockheads, Tiny Progressions,
+    FoamFix, RFTools Utility, Draconic Evolution, Curios, Forestry,
+    Immersive Engineering, Immersive Railroading, Track API, Sound Filters,
+    Block Renderer, Item Zoom, Neat, and McJtyLib.
+    - Updated Pam's Harvestcraft so we can detect it now.
+  Added Team Manager.
+  Added Circuit Fabricator.
+    - Added 8 tiers of circuits.
+  Added a standard Generator to ADDSynth Energy.
+    - It takes in standard fuel items such as Coal, Charcoal, Wood, and Planks.
+    - Now has an HD texture.
+  Added a new Scanning Laser item.
+  Whitelisted TileEntities to work with Applied Energistics Spatial-IO.
+    - As of now, this needs further testing to ensure there aren't any errors.
+  Added Celestial Gem:
+    - They look and function the same as the Energy Crystal in previous versions.
+    - You now get Energy Crystals by smelting Celestial Gems in a Blast Furnace.
+  The amount of energy the Energy Crystal, Energy Crystal Shards, and Light Block
+    give you in the Crystal Energy Extractor now shows in the tooltip when you
+    hover over the item.
+  Added Plasma item.
+  Added a new debug feature to ADDSynthCore that allows you to print all defined
+    block and item tags into text files.
+  Added stats for Converting Gems, Firing Lasers, and Identifying Items.
+  Added 4 commands to ADDSynthCore. They don't do anything important, they're just
+    there to try out and play with.
+    [This mod is provided as-is. Any computers that crash as a result of player's misuse
+     of these commands is entirely the fault of the player and not the mod developer.]
+  Added a config option to ADDSynthCore that swaps the mouse buttons used to Add or Delete
+    notes to/from the Music Box.
+  Added Swap Track buttons to the Music Box gui.
+  If you mouse over a Music Sheet item it now says if it's blank or it contains Music Data.
+  Added advancements for the Celestial Gem, Magic Infuser, Advanced Ore Refinery,
+    Crystal Matter Generator, Energy Suspension Bridge, Plasma, Rose Quartz,
+    the standard Generator, Compressor, and the Circuit Fabricator.
+  Added an alternate recipe for the Dimensional Anchor.
+CHANGED:
+  All materials are now part of the ADDSynth Materials mod.
+  The Music Box gui no longer has the JEI item panel. It doesn't need it.
+  The Creative Tab icon for ADDSynth Energy is now the new Generator.
+  The Generator that was part of Overpowered has been renamed to Crystal Energy Extractor
+    and has its own new texture.
+  Renamed Energy Crystal to Celestial Gem.
+    - You now get Energy Crystals by smelting Celestial Gems in a Blast Furnace.
+    - Renamed all Energy Tools to Celestial Tools.
+  You now get Energy Crystal Shards by putting an Energy Crystal into the Compressor.
+  Renamed mod to Overpowered Technology.
+    - This will cause your configuration files to be reset.
+  Moved Trophies to ADDSynthCore.
+  You now get a Void Crystal from the portal instead of an Unknown Technology item.
+   - A Void Crystal is required to craft the Inverter.
+  Rebalanced Values:
+    Chance to drop an unidentified armor was changed from 1/40 to 1/100.
+    Chance a Weird Tree spawns in the Unknown Dimension was changed from 1/500 to 1/2000.
+      - But this doesn't mean anything right now because the Unknown Dimension doesn't exist.
+    Now that we have a standard generator to power your machines, you won't need as
+      many Energy Crystals. Changed the default tries to generate Gem Ore from 4 to 3.
+    Reduced the default number of Ores generated.
+    Changed the energy the Portal Control Panel requires from 60,000 to 5,000,000.
+  No longer registers a Steel smelting recipe if Immersive Engineering or Mekanism is installed.
+  Changed the Steel smelting recipe to a Blast Furnace recipe.
+  The Dimensional Anchor now has a shaped crafting recipe, like how it was in Minecraft 1.12
+    and earlier. (still doesn't do anything.)
+  Items which have an alternate recipe now have both recipes in the same group.
+  Don't know why the Magic Infuser produces a Fortune II Book, but I've changed that back to
+    Fortune I.
+FIXED:
+  Finally added the ability to get those Advancements that you couldn't get before,
+    such as Fire Laser, Fire Laser the Maximum Distance, Portal, World Destroyer,
+    and Convert a Thousand Gems.
+  Fixed advancements logging errors for items that were removed or disabled, I think.
+  Fixed not translating block and item subtitles in their tooltips.
+  Fixed the Energy Storage Container not having any Block Hardness.
+   - This error only existed for the Minecraft 1.15 version of Overpowered Technology.
+  Fixed the Magic Infuser producing Enchanted Books incorrectly.
+  Fixed the message that appears when you set down a Black Hole was displaying the wrong coordinates.
+REMOVED:
+  Removed the ability to move some items into other Creative Tabs.
+   - There is still a config option to separate Tools into another Creative Tab, however.
+  Removed the Unknown Technology item.
+  Removed ADDSynthCore advancements for Caution Block, Music Box, and Scythes.
+KNOWN PROBLEMS:
+  You can't disable anything in the config files / Config files possibly not working.
+
+
+
+v1.3.4 - December 28, 2020
+  Major code optimizations and maintenance.
+  Fix Laser Distance or Energy not saving on world reload.
+  Energy stored in Batteries is now balanced across all batteries on the
+    Energy Network.
+  Fixed several errors with the Universal Energy Interface.
+  Batteries that are removed now redistribute any leftover energy to other
+    connected batteries.
+  Fix Universal Energy Interface not depositing energy into Energy
+    Storage Containers.
+  Fix machines receiving double energy if you had an Energy Storage Container
+    on your energy network.
+  You can now specify the Laser maximum receive variable in the config.
+  Fixed a rare crash that would occur if you reloaded the world while a machine
+    was working on its last item.
+  Fix message telling players the black hole is not allowed in this dimension
+    was displaying twice. - Error since v1.3.
+  Added an alternate crafting recipe for the Fusion Energy Converter.
+  Fixed a few recipe advancements not working. But nobody cares about that.
+
+
+
+v1.3.3 - October 13, 2020
+  Fixed Inverter crash. sigh.
+  Added an alternate crafting recipe for the Caution Block.
+  No longer displays Portal warning message as the Unknown Dimension
+    doesn't exist in the 1.14 and 1.15 versions.
+
+
+
+v1.3.2 - October 1, 2020
+  Energy Suspension Bridge can now overwrite replaceable blocks.
+   - Area is no longer considered obstructed if it contains tall grass.
+  Advanced Ore Refinery:
+   - Now requires 20 seconds to do an operation, twice as long as a Furnace.
+   - Now requires 8,000 energy per operation instead of 5,000.
+  Fixed block transparency issues:
+   - Portal to the Unknown Dimension energy blocks.
+   - Energy Storage Container.
+   - Energy Suspension Bridge blocks (but only for horizontal bridges)
+   - Laser energy blocks.
+  Fix Fusion Energy Structure Laser Beam was solid and not transparent.
+   - Only for 1.15 version.
+  Added an Auto Shutoff toggle to the Portal Control Panel.
+  Fixed crashes regarding ticking TileEntities, LazyOptional.orElseGet(), and getCapabilities().
+   - Only for 1.14 and 1.15 versions.
+  Compressor:
+   - Now has an input filter.
+   - Fixed Hoppers being able to put items into an inaccessible 2nd slot.
+  Made machine Map Colors more accurate.
+  Energy Storage Container no longer sounds like Glass.
+  Fixed the Fusion Chamber being broken in a weird manner.
+   - Only for 1.14 and 1.15 versions.
+
+
+
+v1.3.1 - August 13, 2020
+  No longer changes Music Box track instrument when you set notes.
+   - Change track instrument by clicking the instrument button beside each track.
+  Added a config option to control blending effects in certain machines.
+  Added Gem Converter advancements.
+  Reduced the Number of Compressor Slots from 2 to 1.
+   - Removed the Bronze Ingot compressor recipe. You now get Bronze from crafting
+     3 Copper Ingots and 1 Tin Ingot.
+For Minecraft 1.14 and 1.15 versions Only:
+  Fix warnings in console log relating to inaccessible block loot table entries.
+   - Also fixes not being able to silk-touch Gem Ore blocks.
+  Fixed: Gem Ores now drop experience again.
+  Fix description for Void Crystal advancement not being translated.
+  Fixed problems using the Music Sheet on certain sides of the Music Box.
+
+
+
+v1.3 - July 1, 2020
+  ADDSynth Energy is now its own mod.
+   - Moved Power Core, Advanced Power Core, Energy Wire, Energy Storage Container,
+     Electric Furnace, Compressor, and Universal Energy Interface.
+   - As a result, some of the recipes for these have changed.
+   - This means that your previous worlds will be incompatible if you upgrade to this
+      version. Forge will warn you that some blocks and items are missing.
+  Moved config options that specifically alter Machine values into a dedicated
+    MachineValues config file.
+  New Portal Control Panel texture.
+  Advanced Ore Refinery now has its own texture.
+  Black Hole Optimization:
+   - No longer erases blocks in a single tick, causing lag. Black Hole algorithm
+     is now spread across multiple ticks, and also self-balancing, meaning it will
+     never go over the tick processing limit.
+   - As a result of this, the default radius has been increased from 70 to 90.
+  Now prints a message to Players if you try to set down a Black Hole in a Dmension
+    that is blacklisted in the Overpowered configuration file.
+  The Identifier now has an output slot, allowing it to be automated.
+  New: Added Energy Suspension Bridge.
+   - A new machine that will spawn an energy bridge if it finds another Energy
+     Suspension Bridge. Must have a Lens inside, and turned on by a redstone signal.
+  Added more mods to detect if "Print Mod Detection Results" is enabled in the
+    ADDSynthCore configuration file.
+   - Now detects Blood Magic, Botania, Chisels & Bits, CodeChicken Lib, Dynamic Surroundings,
+     Extra Utilities 2, Forge Multipart, Industrial Craft, JourneyMap, Mantle, Mekanism,
+     Mystical Agriculture, Natura, Pam's Harvestcraft, Project Red, Shadowfact's Forgelin,
+     Thaumcraft (Minecraft 1.12 only), and Tinker's Construct.
+   - Results are now aligned in the log file.
+  Added new Minecraft 1.14 instruments to the Music Box.
+  Added Advancements.
+  Improved JEI Support:
+   - Now shows recipes for the Gem Converter, Advanced Ore Refinery, Compressor,
+     and Inverter.
+   - Electric Furnace now shows as a valid Furnace for Furnace recipes.
+   - Now tells a short description for most things using the built-in JEI Info tab.
+  Updated our Energy system:
+   - All machines now have a center "working" inventory. When machines are ready to
+     work on something, they will move 1 item from the Input to the center and start
+     working on them.
+   - Some machines now have a Power Cycle time, meaning you can't just turn them off
+     and on anymore. After switching a machine off, you have to wait for it to turn off.
+   - Energy is now handled as a decimal value, rather than a full integer. This makes
+     our machines incompatible with other Energy systems directly, but you can still
+     use the Universal Energy Interface machine.
+  Added Blast Furnace recipes for our Ores.
+   - The Blast Furnace is a vanilla machine new in Minecraft 1.14 which can smelt Ores
+      twice as fast. You can now smelt Gem and Metal Ores in the Blast Furnace.
+  Fix not being allowed to put Energy Crystals or Void Crystals into the Magic Infuser.
+   - Fixed for the Minecraft 1.14 version.
+  The Magic Infuser can now produce the new Enchantments from Minecraft 1.13 and 1.14.
+  Improved the Portal Control Panel:
+   - Now has more checks to ensure the Portal is constructed properly.
+   - Players in Creative Mode can generate a portal without having the proper items or
+       required energy.
+   - Added an option in the configuration file to "Disable the Unknown Dimension". This
+     prevents players from teleporting to the Unknown Dimension, and instead spawns 2
+     Unknown Technology items inside the frame of the Portal.
+     - Only for the Minecraft 1.12 version. 1.14 Doesn't have the Unknown Dimension and
+       does this anyway.
+   - The message that indicates the status of the Portal is now Color Coded.
+   - Automatically turns itself off after generating a portal.
+  Increased Caution block texture size from 256x256 to 512x512.
+  Custom Mob Drops now drop for the Vex, Illusioner, Drowned, Phantom, Skeleton Horse,
+    Pillager, and Ravager.
+  Added logo images when you select any of my mods in the Mods List in Forge.
+  Now that we have a center slot, the Gem Converter and Inverter machines will show
+    the item they're working on to slowly transform into the output item.
+    (The items in the center slot will blend together.)
+  Oh yeah. ALL GUIS HAVE BEEN TRANSLATED! Before it was just Blocks and Items, but now
+    Guis and Advancements have been translated!
+  The crafting recipe for the Gem Converter was changed.
+  The crafting recipe for the Fusion Core was changed.
+  Changed the crafting recipe for the Dimensional Anchor. (still doesn't do anything.)
+  You can now disable the Trophy Stand. If it is disabled, Trophies will use a
+    Wooden Slab in their crafting recipes instead.
+  There is now a configuration option to control whether Rings produce particle effects
+    when you wear them.
+
+
+
+v1.2 - November 29, 2019
+  Made ADDSynthCore into its own mod:
+    Moved Caution block, Music Box, and Music Sheet to ADDSynthCore.
+     - This means that Forge now recognizes them as part of the ADDSynthCore mod
+       and not the Overpowered mod, THE BLOCKS CURRENTLY IN YOUR WORLD ARE INVALID!
+       and Forge will warn you that they don't exist. THIS BREAKS YOUR WORLDS!
+       You should record your Music Boxes in a separate [fashion].
+  REMOVED DEPENDANCY TO BAUBLES! You no longer need Baubles to play this mod,
+    however, we do add Unidentified Rings if you do play with Baubles.
+  Improved compatability with other mods:
+    - *FIXED CRASH when you took items out of any Overpowered machine!
+    - Project E: Added missing EMC value for Iron Plate and Gold Plate.
+    - The Advanced Ore Refinery now correctly smelts all Ores from all mods.
+    - The Electric Furnace now correctly smelts ItemStacks with meta instead of just
+      the base Items.
+    - Fixed duplication error when picking up Trophy Blocks or the Electric Furnace.
+    - Gem blocks from other mods are now allowed in the Portal Frames.
+  Added debug features that you can enable in the ADDSynthCore config.
+  Added Auto Shutoff feature to Lasers, when checked, Lasers will automatically
+    switch off after firing, so they don't accept energy until switched back on.
+  Gave Fusion Chamber and Laser Housing machines new textures.
+  Added a machine classification subtitle to all machines tooltips.
+  Gave HD textures to all tools.
+  Added Scythe tools. These are used to chop leaves off of trees very quickly, but
+    they drop items as if you had mined them by hand.
+  Added Yellorium to the materials list.
+  All machines now show how much time must pass to finish work, to run out of energy,
+    or to get full of energy.
+  All Guis in the 1.12 version now behave normally
+    (dark background and shows item tooltips.)
+  Fix Laser Machines not working properly in 1.11 and 1.12 versions.
+  Machines now resume operating when the world is first loaded or when teleporting
+   between dimensions.
+  Fix achievements not being registered / not being saved with the player or world
+    in the 1.10 and 1.11 versions. - Error started in the last version.
+  Fixed Machines now drop the items inside of them when they are broken.
+    - This error probably began occurring since the last update.
+  Accessing the Config through the Client Gui has now been improved and works.
+  Fix the the Music Box being played after the first one was powered.
+  Added Universal Energy Interface:
+    This machine will keep 1,000 units of energy and interface with other Energy
+    APIs so it works with Forge Energy, RF Energy and Tesla energy.
+  The crafting recipe for the Portal Control panel now uses Ender Pearls instead of
+    Advanced Power Cores.
+  This is the first version of the Overpowered mod that will use Forge's built-in
+    version checker. Basically it checks for a file on our server for version info,
+    and if it finds info for a newer version then it puts a green marker on the Mods
+    button on the Minecraft main menu. Click it and it shows you the new version
+    changelog and a link on where to download it.
+  Fixed trophy texture glitches.

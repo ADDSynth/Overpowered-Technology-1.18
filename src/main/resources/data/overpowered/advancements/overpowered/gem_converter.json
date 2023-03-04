@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "overpowered:gem_converter"
+    },
+    "title": {
+      "translate": "advancements.overpowered.gem_converter.title"
+    },
+    "description": {
+      "translate": "advancements.overpowered.gem_converter.description"
+    }
+  },
+  "parent": "overpowered:overpowered/matter_energy_converter",
+  "criteria": {
+    "gem_converter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:gem_converter"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "overpowered:gem_converter"
+    }
+  ]
+}

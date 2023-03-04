@@ -1,0 +1,97 @@
+{
+  "parent": "overpowered:recipes/root",
+  "criteria": {
+    "energy_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:energy_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "aluminum_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/aluminum"
+          }
+        ]
+      }
+    },
+    "matter_energy_transformer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:matter_energy_transformer"
+            ]
+          }
+        ]
+      }
+    },
+    "circuit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "addsynth_energy:circuit_tier_5"
+            ]
+          }
+        ]
+      }
+    },
+    "vacuum_container": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:vacuum_container"
+            ]
+          }
+        ]
+      }
+    },
+    "has_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "overpowered:crystal_energy_extractor"
+      }
+    },
+    "has_machine": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "overpowered:crystal_energy_extractor"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "energy_crystal",
+      "aluminum_plate",
+      "matter_energy_transformer",
+      "circuit",
+      "vacuum_container",
+      "has_recipe",
+      "has_machine"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "overpowered:crystal_energy_extractor"
+    ]
+  }
+}

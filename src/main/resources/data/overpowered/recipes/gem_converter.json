@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "asa",
+    "cpc",
+    "aca"
+  ],
+  "key": {
+    "s": {
+      "item": "overpowered:matter_energy_transformer"
+    },
+    "a": {
+      "tag": "forge:plates/aluminum"
+    },
+    "c": {
+      "item": "overpowered:energy_crystal_shards"
+    },
+    "p": {
+      "item": "addsynth_energy:circuit_tier_5"
+    }
+  },
+  "result": {
+    "item": "overpowered:gem_converter"
+  }
+}

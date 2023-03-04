@@ -1,7 +1,6 @@
 package addsynth.overpoweredmod.machines.advanced_ore_refinery;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import addsynth.core.game.item.ItemUtil;
 import addsynth.core.recipe.RecipeUtil;
 import addsynth.material.MaterialsUtil;
@@ -30,8 +29,9 @@ public final class OreRefineryRecipes {
       recipes.clear();
       final ArrayList<Item> list = new ArrayList<Item>(100);
       ItemStack result_check;
-      Collection<Item> ores = MaterialsUtil.getOres();
+      ArrayList<Item> ores = new ArrayList<Item>(MaterialsUtil.getOres());
       // Manually Add Raw Iron, Raw Copper, and Raw Gold for the Minecraft 1.17+ versions
+      // TODO: Check to see if Mojang or Forge Team added Item tags for these items in MC 1.18.
       ores.add(Items.RAW_IRON);
       ores.add(Items.RAW_COPPER);
       ores.add(Items.RAW_GOLD);

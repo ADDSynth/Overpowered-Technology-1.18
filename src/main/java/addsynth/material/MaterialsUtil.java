@@ -58,10 +58,12 @@ public final class MaterialsUtil {
 
 // =======================================================================================
 
+  // Stream.toList() returns an Unmodifiable List!
   public static final List<Item> getOres(){
     return ForgeRegistries.ITEMS.tags().getTag(Tags.Items.ORES).stream().toList();
   }
 
+  // Stream.toList() returns an Unmodifiable List!
   public static final List<Block> getOreBlocks(){
     return ForgeRegistries.BLOCKS.tags().getTag(Tags.Blocks.ORES).stream().toList();
   }

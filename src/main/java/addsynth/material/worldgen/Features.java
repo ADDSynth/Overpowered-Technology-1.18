@@ -5,6 +5,7 @@ import net.minecraft.world.level.levelgen.feature.ReplaceBlockFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ReplaceBlockConfiguration;
 
+/* REMOVE
 public final class Features { // UNUSED, here if I ever need it. But I need to register it in the CoreRegisters class.
 
   public static final Feature<ReplaceBlockConfiguration> GEM_ORE = create("gem_ore", new ReplaceBlockFeature(ReplaceBlockConfiguration.CODEC));
@@ -16,3 +17,4 @@ public final class Features { // UNUSED, here if I ever need it. But I need to r
   }
 
 }
+*/

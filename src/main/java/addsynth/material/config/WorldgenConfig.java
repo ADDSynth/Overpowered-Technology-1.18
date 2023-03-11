@@ -8,7 +8,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
  *  @see net.minecraft.data.worldgen.BiomeDefaultFeatures
  *  @see net.minecraft.data.worldgen.features.OreFeatures
  */
-public final class WorldgenConfig {
+public final class WorldgenConfig { // TODO: Consider adjusting gen values for new world heights in Minecraft 1.18.
 
   private static final int DEFAULT_MIN_HEIGHT = 5;
   

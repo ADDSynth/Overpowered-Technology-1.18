@@ -135,7 +135,7 @@ public final class GenFeatures {
     final Holder<ConfiguredFeature<ReplaceBlockConfiguration, ?>> ore_configuration = FeatureUtils.register(material.ore.getRegistryName().getPath(), Feature.REPLACE_SINGLE_BLOCK, new ReplaceBlockConfiguration(getReplaceableBlockList(material.ore)));
     // Placement Modifiers:
     // TODO: Change uniform placement to triangle placement. Extend into the new lower depths below Y=0.
-    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(min_level), VerticalAnchor.aboveBottom(max_level)), BiomeFilter.biome());
+    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
     // Placement:
     return PlacementUtils.register(material.id_name+"_placement", ore_configuration, placement_modifiers);
   }
@@ -144,7 +144,7 @@ public final class GenFeatures {
     // Configured Feature:
     final Holder<ConfiguredFeature<OreConfiguration, ?>> ore_configuration = FeatureUtils.register(material.ore.getRegistryName().getPath(), Feature.ORE, new OreConfiguration(getReplaceableBlockList(material.ore), size));
     // Placement Modifiers:
-    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(min_level), VerticalAnchor.aboveBottom(max_level)), BiomeFilter.biome());
+    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
     // Placement:
     return PlacementUtils.register(material.id_name+"_placement", ore_configuration, placement_modifiers);
   }

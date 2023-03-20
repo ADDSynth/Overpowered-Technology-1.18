@@ -1,5 +1,6 @@
 package addsynth.energy.lib.energy_network.tiles;
 
+import javax.annotation.Nullable;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.tiles.TileBase;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public abstract class AbstractEnergyNetworkTile extends TileBase
   implements IBlockNetworkUser<EnergyNetwork>, ITickingTileEntity {
 
+  @Nullable
   protected EnergyNetwork network;
 
   public AbstractEnergyNetworkTile(final BlockEntityType type, BlockPos position, BlockState blockstate){

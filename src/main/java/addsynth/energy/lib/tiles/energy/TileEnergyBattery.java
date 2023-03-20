@@ -54,8 +54,10 @@ public abstract class TileEnergyBattery extends AbstractEnergyNetworkTile implem
   public final void setRemoved(){
     super.setRemoved();
     if(onServerSide()){
-      network.drain_battery(energy);
-      BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
+      if(network != null){
+        network.drain_battery(energy);
+        BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
+      }
     }
   }
 

@@ -23,7 +23,9 @@ public final class BlockNetworkUtil {
    * @param world
    * @param tile The TileEntity attempting to creat a BlockNetwork.
    * @param constructor the function to call to create a new BlockNetwork, usually your BlockNetwork's constructor.
+   * @deprecated BlockNetworks should keep a list of their Tiles. This function can also be moved into the base BlockNetwork class. Derived classes can pass in their own constructors so users don't have to. Use the BlockNetwork's <code>is_TileEntity_valid</code> function!
    */
+  @Deprecated
   public static final <B extends BlockNetwork<T>, T extends BlockEntity & IBlockNetworkUser<B>> void create_or_join(final Level world, final T tile, final BiFunction<Level, T, B> constructor){
     if(world == null){
       throw new NullPointerException("Can't create BlockNetwork because the world isn't loaded yet.");
@@ -85,7 +87,9 @@ public final class BlockNetworkUtil {
    * @param <T>
    * @param destroyed_tile
    * @param constructor
+   * @deprecated The BlockNetwork should have its own <code>is_tileEntity_valid</code> function, to add TileEntities to a BlockNetwork. It should also have its own <code>remove_tileEntity</code> function, select a new <code>first_tile</code> from the list, and any TileEntities whose BlockPositions are no longer in the list of tiles, should create a new BlockNetwork.
    */
+  @Deprecated
   @SuppressWarnings({ "unchecked", "resource", "null" })
   public static final <B extends BlockNetwork<T>, T extends BlockEntity & IBlockNetworkUser<B>> void tileentity_was_removed(final T destroyed_tile, final BiFunction<Level, T, B> constructor){
     final Level world = destroyed_tile.getLevel();

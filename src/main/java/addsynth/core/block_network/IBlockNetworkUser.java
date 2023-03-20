@@ -18,7 +18,8 @@ public interface IBlockNetworkUser<T extends BlockNetwork> {
   /** DO NOT CREATE BLOCK NETWORKS INSIDE THIS FUNCTION! {@link BlockNetworkUtil} calls this
    *  to get the BlockNetwork from the TileEntity, which then begins an infinite call loop!
    */
-  public @Nullable T getBlockNetwork();
+  @Nullable
+  public T getBlockNetwork();
 
   /** This function is called by {@link BlockNetworkUtil#create_or_join} after initializing the
    *  Block Network. Use this function to set Block Network data from the TileEntity, after it's

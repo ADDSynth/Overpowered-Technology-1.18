@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "addsynthcore:bronze_trophy",
+    "addsynthcore:silver_trophy",
+    "addsynthcore:gold_trophy",
+    "addsynthcore:platinum_trophy",
     "addsynth_materials:ruby_block",
     "addsynth_materials:topaz_block",
     "addsynth_materials:citrine_block",

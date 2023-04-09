@@ -3,6 +3,7 @@ package addsynth.core.util.game;
 import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.player.PlayerUtil;
+import net.minecraft.Util;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
@@ -32,12 +33,12 @@ public final class MessageUtil {
    *  This must be called on the server side. Calling on the client side will only translate to English.
    * @param player
    * @param translation_key
-   */
+   */ // TODO: Should all of these be sent FROM the server side? Replace the parameters with their server counterparts.
   public static final void send_to_player(@Nonnull MinecraftServer server, Player player, String translation_key, Object ... arguments){
     if(Language.getInstance().has(translation_key) == false){
       ADDSynthCore.log.warn("Missing translated text for: "+translation_key);
     }
-    player.sendMessage(TextComponentHelper.createComponentTranslation(server, translation_key, arguments), null);
+    player.sendMessage(TextComponentHelper.createComponentTranslation(server, translation_key, arguments), Util.NIL_UUID);
   }
 
   public static final void send_to_all_players(final Level world, final String translation_key, final Object ... arguments){
@@ -59,7 +60,7 @@ public final class MessageUtil {
   private static final void send_to_all_players(final MinecraftServer server, final Component text_component){
     final PlayerList player_list = server.getPlayerList();
     if(player_list != null){
-      player_list.broadcastMessage(text_component, ChatType.SYSTEM, null);
+      player_list.broadcastMessage(text_component, ChatType.SYSTEM, Util.NIL_UUID);
     }
   }
 
@@ -68,7 +69,7 @@ public final class MessageUtil {
     final MinecraftServer server = world.getServer();
     if(server != null){
       PlayerUtil.allPlayersInWorld(server, world, (ServerPlayer player) -> {
-        player.sendMessage(TextComponentHelper.createComponentTranslation(server, translation_key, arguments), null);
+        player.sendMessage(TextComponentHelper.createComponentTranslation(server, translation_key, arguments), Util.NIL_UUID);
       });
     }
   }
@@ -78,7 +79,7 @@ public final class MessageUtil {
     final MinecraftServer server = world.getServer();
     if(server != null){
       PlayerUtil.allPlayersInWorld(server, world, (ServerPlayer player) -> {
-        player.sendMessage(text_component, null);
+        player.sendMessage(text_component, Util.NIL_UUID);
       });
     }
   }

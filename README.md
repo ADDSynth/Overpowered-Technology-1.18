@@ -1,9 +1,10 @@
 
 # Introduction
-Welcome to the source code repository for the Overpowered mod for Minecraft, by ADDSynth.
+Welcome to the source code repository for the Overpowered Technology Minecraft mod, by ADDSynth.
+
 The source code is licensed under GNU GPL v3.0 or Later, with The Commons Clause.
 
-**Last Updated:** May 18, 2021
+**Last Updated:** April 10, 2023
 
 <!-- a double space after a line = a line break -->
 
@@ -28,32 +29,27 @@ Owner
 
 # Links
 
-You can Download Overpowered on CurseForge.  
+You can Download Overpowered Technology on CurseForge.  
 [Download on CurseForge](https://www.curseforge.com/minecraft/mc-mods/overpowered)
 
 For information about the mod itself, you can view the  
-[online reference for Overpowered](http://www.gyrostudiostechnology.com/minecraft/mods/overpowered/index.html).
+[online reference for Overpowered Technology](http://www.gyrostudiostechnology.com/minecraft/mods/overpowered/index.html).
 
 We are currently searching for a new platform to host the online reference allowing users to
 edit pages and allowing multiple languages.
 
-If you wish to support the development of Overpowered, consider donating.
+You can help translate this mod! All my projects are now on [CrowdIn](https://crowdin.com/profile/addsynth).
+You will need to create a free CrowdIn account to translate through CrowdIn.  
+However, I prefer you translate directly through Github by submitting pull requests
+with updated [language files](https://github.com/ADDSynth/Overpowered-Technology-1.18/tree/main/src/main/resources/assets/overpowered/lang).
+
+If you wish to support the development of Overpowered Technology, consider donating.
 To donate with PayPal, click the following link. A PayPal account is required.
 This is temporary as we're currently in the process of switching to a new method
 of donating.  
-[https://paypal.me/ADDSynth](https://paypal.me/ADDSynth?locale.x=en_US)
+[https://paypal.me/ADDSynth](https://paypal.me/ADDSynth)
 
-Join our Discord server:  
-<https://discord.gg/U6nmwrZ>
-
-Follow ADDSynth on Twitter. (But I never post there)  
-<https://twitter.com/AddSynth>
-
-Any videos about Overpowered I'll post to my channel on YouTube:  
-[ADDSynth on YouTube](https://www.youtube.com/channel/UC1JNtz7hUU5xfF4QZPv1hbg)
-
-Business email: (but please contact via one of the above methods)  
-[gyrostudioscomputers@gmail.com](mailto:gyrostudioscomputers@gmail.com)
+Any videos about Overpowered Technology I'll post to [my channel on YouTube](https://www.youtube.com/channel/UC1JNtz7hUU5xfF4QZPv1hbg).
 
 # About the Project
 
@@ -122,99 +118,12 @@ Type the command \'gradlew eclipse\', or replace eclipse with your preferred IDE
 
 # Source Code Formatting
 
+Source code formatting rules have been separated into their own text file to promote reuse
+in other projects.
+
 We prefer the source code be formatted in a specific way, but we're not strict about it.
 We won't decline or turn away pull requests if they do not follow these format rules.
 I'll probably just reformat it myself later in the future anyway.
-
-1. We use spaces, not tabs. An indent is 2 spaces.
-
-2. All blocks statements must have brackets, even one line 'if' statements. We often need
-   to move lines of code from place to place, and it is very convenient to go to the
-   start of the line and hold SHIFT and press DOWN to select the whole line,
-   then use the common keyboard cut and paste commands.
-
-3. Keep code safe. Most variable declarations are explicitly initalized to some value.
-   I understand that putting everything in a 'try/catch' block is not always convenient,
-   but at the very least you should report errors to the log if an error does occur.
-   And above all, THE GAME SHOULD NEVER CRASH.
-
-   Use the '@Override' and '@Nonnull' and '@Nullable' attributes if the overridden method
-   also uses them.
-
-4. Keep code simple and easy to understand.
-
-   1. Initalize variables one line at a time. We prefer this partly because of the same reason
-      above, where sometimes the variable needs to be changed or moved. For instance:
-
-    'int x = 0;  
-    int y = 0;  
-    int width = 0;  
-    int height = 0;  
-    int space = 0;'
-
-    NOT
-
-    'int x, y, width, height, space = 0;'
-
-  2. If you're going to use a variable inside a loop, initalize the variable outside the loop,
-     so that you can reuse it. Example:
-
-    'int i;  
-     int id; // gets assigned before use, so it's okay to leave it uninitialized  
-     for(i = 0; i < array.length; i++){  
-       id = getID(array\[i\]);  
-     }'
-
-    NOT
-
-    'for(int i = 0; i < array.length; i++){  
-       int id = getID(array\[i\]);  
-     }'
-
-  3. Use long variable names! I actually consider this to be very important.
-     Source code is meant to be read by humans, so it should be easy to understand. Compilers
-     don't care how long your variable names are so make sure it is descriptive enough.
-
-     'int x_position;  
-     int number_of_lasers;  
-     String message;'
-
-    NOT
-
-    'int x_pos;  
-     int num_lasers;  
-     String msg;'
-
-  4. Function arguments should have a space in between them. 
-
-  5. Although, in most languages, declaring a field without an access modifier is implicitly
-     defined as being private to that class, we still prefer you type out the private keyword.
-
-  6. Using conditional statements is fine as long as they're simple enough. So for instance
-     'return tile != null ? tile.getSomething() : null' is perfectly fine. But if your conditional
-     statement gets any more complicated than that, or consists of multiple embedded conditional
-     statements, it may be better to use embedded if statements instead, or even a dedicated function.
-
-  7. Also, I often like to space out lines of code so that they line up with each other. This is
-     not as important as some of the other rules. But in regards to this, I've noticed that the
-     lists often become misaligned because I used a Refactor command to change the name of something
-     which I then discover later messes up the alignment of a list somewhere.
-
-5. Variables should be in lowercase underscore style, but when it comes to methods I'm
-   guilty of using both camelCase and lowercase underscore, so whatever.
-
-6. Yes, I frequently add the keyword 'final' to method declarations and arguments. This was back
-   when I was learning Java, and they said adding 'final' would be a minor optimization because
-   it signals to the compiler that the method/argument never changes, so it doesn't need to check
-   that itself. In practice this is extremely insignificant. You do not need to follow my
-   lead in this case. It's also been unhelpful once or twice because I had to remove the 'final'
-   keyword so I could override a method.
-
-7. Never had to use Access Transformers to do Java bytecode manipulation.
-   But if all it does is allow access to vanilla fields and methods that are private, I prefer
-   to use Reflection for that. But in order to use Reflection you need to know the SRG name of
-   the field or method you want, because fields and method names are obfuscated outside a
-   dev environment and are translated to be easier to read inside a dev environment.
 
 # License
 

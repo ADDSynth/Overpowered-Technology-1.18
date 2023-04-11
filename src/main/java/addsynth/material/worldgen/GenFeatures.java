@@ -25,7 +25,6 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 // https://github.com/Tutorials-By-Kaupenjoe/Forge-Tutorial-1.18.1/tree/34-oreGeneration/src/main/java/net/kaupenjoe/tutorialmod/world
 public final class GenFeatures {
 
-  // TODO: These should probably be created once and saved instead of BEING RECREATED WHEN GENERATING EVERY CHUNK!!! Downport this fix to previous versions!
   public static final Holder<PlacedFeature> RUBY_ORE_FEATURE = gen_single_ore(
     Material.RUBY,
     WorldgenConfig.ruby_spawn_tries.get(),
@@ -102,10 +101,10 @@ public final class GenFeatures {
 
   public static final Holder<PlacedFeature> TITANIUM_ORE_FEATURE = gen_standard_ore(
     Material.TITANIUM,
-    WorldgenConfig.platinum_ore_size.get(),
-    WorldgenConfig.platinum_spawn_tries.get(),
-    WorldgenConfig.platinum_min_height.get(),
-    WorldgenConfig.platinum_max_height.get()
+    WorldgenConfig.titanium_ore_size.get(),
+    WorldgenConfig.titanium_spawn_tries.get(),
+    WorldgenConfig.titanium_min_height.get(),
+    WorldgenConfig.titanium_max_height.get()
   );
 
   public static final Holder<PlacedFeature> SILICON_ORE_FEATURE = gen_standard_ore(

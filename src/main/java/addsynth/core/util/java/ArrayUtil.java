@@ -140,10 +140,6 @@ public final class ArrayUtil {
 
   /** Prints extremely detailed information to the log, and also prints the stacktrace. */
   public static final <T> void print_array_index_out_of_bounds_error(@Nonnull final T[] array, final int index){
-    // DELETE
-    // if(array == null){
-    //   ADDSynthCore.log.error(new NullPointerException("null array."));
-    // }
     final int length = array.length;
     final String valid_indexes = length == 0 ? "The array is empty." : length == 1 ? "Only index 0 is valid." : "Only indexes 0-"+(length-1)+" are valid.";
     ADDSynthCore.log.error(new ArrayIndexOutOfBoundsException("Invalid index "+index+" for array "+array.getClass().getComponentType().getSimpleName()+"["+length+"]. "+valid_indexes));

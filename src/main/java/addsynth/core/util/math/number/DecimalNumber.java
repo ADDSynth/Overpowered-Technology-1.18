@@ -31,11 +31,6 @@ public final class DecimalNumber {
     this.sub_number = 0;
   }
 
-  // DELETE
-  // public final void setDecimal(final int decimal){
-  //   this.sub_number = Math.min(decimal, DECIMAL_ACCURACY - 1);
-  // }
-
   public final double get(){
     return number + getDecimal();
   }

@@ -1,7 +1,6 @@
 package addsynth.material.types;
 
 import addsynth.material.MaterialItem;
-import addsynth.material.MiningStrength;
 import addsynth.material.blocks.GemBlock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -17,7 +16,7 @@ public final class Gem extends OreMaterial {
     super(unlocalized_name,
       new MaterialItem(unlocalized_name),
       unlocalized_name.equals("rose_quartz") ? null : new GemBlock(unlocalized_name+"_block", color), // FIX Rose Quartz crash in MC 1.18 because we're creating a Rose Quartz Block but not registering it!
-      MiningStrength.IRON, min_experience, max_experience);
+      min_experience, max_experience);
     this.gem = this.item;
     this.shard = unlocalized_name.equals("rose_quartz") ? null : new MaterialItem(unlocalized_name+"_shard");
   }

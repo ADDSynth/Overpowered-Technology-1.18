@@ -1,7 +1,6 @@
 package addsynth.material.types;
 
 import addsynth.material.MaterialItem;
-import addsynth.material.MiningStrength;
 import addsynth.material.blocks.MetalBlock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -31,9 +30,9 @@ public class Metal extends OreMaterial {
   }
 
   /** Custom Metal */
-  public Metal(final String unlocalized_name, final MaterialColor color, final MiningStrength strength){
+  public Metal(final String unlocalized_name, final MaterialColor color){
     super(unlocalized_name, new MaterialItem(unlocalized_name+"_ingot"), new MetalBlock(unlocalized_name+"_block", color),
-      strength, 0, 0);
+      0, 0);
     this.ingot = this.item;
     this.nugget = null; // new MaterialItem(unlocalized_name+"_nugget");
     this.plating = new MaterialItem(unlocalized_name+"_plate");

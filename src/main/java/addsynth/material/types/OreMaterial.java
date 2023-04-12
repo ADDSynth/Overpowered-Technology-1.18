@@ -1,7 +1,6 @@
 package addsynth.material.types;
 
 import addsynth.material.MaterialItem;
-import addsynth.material.MiningStrength;
 import addsynth.material.blocks.OreBlock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -30,16 +29,16 @@ public class OreMaterial extends BaseMaterial {
   }
 
   /** Custom Material */
-  public OreMaterial(final String name, final MaterialColor color, final MiningStrength strength){
+  public OreMaterial(final String name, final MaterialColor color){
     // Silicon, Uranium, and Yellorium
     super(true, name, new MaterialItem(name));
-    this.ore = new OreBlock(name+"_ore", strength);
+    this.ore = new OreBlock(name+"_ore");
   }
 
   /** Specific Type Material */
-  protected OreMaterial(final String name, final Item item, final Block block, final MiningStrength strength, final int min_experience, final int max_experience){
+  protected OreMaterial(final String name, final Item item, final Block block, final int min_experience, final int max_experience){
     super(true, name, item, block);
-    this.ore = new OreBlock(name+"_ore", strength, min_experience, max_experience);
+    this.ore = new OreBlock(name+"_ore", min_experience, max_experience);
   }
 
 }

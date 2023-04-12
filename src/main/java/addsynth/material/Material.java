@@ -54,35 +54,35 @@ public final class Material {
   */
   
   // common metals
-  public static final Metal ALUMINUM = new Metal("aluminum", MaterialColor.ICE,          MiningStrength.STONE);
-  // public static final Metal LEAD     = new Metal("lead",     MaterialColor.STONE,        MiningStrength.STONE);
-  // public static final Metal NICKEL   = new Metal("nickel",   MaterialColor.METAL,        MiningStrength.STONE);
-  public static final Metal TIN      = new Metal("tin",      MaterialColor.METAL,        MiningStrength.STONE);
-  // public static final Metal ZINC     = new Metal("zinc",     MaterialColor.METAL,        MiningStrength.STONE);
+  public static final Metal ALUMINUM = new Metal("aluminum", MaterialColor.ICE);
+  // public static final Metal LEAD     = new Metal("lead",     MaterialColor.STONE);
+  // public static final Metal NICKEL   = new Metal("nickel",   MaterialColor.METAL);
+  public static final Metal TIN      = new Metal("tin",      MaterialColor.METAL);
+  // public static final Metal ZINC     = new Metal("zinc",     MaterialColor.METAL);
 
   // semi-rare metals
-  public static final Metal SILVER   = new Metal("silver",   MaterialColor.WOOL,       MiningStrength.IRON);
-  // public static final Metal COBALT   = new Metal("cobalt",   MaterialColor.COLOR_BLUE, MiningStrength.IRON);
+  public static final Metal SILVER   = new Metal("silver",   MaterialColor.WOOL);
+  // public static final Metal COBALT   = new Metal("cobalt",   MaterialColor.COLOR_BLUE);
 
   // rare metals
-  public static final Metal PLATINUM = new Metal("platinum", MaterialColor.ICE,    MiningStrength.IRON);
-  public static final Metal TITANIUM = new Metal("titanium", MaterialColor.SNOW,   MiningStrength.IRON);
+  public static final Metal PLATINUM = new Metal("platinum", MaterialColor.ICE);
+  public static final Metal TITANIUM = new Metal("titanium", MaterialColor.SNOW);
 
   // manufactured metals
   /** Metal alloy of Copper and Zinc. Generally 2 parts Copper, 1 part Zinc.
    *  Used in applications where corrosion resistance and low friction is required, such as door hinges and gears. */
-  // public static final Metal BRASS    = new ManufacturedMetal("brass",  MaterialColor.COLOR_YELLOW, MiningStrength.IRON);
+  // public static final Metal BRASS    = new ManufacturedMetal("brass",  MaterialColor.COLOR_YELLOW);
   /** Metal alloy of Tin and Copper. Stronger and more durable than Copper alone. */
-  public static final Metal BRONZE   = new ManufacturedMetal("bronze", MaterialColor.COLOR_ORANGE,  MiningStrength.IRON);
+  public static final Metal BRONZE   = new ManufacturedMetal("bronze", MaterialColor.COLOR_ORANGE);
   /** Metal alloy of Iron and Nickel. Known for its strong resistance to heat expansion.
    *  Has a simplified Nickel:Iron ratio of 3:5 or 1:2. */
-  // public static final Metal INVAR    = new ManufacturedMetal("invar",  MaterialColor.SAND,   MiningStrength.IRON);
+  // public static final Metal INVAR    = new ManufacturedMetal("invar",  MaterialColor.SAND);
   /** An advanced version of Iron. Metal alloy of Iron with a very small amount of Carbon. */
-  public static final Metal STEEL    = new ManufacturedMetal("steel",  MaterialColor.COLOR_GRAY,   MiningStrength.IRON);
+  public static final Metal STEEL    = new ManufacturedMetal("steel",  MaterialColor.COLOR_GRAY);
   
   // other materials
-  public static final OreMaterial SILICON   = new OreMaterial("silicon",   MaterialColor.COLOR_GRAY,        MiningStrength.IRON);
-  // public static final OreMaterial URANIUM   = new OreMaterial("uranium",   MaterialColor.COLOR_LIGHT_GREEN, MiningStrength.IRON);
-  // public static final OreMaterial YELLORIUM = new OreMaterial("yellorium", MaterialColor.COLOR_YELLOW,      MiningStrength.ANY);
+  public static final OreMaterial SILICON   = new OreMaterial("silicon",   MaterialColor.COLOR_GRAY);
+  // public static final OreMaterial URANIUM   = new OreMaterial("uranium",   MaterialColor.COLOR_LIGHT_GREEN);
+  // public static final OreMaterial YELLORIUM = new OreMaterial("yellorium", MaterialColor.COLOR_YELLOW);
 
 }

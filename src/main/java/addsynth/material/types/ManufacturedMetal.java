@@ -1,6 +1,5 @@
 package addsynth.material.types;
 
-import addsynth.material.MiningStrength;
 import net.minecraft.world.level.material.MaterialColor;
 
 /** Manufactured metals do not have an Ore Block. */
@@ -15,9 +14,8 @@ public final class ManufacturedMetal extends Metal {
    *  require a certain pickaxe strength to mine them.
    * @param unlocalized_name
    * @param color
-   * @param strength
    */
-  public ManufacturedMetal(final String unlocalized_name, final MaterialColor color, MiningStrength strength){
+  public ManufacturedMetal(final String unlocalized_name, final MaterialColor color){
     super(unlocalized_name, color);
   }
 

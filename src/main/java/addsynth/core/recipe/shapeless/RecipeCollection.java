@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.Debug;
 import addsynth.core.recipe.RecipeUtil;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialsUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;

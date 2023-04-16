@@ -3,6 +3,7 @@ package addsynth.material;
 import addsynth.material.types.basic.*;
 import addsynth.material.types.gem.*;
 import addsynth.material.types.metal.*;
+import addsynth.material.util.MaterialTag;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MaterialColor;

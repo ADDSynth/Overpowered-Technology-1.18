@@ -1,7 +1,7 @@
 package addsynth.material.types.basic;
 
 import addsynth.material.ADDSynthMaterials;
-import addsynth.material.MaterialItem;
+import addsynth.material.items.MaterialItem;
 import addsynth.material.types.AbstractMaterial;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

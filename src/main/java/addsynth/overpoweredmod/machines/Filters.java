@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines;
 
-import addsynth.material.MaterialTag;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialTag;
+import addsynth.material.util.MaterialsUtil;
 import addsynth.overpoweredmod.machines.gem_converter.GemConverterRecipe;
 import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipes;
 import net.minecraft.world.item.Item;

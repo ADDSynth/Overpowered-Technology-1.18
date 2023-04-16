@@ -1,4 +1,4 @@
-package addsynth.material;
+package addsynth.material.util;
 
 import java.util.ArrayList;
 import java.util.Collection;

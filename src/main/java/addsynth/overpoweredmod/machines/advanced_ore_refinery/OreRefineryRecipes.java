@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.machines.advanced_ore_refinery;
 import java.util.ArrayList;
 import addsynth.core.game.item.ItemUtil;
 import addsynth.core.recipe.RecipeUtil;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialsUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

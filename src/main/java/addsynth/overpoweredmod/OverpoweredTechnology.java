@@ -5,7 +5,7 @@ import addsynth.core.recipe.RecipeUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
 import addsynth.core.util.game.Game;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialsUtil;
 import addsynth.overpoweredmod.assets.CustomStats;
 import addsynth.overpoweredmod.compatability.CompatabilityManager;
 import addsynth.overpoweredmod.config.*;

@@ -1,4 +1,4 @@
-package addsynth.material;
+package addsynth.material.util;
 
 import net.minecraft.resources.ResourceLocation;
 

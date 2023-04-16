@@ -2,9 +2,9 @@ package addsynth.material.types.gem;
 
 import addsynth.core.game.RegistryUtil;
 import addsynth.material.ADDSynthMaterials;
-import addsynth.material.MaterialItem;
 import addsynth.material.blocks.GemBlock;
 import addsynth.material.blocks.OreBlock;
+import addsynth.material.items.MaterialItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

@@ -2,8 +2,8 @@ package addsynth.material.types.basic;
 
 import addsynth.core.game.RegistryUtil;
 import addsynth.material.ADDSynthMaterials;
-import addsynth.material.MaterialItem;
 import addsynth.material.blocks.GenericStorageBlock;
+import addsynth.material.items.MaterialItem;
 import addsynth.material.types.AbstractMaterial;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

@@ -12,7 +12,7 @@ import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.java.FileUtil;
 import addsynth.core.util.math.block.BlockMath;
 import addsynth.core.util.world.WorldConstants;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialsUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.commands.CommandSourceStack;

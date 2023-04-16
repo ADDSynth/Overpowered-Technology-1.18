@@ -2,9 +2,9 @@ package addsynth.material.types.basic;
 
 import addsynth.core.game.RegistryUtil;
 import addsynth.material.ADDSynthMaterials;
-import addsynth.material.MaterialItem;
 import addsynth.material.blocks.GenericStorageBlock;
 import addsynth.material.blocks.OreBlock;
+import addsynth.material.items.MaterialItem;
 import addsynth.material.types.AbstractMaterial;
 import addsynth.material.types.OreMaterial;
 import net.minecraft.resources.ResourceLocation;

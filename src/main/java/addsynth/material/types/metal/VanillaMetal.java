@@ -1,7 +1,7 @@
 package addsynth.material.types.metal;
 
 import addsynth.core.compat.Compatibility;
-import addsynth.material.MaterialItem;
+import addsynth.material.items.MaterialItem;
 import addsynth.material.types.OreMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

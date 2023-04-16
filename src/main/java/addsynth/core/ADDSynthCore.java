@@ -11,7 +11,7 @@ import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
-import addsynth.material.MaterialsUtil;
+import addsynth.material.util.MaterialsUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;

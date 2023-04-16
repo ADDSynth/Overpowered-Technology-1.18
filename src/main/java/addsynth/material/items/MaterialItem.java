@@ -1,5 +1,6 @@
-package addsynth.material;
+package addsynth.material.items;
 
+import addsynth.material.ADDSynthMaterials;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 

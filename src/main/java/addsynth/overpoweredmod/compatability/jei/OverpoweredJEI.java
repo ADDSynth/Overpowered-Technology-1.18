@@ -123,6 +123,7 @@ public final class OverpoweredJEI implements IModPlugin {
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_converter), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.matter_energy_converter"));
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.vacuum_container),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.vacuum_container"));
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.reinforced_container),    VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.reinforced_container"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_flux),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.dimensional_flux"));
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.unimatter),               VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.unimatter"));
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_anchor),      VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.dimensional_anchor"));
 

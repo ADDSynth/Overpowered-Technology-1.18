@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryObject;
 
 // Remember: The order an item shows up in the creative tab depends on
 //             the order you register Items in the Item Registry Event.
@@ -21,6 +22,7 @@ public final class RegistryUtil {
 
   /** This is used to store a reference to your ItemBlocks so you don't have to.
    *  Just call {@link #getItemBlock(Block)} to get one. */
+  @Deprecated
   private static final HashSet<BlockItem> items = new HashSet<BlockItem>(500);
 
   /** @deprecated The Forge documentation actually wants you to create a NEW instance in the
@@ -31,6 +33,7 @@ public final class RegistryUtil {
   }
 
   @Nullable
+  @Deprecated  // DON'T FORGET! Add to ItemUtil.ItemExists() to also check if the passed-in item is Items.AIR!
   private static final BlockItem getVanillaItemBlock(@Nonnull final Block block){
     final Item vanilla_item = Item.BY_BLOCK.get(block);
     if(vanilla_item != null){
@@ -42,6 +45,7 @@ public final class RegistryUtil {
   }
 
   @Nullable
+  @Deprecated
   private static final BlockItem getModdedItemBlock(@Nonnull final Block block){
     for(final BlockItem item : items){
       if(item.getBlock() == block){
@@ -77,27 +81,39 @@ public final class RegistryUtil {
   }
 
   /** Use this to create a blank ItemBlock. */
-  public static final BlockItem register_ItemBlock(final Block block){
+  public static final BlockItem create_ItemBlock(final Block block){
     return register_ItemBlock(new BlockItem(block, new Item.Properties()), block.getRegistryName());
   }
 
+  /** Use this to create and regsiter ItemBlocks. */
+  public static final BlockItem create_ItemBlock(final RegistryObject<Block> block_holder, final CreativeModeTab tab){
+    // TODO
+    return null;
+  }
+
+  /** Use this to create and regsiter ItemBlocks. */
+  public static final BlockItem create_ItemBlock(final RegistryObject<Block> block_holder, final Item.Properties properties){
+    // TODO
+    return null;
+  }
+
   /** Use this to create and register ItemBlocks. */
-  public static final BlockItem register_ItemBlock(final Block block, final CreativeModeTab tab){
+  public static final BlockItem create_ItemBlock(final Block block, final CreativeModeTab tab){
     return register_ItemBlock(new BlockItem(block, new Item.Properties().tab(tab)), block.getRegistryName());
   }
 
   /** Use this to create and register ItemBlocks. */
-  public static final BlockItem register_ItemBlock(final Block block, final CreativeModeTab tab, final ResourceLocation registry_name){
+  public static final BlockItem create_ItemBlock(final Block block, final CreativeModeTab tab, final ResourceLocation registry_name){
     return register_ItemBlock(new BlockItem(block, new Item.Properties().tab(tab)), registry_name);
   }
 
   /** Use this to create and register ItemBlocks. */
-  public static final BlockItem register_ItemBlock(final Block block, final Item.Properties properties){
+  public static final BlockItem create_ItemBlock(final Block block, final Item.Properties properties){
     return register_ItemBlock(new BlockItem(block, properties), block.getRegistryName());
   }
 
   /** Use this to create and register ItemBlocks. */
-  public static final BlockItem register_ItemBlock(final Block block, final Item.Properties properties, final ResourceLocation registry_name){
+  public static final BlockItem create_ItemBlock(final Block block, final Item.Properties properties, final ResourceLocation registry_name){
     return register_ItemBlock(new BlockItem(block, properties), registry_name);
   }
 
@@ -106,6 +122,7 @@ public final class RegistryUtil {
    * @param registry_name
    * @return Returns the passed in ItemBlock if we successfully registered it, returns null otherwise.
    */
+  @Deprecated
   public static final BlockItem register_ItemBlock(@Nonnull final BlockItem itemblock, final ResourceLocation registry_name){
     if(itemblock.getRegistryName() == null){
       itemblock.setRegistryName(registry_name);

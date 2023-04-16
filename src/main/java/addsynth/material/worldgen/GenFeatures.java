@@ -3,7 +3,7 @@ package addsynth.material.worldgen;
 import java.util.List;
 import addsynth.material.Material;
 import addsynth.material.config.WorldgenConfig;
-import addsynth.material.types.OreMaterial;
+import addsynth.material.types.*;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.features.OreFeatures;
@@ -129,23 +129,23 @@ public final class GenFeatures {
     );
   }
 
-  private static final Holder<PlacedFeature> gen_single_ore(final OreMaterial material, int tries, int min_level, int max_level){
+  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_single_ore(final O material, int tries, int min_level, int max_level){
     // Configured Feature:
-    final Holder<ConfiguredFeature<ReplaceBlockConfiguration, ?>> ore_configuration = FeatureUtils.register(material.ore.getRegistryName().getPath(), Feature.REPLACE_SINGLE_BLOCK, new ReplaceBlockConfiguration(getReplaceableBlockList(material.ore)));
+    final Holder<ConfiguredFeature<ReplaceBlockConfiguration, ?>> ore_configuration = FeatureUtils.register(material.getOre().getRegistryName().getPath(), Feature.REPLACE_SINGLE_BLOCK, new ReplaceBlockConfiguration(getReplaceableBlockList(material.getOre())));
     // Placement Modifiers:
     // TODO: Change uniform placement to triangle placement. Extend into the new lower depths below Y=0.
     final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
     // Placement:
-    return PlacementUtils.register(material.id_name+"_placement", ore_configuration, placement_modifiers);
+    return PlacementUtils.register(material.name+"_placement", ore_configuration, placement_modifiers);
   }
 
-  private static final Holder<PlacedFeature> gen_standard_ore(final OreMaterial material, int size, int tries, int min_level, int max_level){
+  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_standard_ore(final O material, int size, int tries, int min_level, int max_level){
     // Configured Feature:
-    final Holder<ConfiguredFeature<OreConfiguration, ?>> ore_configuration = FeatureUtils.register(material.ore.getRegistryName().getPath(), Feature.ORE, new OreConfiguration(getReplaceableBlockList(material.ore), size));
+    final Holder<ConfiguredFeature<OreConfiguration, ?>> ore_configuration = FeatureUtils.register(material.getOre().getRegistryName().getPath(), Feature.ORE, new OreConfiguration(getReplaceableBlockList(material.getOre()), size));
     // Placement Modifiers:
     final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
     // Placement:
-    return PlacementUtils.register(material.id_name+"_placement", ore_configuration, placement_modifiers);
+    return PlacementUtils.register(material.name+"_placement", ore_configuration, placement_modifiers);
   }
 
 }

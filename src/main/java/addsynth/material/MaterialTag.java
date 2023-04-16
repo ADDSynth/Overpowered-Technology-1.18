@@ -52,7 +52,7 @@ public final class MaterialTag {
   }
   
   public static class QUARTZ {
-    public static final ResourceLocation   ORES = new ResourceLocation("forge:ores/amethyst");
+    public static final ResourceLocation   ORES = new ResourceLocation("forge:ores/quartz");
     public static final ResourceLocation   GEMS = new ResourceLocation("forge:gems/quartz");
     public static final ResourceLocation BLOCKS = new ResourceLocation("forge:storage_blocks/quartz");
   }

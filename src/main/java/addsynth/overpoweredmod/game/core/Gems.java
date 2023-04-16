@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.game.core;
 
 import addsynth.material.Material;
-import addsynth.material.types.Gem;
+import addsynth.material.types.gem.Gem;
 import net.minecraft.world.item.ItemStack;
 
 public final class Gems {
@@ -12,11 +12,11 @@ public final class Gems {
   };
 
   public static final ItemStack getItemStack(final int gem_id){
-    return new ItemStack(index[gem_id].gem);
+    return new ItemStack(index[gem_id].getGem());
   }
 
   public static final ItemStack getShard(final int gem_id){
-    return new ItemStack(index[gem_id].shard);
+    return new ItemStack(index[gem_id].getGemShard());
   }
 
 }

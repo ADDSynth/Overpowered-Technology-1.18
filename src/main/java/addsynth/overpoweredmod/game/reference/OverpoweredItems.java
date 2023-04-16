@@ -79,6 +79,6 @@ public final class OverpoweredItems {
   /** Item form of Portal, used only for Achievement icon. Does not show up in jei or creative tab.
    *  But players can still get it by using the /give command. */
   public static final Item portal_image = RegistryUtil.getItemBlock(OverpoweredBlocks.portal);
-  public static final Item bridge_image = RegistryUtil.register_ItemBlock(OverpoweredBlocks.cyan_energy_bridge);
+  public static final Item bridge_image = RegistryUtil.create_ItemBlock(OverpoweredBlocks.cyan_energy_bridge);
 
 }

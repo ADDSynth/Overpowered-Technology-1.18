@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TileGemConverter extends TileStandardWorkMachine implements MenuProvider {
 
   private byte selection;
-  private ItemStack gem_selected = new ItemStack(Material.RUBY.gem, 1);
+  private ItemStack gem_selected = new ItemStack(Material.RUBY.getGem(), 1);
   private byte converting_to;
   
   public TileGemConverter(BlockPos position, BlockState blockstate){

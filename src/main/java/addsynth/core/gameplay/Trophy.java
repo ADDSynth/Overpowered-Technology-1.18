@@ -28,7 +28,7 @@ public enum Trophy {
   private Trophy(final ResourceLocation name){
     this.trophy = new TrophyBlock();
     this.trophy.setRegistryName(name);
-    this.item_block = RegistryUtil.register_ItemBlock(this.trophy, ADDSynthCore.creative_tab, name);
+    this.item_block = RegistryUtil.create_ItemBlock(this.trophy, ADDSynthCore.creative_tab, name);
   }
 
 }

@@ -5,14 +5,14 @@ import net.minecraft.world.item.Item;
 
 public final class MaterialItem extends Item {
 
-  public MaterialItem(final String name){
+  public MaterialItem(final ResourceLocation name){
     super(new Item.Properties().tab(ADDSynthMaterials.creative_tab));
-    setRegistryName(new ResourceLocation(ADDSynthMaterials.MOD_ID, name));
+    setRegistryName(name);
   }
 
-  public MaterialItem(final Item.Properties properties, final String name){
+  public MaterialItem(final ResourceLocation name, final Item.Properties properties){
     super(properties.tab(ADDSynthMaterials.creative_tab));
-    setRegistryName(new ResourceLocation(ADDSynthMaterials.MOD_ID, name));
+    setRegistryName(name);
   }
 
 }

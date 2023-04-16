@@ -16,13 +16,13 @@ import net.minecraft.world.item.ItemStack;
 public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, ContainerGemConverter> {
 
   private static final ItemStack[] gem = new ItemStack[] {
-    new ItemStack(Material.RUBY.gem, 1),
-    new ItemStack(Material.TOPAZ.gem, 1),
-    new ItemStack(Material.CITRINE.gem, 1),
+    new ItemStack(Material.RUBY.getGem(), 1),
+    new ItemStack(Material.TOPAZ.getGem(), 1),
+    new ItemStack(Material.CITRINE.getGem(), 1),
     new ItemStack(Material.EMERALD.gem, 1),
     new ItemStack(Material.DIAMOND.gem, 1),
-    new ItemStack(Material.SAPPHIRE.gem, 1),
-    new ItemStack(Material.AMETHYST.gem, 1),
+    new ItemStack(Material.SAPPHIRE.getGem(), 1),
+    new ItemStack(Material.AMETHYST.getGem(), 1),
     new ItemStack(Material.QUARTZ.gem, 1)
   };
 

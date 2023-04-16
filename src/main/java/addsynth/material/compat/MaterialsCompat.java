@@ -5,8 +5,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 
 public final class MaterialsCompat {
 
-  public static final boolean addsynth_energy_loaded = Compatibility.ADDSYNTH_ENERGY.loaded;
-
   public static final boolean SteelModAbsent(){
     return !(
       Compatibility.IMMERSIVE_ENGINEERING.loaded ||

@@ -22,15 +22,16 @@ public final class GemConverterRecipe {
   }
   
   public static final void generate_recipes(){
+    // PRIORITY: What the hell am I doing here?
     recipes.clear();
     generate_all_gems();
-    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.RUBY.gem)));
-    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.TOPAZ.gem)));
-    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.CITRINE.gem)));
+    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.RUBY.getGem())));
+    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.TOPAZ.getGem())));
+    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.CITRINE.getGem())));
     recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.EMERALD.gem)));
     recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.DIAMOND.gem)));
-    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.SAPPHIRE.gem)));
-    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.AMETHYST.gem)));
+    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.SAPPHIRE.getGem())));
+    recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.AMETHYST.getGem())));
     recipes.add(new GemConverterRecipe(all_gems, new ItemStack(Material.QUARTZ.gem)));
   }
 

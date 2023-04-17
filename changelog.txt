@@ -3,6 +3,7 @@ NEW:
   Added JEI info for Dimensional Flux.
 FIXED:
   Minecraft 1.18 version only: Fix Titanium worldgen using platinum configuration settings.
+  Minecraft 1.18 version only: Fixed Show Ores command only counting blocks above Y level 0.
 
 
 

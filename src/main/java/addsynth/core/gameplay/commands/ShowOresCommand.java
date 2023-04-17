@@ -98,7 +98,7 @@ public final class ShowOresCommand {
       BlockState blockstate;
       Block block;
       FluidState fluid_state;
-      for(y = WorldConstants.world_height - 1; y >= 5; y--){
+      for(y = WorldConstants.world_height - 1; y >= WorldConstants.bottom_level; y--){
         for(x = x_coord - 1; x < x_coord + 17; x++){
           for(z = z_coord - 1; z < z_coord + 17; z++){
             new_position = new BlockPos(x, y, z);
@@ -148,7 +148,7 @@ public final class ShowOresCommand {
       Block block;
       String text;
       int max_text_width = 0;
-      for(y = 0; y < WorldConstants.world_height; y++){
+      for(y = WorldConstants.bottom_level; y < WorldConstants.world_height; y++){
         for(x = 0; x < full_size; x++){
           for(z = 0; z < full_size; z++){
             new_position = new BlockPos(x_coord + x, y, z_coord + z);
@@ -236,7 +236,7 @@ public final class ShowOresCommand {
       BlockPos new_position;
       BlockState blockstate;
       Block block;
-      for(y = 0; y < WorldConstants.world_height; y++){
+      for(y = WorldConstants.bottom_level; y < WorldConstants.world_height; y++){
         for(x = 0; x < full_size; x++){
           for(z = 0; z < full_size; z++){
             new_position = new BlockPos(x_coord + x, y, z_coord + z);
@@ -278,7 +278,7 @@ public final class ShowOresCommand {
       BlockPos new_position;
       BlockState blockstate;
       Block block;
-      for(y = 0; y < WorldConstants.world_height; y++){
+      for(y = WorldConstants.bottom_level; y < WorldConstants.world_height; y++){
         for(x = 0; x < full_size; x++){
           for(z = 0; z < full_size; z++){
             new_position = new BlockPos(x_coord + x, y, z_coord + z);

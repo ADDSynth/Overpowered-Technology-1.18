@@ -163,7 +163,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     final int start_x = min_x;
     final int end_x   = max_x;
     final int start_y = min_y - 1;
-    final int end_y   = Math.max(min_y - 1 - Config.energy_bridge_max_distance.get(), 0);
+    final int end_y   = Math.max(min_y - 1 - Config.energy_bridge_max_distance.get(), WorldConstants.bottom_level);
     final int start_z = min_z;
     final int end_z   = max_z;
     int distance = -1;

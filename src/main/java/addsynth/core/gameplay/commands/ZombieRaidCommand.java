@@ -9,6 +9,7 @@ import addsynth.core.util.math.CommonMath;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.core.util.time.TimeConstants;
 import addsynth.core.util.time.WorldTime;
+import addsynth.core.util.world.WorldConstants;
 import addsynth.core.util.world.WorldUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -141,6 +142,7 @@ public final class ZombieRaidCommand {
     double spawn_z;
     BlockPos block_position = position;
     int y_check;
+    int y_level;
     int round_x;
     int round_z;
     int ground_level;
@@ -162,7 +164,8 @@ public final class ZombieRaidCommand {
       round_z = (int)Math.floor(spawn_z);
       for(y_check = 0; y_check < y_level_adjust.length; y_check++){
         ground_level = WorldUtil.getTopMostFreeSpace(world, round_x, round_z);
-        block_position = new BlockPos(round_x, Math.min(Math.max(position.getY() + y_level_adjust[y_check], 0), ground_level), round_z);
+        y_level = Math.min(Math.max(position.getY() + y_level_adjust[y_check], WorldConstants.bottom_level + 1), ground_level);
+        block_position = new BlockPos(round_x, y_level, round_z);
         if(WorldUtil.isAir(world, block_position) && WorldUtil.isAir(world, block_position.offset(0, 1, 0))){
           break;
         }

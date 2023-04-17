@@ -36,7 +36,7 @@ public final class WorldUtil {
   }
 
   public static final boolean validYLevel(final int y_level){
-    return y_level >= WorldConstants.min_y_level && y_level < WorldConstants.world_height;
+    return y_level >= WorldConstants.bottom_level && y_level < WorldConstants.world_height;
   }
 
   public static final void delete_block(final Level world, final BlockPos position){

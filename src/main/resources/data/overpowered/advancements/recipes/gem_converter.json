@@ -23,13 +23,13 @@
         ]
       }
     },
-    "scanning_laser": {
+    "matter_energy_transformer": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "overpowered:scanning_laser"
+              "overpowered:matter_energy_transformer"
             ]
           }
         ]
@@ -70,7 +70,7 @@
     [
       "aluminum_plate",
       "energy_crystal_shards",
-      "scanning_laser",
+      "matter_energy_transformer",
       "circuit",
       "has_recipe",
       "has_gem_converter"

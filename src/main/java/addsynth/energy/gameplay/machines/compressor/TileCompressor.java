@@ -9,7 +9,6 @@ import addsynth.energy.lib.tiles.machines.TileStandardWorkMachine;
 import addsynth.energy.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.MenuProvider;
@@ -64,7 +63,7 @@ public final class TileCompressor extends TileStandardWorkMachine implements Men
 
   @Override
   public Component getDisplayName(){
-    return new TranslatableComponent(getBlockState().getBlock().getDescriptionId());
+    return getBlockState().getBlock().getName();
   }
 
 }

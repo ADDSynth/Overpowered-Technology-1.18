@@ -16,7 +16,6 @@ import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
@@ -156,7 +155,7 @@ public final class TileGemConverter extends TileStandardWorkMachine implements M
 
   @Override
   public Component getDisplayName(){
-    return new TranslatableComponent(getBlockState().getBlock().getDescriptionId()); // OPTIMIZE replace all these with Block.getName(), in previous versions as well.
+    return getBlockState().getBlock().getName();
   }
 
 }

@@ -4,10 +4,11 @@ import addsynth.core.ADDSynthCore;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.gameplay.client.GuiProvider;
 import addsynth.core.gameplay.reference.Names;
+import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.constants.Constants;
+import addsynth.core.util.game.MessageUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -31,10 +32,10 @@ public final class TeamManagerBlock extends Block {
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit){
     if(world.isClientSide){
       if(player.hasPermissions(PermissionLevel.COMMANDS)){
-        GuiProvider.openTeamManagerGui(this);
+        GuiProvider.openTeamManagerGui();
       }
       else{
-        player.sendMessage(new TranslatableComponent("gui.addsynthcore.team_manager.message.you_do_not_have_permission", PermissionLevel.COMMANDS), null);
+        MessageUtil.send_to_player(player, TextReference.you_dont_have_permission);
       }
     }
     return InteractionResult.SUCCESS;

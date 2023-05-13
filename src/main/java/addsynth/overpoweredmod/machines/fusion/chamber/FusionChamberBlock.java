@@ -7,9 +7,9 @@ import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,7 +34,7 @@ public final class FusionChamberBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(new TranslatableComponent("gui.overpowered.tooltip.fusion_machine"));
+    tooltip.add(TextReference.fusion_machine);
   }
 
   @Override

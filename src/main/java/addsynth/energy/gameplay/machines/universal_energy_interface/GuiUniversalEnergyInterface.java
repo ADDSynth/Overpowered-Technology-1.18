@@ -9,7 +9,6 @@ import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUniversalEnergyInterface, ContainerUniversalEnergyInterface> {
@@ -38,7 +37,7 @@ public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUnivers
 
     @Override
     public final void renderButton(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
-      setMessage(new TextComponent(tile.get_transfer_mode().toString())); // TEST check to see if we need to redesign how to get the TRANSFER_MODE string, should only return a TranslationTextComponent?
+      setMessage(tile.get_transfer_mode().title);
       super.renderButton(matrix, p_renderButton_1_, p_renderButton_2_, p_renderButton_3_);
     }
 

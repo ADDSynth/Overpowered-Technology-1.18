@@ -6,6 +6,7 @@ import addsynth.overpoweredmod.compatability.CompatabilityManager;
 import addsynth.overpoweredmod.game.core.Laser;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.OreRefineryRecipes;
 import addsynth.overpoweredmod.machines.gem_converter.GemConverterRecipe;
 import addsynth.overpoweredmod.machines.inverter.InverterRecipe;
@@ -86,12 +87,12 @@ public final class OverpoweredJEI implements IModPlugin {
 
   private static final void add_information(IRecipeRegistration registry){
     // Celestial Gem, Energy Crystal, Void Crystal
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.celestial_gem),         VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.celestial_gem"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_crystal_shards), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.energy_crystal_shards"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_crystal),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.energy_crystal"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.light_block),          VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.light_block"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.void_crystal),          VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.void_crystal"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.null_block),           VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.null_block"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.celestial_gem),         VanillaTypes.ITEM_STACK, TextReference.celestial_gem_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_crystal_shards), VanillaTypes.ITEM_STACK, TextReference.energy_crystal_shards_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_crystal),        VanillaTypes.ITEM_STACK, TextReference.energy_crystal_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.light_block),          VanillaTypes.ITEM_STACK, TextReference.light_block_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.void_crystal),          VanillaTypes.ITEM_STACK, TextReference.void_crystal_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.null_block),           VanillaTypes.ITEM_STACK, TextReference.null_block_description);
     
     // Celestial Tools
     final ArrayList<ItemStack> celestial_tools = new ArrayList<>(6);
@@ -100,7 +101,7 @@ public final class OverpoweredJEI implements IModPlugin {
     celestial_tools.add(new ItemStack(OverpoweredItems.celestial_axe));
     celestial_tools.add(new ItemStack(OverpoweredItems.celestial_pickaxe));
     celestial_tools.add(new ItemStack(OverpoweredItems.celestial_hoe));
-    registry.addIngredientInfo(celestial_tools, VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.celestial_tools"));
+    registry.addIngredientInfo(celestial_tools, VanillaTypes.ITEM_STACK, TextReference.celestial_tools_description);
 
     // Void Tools
     final ArrayList<ItemStack> void_tools = new ArrayList<>(5);
@@ -109,36 +110,36 @@ public final class OverpoweredJEI implements IModPlugin {
     void_tools.add(new ItemStack(OverpoweredItems.void_axe));
     void_tools.add(new ItemStack(OverpoweredItems.void_pickaxe));
     void_tools.add(new ItemStack(OverpoweredItems.void_hoe));
-    registry.addIngredientInfo(void_tools, VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.void_tools"));
+    registry.addIngredientInfo(void_tools, VanillaTypes.ITEM_STACK, TextReference.void_tools_description);
 
     // Beam Items
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.scanning_laser),            VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.scanning_laser"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.destructive_laser),         VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.destructive_laser"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_stabilizer),         VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.energy_stabilizer"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.heavy_light_emitter),       VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.heavy_light_emitter"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_transformer), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.matter_energy_transformer"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.scanning_laser),            VanillaTypes.ITEM_STACK, TextReference.scanning_laser_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.destructive_laser),         VanillaTypes.ITEM_STACK, TextReference.destructive_laser_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.energy_stabilizer),         VanillaTypes.ITEM_STACK, TextReference.energy_stabilizer_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.heavy_light_emitter),       VanillaTypes.ITEM_STACK, TextReference.heavy_light_emitter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_transformer), VanillaTypes.ITEM_STACK, TextReference.matter_energy_transformer_description);
 
     // Items
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.plasma),                  VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.plasma"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_converter), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.matter_energy_converter"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.vacuum_container),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.vacuum_container"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.reinforced_container),    VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.reinforced_container"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_flux),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.dimensional_flux"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.unimatter),               VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.unimatter"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_anchor),      VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.dimensional_anchor"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.plasma),                  VanillaTypes.ITEM_STACK, TextReference.plasma_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_converter), VanillaTypes.ITEM_STACK, TextReference.matter_energy_converter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.vacuum_container),        VanillaTypes.ITEM_STACK, TextReference.vacuum_container_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.reinforced_container),    VanillaTypes.ITEM_STACK, TextReference.reinforced_container_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_flux),        VanillaTypes.ITEM_STACK, TextReference.dimensional_flux_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.unimatter),               VanillaTypes.ITEM_STACK, TextReference.unimatter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_anchor),      VanillaTypes.ITEM_STACK, TextReference.dimensional_anchor_description);
 
     // Machines 1
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.crystal_energy_extractor), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.crystal_energy_extractor"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.data_cable),               VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.data_cable"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.gem_converter),            VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.gem_converter"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.inverter),                 VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.inverter"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.magic_infuser),            VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.magic_infuser"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.identifier),               VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.identifier"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.portal_control_panel),     VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.portal_control_panel"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.portal_frame),             VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.portal_frame"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.crystal_energy_extractor), VanillaTypes.ITEM_STACK, TextReference.crystal_energy_extractor_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.data_cable),               VanillaTypes.ITEM_STACK, TextReference.data_cable_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.gem_converter),            VanillaTypes.ITEM_STACK, TextReference.gem_converter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.inverter),                 VanillaTypes.ITEM_STACK, TextReference.inverter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.magic_infuser),            VanillaTypes.ITEM_STACK, TextReference.magic_infuser_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.identifier),               VanillaTypes.ITEM_STACK, TextReference.identifier_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.portal_control_panel),     VanillaTypes.ITEM_STACK, TextReference.portal_control_panel_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.portal_frame),             VanillaTypes.ITEM_STACK, TextReference.portal_frame_description);
     
     // Lasers
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.laser_housing), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.laser_housing"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.laser_housing), VanillaTypes.ITEM_STACK, TextReference.laser_housing_description);
     final ArrayList<ItemStack> lasers = new ArrayList<>(8);
     lasers.add(new ItemStack(Laser.RED.cannon));
     lasers.add(new ItemStack(Laser.ORANGE.cannon));
@@ -148,21 +149,21 @@ public final class OverpoweredJEI implements IModPlugin {
     lasers.add(new ItemStack(Laser.BLUE.cannon));
     lasers.add(new ItemStack(Laser.MAGENTA.cannon));
     lasers.add(new ItemStack(Laser.WHITE.cannon));
-    registry.addIngredientInfo(lasers, VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.laser"));
+    registry.addIngredientInfo(lasers, VanillaTypes.ITEM_STACK, TextReference.laser_description);
     
     // Machines 2
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.energy_suspension_bridge), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.energy_suspension_bridge"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.advanced_ore_refinery),    VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.advanced_ore_refinery"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.plasma_generator),         VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.plasma_generator"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.matter_compressor),        VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.matter_compressor"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.crystal_matter_generator), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.crystal_matter_generator"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.black_hole),               VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.black_hole"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.energy_suspension_bridge), VanillaTypes.ITEM_STACK, TextReference.energy_suspension_bridge_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.advanced_ore_refinery),    VanillaTypes.ITEM_STACK, TextReference.advanced_ore_refinery_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.plasma_generator),         VanillaTypes.ITEM_STACK, TextReference.plasma_generator_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.matter_compressor),        VanillaTypes.ITEM_STACK, TextReference.matter_compressor_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.crystal_matter_generator), VanillaTypes.ITEM_STACK, TextReference.crystal_matter_generator_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.black_hole),               VanillaTypes.ITEM_STACK, TextReference.black_hole_description);
     
     // Fusion Machines
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_chamber),       VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.fusion_chamber"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_control_unit),  VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.fusion_control_unit"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_control_laser), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.fusion_control_laser"));
-    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_converter),     VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.overpowered.jei_description.fusion_converter"));
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_chamber),       VanillaTypes.ITEM_STACK, TextReference.fusion_chamber_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_control_unit),  VanillaTypes.ITEM_STACK, TextReference.fusion_control_unit_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_control_laser), VanillaTypes.ITEM_STACK, TextReference.fusion_control_laser_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredBlocks.fusion_converter),     VanillaTypes.ITEM_STACK, TextReference.fusion_converter_description);
   }
 
 }

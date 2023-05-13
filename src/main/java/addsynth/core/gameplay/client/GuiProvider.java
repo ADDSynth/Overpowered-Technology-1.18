@@ -2,7 +2,6 @@ package addsynth.core.gameplay.client;
 
 import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.gui.GuiMusicBox;
-import addsynth.core.gameplay.team_manager.TeamManagerBlock;
 import addsynth.core.gameplay.team_manager.gui.TeamManagerGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -15,7 +14,7 @@ public final class GuiProvider {
   }
 
   @SuppressWarnings("resource")
-  public static final void openTeamManagerGui(final TeamManagerBlock block){
+  public static final void openTeamManagerGui(){
     Minecraft.getInstance().setScreen(new TeamManagerGui());
   }
 

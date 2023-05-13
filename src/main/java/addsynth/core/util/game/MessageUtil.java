@@ -7,6 +7,7 @@ import net.minecraft.Util;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -39,6 +40,16 @@ public final class MessageUtil {
       ADDSynthCore.log.warn("Missing translated text for: "+translation_key);
     }
     player.sendMessage(TextComponentHelper.createComponentTranslation(server, translation_key, arguments), Util.NIL_UUID);
+  }
+
+  /** Sends a SYSTEM type message to the player.<br>
+   *  It's okay to send a message from server to client, or client to client,<br>
+   *  Sending a message from client to server will ONLY translate to English. */
+  public static final void send_to_player(Player player, TranslatableComponent message){
+    // if(!(player instanceof ServerPlayer)){
+    //   ADDSynthCore.log.warn("Sending a message on the client side will only translate to English! Message: "+message.getKey());
+    // }
+    player.sendMessage(message, Util.NIL_UUID);
   }
 
   public static final void send_to_all_players(final Level world, final String translation_key, final Object ... arguments){

@@ -2,7 +2,7 @@ package addsynth.core.gameplay.compat;
 
 import addsynth.core.ADDSynthCore;
 import addsynth.core.gameplay.Core;
-import net.minecraft.network.chat.TranslatableComponent;
+import addsynth.core.gameplay.reference.TextReference;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import mezz.jei.api.IModPlugin;
@@ -26,9 +26,9 @@ public final class CoreJEIPlugin  implements IModPlugin {
   }
 
   private static final void add_information(IRecipeRegistration registry){
-    registry.addIngredientInfo(new ItemStack(Core.music_box), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.addsynthcore.jei_description.music_box"));
-    registry.addIngredientInfo(new ItemStack(Core.music_sheet), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.addsynthcore.jei_description.music_sheet"));
-    // registry.addIngredientInfo(new ItemStack(Core.team_manager), VanillaTypes.ITEM_STACK, new TranslatableComponent("gui.addsynthcore.jei_description.team_manager"));
+    registry.addIngredientInfo(new ItemStack(Core.music_box), VanillaTypes.ITEM_STACK, TextReference.music_box_description);
+    registry.addIngredientInfo(new ItemStack(Core.music_sheet), VanillaTypes.ITEM_STACK, TextReference.music_sheet_description);
+    // registry.addIngredientInfo(new ItemStack(Core.team_manager), VanillaTypes.ITEM_STACK, TextReference.team_manager_description);
   }
 
 }

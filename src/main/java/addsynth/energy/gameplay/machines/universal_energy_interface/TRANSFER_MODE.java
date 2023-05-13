@@ -1,33 +1,29 @@
 package addsynth.energy.gameplay.machines.universal_energy_interface;
 
-import addsynth.core.util.StringUtil;
+import addsynth.energy.gameplay.reference.TextReference;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public enum TRANSFER_MODE {
 
-  BI_DIRECTIONAL(true,  true,  "gui.addsynth_energy.transfer_mode.bi_directional"),
-  RECEIVE(       true,  false, "gui.addsynth_energy.transfer_mode.receive"),
-  EXTRACT(       false, true,  "gui.addsynth_energy.transfer_mode.extract"),
+  BI_DIRECTIONAL(true,  true,  TextReference.transfer_mode.bi_directional),
+  RECEIVE(       true,  false, TextReference.transfer_mode.receive),
+  EXTRACT(       false, true,  TextReference.transfer_mode.extract),
   // TODO: reimplement TRANSFER_MODE External and Internal?
-  // EXTERNAL(      true,  true,  false, "gui.addsynth_energy.transfer_mode.external"),
-  // INTERNAL(      false, false, true,  "gui.addsynth_energy.transfer_mode.internal"),
-  NO_TRANSFER(   false, false, "gui.addsynth_energy.transfer_mode.no_transfer");
+  // EXTERNAL(      true,  true,  false, TextReference.transfer_mode.external),
+  // INTERNAL(      false, false, true,  TextReference.transfer_mode.internal),
+  NO_TRANSFER(   false, false, TextReference.transfer_mode.none);
   
   /** Allow external machines to give Energy to us. */
   public final boolean canReceive;
   /** Allow external machines to extract Energy from us. */
   public final boolean canExtract;
 
-  private final String translation_key;
+  public final TranslatableComponent title;
 
-  private TRANSFER_MODE(final boolean receive, final boolean extract, final String translation_key){
+  private TRANSFER_MODE(final boolean receive, final boolean extract, final TranslatableComponent title){
     this.canReceive = receive;
     this.canExtract = extract;
-    this.translation_key = translation_key;
+    this.title = title;
   }
   
-  @Override
-  public final String toString(){
-    return StringUtil.translate(translation_key);
-  }
-
 }

@@ -1,9 +1,9 @@
 package addsynth.core.gameplay.team_manager.gui;
 
 import java.util.function.BiConsumer;
-import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
+import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.network_messages.RequestPlayerScoreMessage;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
@@ -17,7 +17,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerGui extends GuiBase {
 
@@ -107,7 +106,7 @@ public final class TeamManagerGui extends GuiBase {
   private static boolean player_score_can_be_changed;
 
   public TeamManagerGui(){
-    super(442, 326, new TranslatableComponent(Core.team_manager.getDescriptionId()), GuiReference.team_manager);
+    super(442, 326, TextReference.team_manager, GuiReference.team_manager);
     // team_selected = null;
     // player_selected = null;
     // objective_selected = null;

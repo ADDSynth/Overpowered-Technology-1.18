@@ -2,6 +2,7 @@ package addsynth.core.gameplay.team_manager.gui;
 
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
+import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.CriteriaType;
 import addsynth.core.gameplay.team_manager.data.ObjectiveDataUnit;
@@ -18,14 +19,13 @@ import addsynth.core.util.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerObjectiveGui extends GuiBase {
 
   private final boolean new_objective;
 
   public TeamManagerObjectiveGui(boolean new_objective){
-    super(473, 314, new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.gui_title"), GuiReference.edit_objective_gui);
+    super(473, 314, TextReference.objective_gui, GuiReference.edit_objective_gui);
     this.new_objective = new_objective;
   }
 

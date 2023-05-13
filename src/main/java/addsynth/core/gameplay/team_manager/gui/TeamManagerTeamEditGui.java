@@ -2,6 +2,7 @@ package addsynth.core.gameplay.team_manager.gui;
 
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
+import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.data.TeamDataUnit;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
@@ -13,7 +14,6 @@ import addsynth.core.util.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerTeamEditGui extends GuiBase {
 
@@ -41,7 +41,7 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   private TeamManagerGuiButtons.FinishButton finish_button;
 
   public TeamManagerTeamEditGui(final boolean new_team){
-    super(274, 244, new TranslatableComponent("gui.addsynthcore.team_manager.team_edit.gui_title"), GuiReference.edit_team_gui);
+    super(274, 244, TextReference.team_gui, GuiReference.edit_team_gui);
     this.new_team = new_team;
   }
 

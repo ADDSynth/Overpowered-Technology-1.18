@@ -6,11 +6,11 @@ import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.reference.Names;
+import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.energy.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +36,7 @@ public final class CircuitFabricatorBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(new TranslatableComponent("gui.addsynth_energy.tooltip.class_2_machine"));
+    tooltip.add(TextReference.class_2_machine);
   }
 
   @Override

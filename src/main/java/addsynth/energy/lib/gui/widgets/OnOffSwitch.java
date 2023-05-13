@@ -25,8 +25,8 @@ public final class OnOffSwitch<T extends BlockEntity & ISwitchableMachine> exten
   private final T tile;
   private boolean power_state;
 
-  private final TranslatableComponent  on_text = new TranslatableComponent("gui.addsynth_energy.switch.on");
-  private final TranslatableComponent off_text = new TranslatableComponent("gui.addsynth_energy.switch.off");
+  private static final TranslatableComponent  on_text = new TranslatableComponent("gui.addsynth_energy.switch.on");
+  private static final TranslatableComponent off_text = new TranslatableComponent("gui.addsynth_energy.switch.off");
   private static final TextComponent null_state = new TextComponent("[null]");
 
   /* DELETE: Old On/Off Switch constructor. Delete in 2027

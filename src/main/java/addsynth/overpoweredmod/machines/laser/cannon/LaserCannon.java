@@ -9,10 +9,10 @@ import addsynth.core.util.world.WorldUtil;
 import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.core.Laser;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -117,12 +117,7 @@ public final class LaserCannon extends Block implements SimpleWaterloggedBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    if(color == -1){
-      tooltip.add(new TranslatableComponent("gui.overpowered.tooltip.fusion_machine"));
-    }
-    else{
-      tooltip.add(new TranslatableComponent("gui.overpowered.tooltip.laser_machine"));
-    }
+    tooltip.add(color == -1 ? TextReference.fusion_machine : TextReference.laser_machine);
   }
 
   @Override

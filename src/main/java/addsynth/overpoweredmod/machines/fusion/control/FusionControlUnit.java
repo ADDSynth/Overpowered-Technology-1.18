@@ -6,10 +6,10 @@ import addsynth.core.game.RegistryUtil;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
+import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -27,7 +27,7 @@ public final class FusionControlUnit extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(new TranslatableComponent("gui.overpowered.tooltip.fusion_machine"));
+    tooltip.add(TextReference.fusion_machine);
   }
 
   @Override

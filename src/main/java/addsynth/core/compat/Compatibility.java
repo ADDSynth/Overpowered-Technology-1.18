@@ -46,6 +46,8 @@ public final class Compatibility {
            modid.equals(COFH_CORE.modid) || modid.equals(PATCHOULI.modid)       || modid.equals(CRAFTTWEAKER.modid);
   }
 
+  // TODO: Mods will soon be loaded and unloaded dynamically. This class will need to be updated to extend from an abstract class.
+
   public static final class ACTUALLY_ADDITIONS {
     public static final String name = "Actually Additions";
     public static final String modid = "actuallyadditions";

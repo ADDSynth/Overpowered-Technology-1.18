@@ -2,6 +2,7 @@ package addsynth.core;
 
 import java.io.File;
 import addsynth.core.compat.Compatibility;
+import addsynth.core.compat.EMCValue;
 import addsynth.core.config.*;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.gameplay.Core;
@@ -121,7 +122,7 @@ public final class ADDSynthCore {
 
   public static void onServerStarted(final ServerStartedEvent event){
     if(Compatibility.PROJECT_E.loaded){
-      // EMCValue.check_emc_values();
+      EMCValue.check_emc_values();
     }
   }
 

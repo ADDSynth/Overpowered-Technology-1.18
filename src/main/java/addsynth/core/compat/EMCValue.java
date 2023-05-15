@@ -4,8 +4,8 @@ import addsynth.core.ADDSynthCore;
 import addsynth.core.util.StringUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-// import moze_intel.projecte.api.ProjectEAPI;
-// import moze_intel.projecte.api.proxy.IEMCProxy;
+import moze_intel.projecte.api.ProjectEAPI;
+import moze_intel.projecte.api.proxy.IEMCProxy;
 
 /** Contains Project E vanilla EMC values reported directly from the mod.<br/>
  *  Use these when creating custom EMC values for your<br/>
@@ -67,9 +67,8 @@ public final class EMCValue {
 
   public static final long silicon = 1024; // 4x value of Nether Quartz
 
-  /*
   /** Although you can get the EMCProxy at any time, it won't have the EMC values until
-   *  after a world is loaded. Therefore, this must be called when a player enters a world. *
+   *  after a world is loaded. Therefore, this must be called when a player enters a world. */
   public static final void check_emc_values(){
     final IEMCProxy emcProxy = ProjectEAPI.getEMCProxy();
     // Metals
@@ -126,6 +125,5 @@ public final class EMCValue {
       );
     }
   }
-  */
 
 }

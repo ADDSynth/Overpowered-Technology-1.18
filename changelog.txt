@@ -7,6 +7,7 @@ CHANGES:
 FIXED:
   Fixed not showing a message to players that can't access the Team Manager because they
     don't have the required permission level.
+  Minecraft 1.18 version only: Re-enabled Project E integration.
   Minecraft 1.18 version only: Fix Titanium worldgen using platinum configuration settings.
   Minecraft 1.18 version only: Fixed Show Ores command only counting blocks above Y level 0.
 

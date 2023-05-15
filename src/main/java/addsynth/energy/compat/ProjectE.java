@@ -1,9 +1,8 @@
 package addsynth.energy.compat;
 
-/*
+import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
 import addsynth.core.config.Config;
-import addsynth.core.game.Compatability;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.EnergyItems;
 import net.minecraftforge.fml.InterModComms;
@@ -15,9 +14,9 @@ public final class ProjectE {
 
   public static final void register_emc_values(){
 
-    // final String sender = ADDSynthEnergy.MOD_ID;
-    // final String mod = Compatability.PROJECT_E.modid;
-    // final String message = IMCMethods.REGISTER_CUSTOM_EMC;
+    final String sender = ADDSynthEnergy.MOD_ID;
+    final String mod = Compatibility.PROJECT_E.modid;
+    final String message = IMCMethods.REGISTER_CUSTOM_EMC;
     
     // x1 = 900, x8 = 10000, x9 = ~12000
     // Using linear    equation: y = -400 + 1300x
@@ -67,4 +66,3 @@ public final class ProjectE {
   }
   
 }
-*/

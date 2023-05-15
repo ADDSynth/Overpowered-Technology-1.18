@@ -1,6 +1,8 @@
 package addsynth.overpoweredmod;
 
 import java.io.File;
+import addsynth.core.compat.Compatibility;
+import addsynth.core.compat.EMCValue;
 import addsynth.core.recipe.RecipeUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
@@ -123,6 +125,12 @@ public class OverpoweredTechnology {
     @SuppressWarnings("resource")
     final MinecraftServer server = event.getServer();
     OverpoweredSavedData.load(server);
+
+    if(Compatibility.PROJECT_E.loaded){
+      if(DEV_STAGE.isDevelopment){
+        EMCValue.check_items(MOD_ID);
+      }
+    }
   }
 
   private static final void client_setup(final FMLClientSetupEvent event){

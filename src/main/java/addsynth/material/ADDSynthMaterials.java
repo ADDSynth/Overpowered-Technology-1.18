@@ -3,6 +3,8 @@ package addsynth.material;
 import java.io.File;
 import java.util.stream.Stream;
 import addsynth.core.ADDSynthCore;
+import addsynth.core.compat.Compatibility;
+import addsynth.core.compat.EMCValue;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
 import addsynth.material.compat.MaterialsCompat;
@@ -11,6 +13,7 @@ import addsynth.material.worldgen.OreGenerator;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -51,6 +54,7 @@ public final class ADDSynthMaterials {
     bus.addListener(ADDSynthMaterials::main_setup);
     bus.addListener(MaterialsCompat::sendIMCMessages);
     bus.addListener(ADDSynthMaterials::process_imc_messages);
+    MinecraftForge.EVENT_BUS.addListener(ADDSynthMaterials::onServerStarted);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ADDSynthMaterials::loadBiomes);
     init_config();
   }
@@ -76,6 +80,14 @@ public final class ADDSynthMaterials {
     // log.info("Begin ADDSynthMaterials main setup...");
     CommonUtil.displayModInfo(log, MOD_NAME, "ADDSynth", VERSION, DEV_STAGE, VERSION_DATE);
     // log.info("Finished ADDSynthMaterials main setup.");
+  }
+
+  public static void onServerStarted(final ServerStartedEvent event){
+    if(Compatibility.PROJECT_E.loaded){
+      if(DEV_STAGE.isDevelopment){
+        EMCValue.check_items(MOD_ID);
+      }
+    }
   }
 
   public static final void loadBiomes(final BiomeLoadingEvent event){ // Just here temporarily

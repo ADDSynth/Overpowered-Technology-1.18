@@ -3,6 +3,8 @@ package addsynth.energy;
 import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import addsynth.core.compat.Compatibility;
+import addsynth.core.compat.EMCValue;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
@@ -24,6 +26,8 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -58,6 +62,7 @@ public class ADDSynthEnergy {
     bus.addListener(ADDSynthEnergy::main_setup);
     bus.addListener(ADDSynthEnergyCompat::sendIMCMessages);
     bus.addListener(ADDSynthEnergy::client_setup);
+    MinecraftForge.EVENT_BUS.addListener(ADDSynthEnergy::onServerStarted);
     init_config();
   }
 
@@ -75,6 +80,14 @@ public class ADDSynthEnergy {
     NetworkHandler.registerMessages();
     CompressorRecipes.INSTANCE.registerResponders();
     CircuitFabricatorRecipes.INSTANCE.registerResponders();
+  }
+
+  public static void onServerStarted(final ServerStartedEvent event){
+    if(Compatibility.PROJECT_E.loaded){
+      if(DEV_STAGE.isDevelopment){
+        EMCValue.check_items(MOD_ID);
+      }
+    }
   }
 
   private static final void client_setup(final FMLClientSetupEvent event){

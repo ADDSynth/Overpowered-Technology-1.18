@@ -1,9 +1,12 @@
 package addsynth.core.compat;
 
+import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.StringUtil;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.api.proxy.IEMCProxy;
 
@@ -69,7 +72,7 @@ public final class EMCValue {
 
   /** Although you can get the EMCProxy at any time, it won't have the EMC values until
    *  after a world is loaded. Therefore, this must be called when a player enters a world. */
-  public static final void check_emc_values(){
+  public static final void check_internal_emc_values(){
     final IEMCProxy emcProxy = ProjectEAPI.getEMCProxy();
     // Metals
     checkEMC(emcProxy, Items.IRON_INGOT, common_metal);
@@ -123,6 +126,24 @@ public final class EMCValue {
           " If this was intentionally modified by a player or modpack then you can ignore this."
         )
       );
+    }
+  }
+
+  /** Although you can get the EMCProxy at any time, it won't have the EMC values until
+   *  after a world is loaded. Therefore, this must be called when a player enters a world. */
+  public static final void check_items(@Nonnull final String mod_id){
+    final IEMCProxy emcProxy = ProjectEAPI.getEMCProxy();
+    
+    ResourceLocation name;
+    for(Item item : ForgeRegistries.ITEMS){
+      name = item.getRegistryName();
+      if(name != null){
+        if(name.getNamespace().equals(mod_id)){
+          if(!emcProxy.hasValue(item)){
+            ADDSynthCore.log.warn("Item "+name.toString()+" does not have an EMC value assigned to it.");
+          }
+        }
+      }
     }
   }
 

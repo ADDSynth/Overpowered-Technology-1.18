@@ -122,7 +122,10 @@ public final class ADDSynthCore {
 
   public static void onServerStarted(final ServerStartedEvent event){
     if(Compatibility.PROJECT_E.loaded){
-      EMCValue.check_emc_values();
+      EMCValue.check_internal_emc_values();
+      if(DEV_STAGE.isDevelopment){
+        EMCValue.check_items(MOD_ID);
+      }
     }
   }
 

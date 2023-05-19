@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import addsynth.core.game.inventory.IInputInventory;
 import addsynth.core.game.inventory.InputInventory;
 import addsynth.core.game.inventory.InventoryUtil;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,30 +30,25 @@ public abstract class TileStandardGenerator extends TileAbstractGenerator implem
 
   @Override
   public void serverTick(){
-    try{
-      // standard generator behaviour
-      if(energy.isEmpty()){
-        if(input_inventory.isEmpty() == false){
-          setGeneratorData();
-          changed = true;
-        }
-      }
-      // TODO: To enable the Generator to use energy every tick:
-      // Multiple energy networks could extract Energy from the Generator during a tick,
-      // Either before or after this is ticked. Therefore, we can only remove any remaining
-      // energy after all TileEntities have been ticked, such as a PostServerTick or something.
-      // This is also better suited to handle the Energy.updateEnergyIO task as well, instead
-      // of inside the saveToNBT function.
-      if(energy.tick()){
+    // standard generator behaviour
+    if(energy.isEmpty()){
+      if(input_inventory.isEmpty() == false){
+        setGeneratorData();
         changed = true;
       }
-      if(changed){
-        update_data();
-        changed = false;
-      }
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    // TODO: To enable the Generator to use energy every tick:
+    // Multiple energy networks could extract Energy from the Generator during a tick,
+    // Either before or after this is ticked. Therefore, we can only remove any remaining
+    // energy after all TileEntities have been ticked, such as a PostServerTick or something.
+    // This is also better suited to handle the Energy.updateEnergyIO task as well, instead
+    // of inside the saveToNBT function.
+    if(energy.tick()){
+      changed = true;
+    }
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

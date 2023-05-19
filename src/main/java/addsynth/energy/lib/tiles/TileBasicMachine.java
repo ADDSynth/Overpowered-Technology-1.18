@@ -6,7 +6,6 @@ import addsynth.core.game.inventory.IInputInventory;
 import addsynth.core.game.inventory.InputInventory;
 import addsynth.core.game.inventory.InventoryUtil;
 import addsynth.core.game.inventory.SlotData;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.main.Receiver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,17 +41,12 @@ public abstract class TileBasicMachine extends TileAbstractMachine implements II
 
   @Override
   public void serverTick(){
-    try{
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        update_data();
-        changed = false;
-      }
+    if(energy.tick()){
+      changed = true;
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

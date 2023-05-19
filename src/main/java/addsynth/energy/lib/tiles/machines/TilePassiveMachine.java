@@ -1,6 +1,5 @@
 package addsynth.energy.lib.tiles.machines;
 
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.config.MachineData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,18 +20,13 @@ public abstract class TilePassiveMachine extends TileSwitchableMachine {
 
   @Override
   public void serverTick(){
-    try{
-      machine_tick();
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        update_data();
-        changed = false;
-      }
+    machine_tick();
+    if(energy.tick()){
+      changed = true;
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

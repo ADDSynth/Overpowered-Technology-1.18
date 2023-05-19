@@ -34,25 +34,34 @@ public class TileEntityUtil {
    */
   public static final <T extends BlockEntity & ITickingTileEntity> void tick(Level world, BlockPos position, BlockState state, T tile){
     if(tile != null){
-      tile.serverTick();
+      try{
+        tile.serverTick();
+      }
+      catch(Exception e){
+        report_ticking_error(world, position, tile, e);
+      }
     }
   }
 
   public static final <T extends BlockEntity & IClientTick> void clientTick(Level world, BlockPos position, BlockState state, T tile){
     if(tile != null){
-      tile.clientTick();
+      try{
+        tile.clientTick();
+      }
+      catch(Exception e){
+        report_ticking_error(world, position, tile, e);
+      }
     }
   }
 
-  public static final void report_ticking_error(@Nonnull final BlockEntity tile, final Throwable e){
-    @SuppressWarnings("resource")
-    final Level level = tile.getLevel();
-    final BlockPos position = tile.getBlockPos();
+  private static final void report_ticking_error(final Level level, final BlockPos position, @Nonnull final BlockEntity tile, final Throwable e){
+    // @SuppressWarnings("resource")
+    // final Level level = tile.getLevel();
+    // final BlockPos position = tile.getBlockPos();
     final String class_name = tile.getClass().getSimpleName();
     
-    ADDSynthCore.log.fatal(
-      "Encountered an error while ticking TileEntity: "+class_name+", at position: "+position+". "+
-      "Please report this to the developer.", e);
+    ADDSynthCore.log.error(
+      "Encountered an error while ticking TileEntity: "+class_name+", at position: "+position+". Please report this to the developer.", e);
 
     WorldUtil.delete_block(level, position);
 
@@ -62,6 +71,8 @@ public class TileEntityUtil {
     message.setStyle(Style.EMPTY.withColor(ChatFormatting.RED));
     MessageUtil.send_to_all_players_in_world(level, message);
   }
+
+
 
   /** Call this in the {@link Block#setPlacedBy} method to set the TileEntity's
    *  {@link TileAbstractBase#owner owner} field. This function automatically handles everything. */

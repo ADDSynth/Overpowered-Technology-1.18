@@ -2,7 +2,6 @@ package addsynth.energy.lib.tiles.energy;
 
 import addsynth.core.game.tiles.TileBase;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.main.Generator;
 import addsynth.energy.lib.main.IEnergyGenerator;
 import net.minecraft.core.BlockPos;
@@ -23,21 +22,16 @@ public abstract class TileAbstractGenerator extends TileBase implements IEnergyG
 
   @Override
   public void serverTick(){
-    try{
-      if(energy.isEmpty()){
-        setGeneratorData();
-        changed = true;
-      }
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        update_data();
-        changed = false;
-      }
+    if(energy.isEmpty()){
+      setGeneratorData();
+      changed = true;
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    if(energy.tick()){
+      changed = true;
+    }
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

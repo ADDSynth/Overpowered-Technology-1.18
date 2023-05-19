@@ -2,7 +2,6 @@ package addsynth.energy.gameplay.machines.universal_energy_interface;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.core.util.java.ArrayUtil;
 import addsynth.energy.compat.energy.EnergyCompat;
 import addsynth.energy.compat.energy.forge.ForgeEnergyIntermediary;
@@ -52,27 +51,22 @@ public final class TileUniversalEnergyInterface extends BasicEnergyNetworkTile
 
   @Override
   public final void serverTick(){
-    try{
-      super.serverTick(); // handles Energy Network stuff
-      final EnergyCompat.CompatEnergyNode[] energy_nodes = EnergyCompat.getConnectedEnergy(worldPosition, level);
-      if(energy_nodes.length > 0){
-        if(transfer_mode.canReceive){
-          EnergyCompat.acceptEnergy(energy_nodes, energy);
-        }
-        if(transfer_mode.canExtract){
-          EnergyCompat.transmitEnergy(energy_nodes, energy);
-        }
+    super.serverTick(); // handles Energy Network stuff
+    final EnergyCompat.CompatEnergyNode[] energy_nodes = EnergyCompat.getConnectedEnergy(worldPosition, level);
+    if(energy_nodes.length > 0){
+      if(transfer_mode.canReceive){
+        EnergyCompat.acceptEnergy(energy_nodes, energy);
       }
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        update_data();
-        changed = false;
+      if(transfer_mode.canExtract){
+        EnergyCompat.transmitEnergy(energy_nodes, energy);
       }
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    if(energy.tick()){
+      changed = true;
+    }
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

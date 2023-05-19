@@ -5,7 +5,6 @@ import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.tiles.TileBase;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.main.Energy;
 import addsynth.energy.lib.main.IEnergyConsumer;
 import addsynth.energy.lib.main.Receiver;
@@ -43,15 +42,10 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
 
   @Override
   public final void serverTick(){
-    try{
-      if(network == null){
-        BlockNetworkUtil.create_or_join(level, this, LaserNetwork::new);
-      }
-      network.tick(this);
+    if(network == null){
+      BlockNetworkUtil.create_or_join(level, this, LaserNetwork::new);
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
-    }
+    network.tick(this);
   }
 
   @Override

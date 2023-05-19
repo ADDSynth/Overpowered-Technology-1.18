@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import addsynth.core.game.inventory.*;
 import addsynth.core.game.inventory.machine.IMachineInventory;
 import addsynth.core.game.inventory.machine.MachineInventory;
-import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.config.MachineData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,21 +43,16 @@ public abstract class TileStandardWorkMachine extends TileSwitchableMachine
 
   @Override
   public final void serverTick(){
-    try{
-      machine_tick();
-      if(inventory.tick()){
-        changed = true;
-      }
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        update_data();
-        changed = false;
-      }
+    machine_tick();
+    if(inventory.tick()){
+      changed = true;
     }
-    catch(Exception e){
-      TileEntityUtil.report_ticking_error(this, e);
+    if(energy.tick()){
+      changed = true;
+    }
+    if(changed){
+      update_data();
+      changed = false;
     }
   }
 

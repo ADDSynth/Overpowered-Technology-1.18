@@ -4,6 +4,7 @@ import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.machines.gem_converter.CycleGemConverterMessage;
 import addsynth.overpoweredmod.machines.laser.network_messages.LaserClientSyncMessage;
 import addsynth.overpoweredmod.machines.laser.network_messages.SetLaserDistanceMessage;
+import addsynth.overpoweredmod.machines.plasma_generator.SetOutputThresholdMessage;
 import addsynth.overpoweredmod.machines.portal.control_panel.GeneratePortalMessage;
 import addsynth.overpoweredmod.machines.portal.control_panel.SyncPortalDataMessage;
 import addsynth.overpoweredmod.machines.suspension_bridge.RotateBridgeMessage;
@@ -66,6 +67,13 @@ public final class NetworkHandler {
       RotateBridgeMessage::encode,
       RotateBridgeMessage::decode,
       RotateBridgeMessage::handle
+    );
+    
+    INSTANCE.registerMessage(8,
+      SetOutputThresholdMessage.class,
+      SetOutputThresholdMessage::encode,
+      SetOutputThresholdMessage::decode,
+      SetOutputThresholdMessage::handle
     );
   }
 

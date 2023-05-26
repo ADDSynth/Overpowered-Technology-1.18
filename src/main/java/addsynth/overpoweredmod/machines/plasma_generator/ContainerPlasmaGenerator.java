@@ -19,8 +19,8 @@ public final class ContainerPlasmaGenerator extends TileEntityContainer<TilePlas
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory, 11, 94);
-    addSlot(new OutputSlot(tile, 0, 83, 50));
+    make_player_inventory(player_inventory, 11, 114);
+    addSlot(new OutputSlot(tile, 0, 83, 70));
   }
 
 }

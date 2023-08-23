@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public final class ContainerSuspensionBridge extends TileEntityContainer<TileSuspensionBridge> {
 
-  public static final int lens_slot_x = 53;
+  public static final int lens_slot_x = 148;
 
   public ContainerSuspensionBridge(final int id, final Inventory player_inventory, final TileSuspensionBridge tile){
     super(Containers.ENERGY_SUSPENSION_BRIDGE, id, player_inventory, tile);
@@ -21,7 +21,7 @@ public final class ContainerSuspensionBridge extends TileEntityContainer<TileSus
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory, 23, 85);
+    make_player_inventory(player_inventory, 76, 103);
     addSlot(new InputSlot(tile, 0, TileSuspensionBridge.filter, 1, lens_slot_x, 20));
   }
 

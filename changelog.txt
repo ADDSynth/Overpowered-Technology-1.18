@@ -2,15 +2,21 @@ v1.5.1 - TBD
 NEW:
   Added JEI info for Dimensional Flux.
   Added an Auto Shutoff feature to the Plasma Generator.
+  Energy Suspension Bridge lengths are now shown in the gui.
 CHANGES:
   Explicitly unlock the recipes for Matter/Energy Converter and Plasma Generator when you
     pick up an Energy Crystal.
 FIXED:
   Fixed not showing a message to players that can't access the Team Manager because they
     don't have the required permission level.
+  Energy Suspension Bridge lengths are now saved with the world. If players change the
+    maximum length in the config and load a world with an Energy Suspension Bridge already
+    active, it will check if the new maximum length is shorter and shut itself off.
   Minecraft 1.18 version only: Re-enabled Project E integration.
   Minecraft 1.18 version only: Fix Titanium worldgen using platinum configuration settings.
   Minecraft 1.18 version only: Fixed Show Ores command only counting blocks above Y level 0.
+KNOWN PROBLEMS:
+  If an Energy Suspension Bridge 1 block wide is destroyed, the energy bridge will not disappear.
 
 
 

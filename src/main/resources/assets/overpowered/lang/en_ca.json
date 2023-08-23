@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Singularity Event§r detected at coordinates: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Lens",
 "gui.overpowered.energy_suspension_bridge.rotate": "Rotate",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Error",
 "gui.overpowered.bridge_message.invalid": "Invalid",
 "gui.overpowered.bridge_message.invalid_shape": "Invalid Shape",

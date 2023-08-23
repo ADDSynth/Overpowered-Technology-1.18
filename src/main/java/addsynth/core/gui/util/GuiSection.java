@@ -2,10 +2,9 @@ package addsynth.core.gui.util;
 
 import addsynth.core.util.StringUtil;
 
-/** Used to define sections on a Gui to assist in positioning widgets.
- *  You must add <code>guiLeft</code> and <code>guiTop</code> to the
- *  dimensions, or extend from an existing GuiSection that already has
- *  those added.
+/** Used to define sections on a Gui to assist in positioning widgets and text.<br>
+ *  If you're positioning widgets, you must add <code>guiLeft</code> and <code>guiTop</code> to the<br>
+ *  dimensions, or extend from an existing GuiSection that already has those added.
  * @author ADDSynth
  */
 public final class GuiSection {

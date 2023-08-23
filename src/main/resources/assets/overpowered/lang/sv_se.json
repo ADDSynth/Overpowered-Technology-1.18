@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Singularitets händelse§r detekteras vid koordinater: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Lins",
 "gui.overpowered.energy_suspension_bridge.rotate": "Rotera",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Fel",
 "gui.overpowered.bridge_message.invalid": "Ogiltig",
 "gui.overpowered.bridge_message.invalid_shape": "Ogiltig form",

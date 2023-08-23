@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5ஒருமை நிகழ்வு§r ஆயக்கட்டுகளில் கண்டறியப்பட்டது: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "லென்ஸ்",
 "gui.overpowered.energy_suspension_bridge.rotate": "சுழற்று",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "பிழை",
 "gui.overpowered.bridge_message.invalid": "தவறானது",
 "gui.overpowered.bridge_message.invalid_shape": "தவறான வடிவம்",

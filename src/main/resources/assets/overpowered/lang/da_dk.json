@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Singularitets begivenhed§r blev påvist ved koordinater: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Linse",
 "gui.overpowered.energy_suspension_bridge.rotate": "Rotere",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Fejl",
 "gui.overpowered.bridge_message.invalid": "Ugyldigt",
 "gui.overpowered.bridge_message.invalid_shape": "Ugyldig form",

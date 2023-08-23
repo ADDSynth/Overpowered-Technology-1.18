@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Mimoriadna udalosť§r bola zistená na súradniciach: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "šošovka",
 "gui.overpowered.energy_suspension_bridge.rotate": "Točiť sa",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Chyba",
 "gui.overpowered.bridge_message.invalid": "neplatný",
 "gui.overpowered.bridge_message.invalid_shape": "Neplatný tvar",

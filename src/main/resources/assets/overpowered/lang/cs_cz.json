@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Událost singularita§r byla detekována na souřadnicích: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Objektiv",
 "gui.overpowered.energy_suspension_bridge.rotate": "Točit se",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Chyba",
 "gui.overpowered.bridge_message.invalid": "Neplatný",
 "gui.overpowered.bridge_message.invalid_shape": "Neplatný tvar",

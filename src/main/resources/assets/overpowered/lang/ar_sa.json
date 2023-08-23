@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "تم الكشف عن حدث التفرد في الإحداثيات: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "عدسة",
 "gui.overpowered.energy_suspension_bridge.rotate": "استدارة",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "خطأ",
 "gui.overpowered.bridge_message.invalid": "غير صالحة",
 "gui.overpowered.bridge_message.invalid_shape": "شكل غير صالح",

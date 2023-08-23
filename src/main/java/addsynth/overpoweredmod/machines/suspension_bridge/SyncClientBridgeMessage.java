@@ -14,16 +14,32 @@ public final class SyncClientBridgeMessage {
 
   private final BlockPos[] positions;
   private BridgeMessage bridge_message;
-  private BridgeMessage[] messages;
+  private final BridgeMessage[] messages = new BridgeMessage[6];
+
+  public SyncClientBridgeMessage(final BlockPos[] positions, final BridgeMessage bridge_message, final BridgeData[] bridge_data){
+    this.positions = positions;
+    this.bridge_message = bridge_message;
+    messages[0] = bridge_data[0].message;
+    messages[1] = bridge_data[1].message;
+    messages[2] = bridge_data[2].message;
+    messages[3] = bridge_data[3].message;
+    messages[4] = bridge_data[4].message;
+    messages[5] = bridge_data[5].message;
+  }
+
+  public SyncClientBridgeMessage(final List<BlockPos> positions, final BridgeMessage bridge_message, final BridgeData[] bridge_data){
+    this(positions.toArray(new BlockPos[positions.size()]), bridge_message, bridge_data);
+  }
 
   public SyncClientBridgeMessage(final BlockPos[] positions, final BridgeMessage bridge_message, final BridgeMessage[] messages){
     this.positions = positions;
     this.bridge_message = bridge_message;
-    this.messages = messages;
-  }
-
-  public SyncClientBridgeMessage(final List<BlockPos> positions, final BridgeMessage bridge_message, final BridgeMessage[] messages){
-    this(positions.toArray(new BlockPos[positions.size()]), bridge_message, messages);
+    this.messages[0] = messages[0];
+    this.messages[1] = messages[1];
+    this.messages[2] = messages[2];
+    this.messages[3] = messages[3];
+    this.messages[4] = messages[4];
+    this.messages[5] = messages[5];
   }
 
   public static final void encode(final SyncClientBridgeMessage message, final FriendlyByteBuf buf){

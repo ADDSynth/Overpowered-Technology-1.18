@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Εκδήλωση μοναδικότητας§r εντοπίστηκε στις συντεταγμένες: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Φακός",
 "gui.overpowered.energy_suspension_bridge.rotate": "Γυρίζω",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Λάθος",
 "gui.overpowered.bridge_message.invalid": "Μη έγκυρο",
 "gui.overpowered.bridge_message.invalid_shape": "Μη έγκυρο σχήμα",

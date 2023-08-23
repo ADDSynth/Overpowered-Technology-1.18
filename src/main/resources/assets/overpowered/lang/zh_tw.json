@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5奇異事件§r 在坐標處檢測到: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "鏡片",
 "gui.overpowered.energy_suspension_bridge.rotate": "旋轉",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "錯誤",
 "gui.overpowered.bridge_message.invalid": "無效",
 "gui.overpowered.bridge_message.invalid_shape": "無效的形狀",

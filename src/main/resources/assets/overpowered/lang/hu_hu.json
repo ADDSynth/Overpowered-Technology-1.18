@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Szingularitás esemény§r a koordinátákon észlelt: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Lencse",
 "gui.overpowered.energy_suspension_bridge.rotate": "Forog",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "Hiba",
 "gui.overpowered.bridge_message.invalid": "Érvénytelen",
 "gui.overpowered.bridge_message.invalid_shape": "Érvénytelen alak",

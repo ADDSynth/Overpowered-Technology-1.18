@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5特異点イベント§r が検出されました: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "レンズ",
 "gui.overpowered.energy_suspension_bridge.rotate": "回転",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "エラー",
 "gui.overpowered.bridge_message.invalid": "無効",
 "gui.overpowered.bridge_message.invalid_shape": "無効な形状",

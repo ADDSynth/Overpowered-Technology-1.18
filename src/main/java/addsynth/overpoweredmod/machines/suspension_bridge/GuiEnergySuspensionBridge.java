@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.machines.suspension_bridge;
 
+import addsynth.core.gui.util.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.core.util.StringUtil;
@@ -21,20 +22,35 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
   private final String south = StringUtil.translate("gui.addsynthcore.direction.south");
   private final String west  = StringUtil.translate("gui.addsynthcore.direction.west");
   private final String east  = StringUtil.translate("gui.addsynthcore.direction.east");
+  private final String length = StringUtil.translate("gui.overpowered.energy_suspension_bridge.length");
 
-  private static final int gui_width = 206;
+  private static final int gui_width = 312;
 
-  private static final int lens_text_x = (6 + ContainerSuspensionBridge.lens_slot_x) / 2;
+  private static final int lens_text_x = ContainerSuspensionBridge.lens_slot_x - 10;
   private static final int lens_text_y = 24;
-  private final int[] text_x = {
-                   6,                6 + GuiUtil.getMaxStringWidth(north+": ", south+": ", west+": "),
-    guiUtil.center_x, guiUtil.center_x + GuiUtil.getMaxStringWidth(up+": ", down+": ", east+": ")
+  
+  // vertical space: 8
+  // horizontal space: 3
+  // section width: 98
+  // first y = lens_text_y + 16
+  private static final GuiSection    up_section = GuiSection.dimensions(  6, 41, 98, 19);
+  private static final GuiSection north_section = GuiSection.dimensions(107, 41, 98, 19);
+  private static final GuiSection  down_section = GuiSection.dimensions(208, 41, 98, 19);
+  private static final GuiSection  west_section = GuiSection.dimensions(  6, 68, 98, 19);
+  private static final GuiSection south_section = GuiSection.dimensions(107, 68, 98, 19);
+  private static final GuiSection  east_section = GuiSection.dimensions(208, 68, 98, 19);
+  
+  private final int[] message_x = {
+       up_section.horizontal_center + GuiUtil.getMaxStringWidth( west+":",    up+":") / 2,
+    north_section.horizontal_center + GuiUtil.getMaxStringWidth(south+":", north+":") / 2,
+     down_section.horizontal_center + GuiUtil.getMaxStringWidth( east+":",  down+":") / 2
   };
-  private static final int[] text_y = {lens_text_y + 16, lens_text_y + 27, lens_text_y + 38};
 
   private static final int button_width = 50;
   private static final int button_x = gui_width - 6 - button_width;
   private static final int button_y = 17;
+
+  private RotateButton rotate_button;
 
   private static final class RotateButton extends AdjustableButton {
 
@@ -53,32 +69,56 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
   }
 
   public GuiEnergySuspensionBridge(final ContainerSuspensionBridge container, final Inventory inventory, final Component title){
-    super(gui_width, 167, container, inventory, title, GuiReference.energy_suspension_bridge);
+    super(gui_width, 185, container, inventory, title, GuiReference.energy_suspension_bridge);
   }
 
   @Override
   public final void init(){
     super.init();
-    addRenderableWidget(new RotateButton(this.leftPos + button_x, this.topPos + button_y, tile));
+    rotate_button = new RotateButton(this.leftPos + button_x, this.topPos + button_y, tile);
+    addRenderableWidget(rotate_button);
+  }
+
+  @Override
+  protected final void containerTick(){
+    rotate_button.active = tile.can_rotate();
+  }
+
+  @Override
+  protected void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
+    guiUtil.draw_custom_background_texture(matrix, 384, 256);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
     guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_center(matrix, lens_string+":", lens_text_x, lens_text_y);
-    GuiUtil.draw_text_left(matrix, north+":", text_x[0], text_y[0]);
-    GuiUtil.draw_text_left(matrix, south+":", text_x[0], text_y[1]);
-    GuiUtil.draw_text_left(matrix, west+":",  text_x[0], text_y[2]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.NORTH), text_x[1], text_y[0]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.SOUTH), text_x[1], text_y[1]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.WEST),  text_x[1], text_y[2]);
-    GuiUtil.draw_text_left(matrix, up+":",   text_x[2], text_y[0]);
-    GuiUtil.draw_text_left(matrix, down+":", text_x[2], text_y[1]);
-    GuiUtil.draw_text_left(matrix, east+":", text_x[2], text_y[2]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.UP),    text_x[3], text_y[0]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.DOWN),  text_x[3], text_y[1]);
-    GuiUtil.draw_text_left(matrix, tile.getMessage(DirectionConstant.EAST),  text_x[3], text_y[2]);
-    guiUtil.draw_text_center(matrix, tile.getBridgeMessage(), 73);
+    GuiUtil.draw_text_right(matrix, lens_string+":", lens_text_x, lens_text_y);
+
+    GuiUtil.draw_text_left(matrix, up+":",       up_section.x,    up_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.UP),    message_x[0],    up_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.UP), up_section.horizontal_center, up_section.y + 11);
+
+    GuiUtil.draw_text_left(matrix, west+":",   west_section.x,  west_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.WEST),  message_x[0],  west_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.WEST), west_section.horizontal_center, west_section.y + 11);
+
+    GuiUtil.draw_text_left(matrix, north+":", north_section.x, north_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.NORTH), message_x[1], north_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.NORTH), north_section.horizontal_center, north_section.y + 11);
+
+    GuiUtil.draw_text_left(matrix, south+":", south_section.x, south_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.SOUTH), message_x[1], south_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.SOUTH), south_section.horizontal_center, south_section.y + 11);
+
+    GuiUtil.draw_text_left(matrix, down+":",   down_section.x,  down_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.DOWN),  message_x[2],  down_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.DOWN), down_section.horizontal_center, down_section.y + 11);
+
+    GuiUtil.draw_text_left(matrix, east+":",   east_section.x,  east_section.y);
+    GuiUtil.draw_text_center(matrix, tile.getMessage(DirectionConstant.EAST),  message_x[2],  east_section.y);
+    GuiUtil.draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.EAST), east_section.horizontal_center, east_section.y + 11);
+
+    guiUtil.draw_text_center(matrix, tile.getBridgeMessage(), 91);
   }
 
 }

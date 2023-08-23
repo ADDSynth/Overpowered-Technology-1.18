@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5특이점 이벤트§r 좌표에서 감지: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "렌즈",
 "gui.overpowered.energy_suspension_bridge.rotate": "회전",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "오류",
 "gui.overpowered.bridge_message.invalid": "무효",
 "gui.overpowered.bridge_message.invalid_shape": "잘못된 모양",

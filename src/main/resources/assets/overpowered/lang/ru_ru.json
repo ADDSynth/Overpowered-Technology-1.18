@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Событие Сингулярности§r обнаружен в координатах: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "объектив",
 "gui.overpowered.energy_suspension_bridge.rotate": "Поворот",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "ошибка",
 "gui.overpowered.bridge_message.invalid": "Недействительным",
 "gui.overpowered.bridge_message.invalid_shape": "Неверная форма",

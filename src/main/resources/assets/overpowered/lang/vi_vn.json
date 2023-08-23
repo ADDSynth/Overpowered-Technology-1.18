@@ -132,6 +132,8 @@
 "gui.overpowered.black_hole.notify_players": "§5Điểm kỳ dị§r được phát hiện tại tọa độ: %s , %s , %s",
 "gui.overpowered.energy_suspension_bridge.lens": "Ống kính",
 "gui.overpowered.energy_suspension_bridge.rotate": "Quay",
+"gui.overpowered.energy_suspension_bridge.length": "Length",
+"gui.overpowered.energy_suspension_bridge.area": "Area",
 "gui.overpowered.bridge_message.checking": "lỗi",
 "gui.overpowered.bridge_message.invalid": "không hợp lệ",
 "gui.overpowered.bridge_message.invalid_shape": "Hình dạng không hợp lệ",

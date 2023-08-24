@@ -30,7 +30,7 @@ public abstract class BasicEnergyNetworkTile extends AbstractEnergyNetworkTile {
   @Override
   public final void setRemoved(){
     super.setRemoved();
-    BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
+    // BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
   }
 
   @Override

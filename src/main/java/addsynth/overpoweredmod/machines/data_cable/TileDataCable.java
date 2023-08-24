@@ -27,7 +27,7 @@ public final class TileDataCable extends TileBase implements IBlockNetworkUser<D
   @Override
   public final void setRemoved(){
     super.setRemoved();
-    BlockNetworkUtil.tileentity_was_removed(this, DataCableNetwork::new);
+    // BlockNetworkUtil.tileentity_was_removed(this, DataCableNetwork::new);
   }
 
   @Override

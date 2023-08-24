@@ -51,7 +51,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
   @Override
   public final void setRemoved(){
     super.setRemoved();
-    BlockNetworkUtil.tileentity_was_removed(this, LaserNetwork::new);
+    // BlockNetworkUtil.tileentity_was_removed(this, LaserNetwork::new);
   }
 
   @Override

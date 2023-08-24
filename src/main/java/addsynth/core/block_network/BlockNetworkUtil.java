@@ -88,6 +88,7 @@ public final class BlockNetworkUtil {
    * @param destroyed_tile
    * @param constructor
    * @deprecated The BlockNetwork should have its own <code>is_tileEntity_valid</code> function, to add TileEntities to a BlockNetwork. It should also have its own <code>remove_tileEntity</code> function, select a new <code>first_tile</code> from the list, and any TileEntities whose BlockPositions are no longer in the list of tiles, should create a new BlockNetwork.
+   *   Important: In the Minecraft 1.18 version, We cannot use the TileEntity's setRemoved() function. Instead we should listen for and respond to vanilla BLOCK_DESTROYED GameEvent.
    */
   @Deprecated
   @SuppressWarnings({ "unchecked", "resource", "null" })

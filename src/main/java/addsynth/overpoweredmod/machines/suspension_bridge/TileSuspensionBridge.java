@@ -87,7 +87,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public void setRemoved(){
     super.setRemoved();
-    BlockNetworkUtil.tileentity_was_removed(this, BridgeNetwork::new);
+    // BlockNetworkUtil.tileentity_was_removed(this, BridgeNetwork::new);
   }
 
   @Override

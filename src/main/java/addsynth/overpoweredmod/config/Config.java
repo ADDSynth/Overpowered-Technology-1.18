@@ -53,6 +53,8 @@ public final class Config {
   private static final int DEFAULT_MAX_REQUIRED_MATTER = 64_000;
   public static ForgeConfigSpec.IntValue max_matter;
 
+  public static ForgeConfigSpec.BooleanValue teleport_to_unknown_dimension;
+
   public static ForgeConfigSpec.BooleanValue rings_have_particle_effects;
 
   public static ForgeConfigSpec.BooleanValue show_advanced_config;
@@ -134,6 +136,13 @@ public final class Config {
     builder.push("Matter Compressor");
     max_matter = builder.comment("How many items are required to create 1 Unimatter in the Matter Compressor?")
                         .defineInRange("Matter Required", DEFAULT_MAX_REQUIRED_MATTER, 1, 1_280_000);
+    builder.pop();
+
+    builder.push("Portal");
+    teleport_to_unknown_dimension = builder.comment(
+      "If this is disabled, Portals will not transport you to the Unknown Dimension.\n"+
+      "Instead the Portal will just spawn a Void Crystal inside the Portal frame.")
+                                        .define("Allow Players to Enter the Unknown Dimension", true);
     builder.pop();
 
     builder.push("Other");

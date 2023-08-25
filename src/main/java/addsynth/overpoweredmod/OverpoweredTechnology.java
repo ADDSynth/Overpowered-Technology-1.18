@@ -42,7 +42,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -61,8 +60,6 @@ public class OverpoweredTechnology {
     
   public static final Logger log = LogManager.getLogger(MOD_NAME);
 
-  private static boolean config_loaded;
-
   public OverpoweredTechnology(){
     OverpoweredTechnology.log.info("Begin constructing "+OverpoweredTechnology.class.getSimpleName()+" class object...");
     final FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
@@ -75,27 +72,12 @@ public class OverpoweredTechnology {
     OverpoweredTechnology.log.info("Done constructing "+OverpoweredTechnology.class.getSimpleName()+" class object.");
   }
 
-  public static final void init_config(){
-    if(config_loaded == false){
-      OverpoweredTechnology.log.info("Loading Configuration files...");
-  
-      new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
-
-      final ModLoadingContext context = ModLoadingContext.get();
-      // MAYBE: the two ways to get the mod context can probably be combined/merged, but I don't want to think about that right now.
-      //        what exactly is the relationship of FMLJavaModLoadingContext and ModLoadingContext?
-  
-      context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,        MOD_NAME+File.separator+"main.toml");
-      context.registerConfig(ModConfig.Type.COMMON, Features.CONFIG_SPEC,      MOD_NAME+File.separator+"feature_disable.toml");
-      context.registerConfig(ModConfig.Type.COMMON, MachineValues.CONFIG_SPEC, MOD_NAME+File.separator+"machine_values.toml");
-      context.registerConfig(ModConfig.Type.COMMON, Values.CONFIG_SPEC,        MOD_NAME+File.separator+"values.toml");
-
-      FMLJavaModLoadingContext.get().getModEventBus().addListener(OverpoweredTechnology::mod_config_event);
-
-      config_loaded = true;
-  
-      OverpoweredTechnology.log.info("Done Loading Configuration files.");
-    }
+  private static final void init_config(){
+    new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
+    final ModLoadingContext context = ModLoadingContext.get();
+    context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,        MOD_NAME+File.separator+"main.toml");
+    context.registerConfig(ModConfig.Type.COMMON, MachineValues.CONFIG_SPEC, MOD_NAME+File.separator+"machine_values.toml");
+    context.registerConfig(ModConfig.Type.COMMON, Values.CONFIG_SPEC,        MOD_NAME+File.separator+"values.toml");
   }
   
   private static final void main_setup(final FMLCommonSetupEvent event){
@@ -176,10 +158,6 @@ public class OverpoweredTechnology {
     ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.blue_energy_bridge,    translucent);
     ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.magenta_energy_bridge, translucent);
     ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.fusion_control_laser_beam, translucent);
-  }
-
-  public static final void mod_config_event(final ModConfigEvent event){
-    event.getConfig().save();
   }
 
 }

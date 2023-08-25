@@ -4,7 +4,6 @@ import addsynth.core.game.RegistryUtil;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.EnergyItems;
-import addsynth.energy.gameplay.config.Config;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipes;
 import addsynth.energy.gameplay.machines.compressor.recipe.CompressorRecipes;
 import addsynth.energy.gameplay.reference.Names;
@@ -27,11 +26,11 @@ public final class Registers {
 
     game.register(EnergyBlocks.wire);
     game.register(EnergyBlocks.generator);
-    if(Config.energy_storage_container.get()){   game.register(EnergyBlocks.energy_storage); }
+    game.register(EnergyBlocks.energy_storage);
     game.register(EnergyBlocks.compressor);
-    if(Config.electric_furnace.get()){           game.register(EnergyBlocks.electric_furnace); }
+    game.register(EnergyBlocks.electric_furnace);
     game.register(EnergyBlocks.circuit_fabricator);
-    if(Config.universal_energy_interface.get()){ game.register(EnergyBlocks.universal_energy_machine); }
+    game.register(EnergyBlocks.universal_energy_machine);
     game.register(EnergyBlocks.energy_diagnostics_block);
   }
 
@@ -41,11 +40,11 @@ public final class Registers {
 
     game.register(RegistryUtil.getItemBlock(EnergyBlocks.wire));
     game.register(RegistryUtil.getItemBlock(EnergyBlocks.generator));
-    if(Config.energy_storage_container.get()){   game.register(RegistryUtil.getItemBlock(EnergyBlocks.energy_storage)); }
+    game.register(RegistryUtil.getItemBlock(EnergyBlocks.energy_storage));
     game.register(RegistryUtil.getItemBlock(EnergyBlocks.compressor));
-    if(Config.electric_furnace.get()){           game.register(RegistryUtil.getItemBlock(EnergyBlocks.electric_furnace)); }
+    game.register(RegistryUtil.getItemBlock(EnergyBlocks.electric_furnace));
     game.register(RegistryUtil.getItemBlock(EnergyBlocks.circuit_fabricator));
-    if(Config.universal_energy_interface.get()){ game.register(RegistryUtil.getItemBlock(EnergyBlocks.universal_energy_machine)); }
+    game.register(RegistryUtil.getItemBlock(EnergyBlocks.universal_energy_machine));
     game.register(RegistryUtil.getItemBlock(EnergyBlocks.energy_diagnostics_block));
 
     game.register(EnergyItems.power_core);

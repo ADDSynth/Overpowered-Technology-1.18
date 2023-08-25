@@ -2,7 +2,6 @@ package addsynth.overpoweredmod.compatability.curios;
 
 import addsynth.core.compat.Compatibility;
 import addsynth.overpoweredmod.OverpoweredTechnology;
-import addsynth.overpoweredmod.config.Features;
 import net.minecraftforge.fml.InterModComms;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 
@@ -17,9 +16,7 @@ public final class OverpoweredCurios {
     // Size determines the default number of slots. Final number will equal the mod that
     // registers the biggest size.
     // Common Slot Type Identifiers: https://github.com/TheIllusiveC4/Curios/wiki/Frequently-Used-Slots
-    if(Features.rings.get()){
-      InterModComms.sendTo(sender, mod, message, () -> new SlotTypeMessage.Builder("ring").size(2).build());
-    }
+    InterModComms.sendTo(sender, mod, message, () -> new SlotTypeMessage.Builder("ring").size(2).build());
     InterModComms.sendTo(sender, mod, message, () -> new SlotTypeMessage.Builder("charm").build());
   }
 

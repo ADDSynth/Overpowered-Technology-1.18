@@ -17,6 +17,11 @@ public final class Config {
   // Music Box
   public static ForgeConfigSpec.BooleanValue enable_left_hand;
 
+  public static ForgeConfigSpec.BooleanValue item_explosion_command;
+  public static ForgeConfigSpec.BooleanValue zombie_raid_command;
+  public static ForgeConfigSpec.BooleanValue blackout_command;
+  public static ForgeConfigSpec.BooleanValue lightning_storm_command;
+
   // Other Mods
   public enum EMCValueDefinition {DEVELOPER_DEFINED, ACCURATE}
   public static ForgeConfigSpec.EnumValue<EMCValueDefinition> emc_definition;
@@ -45,6 +50,13 @@ public final class Config {
       builder.push("Project E");
         emc_definition = builder.defineEnum("How Should EMC Values be Calculated", EMCValueDefinition.DEVELOPER_DEFINED);
       builder.pop();
+    builder.pop();
+
+    builder.push("Commands");
+    item_explosion_command  = builder.define("Item Explosion",  true);
+    zombie_raid_command     = builder.define("Zombie Raid",     true);
+    blackout_command        = builder.define("Blackout",        true);
+    lightning_storm_command = builder.define("Lightning Storm", true);
     builder.pop();
 
     builder.push("Advanced");

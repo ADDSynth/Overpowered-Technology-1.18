@@ -1,8 +1,8 @@
 package addsynth.overpoweredmod.compatability.jei;
 
 import java.util.ArrayList;
+import addsynth.core.compat.Compatibility;
 import addsynth.overpoweredmod.OverpoweredTechnology;
-import addsynth.overpoweredmod.compatability.CompatabilityManager;
 import addsynth.overpoweredmod.game.core.Laser;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
@@ -33,7 +33,7 @@ public final class OverpoweredJEI implements IModPlugin {
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime){
     final ArrayList<ItemStack> blacklist = new ArrayList<>(1);
     blacklist.add(new ItemStack(OverpoweredItems.portal_image));
-    if(CompatabilityManager.are_rings_enabled()){
+    if(Compatibility.CURIOS.loaded){
       if(OverpoweredItems.magic_ring_0.isPresent()){
         blacklist.add(new ItemStack(OverpoweredItems.magic_ring_0.get()));
       }

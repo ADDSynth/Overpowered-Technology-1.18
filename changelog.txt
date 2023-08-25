@@ -6,6 +6,8 @@ NEW:
 CHANGES:
   Explicitly unlock the recipes for Matter/Energy Converter and Plasma Generator when you
     pick up an Energy Crystal.
+REMOVED:
+  Since disabling things in the config doesn't work, it has been removed.
 FIXED:
   Fixed not showing a message to players that can't access the Team Manager because they
     don't have the required permission level.

@@ -1,7 +1,7 @@
 package addsynth.core.gameplay.commands;
 
 import addsynth.core.ADDSynthCore;
-import addsynth.core.config.Features;
+import addsynth.core.config.Config;
 import addsynth.core.util.debug.DebugUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.commands.CommandSourceStack;
@@ -15,16 +15,16 @@ import net.minecraftforge.event.TickEvent.ServerTickEvent;
 public final class ADDSynthCommands {
 
   public static final void register(CommandDispatcher<CommandSourceStack> dispatcher){
-    if(Features.item_explosion_command.get()){
+    if(Config.item_explosion_command.get()){
       ItemExplosionCommand.register(dispatcher);
     }
-    if(Features.zombie_raid_command.get()){
+    if(Config.zombie_raid_command.get()){
       ZombieRaidCommand.register(dispatcher);
     }
-    if(Features.blackout_command.get()){
+    if(Config.blackout_command.get()){
       BlackoutCommand.register(dispatcher);
     }
-    if(Features.lightning_storm_command.get()){
+    if(Config.lightning_storm_command.get()){
       LightningStormCommand.register(dispatcher);
     }
     ShowOresCommand.register(dispatcher);

@@ -1,9 +1,8 @@
 package addsynth.overpoweredmod.assets;
 
+import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.overpoweredmod.OverpoweredTechnology;
-import addsynth.overpoweredmod.compatability.CompatabilityManager;
-import addsynth.overpoweredmod.config.Features;
 import addsynth.overpoweredmod.config.UnidentifiedItemDropConfig;
 import addsynth.overpoweredmod.config.Values;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
@@ -54,7 +53,7 @@ public final class LootTables {
     loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][1]).setWeight(diamond_weight));
     loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][2]).setWeight(diamond_weight));
     loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][3]).setWeight(diamond_weight));
-    if(CompatabilityManager.are_rings_enabled()){
+    if(Compatibility.CURIOS.loaded){
       final int      ring_weight = Values.ring_drop_weight.get();
       loot.add(LootItem.lootTableItem(OverpoweredItems.ring_0.get()).setWeight(ring_weight));
       loot.add(LootItem.lootTableItem(OverpoweredItems.ring_1.get()).setWeight(ring_weight));
@@ -72,43 +71,41 @@ public final class LootTables {
   
   @SubscribeEvent
   public static final void inject_loot(final LootTableLoadEvent event){
-    if(Features.identifier.get()){
-      final String name = event.getName().toString();
-      if(name.startsWith(prefix)){
-        if(debug_loot_tables){
-          OverpoweredTechnology.log.info("Loading Loot Table: "+name);
-        }
-        final String mob = name.substring(prefix.length());
-        if(mob.equals("zombie")         ){addDrops(Values.MOBS.ZOMBIE,          event); return;}
-        if(mob.equals("zombie_villager")){addDrops(Values.MOBS.ZOMBIE_VILLAGER, event); return;}
-        if(mob.equals("husk")           ){addDrops(Values.MOBS.HUSK,            event); return;}
-        if(mob.equals("spider")         ){addDrops(Values.MOBS.SPIDER,          event); return;}
-        if(mob.equals("cave_spider")    ){addDrops(Values.MOBS.CAVE_SPIDER,     event); return;}
-        if(mob.equals("creeper")        ){addDrops(Values.MOBS.CREEPER,         event); return;}
-        if(mob.equals("skeleton")       ){addDrops(Values.MOBS.SKELETON,        event); return;}
-        if(mob.equals("zombie_pigman")  ){addDrops(Values.MOBS.ZOMBIE_PIGMAN,   event); return;}
-        if(mob.equals("blaze")          ){addDrops(Values.MOBS.BLAZE,           event); return;}
-        if(mob.equals("witch")          ){addDrops(Values.MOBS.WITCH,           event); return;}
-        if(mob.equals("ghast")          ){addDrops(Values.MOBS.GHAST,           event); return;}
-        if(mob.equals("enderman")       ){addDrops(Values.MOBS.ENDERMAN,        event); return;}
-        if(mob.equals("stray")          ){addDrops(Values.MOBS.STRAY,           event); return;}
-        if(mob.equals("guardian")       ){addDrops(Values.MOBS.GUARDIAN,        event); return;}
-        if(mob.equals("elder_guardian") ){addDrops(Values.MOBS.ELDER_GUARDIAN,  event); return;}
-        if(mob.equals("wither_skeleton")){addDrops(Values.MOBS.WITHER_SKELETON, event); return;}
-        if(mob.equals("magma_cube")     ){addDrops(Values.MOBS.MAGMA_CUBE,      event); return;}
-        if(mob.equals("shulker")        ){addDrops(Values.MOBS.SHULKER,         event); return;}
-        if(mob.equals("vex")            ){addDrops(Values.MOBS.VEX,             event); return;}
-        if(mob.equals("evoker")         ){addDrops(Values.MOBS.EVOKER,          event); return;}
-        if(mob.equals("vindicator")     ){addDrops(Values.MOBS.VINDICATOR,      event); return;}
-        if(mob.equals("illusioner")     ){addDrops(Values.MOBS.ILLUSIONER,      event); return;}
-        if(mob.equals("drowned")        ){addDrops(Values.MOBS.DROWNED,         event); return;}
-        if(mob.equals("phantom")        ){addDrops(Values.MOBS.PHANTOM,         event); return;}
-        if(mob.equals("skeleton_horse") ){addDrops(Values.MOBS.SKELETON_HORSE,  event); return;}
-        if(mob.equals("pillager")       ){addDrops(Values.MOBS.PILLAGER,        event); return;}
-        if(mob.equals("ravager")        ){addDrops(Values.MOBS.RAVAGER,         event); return;}
-        if(mob.equals("ender_dragon")   ){addDrops(Values.MOBS.END_DRAGON,      event); return;}
-        if(mob.equals("wither")         ){addDrops(Values.MOBS.WITHER,          event); return;}
+    final String name = event.getName().toString();
+    if(name.startsWith(prefix)){
+      if(debug_loot_tables){
+        OverpoweredTechnology.log.info("Loading Loot Table: "+name);
       }
+      final String mob = name.substring(prefix.length());
+      if(mob.equals("zombie")         ){addDrops(Values.MOBS.ZOMBIE,          event); return;}
+      if(mob.equals("zombie_villager")){addDrops(Values.MOBS.ZOMBIE_VILLAGER, event); return;}
+      if(mob.equals("husk")           ){addDrops(Values.MOBS.HUSK,            event); return;}
+      if(mob.equals("spider")         ){addDrops(Values.MOBS.SPIDER,          event); return;}
+      if(mob.equals("cave_spider")    ){addDrops(Values.MOBS.CAVE_SPIDER,     event); return;}
+      if(mob.equals("creeper")        ){addDrops(Values.MOBS.CREEPER,         event); return;}
+      if(mob.equals("skeleton")       ){addDrops(Values.MOBS.SKELETON,        event); return;}
+      if(mob.equals("zombie_pigman")  ){addDrops(Values.MOBS.ZOMBIE_PIGMAN,   event); return;}
+      if(mob.equals("blaze")          ){addDrops(Values.MOBS.BLAZE,           event); return;}
+      if(mob.equals("witch")          ){addDrops(Values.MOBS.WITCH,           event); return;}
+      if(mob.equals("ghast")          ){addDrops(Values.MOBS.GHAST,           event); return;}
+      if(mob.equals("enderman")       ){addDrops(Values.MOBS.ENDERMAN,        event); return;}
+      if(mob.equals("stray")          ){addDrops(Values.MOBS.STRAY,           event); return;}
+      if(mob.equals("guardian")       ){addDrops(Values.MOBS.GUARDIAN,        event); return;}
+      if(mob.equals("elder_guardian") ){addDrops(Values.MOBS.ELDER_GUARDIAN,  event); return;}
+      if(mob.equals("wither_skeleton")){addDrops(Values.MOBS.WITHER_SKELETON, event); return;}
+      if(mob.equals("magma_cube")     ){addDrops(Values.MOBS.MAGMA_CUBE,      event); return;}
+      if(mob.equals("shulker")        ){addDrops(Values.MOBS.SHULKER,         event); return;}
+      if(mob.equals("vex")            ){addDrops(Values.MOBS.VEX,             event); return;}
+      if(mob.equals("evoker")         ){addDrops(Values.MOBS.EVOKER,          event); return;}
+      if(mob.equals("vindicator")     ){addDrops(Values.MOBS.VINDICATOR,      event); return;}
+      if(mob.equals("illusioner")     ){addDrops(Values.MOBS.ILLUSIONER,      event); return;}
+      if(mob.equals("drowned")        ){addDrops(Values.MOBS.DROWNED,         event); return;}
+      if(mob.equals("phantom")        ){addDrops(Values.MOBS.PHANTOM,         event); return;}
+      if(mob.equals("skeleton_horse") ){addDrops(Values.MOBS.SKELETON_HORSE,  event); return;}
+      if(mob.equals("pillager")       ){addDrops(Values.MOBS.PILLAGER,        event); return;}
+      if(mob.equals("ravager")        ){addDrops(Values.MOBS.RAVAGER,         event); return;}
+      if(mob.equals("ender_dragon")   ){addDrops(Values.MOBS.END_DRAGON,      event); return;}
+      if(mob.equals("wither")         ){addDrops(Values.MOBS.WITHER,          event); return;}
     }
   }
 

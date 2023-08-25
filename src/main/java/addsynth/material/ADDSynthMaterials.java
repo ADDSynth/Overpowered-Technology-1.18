@@ -21,7 +21,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.InterModComms.IMCMessage;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -39,7 +38,6 @@ public final class ADDSynthMaterials {
   public static final DevStage DEV_STAGE = ADDSynthCore.DEV_STAGE;
 
   public static final Logger log = LogManager.getLogger(MOD_NAME);
-  private static boolean config_loaded;
 
   public static final CreativeModeTab creative_tab = new CreativeModeTab(MOD_ID){
     @Override
@@ -59,21 +57,11 @@ public final class ADDSynthMaterials {
     init_config();
   }
 
-  public static final void init_config(){
-    if(config_loaded == false){
-      ADDSynthMaterials.log.info("Begin loading configuration files...");
-  
-      new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
+  private static final void init_config(){
+    new File(FMLPaths.CONFIGDIR.get().toString(), MOD_NAME).mkdir();
 
-      final ModLoadingContext context = ModLoadingContext.get();
-      context.registerConfig(ModConfig.Type.COMMON, WorldgenConfig.CONFIG_SPEC, MOD_NAME+File.separator+"worldgen.toml");
-
-      FMLJavaModLoadingContext.get().getModEventBus().addListener(ADDSynthMaterials::mod_config_event);
-
-      config_loaded = true;
-
-      ADDSynthMaterials.log.info("Done loading configuration files.");
-    }
+    final ModLoadingContext context = ModLoadingContext.get();
+    context.registerConfig(ModConfig.Type.COMMON, WorldgenConfig.CONFIG_SPEC, MOD_NAME+File.separator+"worldgen.toml");
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){
@@ -101,10 +89,6 @@ public final class ADDSynthMaterials {
       final String type    = message.method();
       final Object payload = message.messageSupplier().get();
     });
-  }
-
-  public static final void mod_config_event(final ModConfigEvent event){
-    event.getConfig().save();
   }
 
 }

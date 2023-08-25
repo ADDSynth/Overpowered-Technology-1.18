@@ -1,7 +1,6 @@
 package addsynth.core.gameplay.registers;
 
 import addsynth.core.ADDSynthCore;
-import addsynth.core.config.Features;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.Trophy;
@@ -24,18 +23,15 @@ public final class CoreRegister {
 
     final IForgeRegistry<Block> game = event.getRegistry();
 
-    ADDSynthCore.init_config();
+    game.register(Core.caution_block);
+    game.register(Core.music_box);
+    game.register(Core.team_manager);
     
-    if(Features.caution_block.get()){ game.register(Core.caution_block); }
-    if(Features.music_box.get()){     game.register(Core.music_box);     }
-    if(Features.team_manager.get()){  game.register(Core.team_manager);  }
+    game.register(Trophy.bronze);
+    game.register(Trophy.silver);
+    game.register(Trophy.gold);
+    game.register(Trophy.platinum);
     
-    if(Features.trophies()){
-      if(Features.bronze_trophy.get()){   game.register(Trophy.bronze);   }
-      if(Features.silver_trophy.get()){   game.register(Trophy.silver);   }
-      if(Features.gold_trophy.get()){     game.register(Trophy.gold);     }
-      if(Features.platinum_trophy.get()){ game.register(Trophy.platinum); }
-    }
     // game.register(Core.test_block);
     
     ADDSynthCore.log.info("Done registering blocks.");
@@ -47,26 +43,16 @@ public final class CoreRegister {
 
     final IForgeRegistry<Item> game = event.getRegistry();
 
-    if(Features.caution_block.get()){
-      game.register(RegistryUtil.getItemBlock(Core.caution_block));
-    }
-    if(Features.music_box.get()){
-      game.register(RegistryUtil.getItemBlock(Core.music_box));
-      if(Features.music_sheet.get()){
-        game.register(Core.music_sheet);
-      }
-    }
-    if(Features.team_manager.get()){
-      game.register(RegistryUtil.getItemBlock(Core.team_manager));
-    }
+    game.register(RegistryUtil.getItemBlock(Core.caution_block));
+    game.register(RegistryUtil.getItemBlock(Core.music_box));
+    game.register(Core.music_sheet);
+    game.register(RegistryUtil.getItemBlock(Core.team_manager));
     
-    if(Features.trophies()){
-      game.register(Trophy.trophy_base);
-      if(Features.bronze_trophy.get()){   game.register(Trophy.BRONZE.item_block);   }
-      if(Features.silver_trophy.get()){   game.register(Trophy.SILVER.item_block);   }
-      if(Features.gold_trophy.get()){     game.register(Trophy.GOLD.item_block);     }
-      if(Features.platinum_trophy.get()){ game.register(Trophy.PLATINUM.item_block); }
-    }
+    game.register(Trophy.trophy_base);
+    game.register(Trophy.BRONZE.item_block);
+    game.register(Trophy.SILVER.item_block);
+    game.register(Trophy.GOLD.item_block);
+    game.register(Trophy.PLATINUM.item_block);
     
     // game.register(RegistryUtil.getItemBlock(Core.test_block));
 

@@ -32,7 +32,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -71,8 +70,6 @@ public class ADDSynthEnergy {
 
     final ModLoadingContext context = ModLoadingContext.get();
     context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,   MOD_NAME+File.separator+"main.toml");
-
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(ADDSynthEnergy::mod_config_event);
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){
@@ -106,10 +103,6 @@ public class ADDSynthEnergy {
 
   private static final void set_block_render_types(){
     ItemBlockRenderTypes.setRenderLayer(EnergyBlocks.energy_storage, RenderType.translucent());
-  }
-
-  public static final void mod_config_event(final ModConfigEvent event){
-    event.getConfig().save();
   }
 
 }

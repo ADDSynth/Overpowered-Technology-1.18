@@ -15,7 +15,6 @@ import addsynth.core.util.constants.DevStage;
 import addsynth.material.util.MaterialsUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -24,7 +23,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -41,22 +39,17 @@ public final class ADDSynthCore {
   public static final String VERSION_DATE = "December 22, 2022";
   public static final DevStage DEV_STAGE = DevStage.STABLE;
 
-  private static boolean config_loaded;
   public static final Logger log = LogManager.getLogger(NAME);
 
   public static final CreativeModeTab creative_tab = new CreativeModeTab("addsynthcore"){
     @Override
     public final ItemStack makeIcon(){
-      return Features.caution_block.get() ? new ItemStack(RegistryUtil.getItemBlock(Core.caution_block), 1) :
-             Features.music_box.get()     ? new ItemStack(RegistryUtil.getItemBlock(Core.music_box), 1) :
-             Features.team_manager.get()  ? new ItemStack(Core.team_manager, 1) :
-             new ItemStack(Blocks.GRASS, 1);
+      return new ItemStack(RegistryUtil.getItemBlock(Core.caution_block), 1);
     }
   };
 
   public ADDSynthCore(){
     ADDSynthCore.log.info("Begin constructing ADDSynthCore class object...");
-    // FIX: Configs aren't working again? Can't disable things before they're registered.
 
     final FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
     final IEventBus bus = context.getModEventBus();
@@ -68,30 +61,17 @@ public final class ADDSynthCore {
 
     init_config();
 
-    if(Features.team_manager.get()){
-      MinecraftForge.EVENT_BUS.addListener(TeamData::serverTick);
-    }
+    MinecraftForge.EVENT_BUS.addListener(TeamData::serverTick);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthCommands::tick);
     
     ADDSynthCore.log.info("Done constructing ADDSynthCore class object.");
   }
 
-  public static final void init_config(){
-    if(config_loaded == false){
-      ADDSynthCore.log.info("Begin loading configuration files...");
-  
-      new File(FMLPaths.CONFIGDIR.get().toString(), NAME).mkdir();
+  private static final void init_config(){
+    new File(FMLPaths.CONFIGDIR.get().toString(), NAME).mkdir();
 
-      final ModLoadingContext context = ModLoadingContext.get();
-      context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,         NAME+File.separator+"main.toml");
-      context.registerConfig(ModConfig.Type.COMMON, Features.CONFIG_SPEC,       NAME+File.separator+"feature_disable.toml");
-
-      FMLJavaModLoadingContext.get().getModEventBus().addListener(ADDSynthCore::mod_config_event);
-
-      config_loaded = true;
-
-      ADDSynthCore.log.info("Done loading configuration files.");
-    }
+    final ModLoadingContext context = ModLoadingContext.get();
+    context.registerConfig(ModConfig.Type.COMMON, Config.CONFIG_SPEC,         NAME+File.separator+"main.toml");
   }
 
   private static final void main_setup(final FMLCommonSetupEvent event){
@@ -109,9 +89,7 @@ public final class ADDSynthCore {
   }
 
   private static final void client_setup(final FMLClientSetupEvent event){
-    if(Features.team_manager.get()){
-      CriteriaData.calculate();
-    }
+    CriteriaData.calculate();
   }
 
   public static void onServerStarting(final ServerStartingEvent event){
@@ -131,10 +109,6 @@ public final class ADDSynthCore {
 
   public static final void registerCommands(final RegisterCommandsEvent event){
     ADDSynthCommands.register(event.getDispatcher());
-  }
-
-  public static final void mod_config_event(final ModConfigEvent event){
-    event.getConfig().save();
   }
 
 }

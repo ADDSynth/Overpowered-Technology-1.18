@@ -10,12 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerOreRefinery extends TileEntityContainer<TileAdvancedOreRefinery> {
 
   public ContainerOreRefinery(final int id, final Inventory player_inventory, final TileAdvancedOreRefinery tile){
-    super(Containers.ADVANCED_ORE_REFINERY, id, player_inventory, tile);
+    super(Containers.ADVANCED_ORE_REFINERY.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerOreRefinery(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.ADVANCED_ORE_REFINERY, id, player_inventory, data);
+    super(Containers.ADVANCED_ORE_REFINERY.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

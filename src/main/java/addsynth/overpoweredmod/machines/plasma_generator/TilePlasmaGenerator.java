@@ -27,13 +27,13 @@ public final class TilePlasmaGenerator extends TilePassiveMachine implements IOu
   private int output_number = DEFAULT_OUTPUT_NUMBER;
 
   public TilePlasmaGenerator(BlockPos position, BlockState blockstate){
-    super(Tiles.PLASMA_GENERATOR, position, blockstate, MachineValues.plasma_generator);
+    super(Tiles.PLASMA_GENERATOR.get(), position, blockstate, MachineValues.plasma_generator);
     output_inventory = OutputInventory.create(this, 1);
   }
 
   @Override
   protected final void perform_work(){
-    output_inventory.insertItem(0, new ItemStack(OverpoweredItems.plasma), false);
+    output_inventory.insertItem(0, new ItemStack(OverpoweredItems.plasma.get()), false);
     if(auto_shutoff){
       if(output_inventory.getStackInSlot(0).getCount() >= output_number){
         power_switch = false;

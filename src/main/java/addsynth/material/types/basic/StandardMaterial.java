@@ -39,7 +39,7 @@ public final class StandardMaterial extends AbstractMaterial {
   
   public final void registerItems(final IForgeRegistry<Item> game){
     game.register(new MaterialItem(item_name));
-    game.register(RegistryUtil.create_ItemBlock(block.get(), ADDSynthMaterials.creative_tab, block_name));
+    game.register(RegistryUtil.createItemBlock(block, ADDSynthMaterials.creative_tab));
   }
 
 }

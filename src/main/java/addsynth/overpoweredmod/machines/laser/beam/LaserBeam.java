@@ -2,9 +2,9 @@ package addsynth.overpoweredmod.machines.laser.beam;
 
 import addsynth.overpoweredmod.assets.DamageSources;
 import addsynth.overpoweredmod.config.Config;
+import addsynth.overpoweredmod.game.core.DeviceColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -18,9 +18,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public final class LaserBeam extends Block {
 
-  public LaserBeam(final ResourceLocation name){
+  public LaserBeam(final DeviceColor device_color){
     super(Block.Properties.of(Material.FIRE).noCollission().lightLevel((blockstate)->{return Config.laser_light_level.get();}));
-    setRegistryName(name);
+    setRegistryName(device_color.laser_beam);
   }
 
   @Override

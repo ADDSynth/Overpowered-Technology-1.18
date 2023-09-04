@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 /** This is a standard Gem material. It has a gem item, storage block, ore block, and a gem shard. */
 public final class CustomGem extends Gem {
@@ -19,44 +20,44 @@ public final class CustomGem extends Gem {
   private final int min_experience;
   private final int max_experience;
 
-  private final ResourceLocation gem_name;
-  private final ResourceLocation block_name;
-  private final ResourceLocation ore_name;
+  private final RegistryObject<Item> gem;
+  private final RegistryObject<Block> block;
+  private final RegistryObject<Block> ore;
 
   public CustomGem(final String name, final MaterialColor color, final int min_experience, final int max_experience){
     super(name);
     this.color = color;
     this.min_experience = min_experience;
     this.max_experience = max_experience;
-      gem_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name);
-    block_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_block");
-      ore_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore");
+      gem = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name),          ForgeRegistries.ITEMS);
+    block = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_block"), ForgeRegistries.BLOCKS);
+      ore = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore"),   ForgeRegistries.BLOCKS);
   }
   
   public final void registerBlocks(final IForgeRegistry<Block> game){
-    game.register(new GemBlock(block_name, color));
-    game.register(new OreBlock(ore_name, min_experience, max_experience));
+    game.register(new GemBlock(block.getId(), color));
+    game.register(new OreBlock(ore.getId(), min_experience, max_experience));
   }
   
   public final void registerItems(final IForgeRegistry<Item> game){
-    game.register(new MaterialItem(gem_name));
-    game.register(RegistryUtil.create_ItemBlock(getBlock(), ADDSynthMaterials.creative_tab, block_name));
-    game.register(RegistryUtil.create_ItemBlock(getOre(),   ADDSynthMaterials.creative_tab, ore_name));
-    game.register(new MaterialItem(shard_name)); // REMOVE shards
+    game.register(new MaterialItem(gem.getId()));
+    game.register(RegistryUtil.createItemBlock(block, ADDSynthMaterials.creative_tab));
+    game.register(RegistryUtil.createItemBlock(ore,   ADDSynthMaterials.creative_tab));
+    game.register(new MaterialItem(shard.getId())); // REMOVE shards
   }
 
   @Override
   public final Item getGem(){
-    return ForgeRegistries.ITEMS.getValue(gem_name);
+    return gem.get();
   }
   
   public final Block getBlock(){
-    return ForgeRegistries.BLOCKS.getValue(block_name);
+    return block.get();
   }
   
   @Override
   public final Block getOre(){
-    return ForgeRegistries.BLOCKS.getValue(ore_name);
+    return ore.get();
   }
   
 }

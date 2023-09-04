@@ -3,10 +3,8 @@ package addsynth.overpoweredmod.machines.data_cable;
 import java.util.ArrayList;
 import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.block.BlockShape;
 import addsynth.energy.lib.blocks.Wire;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -45,7 +43,7 @@ public final class DataCable extends Wire {
 
   public DataCable(){
     super(Block.Properties.of(Material.VEGETABLE, MaterialColor.WOOL).strength(0.1f, 0.0f));
-    RegistryUtil.register_block(this, Names.DATA_CABLE, CreativeTabs.creative_tab);
+    setRegistryName(Names.DATA_CABLE);
     valid_blocks.add(this);
   }
 
@@ -77,7 +75,7 @@ public final class DataCable extends Wire {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.DATA_CABLE);
+    return standardTicker(world, type, Tiles.DATA_CABLE.get());
   }
 
   @Override

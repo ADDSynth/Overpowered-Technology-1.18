@@ -12,31 +12,32 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 /** Manufactured metals do not have an Ore Block. */
 public final class ManufacturedMetal extends Metal {
 
   private final MaterialColor color;
   
-  private final ResourceLocation ingot_name;
-  private final ResourceLocation block_name;
-  private final ResourceLocation nugget_name;
+  private final RegistryObject<Item> ingot;
+  private final RegistryObject<Block> block;
+  private final RegistryObject<Item> nugget;
   
   public ManufacturedMetal(final String name, final MaterialColor color){
     super(name);
     this.color = color;
-     ingot_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ingot");
-     block_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_block");
-    nugget_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_nugget");
+     ingot = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ingot"),  ForgeRegistries.ITEMS);
+     block = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_block"),  ForgeRegistries.BLOCKS);
+    nugget = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_nugget"), ForgeRegistries.ITEMS);
   }
 
   public final void registerBlocks(final IForgeRegistry<Block> game){
-    game.register(new MetalBlock(block_name, color));
+    game.register(new MetalBlock(block.getId(), color));
   }
   
   public final void registerItems(final IForgeRegistry<Item> game){
-    game.register(new MaterialItem(ingot_name));
-    game.register(RegistryUtil.create_ItemBlock(getBlock(), ADDSynthMaterials.creative_tab, block_name));
+    game.register(new MaterialItem(ingot.getId()));
+    game.register(RegistryUtil.createItemBlock(block, ADDSynthMaterials.creative_tab));
     if(Compatibility.ADDSYNTH_ENERGY.loaded){
       game.register(new MaterialItem(plate_name));
     }
@@ -44,12 +45,12 @@ public final class ManufacturedMetal extends Metal {
 
   @Override
   public final Item getIngot(){
-    return ForgeRegistries.ITEMS.getValue(ingot_name);
+    return ingot.get();
   }
   
   @Override
   public final Block getBlock(){
-    return ForgeRegistries.BLOCKS.getValue(block_name);
+    return block.get();
   }
   
   @Override

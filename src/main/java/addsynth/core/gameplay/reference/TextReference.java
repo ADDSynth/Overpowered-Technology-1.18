@@ -7,7 +7,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 public final class TextReference {
 
   // Team Manager
-  public static final TranslatableComponent team_manager  = new TranslatableComponent(Core.team_manager.getDescriptionId());
+  public static final TranslatableComponent team_manager  = new TranslatableComponent(Core.team_manager.get().getDescriptionId());
   public static final TranslatableComponent objective_gui = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.gui_title");
   public static final TranslatableComponent team_gui      = new TranslatableComponent("gui.addsynthcore.team_manager.team_edit.gui_title");
   public static final TranslatableComponent you_dont_have_permission = new TranslatableComponent("gui.addsynthcore.team_manager.message.you_do_not_have_permission", PermissionLevel.COMMANDS);

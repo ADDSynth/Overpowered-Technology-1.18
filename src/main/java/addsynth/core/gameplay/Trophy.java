@@ -1,34 +1,17 @@
 package addsynth.core.gameplay;
 
-import addsynth.core.ADDSynthCore;
-import addsynth.core.game.RegistryUtil;
-import addsynth.core.gameplay.blocks.TrophyBlock;
-import addsynth.core.gameplay.items.CoreItem;
 import addsynth.core.gameplay.reference.Names;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-public enum Trophy {
+public final class Trophy {
 
-  BRONZE(Names.BRONZE_TROPHY),
-  SILVER(Names.SILVER_TROPHY),
-  GOLD(Names.GOLD_TROPHY),
-  PLATINUM(Names.PLATINUM_TROPHY);
-
-  private final TrophyBlock trophy;
-  public final BlockItem item_block;
-  
-  public static final Item trophy_base = new CoreItem(Names.TROPHY_BASE);
-  public static final TrophyBlock bronze   = BRONZE.trophy;
-  public static final TrophyBlock silver   = SILVER.trophy;
-  public static final TrophyBlock gold     = GOLD.trophy;
-  public static final TrophyBlock platinum = PLATINUM.trophy;
-
-  private Trophy(final ResourceLocation name){
-    this.trophy = new TrophyBlock();
-    this.trophy.setRegistryName(name);
-    this.item_block = RegistryUtil.create_ItemBlock(this.trophy, ADDSynthCore.creative_tab, name);
-  }
+  public static final RegistryObject<Item>  trophy_base = RegistryObject.create(Names.TROPHY_BASE,     ForgeRegistries.ITEMS);
+  public static final RegistryObject<Block> bronze      = RegistryObject.create(Names.BRONZE_TROPHY,   ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Block> silver      = RegistryObject.create(Names.SILVER_TROPHY,   ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Block> gold        = RegistryObject.create(Names.GOLD_TROPHY,     ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Block> platinum    = RegistryObject.create(Names.PLATINUM_TROPHY, ForgeRegistries.BLOCKS);
 
 }

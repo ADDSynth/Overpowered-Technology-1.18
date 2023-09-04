@@ -2,12 +2,12 @@ package addsynth.overpoweredmod.machines.laser.cannon;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.block.BlockShape;
 import addsynth.core.util.constants.DirectionConstant;
 import addsynth.core.util.world.WorldUtil;
-import addsynth.overpoweredmod.assets.CreativeTabs;
+import addsynth.overpoweredmod.game.core.DeviceColor;
 import addsynth.overpoweredmod.game.core.Laser;
+import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.TextReference;
 import net.minecraft.core.BlockPos;
@@ -107,10 +107,19 @@ public final class LaserCannon extends Block implements SimpleWaterloggedBlock {
     return shape;
   }
 
+  public LaserCannon(final DeviceColor color){
+    this(color.laser_cannon, color.index);
+  }
+  
+  public LaserCannon(){
+    // TODO: This file should be split into an AbstractLaserCannon, and derived LaserCannon and FusionLaser.
+    this(Names.FUSION_CONTROL_LASER, -1);
+  }
+
   public LaserCannon(final ResourceLocation name, final int color){
     super(Block.Properties.of(Material.METAL, color >= 0 ? MaterialColor.STONE : MaterialColor.COLOR_GRAY)
       .sound(SoundType.METAL).strength(3.5f, 6.0f).dynamicShape());
-    RegistryUtil.register_block(this, name, CreativeTabs.creative_tab);
+    setRegistryName(name);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     this.color = color;
   }
@@ -138,9 +147,9 @@ public final class LaserCannon extends Block implements SimpleWaterloggedBlock {
   public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos){
     final Block block = world.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).getBlock();
     if(color == -1){
-      return block == OverpoweredBlocks.fusion_control_unit;
+      return block == OverpoweredBlocks.fusion_control_unit.get();
     }
-    return block == OverpoweredBlocks.laser_housing;
+    return block == OverpoweredBlocks.laser_housing.get();
   }
 
   @Override
@@ -185,7 +194,7 @@ public final class LaserCannon extends Block implements SimpleWaterloggedBlock {
   public final void neighborChanged(BlockState state, Level world, BlockPos position, Block block, BlockPos neighbor, boolean isMoving){
     if(world.isClientSide == false){
       if(canSurvive(state, world, position) == false){
-        final ItemStack stack = color >= 0 ? new ItemStack(Laser.index[color].cannon, 1) : new ItemStack(OverpoweredBlocks.fusion_control_laser, 1);
+        final ItemStack stack = color >= 0 ? new ItemStack(Laser.index[color].cannon.get(), 1) : new ItemStack(OverpoweredBlocks.fusion_control_laser.get(), 1);
         WorldUtil.spawnItemStack(world, position, stack);
         world.removeBlock(position, isMoving);
       }

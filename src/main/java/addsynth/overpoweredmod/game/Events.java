@@ -22,7 +22,7 @@ public final class Events {
   public static final void pick_up_item(final ItemPickupEvent event){
     final Item item = event.getStack().getItem();
     final Player player = event.getPlayer();
-    if(item == OverpoweredItems.void_crystal){
+    if(item == OverpoweredItems.void_crystal.get()){
       /*
       if(player.dimension.getId() == WeirdDimension.id){
         final MinecraftServer server = player.getServer();

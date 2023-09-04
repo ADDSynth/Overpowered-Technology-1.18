@@ -34,7 +34,7 @@ public final class TileGemConverter extends TileStandardWorkMachine implements M
   private byte converting_to;
   
   public TileGemConverter(BlockPos position, BlockState blockstate){
-    super(Tiles.GEM_CONVERTER, position, blockstate, 1, Filters.gem_converter, 1, MachineValues.gem_converter);
+    super(Tiles.GEM_CONVERTER.get(), position, blockstate, 1, Filters.gem_converter, 1, MachineValues.gem_converter);
   }
 
   public final void cycle(final boolean direction){

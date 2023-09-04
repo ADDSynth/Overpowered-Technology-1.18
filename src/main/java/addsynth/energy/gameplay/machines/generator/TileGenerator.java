@@ -19,7 +19,7 @@ import net.minecraftforge.common.ForgeHooks;
 public final class TileGenerator extends TileStandardGenerator implements MenuProvider {
 
   public TileGenerator(BlockPos position, BlockState blockstate){
-    super(Tiles.GENERATOR, position, blockstate, null);
+    super(Tiles.GENERATOR.get(), position, blockstate, null);
     input_inventory.isItemStackValid = (Integer slot, ItemStack stack) -> {
       return AbstractFurnaceBlockEntity.isFuel(stack) && stack.getItem() != Items.LAVA_BUCKET;
     };

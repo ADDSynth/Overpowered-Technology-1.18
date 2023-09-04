@@ -18,18 +18,23 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileInverter extends TileStandardWorkMachine implements MenuProvider {
 
-  public static final Item[] input_filter = new Item[] {OverpoweredItems.energy_crystal, OverpoweredItems.void_crystal};
+  public static final Item[] input_filter = new Item[] {
+    OverpoweredItems.energy_crystal.get(),
+    OverpoweredItems.void_crystal.get()
+  };
 
   public TileInverter(BlockPos position, BlockState blockstate){
-    super(Tiles.INVERTER, position, blockstate, 1, input_filter, 1, MachineValues.inverter);
+    super(Tiles.INVERTER.get(), position, blockstate, 1, input_filter, 1, MachineValues.inverter);
     inventory.setRecipeProvider(TileInverter::getInverted);
   }
 
   @Nonnull
   public static final ItemStack getInverted(final ItemStack input_stack){
     final Item item = input_stack.getItem();
-    if(item == OverpoweredItems.energy_crystal){ return new ItemStack(OverpoweredItems.void_crystal,   1); }
-    if(item == OverpoweredItems.void_crystal){   return new ItemStack(OverpoweredItems.energy_crystal, 1); }
+    final Item energy_crystal = OverpoweredItems.energy_crystal.get();
+    final Item   void_crystal = OverpoweredItems.void_crystal.get();
+    if(item == energy_crystal){ return new ItemStack(void_crystal,   1); }
+    if(item ==   void_crystal){ return new ItemStack(energy_crystal, 1); }
     return ItemStack.EMPTY;
   }
 

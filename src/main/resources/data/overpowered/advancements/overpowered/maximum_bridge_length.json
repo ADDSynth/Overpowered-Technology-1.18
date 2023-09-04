@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "overpowered:cyan_energy_bridge"
+      "item": "overpowered:blue_energy_bridge"
     },
     "title": {
       "translate": "advancements.overpowered.maximum_bridge_length.title"
@@ -15,7 +15,6 @@
   "criteria": {
     "maximum_bridge_length": {
       "trigger": "minecraft:impossible"
-      }
     }
   },
   "conditions": [

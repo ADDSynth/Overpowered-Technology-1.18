@@ -33,6 +33,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TilePortalControlPanel extends TileManualMachine implements IAutoShutoff, MenuProvider {
 
+  private final Block data_cable;
+  private final Block portal_frame;
+  private final Block iron_frame;
+
   private static final int containers = 8;
   private boolean[] portal_items = new boolean[containers];
   private boolean valid_portal = false;
@@ -57,11 +61,14 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
   }
 
   public TilePortalControlPanel(BlockPos position, BlockState blockstate){
-    super(Tiles.PORTAL_CONTROL_PANEL, position, blockstate, MachineValues.portal);
+    super(Tiles.PORTAL_CONTROL_PANEL.get(), position, blockstate, MachineValues.portal);
     int i;
     for(i = 0; i < containers; i++){
       portal_items[i] = false;
     }
+    data_cable   = OverpoweredBlocks.data_cable.get();
+    portal_frame = OverpoweredBlocks.portal_frame.get();
+    iron_frame   = OverpoweredBlocks.iron_frame_block.get();
   }
 
   @Override
@@ -157,9 +164,9 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
       if(searched.contains(position) == false){
         searched.add(position);
         block = level.getBlockState(position).getBlock();
-        if(block == OverpoweredBlocks.data_cable || block == OverpoweredBlocks.portal_frame || block == OverpoweredBlocks.iron_frame_block){
+        if(block == data_cable || block == portal_frame || block == iron_frame){
           found = true;
-          if(block == OverpoweredBlocks.portal_frame){
+          if(block == portal_frame){
             final TilePortalFrame portal_frame = (TilePortalFrame)level.getBlockEntity(position); // we already know this is a portal frame block, its okay to do this.
             if(portal_frame != null){
               portal_frames.add(position);
@@ -213,7 +220,7 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
   }
 
   private static final boolean check_portal_frame(int x, int y, int z, Level world){
-    return world.getBlockState(new BlockPos(x,y,z)).getBlock() == OverpoweredBlocks.portal_frame;
+    return world.getBlockState(new BlockPos(x,y,z)).getBlock() == OverpoweredBlocks.portal_frame.get();
   }
 
   @SuppressWarnings("incomplete-switch")
@@ -274,6 +281,7 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
       int y;
       int z;
       int center;
+      final BlockState portal = OverpoweredBlocks.portal.get().defaultBlockState();
       switch(axis){
       case X:
         start_x = lowest_portal_frame.getX()+1;
@@ -283,12 +291,12 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
         z = start_z;
         for(y = start_y; y < start_y + 3; y++){
           for(x = start_x; x < start_x + 3; x++){
-            level.setBlockAndUpdate(new BlockPos(x,y,z),OverpoweredBlocks.portal.defaultBlockState()); // .withProperty(PortalEnergyBlock.AXIS, EnumFacing.Axis.X));
+            level.setBlockAndUpdate(new BlockPos(x,y,z), portal); // .withProperty(PortalEnergyBlock.AXIS, EnumFacing.Axis.X));
           }
         }
         if(Config.teleport_to_unknown_dimension.get() == false){
         }
-        WorldUtil.spawnItemStack(level, center, start_y, start_z, new ItemStack(OverpoweredItems.dimensional_flux, 1), false);
+        WorldUtil.spawnItemStack(level, center, start_y, start_z, new ItemStack(OverpoweredItems.dimensional_flux.get(), 1), false);
         break;
       case Z:
         start_x = lowest_portal_frame.getX();
@@ -298,12 +306,12 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
         x = start_x;
         for(y = start_y; y < start_y + 3; y++){
           for(z = start_z; z < start_z + 3; z++){
-            level.setBlockAndUpdate(new BlockPos(x,y,z),OverpoweredBlocks.portal.defaultBlockState()); // .withProperty(PortalEnergyBlock.AXIS, EnumFacing.Axis.Z));
+            level.setBlockAndUpdate(new BlockPos(x,y,z), portal); // .withProperty(PortalEnergyBlock.AXIS, EnumFacing.Axis.Z));
           }
         }
         if(Config.teleport_to_unknown_dimension.get() == false){
         }
-        WorldUtil.spawnItemStack(level, start_x, start_y, center, new ItemStack(OverpoweredItems.dimensional_flux, 1), false);
+        WorldUtil.spawnItemStack(level, start_x, start_y, center, new ItemStack(OverpoweredItems.dimensional_flux.get(), 1), false);
         break;
       }
 

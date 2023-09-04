@@ -25,7 +25,7 @@ public final class TileCompressor extends TileStandardWorkMachine implements Men
   private static final Random random = new Random();
 
   public TileCompressor(BlockPos position, BlockState blockstate){
-    super(Tiles.COMPRESSOR, position, blockstate, 1, CompressorRecipes.INSTANCE.getFilter(), 1, Config.compressor_data);
+    super(Tiles.COMPRESSOR.get(), position, blockstate, 1, CompressorRecipes.INSTANCE.getFilter(), 1, Config.compressor_data);
     inventory.setRecipeProvider(CompressorRecipes.INSTANCE);
   }
 

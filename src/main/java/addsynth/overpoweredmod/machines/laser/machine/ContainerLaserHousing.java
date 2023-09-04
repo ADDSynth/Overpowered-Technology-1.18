@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerLaserHousing extends TileEntityContainer<TileLaserHousing> {
 
   public ContainerLaserHousing(final int id, final Inventory player_inventory, final TileLaserHousing tile){
-    super(Containers.LASER_HOUSING, id, player_inventory, tile);
+    super(Containers.LASER_HOUSING.get(), id, player_inventory, tile);
   }
 
   public ContainerLaserHousing(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.LASER_HOUSING, id, player_inventory, data);
+    super(Containers.LASER_HOUSING.get(), id, player_inventory, data);
   }
 
 }

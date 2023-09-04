@@ -10,12 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerElectricFurnace extends TileEntityContainer<TileElectricFurnace> {
 
   public ContainerElectricFurnace(final int id, final Inventory player_inventory, final TileElectricFurnace tile){
-    super(Containers.ELECTRIC_FURNACE, id, player_inventory, tile);
+    super(Containers.ELECTRIC_FURNACE.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerElectricFurnace(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.ELECTRIC_FURNACE, id, player_inventory, data);
+    super(Containers.ELECTRIC_FURNACE.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

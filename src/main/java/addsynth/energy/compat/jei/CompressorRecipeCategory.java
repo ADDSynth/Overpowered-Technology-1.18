@@ -27,7 +27,7 @@ public final class CompressorRecipeCategory implements IRecipeCategory<Compresso
 
   public CompressorRecipeCategory(final IGuiHelper gui_helper){
     background = gui_helper.createDrawable(GuiReference.widgets, 130, 0, 73, 18);
-    icon = gui_helper.createDrawableItemStack(new ItemStack(EnergyBlocks.compressor));
+    icon = gui_helper.createDrawableItemStack(new ItemStack(EnergyBlocks.compressor.get()));
   }
 
   public static RecipeType<CompressorRecipe> getType(){
@@ -48,7 +48,7 @@ public final class CompressorRecipeCategory implements IRecipeCategory<Compresso
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(EnergyBlocks.compressor.getDescriptionId());
+    return new TranslatableComponent(EnergyBlocks.compressor.get().getDescriptionId());
   }
 
   @Override

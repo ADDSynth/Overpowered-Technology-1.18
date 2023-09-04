@@ -1,7 +1,6 @@
 package addsynth.overpoweredmod.machines.portal.rift;
 
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.game.blocks.TileEntityBlock;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -10,7 +9,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -36,7 +34,7 @@ public final class PortalEnergyBlock extends TileEntityBlock {
 
   public PortalEnergyBlock(){
     super(Block.Properties.of(Material.PORTAL).noCollission().noDrops());
-    RegistryUtil.register_block(this, Names.PORTAL_RIFT, new Item.Properties());
+    setRegistryName(Names.PORTAL_RIFT);
     // Portal Energy Block needs an ItemBlock form to use as an icon for the Achievement.
   }
 
@@ -80,7 +78,7 @@ public final class PortalEnergyBlock extends TileEntityBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.PORTAL_BLOCK);
+    return standardTicker(world, type, Tiles.PORTAL_RIFT.get());
   }
 
   // Portal Energy block doesn't need it for some reason?

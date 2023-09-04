@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TileEnergyWire extends BasicEnergyNetworkTile {
 
   public TileEnergyWire(BlockPos position, BlockState blockstate){
-    super(Tiles.ENERGY_WIRE, position, blockstate);
+    super(Tiles.ENERGY_WIRE.get(), position, blockstate);
   }
 
 }

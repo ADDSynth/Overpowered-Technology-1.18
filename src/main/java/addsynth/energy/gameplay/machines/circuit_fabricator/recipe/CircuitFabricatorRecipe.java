@@ -2,6 +2,7 @@ package addsynth.energy.gameplay.machines.circuit_fabricator.recipe;
 
 import addsynth.core.recipe.shapeless.AbstractRecipe;
 import addsynth.energy.gameplay.EnergyBlocks;
+import addsynth.energy.registers.RecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,12 +19,12 @@ public final class CircuitFabricatorRecipe extends AbstractRecipe {
 
   @Override
   public ItemStack getToastSymbol(){
-    return new ItemStack(EnergyBlocks.circuit_fabricator, 1);
+    return new ItemStack(EnergyBlocks.circuit_fabricator.get(), 1);
   }
 
   @Override
   public RecipeSerializer<?> getSerializer(){
-    return CircuitFabricatorRecipes.INSTANCE.serializer;
+    return RecipeSerializers.CIRCUIT_FABRICATOR.get();
   }
 
   @Override

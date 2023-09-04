@@ -2,9 +2,7 @@ package addsynth.energy.gameplay.machines.circuit_fabricator;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
@@ -31,7 +29,7 @@ public final class CircuitFabricatorBlock extends MachineBlock {
 
   public CircuitFabricatorBlock(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.CIRCUIT_FABRICATOR, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.CIRCUIT_FABRICATOR);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class CircuitFabricatorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.CIRCUIT_FABRICATOR);
+    return standardTicker(world, type, Tiles.CIRCUIT_FABRICATOR.get());
   }
 
   @Override

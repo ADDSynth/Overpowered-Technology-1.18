@@ -121,43 +121,43 @@ public class OverpoweredTechnology {
   }
 
   private static final void register_guis(){
-    MenuScreens.register(Containers.CRYSTAL_ENERGY_EXTRACTOR,   GuiCrystalEnergyExtractor::new);
-    MenuScreens.register(Containers.GEM_CONVERTER,              GuiGemConverter::new);
-    MenuScreens.register(Containers.INVERTER,                   GuiInverter::new);
-    MenuScreens.register(Containers.MAGIC_INFUSER,              GuiMagicInfuser::new);
-    MenuScreens.register(Containers.IDENTIFIER,                 GuiIdentifier::new);
-    MenuScreens.register(Containers.ENERGY_SUSPENSION_BRIDGE,   GuiEnergySuspensionBridge::new);
-    MenuScreens.register(Containers.PORTAL_CONTROL_PANEL,       GuiPortalControlPanel::new);
-    MenuScreens.register(Containers.PORTAL_FRAME,               GuiPortalFrame::new);
-    MenuScreens.register(Containers.LASER_HOUSING,              GuiLaserHousing::new);
-    MenuScreens.register(Containers.PLASMA_GENERATOR,           GuiPlasmaGenerator::new);
-    MenuScreens.register(Containers.ADVANCED_ORE_REFINERY,      GuiAdvancedOreRefinery::new);
-    MenuScreens.register(Containers.CRYSTAL_MATTER_GENERATOR,   GuiCrystalMatterGenerator::new);
-    MenuScreens.register(Containers.FUSION_CHAMBER,             GuiFusionChamber::new);
-    MenuScreens.register(Containers.MATTER_COMPRESSOR,          GuiMatterCompressor::new);
+    MenuScreens.register(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(),   GuiCrystalEnergyExtractor::new);
+    MenuScreens.register(Containers.GEM_CONVERTER.get(),              GuiGemConverter::new);
+    MenuScreens.register(Containers.INVERTER.get(),                   GuiInverter::new);
+    MenuScreens.register(Containers.MAGIC_INFUSER.get(),              GuiMagicInfuser::new);
+    MenuScreens.register(Containers.IDENTIFIER.get(),                 GuiIdentifier::new);
+    MenuScreens.register(Containers.ENERGY_SUSPENSION_BRIDGE.get(),   GuiEnergySuspensionBridge::new);
+    MenuScreens.register(Containers.PORTAL_CONTROL_PANEL.get(),       GuiPortalControlPanel::new);
+    MenuScreens.register(Containers.PORTAL_FRAME.get(),               GuiPortalFrame::new);
+    MenuScreens.register(Containers.LASER_HOUSING.get(),              GuiLaserHousing::new);
+    MenuScreens.register(Containers.PLASMA_GENERATOR.get(),           GuiPlasmaGenerator::new);
+    MenuScreens.register(Containers.ADVANCED_ORE_REFINERY.get(),      GuiAdvancedOreRefinery::new);
+    MenuScreens.register(Containers.CRYSTAL_MATTER_GENERATOR.get(),   GuiCrystalMatterGenerator::new);
+    MenuScreens.register(Containers.FUSION_CHAMBER.get(),             GuiFusionChamber::new);
+    MenuScreens.register(Containers.MATTER_COMPRESSOR.get(),          GuiMatterCompressor::new);
   }
 
   private static final void set_block_render_types(){
     final RenderType translucent = RenderType.translucent();
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.null_block,  translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.portal,      translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.WHITE.beam,   translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.RED.beam,     translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.ORANGE.beam,  translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.YELLOW.beam,  translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.GREEN.beam,   translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.CYAN.beam,    translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.BLUE.beam,    translucent);
-    ItemBlockRenderTypes.setRenderLayer(Laser.MAGENTA.beam, translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.white_energy_bridge,   translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.red_energy_bridge,     translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.orange_energy_bridge,  translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.yellow_energy_bridge,  translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.green_energy_bridge,   translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.cyan_energy_bridge,    translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.blue_energy_bridge,    translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.magenta_energy_bridge, translucent);
-    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.fusion_control_laser_beam, translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.null_block.get(),  translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.portal.get(),      translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.WHITE.beam.get(),   translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.RED.beam.get(),     translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.ORANGE.beam.get(),  translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.YELLOW.beam.get(),  translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.GREEN.beam.get(),   translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.CYAN.beam.get(),    translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.BLUE.beam.get(),    translucent);
+    ItemBlockRenderTypes.setRenderLayer(Laser.MAGENTA.beam.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.white_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.red_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.orange_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.yellow_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.green_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.cyan_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.blue_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.magenta_energy_bridge.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(OverpoweredBlocks.fusion_control_laser_beam.get(), translucent);
   }
 
 }

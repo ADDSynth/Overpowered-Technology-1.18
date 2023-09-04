@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiMatterCompressor extends GuiEnergyBase<TileMatterCompressor, MatterCompressorContainer> {
 
-  private final String black_hole_text = StringUtil.translate(OverpoweredBlocks.black_hole.getDescriptionId());
+  private final String black_hole_text = StringUtil.translate(OverpoweredBlocks.black_hole.get().getDescriptionId());
   private final String matter_text     = StringUtil.translate("gui.overpowered.matter_compressor.matter");
 
   private final ProgressBar progress_bar = new ProgressBar(8, 83, 166, 11, 7, 190);

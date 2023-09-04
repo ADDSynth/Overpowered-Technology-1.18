@@ -78,7 +78,7 @@ public final class LaserJobs {
           // destroy block
           world.destroyBlock(position, true);
           // put a laser beam there
-          world.setBlock(position, Laser.beams[color].defaultBlockState(), Block.UPDATE_CLIENTS);
+          world.setBlock(position, Laser.index[color].beam.get().defaultBlockState(), Block.UPDATE_CLIENTS);
         }
         // increment position
         position.move(direction);

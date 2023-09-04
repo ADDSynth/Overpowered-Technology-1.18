@@ -2,15 +2,76 @@ package addsynth.overpoweredmod.registers;
 
 import addsynth.core.compat.Compatibility;
 import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.item.constants.ArmorMaterial;
+import addsynth.core.game.item.constants.EquipmentType;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.assets.Sounds;
+import addsynth.overpoweredmod.blocks.*;
+import addsynth.overpoweredmod.blocks.dimension.tree.*;
 import addsynth.overpoweredmod.game.core.*;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
-import addsynth.overpoweredmod.game.reference.OverpoweredItems;
-import addsynth.overpoweredmod.items.Ring;
-import addsynth.overpoweredmod.items.UnidentifiedItem;
-import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipes;
+import addsynth.overpoweredmod.items.*;
+import addsynth.overpoweredmod.items.basic.*;
+import addsynth.overpoweredmod.items.register.*;
+import addsynth.overpoweredmod.items.tools.*;
+import addsynth.overpoweredmod.machines.advanced_ore_refinery.AdvancedOreRefineryBlock;
+import addsynth.overpoweredmod.machines.advanced_ore_refinery.ContainerOreRefinery;
+import addsynth.overpoweredmod.machines.advanced_ore_refinery.TileAdvancedOreRefinery;
+import addsynth.overpoweredmod.machines.black_hole.BlackHoleBlock;
+import addsynth.overpoweredmod.machines.black_hole.BlackHoleItem;
+import addsynth.overpoweredmod.machines.black_hole.TileBlackHole;
+import addsynth.overpoweredmod.machines.crystal_matter_generator.ContainerCrystalGenerator;
+import addsynth.overpoweredmod.machines.crystal_matter_generator.CrystalMatterGeneratorBlock;
+import addsynth.overpoweredmod.machines.crystal_matter_generator.TileCrystalMatterGenerator;
+import addsynth.overpoweredmod.machines.data_cable.DataCable;
+import addsynth.overpoweredmod.machines.data_cable.TileDataCable;
+import addsynth.overpoweredmod.machines.energy_extractor.ContainerCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.energy_extractor.CrystalEnergyExtractorBlock;
+import addsynth.overpoweredmod.machines.energy_extractor.TileCrystalEnergyExtractor;
+import addsynth.overpoweredmod.machines.fusion.chamber.ContainerFusionChamber;
+import addsynth.overpoweredmod.machines.fusion.chamber.FusionChamberBlock;
+import addsynth.overpoweredmod.machines.fusion.chamber.TileFusionChamber;
+import addsynth.overpoweredmod.machines.fusion.control.FusionControlLaserBeam;
+import addsynth.overpoweredmod.machines.fusion.control.FusionControlUnit;
+import addsynth.overpoweredmod.machines.fusion.converter.FusionEnergyConverterBlock;
+import addsynth.overpoweredmod.machines.fusion.converter.TileFusionEnergyConverter;
+import addsynth.overpoweredmod.machines.gem_converter.ContainerGemConverter;
+import addsynth.overpoweredmod.machines.gem_converter.GemConverterBlock;
+import addsynth.overpoweredmod.machines.gem_converter.TileGemConverter;
+import addsynth.overpoweredmod.machines.identifier.ContainerIdentifier;
+import addsynth.overpoweredmod.machines.identifier.IdentifierBlock;
+import addsynth.overpoweredmod.machines.identifier.TileIdentifier;
+import addsynth.overpoweredmod.machines.inverter.ContainerInverter;
+import addsynth.overpoweredmod.machines.inverter.InverterBlock;
+import addsynth.overpoweredmod.machines.inverter.TileInverter;
+import addsynth.overpoweredmod.machines.laser.beam.LaserBeam;
+import addsynth.overpoweredmod.machines.laser.cannon.LaserCannon;
+import addsynth.overpoweredmod.machines.laser.machine.ContainerLaserHousing;
+import addsynth.overpoweredmod.machines.laser.machine.LaserHousingBlock;
+import addsynth.overpoweredmod.machines.laser.machine.TileLaserHousing;
+import addsynth.overpoweredmod.machines.magic_infuser.ContainerMagicInfuser;
+import addsynth.overpoweredmod.machines.magic_infuser.MagicInfuserBlock;
+import addsynth.overpoweredmod.machines.magic_infuser.TileMagicInfuser;
+import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipeSerializer;
+import addsynth.overpoweredmod.machines.matter_compressor.MatterCompressorBlock;
+import addsynth.overpoweredmod.machines.matter_compressor.MatterCompressorContainer;
+import addsynth.overpoweredmod.machines.matter_compressor.TileMatterCompressor;
+import addsynth.overpoweredmod.machines.plasma_generator.ContainerPlasmaGenerator;
+import addsynth.overpoweredmod.machines.plasma_generator.PlasmaGeneratorBlock;
+import addsynth.overpoweredmod.machines.plasma_generator.TilePlasmaGenerator;
+import addsynth.overpoweredmod.machines.portal.control_panel.ContainerPortalControlPanel;
+import addsynth.overpoweredmod.machines.portal.control_panel.PortalControlPanelBlock;
+import addsynth.overpoweredmod.machines.portal.control_panel.TilePortalControlPanel;
+import addsynth.overpoweredmod.machines.portal.frame.ContainerPortalFrame;
+import addsynth.overpoweredmod.machines.portal.frame.PortalFrameBlock;
+import addsynth.overpoweredmod.machines.portal.frame.TilePortalFrame;
+import addsynth.overpoweredmod.machines.portal.rift.PortalEnergyBlock;
+import addsynth.overpoweredmod.machines.portal.rift.TilePortal;
+import addsynth.overpoweredmod.machines.suspension_bridge.ContainerSuspensionBridge;
+import addsynth.overpoweredmod.machines.suspension_bridge.EnergyBridge;
+import addsynth.overpoweredmod.machines.suspension_bridge.EnergySuspensionBridgeBlock;
+import addsynth.overpoweredmod.machines.suspension_bridge.TileSuspensionBridge;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
@@ -32,55 +93,57 @@ public final class Registers {
     
     final IForgeRegistry<Block> game = event.getRegistry();
     
-    game.register(OverpoweredBlocks.light_block);
-    game.register(OverpoweredBlocks.null_block);
-    game.register(OverpoweredBlocks.iron_frame_block);
-    game.register(OverpoweredBlocks.black_hole);
+    game.register(new LightBlock());
+    game.register(new NullBlock());
+    game.register(new IronFrameBlock());
+    game.register(new BlackHoleBlock());
     
-    game.register(OverpoweredBlocks.data_cable);
-    game.register(OverpoweredBlocks.crystal_energy_extractor);
-    game.register(OverpoweredBlocks.gem_converter);
-    game.register(OverpoweredBlocks.inverter);
-    game.register(OverpoweredBlocks.magic_infuser);
-    game.register(OverpoweredBlocks.identifier);
+    game.register(new DataCable());
+    game.register(new CrystalEnergyExtractorBlock());
+    game.register(new GemConverterBlock());
+    game.register(new InverterBlock());
+    game.register(new MagicInfuserBlock());
+    game.register(new IdentifierBlock());
     
-    game.register(OverpoweredBlocks.energy_suspension_bridge);
-    game.register(OverpoweredBlocks.white_energy_bridge);
-    game.register(OverpoweredBlocks.red_energy_bridge);
-    game.register(OverpoweredBlocks.orange_energy_bridge);
-    game.register(OverpoweredBlocks.yellow_energy_bridge);
-    game.register(OverpoweredBlocks.green_energy_bridge);
-    game.register(OverpoweredBlocks.cyan_energy_bridge);
-    game.register(OverpoweredBlocks.blue_energy_bridge);
-    game.register(OverpoweredBlocks.magenta_energy_bridge);
+    game.register(new EnergySuspensionBridgeBlock());
+    game.register(new EnergyBridge(DeviceColor.WHITE));
+    game.register(new EnergyBridge(DeviceColor.RED));
+    game.register(new EnergyBridge(DeviceColor.ORANGE));
+    game.register(new EnergyBridge(DeviceColor.YELLOW));
+    game.register(new EnergyBridge(DeviceColor.GREEN));
+    game.register(new EnergyBridge(DeviceColor.CYAN));
+    game.register(new EnergyBridge(DeviceColor.BLUE));
+    game.register(new EnergyBridge(DeviceColor.MAGENTA));
     
-    game.register(OverpoweredBlocks.portal_control_panel);
-    game.register(OverpoweredBlocks.portal_frame);
-    game.register(OverpoweredBlocks.portal);
-    game.register(OverpoweredBlocks.unknown_wood);
-    game.register(OverpoweredBlocks.unknown_leaves);
+    game.register(new PortalControlPanelBlock());
+    game.register(new PortalFrameBlock());
+    game.register(new PortalEnergyBlock());
+    game.register(new UnknownWood());
+    game.register(new UnknownLeaves());
     
-    game.register(OverpoweredBlocks.plasma_generator);
-    game.register(OverpoweredBlocks.crystal_matter_generator);
-    game.register(OverpoweredBlocks.advanced_ore_refinery);
+    game.register(new PlasmaGeneratorBlock());
+    game.register(new CrystalMatterGeneratorBlock());
+    game.register(new AdvancedOreRefineryBlock());
     
-    game.register(OverpoweredBlocks.laser_housing);
-    game.register(Laser.WHITE.cannon);   game.register(Laser.WHITE.beam);
-    game.register(Laser.RED.cannon);     game.register(Laser.RED.beam);
-    game.register(Laser.ORANGE.cannon);  game.register(Laser.ORANGE.beam);
-    game.register(Laser.YELLOW.cannon);  game.register(Laser.YELLOW.beam);
-    game.register(Laser.GREEN.cannon);   game.register(Laser.GREEN.beam);
-    game.register(Laser.CYAN.cannon);    game.register(Laser.CYAN.beam);
-    game.register(Laser.BLUE.cannon);    game.register(Laser.BLUE.beam);
-    game.register(Laser.MAGENTA.cannon); game.register(Laser.MAGENTA.beam);
+    game.register(new LaserHousingBlock());
+    // Must register the different laser cannons as different blocks so they have different names and produce
+    // different color beams, but all the beams can be merged into a single block and use a color property.
+    game.register(new LaserCannon(DeviceColor.WHITE));   game.register(new LaserBeam(DeviceColor.WHITE));
+    game.register(new LaserCannon(DeviceColor.RED));     game.register(new LaserBeam(DeviceColor.RED));
+    game.register(new LaserCannon(DeviceColor.ORANGE));  game.register(new LaserBeam(DeviceColor.ORANGE));
+    game.register(new LaserCannon(DeviceColor.YELLOW));  game.register(new LaserBeam(DeviceColor.YELLOW));
+    game.register(new LaserCannon(DeviceColor.GREEN));   game.register(new LaserBeam(DeviceColor.GREEN));
+    game.register(new LaserCannon(DeviceColor.CYAN));    game.register(new LaserBeam(DeviceColor.CYAN));
+    game.register(new LaserCannon(DeviceColor.BLUE));    game.register(new LaserBeam(DeviceColor.BLUE));
+    game.register(new LaserCannon(DeviceColor.MAGENTA)); game.register(new LaserBeam(DeviceColor.MAGENTA));
     
-    game.register(OverpoweredBlocks.fusion_converter);
-    game.register(OverpoweredBlocks.fusion_control_unit);
-    game.register(OverpoweredBlocks.fusion_chamber);
-    game.register(OverpoweredBlocks.fusion_control_laser);
-    game.register(OverpoweredBlocks.fusion_control_laser_beam);
+    game.register(new FusionEnergyConverterBlock());
+    game.register(new FusionControlUnit());
+    game.register(new FusionChamberBlock());
+    game.register(new LaserCannon());
+    game.register(new FusionControlLaserBeam());
     
-    game.register(OverpoweredBlocks.matter_compressor);
+    game.register(new MatterCompressorBlock());
     
     OverpoweredTechnology.log.info("Finished Block Registration Event.");
   }
@@ -91,85 +154,95 @@ public final class Registers {
     
     final IForgeRegistry<Item> game = event.getRegistry();
 
-    game.register(OverpoweredItems.celestial_gem);
-    game.register(OverpoweredItems.energy_crystal_shards);
-    game.register(OverpoweredItems.energy_crystal);
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.light_block));
-    game.register(OverpoweredItems.void_crystal);
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.null_block));
+    game.register(new OverpoweredItem(Names.CELESTIAL_GEM));
+    game.register(new EnergyCrystalShards());
+    game.register(new EnergyCrystal());
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.light_block));
+    game.register(new VoidCrystal());
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.null_block));
     
-    game.register(OverpoweredItems.energized_power_core);
-    game.register(OverpoweredItems.nullified_power_core);
-    game.register(OverpoweredItems.energy_grid);
-    game.register(OverpoweredItems.vacuum_container);
-    game.register(OverpoweredItems.reinforced_container);
+    game.register(new OverpoweredItem(Names.ENERGIZED_POWER_CORE));
+    game.register(new OverpoweredItem(Names.NULLIFIED_POWER_CORE));
+    game.register(new OverpoweredItem(Names.ENERGY_GRID));
+    game.register(new OverpoweredItem(Names.VACUUM_CONTAINER));
+    game.register(new OverpoweredItem(Names.REINFORCED_CONTAINER));
     
-    game.register(OverpoweredItems.beam_emitter);
-    game.register(OverpoweredItems.scanning_laser);
-    game.register(OverpoweredItems.destructive_laser);
-    game.register(OverpoweredItems.heavy_light_emitter);
-    game.register(OverpoweredItems.energy_stabilizer);
-    game.register(OverpoweredItems.matter_energy_transformer);
-    game.register(OverpoweredItems.high_frequency_beam);
+    game.register(new OverpoweredItem(Names.BEAM_EMITTER));
+    game.register(new OverpoweredItem(Names.SCANNING_LASER));
+    game.register(new OverpoweredItem(Names.DESTRUCTIVE_LASER));
+    game.register(new OverpoweredItem(Names.HEAVY_LIGHT_EMITTER));
+    game.register(new OverpoweredItem(Names.ENERGY_STABILIZER));
+    game.register(new OverpoweredItem(Names.MATTER_ENERGY_TRANSFORMER));
+    game.register(new OverpoweredItem(Names.HIGH_FREQUENCY_BEAM));
     
-    for(Lens lens : Lens.values()){
-      game.register(lens.lens);
-    }
-    game.register(OverpoweredItems.plasma);
-    game.register(OverpoweredItems.fusion_core);
-    game.register(OverpoweredItems.matter_energy_converter);
-    game.register(OverpoweredItems.dimensional_flux);
-    game.register(OverpoweredItems.dimensional_anchor);
-    game.register(OverpoweredItems.unimatter);
+    game.register(new LensItem(DeviceColor.WHITE));
+    game.register(new LensItem(DeviceColor.RED));
+    game.register(new LensItem(DeviceColor.ORANGE));
+    game.register(new LensItem(DeviceColor.YELLOW));
+    game.register(new LensItem(DeviceColor.GREEN));
+    game.register(new LensItem(DeviceColor.CYAN));
+    game.register(new LensItem(DeviceColor.BLUE));
+    game.register(new LensItem(DeviceColor.MAGENTA));
     
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.data_cable));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.crystal_energy_extractor));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.gem_converter));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.inverter));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.magic_infuser));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.identifier));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.energy_suspension_bridge));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.portal_control_panel));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.portal_frame));
+    game.register(new PlasmaItem());
+    game.register(new FusionCore());
+    game.register(new OverpoweredItem(Names.MATTER_ENERGY_CONVERTER));
+    game.register(new DimensionalFlux());
+    game.register(new DimensionalAnchor());
+    game.register(new OverpoweredItem(Names.UNIMATTER));
+    
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.data_cable));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.crystal_energy_extractor));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.gem_converter));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.inverter));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.magic_infuser));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.identifier));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.energy_suspension_bridge));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.portal_control_panel));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.portal_frame));
     // MAYBE: register Item versions of the unknown / weird tree  (but item order is specific. don't register them here.)
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.plasma_generator));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.crystal_matter_generator));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.advanced_ore_refinery));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.plasma_generator));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.crystal_matter_generator));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.advanced_ore_refinery));
     
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.laser_housing));
-    game.register(RegistryUtil.getItemBlock(Laser.WHITE.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.RED.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.ORANGE.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.YELLOW.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.GREEN.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.CYAN.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.BLUE.cannon));
-    game.register(RegistryUtil.getItemBlock(Laser.MAGENTA.cannon));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.laser_housing));
+    game.register(new OverpoweredBlockItem(Laser.WHITE.cannon));
+    game.register(new OverpoweredBlockItem(Laser.RED.cannon));
+    game.register(new OverpoweredBlockItem(Laser.ORANGE.cannon));
+    game.register(new OverpoweredBlockItem(Laser.YELLOW.cannon));
+    game.register(new OverpoweredBlockItem(Laser.GREEN.cannon));
+    game.register(new OverpoweredBlockItem(Laser.CYAN.cannon));
+    game.register(new OverpoweredBlockItem(Laser.BLUE.cannon));
+    game.register(new OverpoweredBlockItem(Laser.MAGENTA.cannon));
     
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.fusion_converter));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.fusion_control_unit));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.fusion_chamber));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.fusion_control_laser));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.fusion_converter));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.fusion_control_unit));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.fusion_chamber));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.fusion_control_laser));
     
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.matter_compressor));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.matter_compressor));
     
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.iron_frame_block));
-    game.register(RegistryUtil.getItemBlock(OverpoweredBlocks.black_hole));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.iron_frame_block));
+    game.register(new BlackHoleItem());
     
-    game.register(OverpoweredItems.celestial_sword);
-    game.register(OverpoweredItems.celestial_shovel);
-    game.register(OverpoweredItems.celestial_pickaxe);
-    game.register(OverpoweredItems.celestial_axe);
-    game.register(OverpoweredItems.celestial_hoe);
+    game.register(new OverpoweredSword());
+    game.register(new OverpoweredShovel());
+    game.register(new OverpoweredPickaxe());
+    game.register(new OverpoweredAxe());
+    game.register(new OverpoweredHoe());
     
-    game.register(OverpoweredItems.void_sword);
-    game.register(OverpoweredItems.void_shovel);
-    game.register(OverpoweredItems.void_pickaxe);
-    game.register(OverpoweredItems.void_axe);
-    game.register(OverpoweredItems.void_hoe);
+    game.register(new NullSword());
+    game.register(new NullShovel());
+    game.register(new NullPickaxe());
+    game.register(new NullAxe());
+    game.register(new NullHoe());
     
-    for(Item[] armor_set : OverpoweredItems.unidentified_armor){
-      for(Item armor : armor_set){ game.register(armor); }
+    for(ArmorMaterial material : ArmorMaterial.values()){
+      if(material != ArmorMaterial.NETHERITE){
+        for(EquipmentType type : EquipmentType.values()){
+          game.register(new UnidentifiedItem (material, type));
+        }
+      }
     }
     if(Compatibility.CURIOS.loaded){
       game.register(new UnidentifiedItem(0));
@@ -183,8 +256,8 @@ public final class Registers {
     }
     
     // Items for advancements only
-    game.register(OverpoweredItems.portal_image);
-    game.register(OverpoweredItems.bridge_image);
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.portal, new Item.Properties()));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.blue_energy_bridge, new Item.Properties()));
 
     OverpoweredTechnology.log.info("Finished Item Registration Event.");
   }
@@ -198,56 +271,56 @@ public final class Registers {
     */
     final IForgeRegistry<BlockEntityType<?>> game = event.getRegistry();
 
-    RegistryUtil.register(game, Tiles.CRYSTAL_ENERGY_EXTRACTOR,   Names.CRYSTAL_ENERGY_EXTRACTOR);
-    RegistryUtil.register(game, Tiles.GEM_CONVERTER,              Names.GEM_CONVERTER);
-    RegistryUtil.register(game, Tiles.INVERTER,                   Names.INVERTER);
-    RegistryUtil.register(game, Tiles.MAGIC_INFUSER,              Names.MAGIC_INFUSER);
-    RegistryUtil.register(game, Tiles.IDENTIFIER,                 Names.IDENTIFIER);
-    RegistryUtil.register(game, Tiles.ENERGY_SUSPENSION_BRIDGE,   Names.ENERGY_SUSPENSION_BRIDGE);
-    RegistryUtil.register(game, Tiles.LASER_MACHINE,              Names.LASER_HOUSING);
-    RegistryUtil.register(game, Tiles.DATA_CABLE,                 Names.DATA_CABLE);
-    RegistryUtil.register(game, Tiles.PORTAL_CONTROL_PANEL,       Names.PORTAL_CONTROL_PANEL);
-    RegistryUtil.register(game, Tiles.PORTAL_FRAME,               Names.PORTAL_FRAME);
-    RegistryUtil.register(game, Tiles.PORTAL_BLOCK,               Names.PORTAL_RIFT);
-    RegistryUtil.register(game, Tiles.PLASMA_GENERATOR,           Names.PLASMA_GENERATOR);
-    RegistryUtil.register(game, Tiles.CRYSTAL_MATTER_REPLICATOR,  Names.CRYSTAL_MATTER_GENERATOR);
-    RegistryUtil.register(game, Tiles.ADVANCED_ORE_REFINERY,      Names.ADVANCED_ORE_REFINERY);
-    RegistryUtil.register(game, Tiles.FUSION_ENERGY_CONVERTER,    Names.FUSION_CONVERTER);
-    RegistryUtil.register(game, Tiles.FUSION_CHAMBER,             Names.FUSION_CHAMBER);
-    RegistryUtil.register(game, Tiles.BLACK_HOLE,                 Names.BLACK_HOLE);
-    RegistryUtil.register(game, Tiles.MATTER_COMPRESSOR,          Names.MATTER_COMPRESSOR);
+    game.register(RegistryUtil.createBlockEntityType(TileCrystalEnergyExtractor::new, OverpoweredBlocks.crystal_energy_extractor));
+    game.register(RegistryUtil.createBlockEntityType(TileGemConverter::new,           OverpoweredBlocks.gem_converter));
+    game.register(RegistryUtil.createBlockEntityType(TileInverter::new,               OverpoweredBlocks.inverter));
+    game.register(RegistryUtil.createBlockEntityType(TileMagicInfuser::new,           OverpoweredBlocks.magic_infuser));
+    game.register(RegistryUtil.createBlockEntityType(TileIdentifier::new,             OverpoweredBlocks.identifier));
+    game.register(RegistryUtil.createBlockEntityType(TileSuspensionBridge::new,       OverpoweredBlocks.energy_suspension_bridge));
+    game.register(RegistryUtil.createBlockEntityType(TileLaserHousing::new,           OverpoweredBlocks.laser_housing));
+    game.register(RegistryUtil.createBlockEntityType(TileDataCable::new,              OverpoweredBlocks.data_cable));
+    game.register(RegistryUtil.createBlockEntityType(TilePortalControlPanel::new,     OverpoweredBlocks.portal_control_panel));
+    game.register(RegistryUtil.createBlockEntityType(TilePortalFrame::new,            OverpoweredBlocks.portal_frame));
+    game.register(RegistryUtil.createBlockEntityType(TilePortal::new,                 OverpoweredBlocks.portal));
+    game.register(RegistryUtil.createBlockEntityType(TilePlasmaGenerator::new,        OverpoweredBlocks.plasma_generator));
+    game.register(RegistryUtil.createBlockEntityType(TileCrystalMatterGenerator::new, OverpoweredBlocks.crystal_matter_generator));
+    game.register(RegistryUtil.createBlockEntityType(TileAdvancedOreRefinery::new,    OverpoweredBlocks.advanced_ore_refinery));
+    game.register(RegistryUtil.createBlockEntityType(TileFusionEnergyConverter::new,  OverpoweredBlocks.fusion_converter));
+    game.register(RegistryUtil.createBlockEntityType(TileFusionChamber::new,          OverpoweredBlocks.fusion_chamber));
+    game.register(RegistryUtil.createBlockEntityType(TileBlackHole::new,              OverpoweredBlocks.black_hole));
+    game.register(RegistryUtil.createBlockEntityType(TileMatterCompressor::new,       OverpoweredBlocks.matter_compressor));
   }
 
   @SubscribeEvent
   public static final void registerContainers(final RegistryEvent.Register<MenuType<?>> event){
     final IForgeRegistry<MenuType<?>> game = event.getRegistry();
     
-    RegistryUtil.register(game, Containers.CRYSTAL_ENERGY_EXTRACTOR,   Names.CRYSTAL_ENERGY_EXTRACTOR);
-    RegistryUtil.register(game, Containers.GEM_CONVERTER,              Names.GEM_CONVERTER);
-    RegistryUtil.register(game, Containers.INVERTER,                   Names.INVERTER);
-    RegistryUtil.register(game, Containers.IDENTIFIER,                 Names.IDENTIFIER);
-    RegistryUtil.register(game, Containers.MAGIC_INFUSER,              Names.MAGIC_INFUSER);
-    RegistryUtil.register(game, Containers.ENERGY_SUSPENSION_BRIDGE,   Names.ENERGY_SUSPENSION_BRIDGE);
-    RegistryUtil.register(game, Containers.LASER_HOUSING,              Names.LASER_HOUSING);
-    RegistryUtil.register(game, Containers.PLASMA_GENERATOR,           Names.PLASMA_GENERATOR);
-    RegistryUtil.register(game, Containers.ADVANCED_ORE_REFINERY,      Names.ADVANCED_ORE_REFINERY);
-    RegistryUtil.register(game, Containers.CRYSTAL_MATTER_GENERATOR,   Names.CRYSTAL_MATTER_GENERATOR);
-    RegistryUtil.register(game, Containers.FUSION_CHAMBER,             Names.FUSION_CHAMBER);
-    RegistryUtil.register(game, Containers.PORTAL_CONTROL_PANEL,       Names.PORTAL_CONTROL_PANEL);
-    RegistryUtil.register(game, Containers.PORTAL_FRAME,               Names.PORTAL_FRAME);
-    RegistryUtil.register(game, Containers.MATTER_COMPRESSOR,          Names.MATTER_COMPRESSOR);
+    game.register(RegistryUtil.createContainerType(ContainerCrystalEnergyExtractor::new, Names.CRYSTAL_ENERGY_EXTRACTOR));
+    game.register(RegistryUtil.createContainerType(ContainerGemConverter::new,           Names.GEM_CONVERTER));
+    game.register(RegistryUtil.createContainerType(ContainerInverter::new,               Names.INVERTER));
+    game.register(RegistryUtil.createContainerType(ContainerIdentifier::new,             Names.IDENTIFIER));
+    game.register(RegistryUtil.createContainerType(ContainerMagicInfuser::new,           Names.MAGIC_INFUSER));
+    game.register(RegistryUtil.createContainerType(ContainerSuspensionBridge::new,       Names.ENERGY_SUSPENSION_BRIDGE));
+    game.register(RegistryUtil.createContainerType(ContainerLaserHousing::new,           Names.LASER_HOUSING));
+    game.register(RegistryUtil.createContainerType(ContainerPlasmaGenerator::new,        Names.PLASMA_GENERATOR));
+    game.register(RegistryUtil.createContainerType(ContainerOreRefinery::new,            Names.ADVANCED_ORE_REFINERY));
+    game.register(RegistryUtil.createContainerType(ContainerCrystalGenerator::new,       Names.CRYSTAL_MATTER_GENERATOR));
+    game.register(RegistryUtil.createContainerType(ContainerFusionChamber::new,          Names.FUSION_CHAMBER));
+    game.register(RegistryUtil.createContainerType(ContainerPortalControlPanel::new,     Names.PORTAL_CONTROL_PANEL));
+    game.register(RegistryUtil.createContainerType(ContainerPortalFrame::new,            Names.PORTAL_FRAME));
+    game.register(RegistryUtil.createContainerType(MatterCompressorContainer::new,       Names.MATTER_COMPRESSOR));
   }
 
   @SubscribeEvent
   public static final void registerRecipeSerializers(final RegistryEvent.Register<RecipeSerializer<?>> event){
     final IForgeRegistry<RecipeSerializer<?>> game = event.getRegistry();
-    RegistryUtil.register(game, MagicInfuserRecipes.serializer, Names.MAGIC_INFUSER);
+    game.register(new MagicInfuserRecipeSerializer());
   }
 
   @SubscribeEvent
   public static final void registerSounds(final RegistryEvent.Register<SoundEvent> event){
     final IForgeRegistry<SoundEvent> game = event.getRegistry();
-    game.register(Sounds.laser_fire_sound);
+    game.register(RegistryUtil.createNewSound(Sounds.Names.laser_fire));
   }
 
   @SubscribeEvent

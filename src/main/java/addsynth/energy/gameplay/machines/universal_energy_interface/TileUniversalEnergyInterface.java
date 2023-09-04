@@ -46,7 +46,7 @@ public final class TileUniversalEnergyInterface extends BasicEnergyNetworkTile
   private TRANSFER_MODE transfer_mode = TRANSFER_MODE.BI_DIRECTIONAL;
 
   public TileUniversalEnergyInterface(BlockPos position, BlockState blockstate){
-    super(Tiles.UNIVERSAL_ENERGY_INTERFACE, position, blockstate);
+    super(Tiles.UNIVERSAL_ENERGY_INTERFACE.get(), position, blockstate);
   }
 
   @Override

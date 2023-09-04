@@ -27,7 +27,7 @@ public final class TileMusicBox extends TileBase implements ITickingTileEntity {
   public boolean keep_playing;
 
   public TileMusicBox(BlockPos position, BlockState blockstate){
-    super(Tiles.MUSIC_BOX, position, blockstate);
+    super(Tiles.MUSIC_BOX.get(), position, blockstate);
   }
 
 // ===================================== TICK ====================================

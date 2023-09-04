@@ -3,8 +3,6 @@ package addsynth.overpoweredmod.blocks;
 import java.text.NumberFormat;
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.config.MachineValues;
 import addsynth.overpoweredmod.game.reference.Names;
 import net.minecraft.ChatFormatting;
@@ -21,7 +19,7 @@ public final class LightBlock extends Block {
 
   public LightBlock(){
     super(Block.Properties.of(Material.STONE, MaterialColor.QUARTZ).lightLevel((blockstate)->{return 15;}).strength(5.0f, 6.0f).requiresCorrectToolForDrops());
-    RegistryUtil.register_block(this, Names.LIGHT_BLOCK, CreativeTabs.creative_tab);
+    setRegistryName(Names.LIGHT_BLOCK);
   }
 
   @Override

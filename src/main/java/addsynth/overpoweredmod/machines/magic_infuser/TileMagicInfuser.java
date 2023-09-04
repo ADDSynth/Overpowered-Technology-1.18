@@ -29,7 +29,7 @@ public final class TileMagicInfuser extends TileStandardWorkMachine implements M
   }
 
   public TileMagicInfuser(BlockPos position, BlockState blockstate){
-    super(Tiles.MAGIC_INFUSER, position, blockstate, getSlotData(), 1, MachineValues.magic_infuser);
+    super(Tiles.MAGIC_INFUSER.get(), position, blockstate, getSlotData(), 1, MachineValues.magic_infuser);
     inventory.setResponder(this);
   }
 

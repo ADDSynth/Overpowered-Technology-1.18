@@ -29,7 +29,7 @@ public final class CircuitRecipeCategory implements IRecipeCategory<CircuitFabri
     final IDrawableBuilder drawable_builder = gui_helper.drawableBuilder(GuiReference.circuit_fabricator, 153, 67, 140, 54);
     drawable_builder.setTextureSize(384, 256);
     background = drawable_builder.build();
-    icon = gui_helper.createDrawableItemStack(new ItemStack(EnergyBlocks.circuit_fabricator));
+    icon = gui_helper.createDrawableItemStack(new ItemStack(EnergyBlocks.circuit_fabricator.get()));
   }
 
   @Override
@@ -51,7 +51,7 @@ public final class CircuitRecipeCategory implements IRecipeCategory<CircuitFabri
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(EnergyBlocks.circuit_fabricator.getDescriptionId());
+    return new TranslatableComponent(EnergyBlocks.circuit_fabricator.get().getDescriptionId());
   }
 
   @Override

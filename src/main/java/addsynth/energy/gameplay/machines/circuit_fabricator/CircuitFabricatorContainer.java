@@ -10,12 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class CircuitFabricatorContainer extends TileEntityContainer<TileCircuitFabricator> {
 
   public CircuitFabricatorContainer(int id, Inventory player_inventory, FriendlyByteBuf data){
-    super(Containers.CIRCUIT_FABRICATOR, id, player_inventory, data);
+    super(Containers.CIRCUIT_FABRICATOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 
   public CircuitFabricatorContainer(int id, Inventory player_inventory, TileCircuitFabricator tile){
-    super(Containers.CIRCUIT_FABRICATOR, id, player_inventory, tile);
+    super(Containers.CIRCUIT_FABRICATOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 

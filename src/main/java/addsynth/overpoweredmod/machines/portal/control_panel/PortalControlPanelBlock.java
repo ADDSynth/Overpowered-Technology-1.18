@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.portal.control_panel;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -40,7 +38,7 @@ public final class PortalControlPanelBlock extends MachineBlock {
 
   public PortalControlPanelBlock(){
     super(MaterialColor.SNOW);
-    RegistryUtil.register_block(this, Names.PORTAL_CONTROL_PANEL, CreativeTabs.creative_tab);
+    setRegistryName(Names.PORTAL_CONTROL_PANEL);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     DataCable.addAttachableBlock(this);
   }
@@ -59,7 +57,7 @@ public final class PortalControlPanelBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.PORTAL_CONTROL_PANEL);
+    return standardTicker(world, type, Tiles.PORTAL_CONTROL_PANEL.get());
   }
 
   @Override

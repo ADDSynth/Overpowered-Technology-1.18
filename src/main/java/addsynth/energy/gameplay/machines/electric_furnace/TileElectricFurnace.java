@@ -20,7 +20,7 @@ public final class TileElectricFurnace extends TileAlwaysOnMachine implements Me
   private static final MachineData machine_data = new MachineData(MachineType.ALWAYS_ON, 200, 5, 0, 0);
 
   public TileElectricFurnace(BlockPos position, BlockState blockstate){
-    super(Tiles.ELECTRIC_FURNACE, position, blockstate, 1, get_filter(), 1, machine_data);
+    super(Tiles.ELECTRIC_FURNACE.get(), position, blockstate, 1, get_filter(), 1, machine_data);
     inventory.setRecipeProvider(RecipeUtil::getFurnaceResult);
   }
 

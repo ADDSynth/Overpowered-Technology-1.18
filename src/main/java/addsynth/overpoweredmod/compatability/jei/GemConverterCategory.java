@@ -26,7 +26,7 @@ public final class GemConverterCategory implements IRecipeCategory<GemConverterR
 
   public GemConverterCategory(final IGuiHelper gui_helper){
     background = gui_helper.createDrawable(GuiReference.jei_recipe_background, 18, 16, 74, 18);
-    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.gem_converter));
+    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.gem_converter.get()));
   }
 
   public static RecipeType<GemConverterRecipe> getType(){
@@ -47,7 +47,7 @@ public final class GemConverterCategory implements IRecipeCategory<GemConverterR
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(OverpoweredBlocks.gem_converter.getDescriptionId());
+    return new TranslatableComponent(OverpoweredBlocks.gem_converter.get().getDescriptionId());
   }
 
   @Override

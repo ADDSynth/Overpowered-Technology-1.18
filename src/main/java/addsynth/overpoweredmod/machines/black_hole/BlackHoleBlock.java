@@ -1,7 +1,6 @@
 package addsynth.overpoweredmod.machines.black_hole;
 
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.game.blocks.TileEntityBlock;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -27,7 +26,6 @@ public final class BlackHoleBlock extends TileEntityBlock {
     super(Block.Properties.of(Material.PORTAL, MaterialColor.COLOR_BLACK).noCollission());
     // setResistance(100.0f);
     setRegistryName(Names.BLACK_HOLE);
-    RegistryUtil.register_ItemBlock(new BlackHoleItem(this), Names.BLACK_HOLE);
   }
 
   @Override
@@ -45,7 +43,7 @@ public final class BlackHoleBlock extends TileEntityBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.BLACK_HOLE);
+    return standardTicker(world, type, Tiles.BLACK_HOLE.get());
   }
 
   @Override

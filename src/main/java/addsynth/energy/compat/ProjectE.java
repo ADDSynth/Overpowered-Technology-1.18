@@ -22,42 +22,42 @@ public final class ProjectE {
     // Using linear    equation: y = -400 + 1300x
     // Using quadratic equation: y = 100(x+2)^2
     
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_2),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_2.get()),
       Config.emcDeveloperDefined() ? 1600L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.red_dye        + EMCValue.redstone +
       EMCValue.nether_quartz + EMCValue.common_metal   + EMCValue.uncommon_metal
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_3),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_3.get()),
       Config.emcDeveloperDefined() ? 2500L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.yellow_dye     + EMCValue.redstone_torch +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_4),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_4.get()),
       Config.emcDeveloperDefined() ? 3600L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.blue_dye       + EMCValue.redstone_repeater +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.glowstone_dust
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_5),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_5.get()),
       Config.emcDeveloperDefined() ? 4900L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.black_dye      + EMCValue.redstone_repeater +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.diamond
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_6),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_6.get()),
       Config.emcDeveloperDefined() ? 6400L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.purple_dye     + EMCValue.observer +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.ender_pearl
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_7),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_7.get()),
       Config.emcDeveloperDefined() ? 8100L :
       EMCValue.paper         + EMCValue.common_metal   + EMCValue.orange_dye     + EMCValue.redstone_comparator +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.magma_cream
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_8),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_8.get()),
       Config.emcDeveloperDefined() ? 10_000L :
       EMCValue.common_metal  + EMCValue.common_metal   + EMCValue.white_dye      + EMCValue.redstone_comparator +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.ender_eye
     ));
-    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_9),
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(EnergyItems.circuit_tier_9.get()),
       Config.emcDeveloperDefined() ? 12_100L :
       EMCValue.common_metal  + EMCValue.common_metal   + EMCValue.cyan_dye       + EMCValue.redstone_lamp +
       EMCValue.silicon       + EMCValue.uncommon_metal + EMCValue.uncommon_metal + EMCValue.heart_of_the_sea

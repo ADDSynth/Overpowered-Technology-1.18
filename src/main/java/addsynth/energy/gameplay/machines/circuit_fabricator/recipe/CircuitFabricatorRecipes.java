@@ -3,7 +3,6 @@ package addsynth.energy.gameplay.machines.circuit_fabricator.recipe;
 import java.util.ArrayList;
 import java.util.function.BiConsumer;
 import addsynth.core.recipe.shapeless.RecipeCollection;
-import addsynth.core.recipe.shapeless.ShapelessRecipeSerializer;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.EnergyItems;
 import net.minecraft.world.item.Item;
@@ -15,17 +14,22 @@ public final class CircuitFabricatorRecipes {
   public static final class CircuitFabricatorRecipeType implements RecipeType<CircuitFabricatorRecipe> {
   }
   
-  public static final RecipeCollection<CircuitFabricatorRecipe> INSTANCE = new RecipeCollection<CircuitFabricatorRecipe>(
-    new CircuitFabricatorRecipeType(), new ShapelessRecipeSerializer<CircuitFabricatorRecipe>(CircuitFabricatorRecipe.class, 8)
-  );
+  public static final RecipeCollection<CircuitFabricatorRecipe> INSTANCE =
+    new RecipeCollection<CircuitFabricatorRecipe>(new CircuitFabricatorRecipeType());
 
   /** This is used by the CircuitFabricatorGui to populate the Item list. */
   public static final ItemStack[] getRecipes(){
     // add circuits first
     final ArrayList<ItemStack> output = new ArrayList<>(30);
-    for(Item circuit : EnergyItems.circuit){
-      output.add(new ItemStack(circuit));
-    }
+    output.add(new ItemStack(EnergyItems.circuit_tier_1.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_2.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_3.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_4.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_5.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_6.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_7.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_8.get()));
+    output.add(new ItemStack(EnergyItems.circuit_tier_9.get()));
     // add all other items
     final ArrayList<CircuitFabricatorRecipe> recipes = new ArrayList<>(INSTANCE.recipes);
     recipes.removeIf(

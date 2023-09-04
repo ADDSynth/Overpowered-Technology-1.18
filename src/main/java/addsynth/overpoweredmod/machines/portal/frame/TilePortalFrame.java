@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TilePortalFrame extends TileStorageMachine implements MenuProvider {
 
   public TilePortalFrame(BlockPos position, BlockState blockstate){
-    super(Tiles.PORTAL_FRAME, position, blockstate, new SlotData[]{new SlotData(Filters.portal_frame, 1)});
+    super(Tiles.PORTAL_FRAME.get(), position, blockstate, new SlotData[]{new SlotData(Filters.portal_frame, 1)});
   }
 
   public final int check_item(){

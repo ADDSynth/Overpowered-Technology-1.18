@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import addsynth.core.container.slots.InputSlot;
 import addsynth.core.game.item.ItemUtil;
 import addsynth.energy.ADDSynthEnergy;
-import addsynth.energy.gameplay.EnergyItems;
 import addsynth.energy.gameplay.config.Config;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipe;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipes;
@@ -48,9 +47,25 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
   private static final String saveTag = "Recipe";
 
   public TileCircuitFabricator(BlockPos position, BlockState blockstate){
-    super(Tiles.CIRCUIT_FABRICATOR, position, blockstate, 8, null, 1, Config.circuit_fabricator_data);
+    super(Tiles.CIRCUIT_FABRICATOR.get(), position, blockstate, 8, null, 1, Config.circuit_fabricator_data);
     inventory.setRecipeProvider(CircuitFabricatorRecipes.INSTANCE);
     rebuild_filters(); // sets default filter, before we load the previously saved selected recipe.
+  }
+
+  public final void change_recipe(final int circuit_id){
+    final ResourceLocation circuit = switch(circuit_id){
+      case 0 -> Names.CIRCUIT_TIER_1;
+      case 1 -> Names.CIRCUIT_TIER_2;
+      case 2 -> Names.CIRCUIT_TIER_3;
+      case 3 -> Names.CIRCUIT_TIER_4;
+      case 4 -> Names.CIRCUIT_TIER_5;
+      case 5 -> Names.CIRCUIT_TIER_6;
+      case 6 -> Names.CIRCUIT_TIER_7;
+      case 7 -> Names.CIRCUIT_TIER_8;
+      case 8 -> Names.CIRCUIT_TIER_9;
+      default -> null;
+    };
+    change_recipe(circuit);
   }
 
   public final void change_recipe(final String new_recipe){
@@ -129,8 +144,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
     
     // handle old saves
     if(nbt.contains(legacyNBTSaveTag)){
-      final int circuit = nbt.getInt(legacyNBTSaveTag);
-      change_recipe(EnergyItems.circuit[circuit].getRegistryName());
+      change_recipe(nbt.getInt(legacyNBTSaveTag)); // loads 0 by default
       return;
     }
     

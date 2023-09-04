@@ -15,7 +15,6 @@ import addsynth.energy.lib.main.Receiver;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
 import addsynth.overpoweredmod.config.Config;
 import addsynth.overpoweredmod.game.NetworkHandler;
-import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -533,31 +532,9 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   }
 
   private final void set_energy_block(final int direction, final BlockPos position){
-    if(direction == DirectionConstant.DOWN || direction == DirectionConstant.UP){
-      final Direction.Axis rotate_direction = bridge_data[direction].getRotationAxis();
-      switch(lens_index){
-      case 0: world.setBlockAndUpdate(position, OverpoweredBlocks.white_energy_bridge.getRotated(rotate_direction));   break;
-      case 1: world.setBlockAndUpdate(position, OverpoweredBlocks.red_energy_bridge.getRotated(rotate_direction));     break;
-      case 2: world.setBlockAndUpdate(position, OverpoweredBlocks.orange_energy_bridge.getRotated(rotate_direction));  break;
-      case 3: world.setBlockAndUpdate(position, OverpoweredBlocks.yellow_energy_bridge.getRotated(rotate_direction));  break;
-      case 4: world.setBlockAndUpdate(position, OverpoweredBlocks.green_energy_bridge.getRotated(rotate_direction));   break;
-      case 5: world.setBlockAndUpdate(position, OverpoweredBlocks.cyan_energy_bridge.getRotated(rotate_direction));    break;
-      case 6: world.setBlockAndUpdate(position, OverpoweredBlocks.blue_energy_bridge.getRotated(rotate_direction));    break;
-      case 7: world.setBlockAndUpdate(position, OverpoweredBlocks.magenta_energy_bridge.getRotated(rotate_direction)); break;
-      }
-    }
-    else{
-      switch(lens_index){
-      case 0: world.setBlockAndUpdate(position, OverpoweredBlocks.white_energy_bridge.defaultBlockState());   break;
-      case 1: world.setBlockAndUpdate(position, OverpoweredBlocks.red_energy_bridge.defaultBlockState());     break;
-      case 2: world.setBlockAndUpdate(position, OverpoweredBlocks.orange_energy_bridge.defaultBlockState());  break;
-      case 3: world.setBlockAndUpdate(position, OverpoweredBlocks.yellow_energy_bridge.defaultBlockState());  break;
-      case 4: world.setBlockAndUpdate(position, OverpoweredBlocks.green_energy_bridge.defaultBlockState());   break;
-      case 5: world.setBlockAndUpdate(position, OverpoweredBlocks.cyan_energy_bridge.defaultBlockState());    break;
-      case 6: world.setBlockAndUpdate(position, OverpoweredBlocks.blue_energy_bridge.defaultBlockState());    break;
-      case 7: world.setBlockAndUpdate(position, OverpoweredBlocks.magenta_energy_bridge.defaultBlockState()); break;
-      }
-    }
+    final boolean vertical = direction == DirectionConstant.DOWN || direction == DirectionConstant.UP;
+    final Direction.Axis axis = vertical ? bridge_data[direction].getRotationAxis() : null;
+    world.setBlockAndUpdate(position, EnergyBridge.get(lens_index, axis));
   }
 
   private final void maintain_bridge(){

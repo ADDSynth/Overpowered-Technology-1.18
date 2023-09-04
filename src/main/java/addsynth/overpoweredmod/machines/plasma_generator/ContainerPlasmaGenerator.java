@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerPlasmaGenerator extends TileEntityContainer<TilePlasmaGenerator> {
 
   public ContainerPlasmaGenerator(final int id, final Inventory player_inventory, final TilePlasmaGenerator tile){
-    super(Containers.PLASMA_GENERATOR, id, player_inventory, tile);
+    super(Containers.PLASMA_GENERATOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerPlasmaGenerator(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.PLASMA_GENERATOR, id, player_inventory, data);
+    super(Containers.PLASMA_GENERATOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

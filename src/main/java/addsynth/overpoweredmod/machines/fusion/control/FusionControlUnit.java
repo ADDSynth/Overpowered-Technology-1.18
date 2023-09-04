@@ -2,9 +2,7 @@ package addsynth.overpoweredmod.machines.fusion.control;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
@@ -21,7 +19,7 @@ public final class FusionControlUnit extends MachineBlock {
 
   public FusionControlUnit(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.FUSION_CONTROL_UNIT, CreativeTabs.creative_tab);
+    setRegistryName(Names.FUSION_CONTROL_UNIT);
     DataCable.addAttachableBlock(this);
   }
 

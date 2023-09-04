@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.energy_extractor;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ public final class CrystalEnergyExtractorBlock extends MachineBlock {
 
   public CrystalEnergyExtractorBlock(){
     super(MaterialColor.COLOR_BLACK);
-    RegistryUtil.register_block(this, Names.CRYSTAL_ENERGY_EXTRACTOR, CreativeTabs.creative_tab);
+    setRegistryName(Names.CRYSTAL_ENERGY_EXTRACTOR);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class CrystalEnergyExtractorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.CRYSTAL_ENERGY_EXTRACTOR);
+    return standardTicker(world, type, Tiles.CRYSTAL_ENERGY_EXTRACTOR.get());
   }
 
   /** @deprecated Call via {@link BlockState#use(Level, Player, InteractionHand, BlockHitResult)} whenever possible.

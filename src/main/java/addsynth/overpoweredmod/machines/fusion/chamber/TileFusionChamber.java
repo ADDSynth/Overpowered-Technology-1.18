@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileFusionChamber extends TileStorageMachine implements MenuProvider {
 
-  public static final Item[] input_filter = new Item[]{OverpoweredItems.fusion_core};
+  public static final Item[] input_filter = new Item[]{OverpoweredItems.fusion_core.get()};
   private static final SlotData[] slot_data = {new SlotData(input_filter, 1)};
 
   /** A standard TNT explosion is size of 4. */
@@ -32,7 +32,7 @@ public final class TileFusionChamber extends TileStorageMachine implements MenuP
   private boolean on;
 
   public TileFusionChamber(BlockPos position, BlockState blockstate){
-    super(Tiles.FUSION_CHAMBER, position, blockstate, slot_data);
+    super(Tiles.FUSION_CHAMBER.get(), position, blockstate, slot_data);
   }
 
   public final boolean has_fusion_core(){
@@ -51,13 +51,14 @@ public final class TileFusionChamber extends TileStorageMachine implements MenuP
     if(on != state){ // Only run on state change
       int i;
       BlockPos position;
+      final BlockState fusion_beam = OverpoweredBlocks.fusion_control_laser_beam.get().defaultBlockState();
       for(Direction side: Direction.values()){
         for(i = 1; i < container_radius - 1; i++){
           position = worldPosition.relative(side, i);
           if(state){
             // TODO: DO NOT INSERT a Laser Effect block in the world! Replace this with some sort of
             //       OpenGL special effects that doesn't touch the world and immune to player interference.
-            level.setBlock(position, OverpoweredBlocks.fusion_control_laser_beam.defaultBlockState(), 3);
+            level.setBlock(position, fusion_beam, 3);
             // TEST why would we need block updates for this? Can this just be set to 2 for Client updates?
             AdvancementUtil.grantAdvancement(player_name, level, CustomAdvancements.FUSION_ENERGY);
           }

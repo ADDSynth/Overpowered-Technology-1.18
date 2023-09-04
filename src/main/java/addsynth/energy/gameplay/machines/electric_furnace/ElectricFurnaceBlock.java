@@ -2,9 +2,7 @@ package addsynth.energy.gameplay.machines.electric_furnace;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
@@ -39,7 +37,7 @@ public final class ElectricFurnaceBlock extends MachineBlock {
 
   public ElectricFurnaceBlock(){
     super(MaterialColor.COLOR_LIGHT_GRAY);
-    RegistryUtil.register_block(this, Names.ELECTRIC_FURNACE, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.ELECTRIC_FURNACE);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
 
@@ -57,7 +55,7 @@ public final class ElectricFurnaceBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.ELECTRIC_FURNACE);
+    return standardTicker(world, type, Tiles.ELECTRIC_FURNACE.get());
   }
 
   @Override

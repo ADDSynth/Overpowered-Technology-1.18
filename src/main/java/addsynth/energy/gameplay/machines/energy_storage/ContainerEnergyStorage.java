@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerEnergyStorage extends TileEntityContainer<TileEnergyStorage> {
 
   public ContainerEnergyStorage(final int id, final Inventory player_inventory, final TileEnergyStorage tile){
-    super(Containers.ENERGY_STORAGE_CONTAINER, id, player_inventory, tile);
+    super(Containers.ENERGY_STORAGE_CONTAINER.get(), id, player_inventory, tile);
   }
 
   public ContainerEnergyStorage(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.ENERGY_STORAGE_CONTAINER, id, player_inventory, data);
+    super(Containers.ENERGY_STORAGE_CONTAINER.get(), id, player_inventory, data);
   }
 
 }

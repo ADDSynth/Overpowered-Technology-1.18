@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.plasma_generator;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -39,7 +37,7 @@ public final class PlasmaGeneratorBlock extends MachineBlock {
 
   public PlasmaGeneratorBlock(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.PLASMA_GENERATOR, CreativeTabs.creative_tab);
+    setRegistryName(Names.PLASMA_GENERATOR);
     this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
 
@@ -57,7 +55,7 @@ public final class PlasmaGeneratorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.PLASMA_GENERATOR);
+    return standardTicker(world, type, Tiles.PLASMA_GENERATOR.get());
   }
 
   @Override

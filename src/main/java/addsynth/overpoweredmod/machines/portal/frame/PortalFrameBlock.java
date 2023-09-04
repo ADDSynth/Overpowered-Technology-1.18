@@ -1,10 +1,8 @@
 package addsynth.overpoweredmod.machines.portal.frame;
 
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
 import net.minecraft.core.BlockPos;
@@ -23,7 +21,7 @@ public final class PortalFrameBlock extends MachineBlock {
 
   public PortalFrameBlock(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.PORTAL_FRAME, CreativeTabs.creative_tab);
+    setRegistryName(Names.PORTAL_FRAME);
     DataCable.addAttachableBlock(this);
   }
 

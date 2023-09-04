@@ -1,19 +1,18 @@
 package addsynth.core.gameplay;
 
-import addsynth.core.game.blocks.TestBlock;
-import addsynth.core.gameplay.blocks.CautionBlock;
-import addsynth.core.gameplay.music_box.MusicBox;
-import addsynth.core.gameplay.music_box.MusicSheet;
-import addsynth.core.gameplay.team_manager.TeamManagerBlock;
+import addsynth.core.gameplay.reference.Names;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class Core {
 
-  // public static final TestBlock        test_block              = new TestBlock();
+  // public static final RegistryObject<Block> test_block    = RegistryObject.create(Names.TEST_BLOCK,    ForgeRegistries.BLOCKS);
 
-  public static final Block            caution_block           = new CautionBlock();
-  public static final MusicBox         music_box               = new MusicBox();
-  public static final MusicSheet       music_sheet             = new MusicSheet();
-  public static final TeamManagerBlock team_manager            = new TeamManagerBlock();
+  public static final RegistryObject<Block> caution_block = RegistryObject.create(Names.CAUTION_BLOCK, ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Block> music_box     = RegistryObject.create(Names.MUSIC_BOX,     ForgeRegistries.BLOCKS);
+  public static final RegistryObject<Item>  music_sheet   = RegistryObject.create(Names.MUSIC_SHEET,   ForgeRegistries.ITEMS);
+  public static final RegistryObject<Block> team_manager  = RegistryObject.create(Names.TEAM_MANAGER,  ForgeRegistries.BLOCKS);
 
 }

@@ -10,12 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerIdentifier extends TileEntityContainer<TileIdentifier> {
 
   public ContainerIdentifier(final int id, final Inventory player_inventory, final TileIdentifier tile){
-    super(Containers.IDENTIFIER, id, player_inventory, tile);
+    super(Containers.IDENTIFIER.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerIdentifier(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.IDENTIFIER, id, player_inventory, data);
+    super(Containers.IDENTIFIER.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

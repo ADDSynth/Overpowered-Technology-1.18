@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.inverter;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ public final class InverterBlock extends MachineBlock {
 
   public InverterBlock(){
     super(MaterialColor.SNOW);
-    RegistryUtil.register_block(this, Names.INVERTER, CreativeTabs.creative_tab);
+    setRegistryName(Names.INVERTER);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class InverterBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.INVERTER);
+    return standardTicker(world, type, Tiles.INVERTER.get());
   }
 
   @Override

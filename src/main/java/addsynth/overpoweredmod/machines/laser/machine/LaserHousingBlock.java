@@ -3,12 +3,10 @@ package addsynth.overpoweredmod.machines.laser.machine;
 import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.OverpoweredTechnology;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -36,7 +34,7 @@ public final class LaserHousingBlock extends MachineBlock {
 
   public LaserHousingBlock(){
     super(MaterialColor.SNOW);
-    RegistryUtil.register_block(this, Names.LASER_HOUSING, CreativeTabs.creative_tab);
+    setRegistryName(Names.LASER_HOUSING);
   }
 
   @Override
@@ -53,7 +51,7 @@ public final class LaserHousingBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.LASER_MACHINE);
+    return standardTicker(world, type, Tiles.LASER_MACHINE.get());
   }
 
   @Override

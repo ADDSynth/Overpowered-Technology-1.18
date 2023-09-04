@@ -14,7 +14,7 @@ public final class TileDataCable extends TileBase implements IBlockNetworkUser<D
   private DataCableNetwork cable_network;
 
   public TileDataCable(BlockPos position, BlockState blockstate){
-    super(Tiles.DATA_CABLE, position, blockstate);
+    super(Tiles.DATA_CABLE.get(), position, blockstate);
   }
 
   @Override

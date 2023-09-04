@@ -11,12 +11,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerGemConverter extends TileEntityContainer<TileGemConverter> {
 
   public ContainerGemConverter(final int id, final Inventory player_inventory, final TileGemConverter tile){
-    super(Containers.GEM_CONVERTER, id, player_inventory, tile);
+    super(Containers.GEM_CONVERTER.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerGemConverter(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.GEM_CONVERTER, id, player_inventory, data);
+    super(Containers.GEM_CONVERTER.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

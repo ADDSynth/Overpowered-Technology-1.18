@@ -22,7 +22,7 @@ public final class TileCrystalMatterGenerator extends TilePassiveMachine impleme
   private final OutputInventory output_inventory;
 
   public TileCrystalMatterGenerator(BlockPos position, BlockState blockstate){
-    super(Tiles.CRYSTAL_MATTER_REPLICATOR, position, blockstate, MachineValues.crystal_matter_generator);
+    super(Tiles.CRYSTAL_MATTER_REPLICATOR.get(), position, blockstate, MachineValues.crystal_matter_generator);
     output_inventory = OutputInventory.create(this, 8);
   }
 

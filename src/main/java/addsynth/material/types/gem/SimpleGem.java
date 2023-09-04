@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 /** Use this class for Gem materials that don't have a storage block
  *  or gem shard, but they do have a gem item and an ore block. */
@@ -19,35 +20,35 @@ public final class SimpleGem extends Gem {
   private final int min_experience;
   private final int max_experience;
 
-  private final ResourceLocation gem_name;
-  private final ResourceLocation ore_name;
+  private final RegistryObject<Item> gem;
+  private final RegistryObject<Block> ore;
 
   public SimpleGem(final String name, final MaterialColor color, final int min_experience, final int max_experience){
     super(name);
     this.color = color;
     this.min_experience = min_experience;
     this.max_experience = max_experience;
-    gem_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name);
-    ore_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore");
+    gem = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name),        ForgeRegistries.ITEMS);
+    ore = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore"), ForgeRegistries.BLOCKS);
   }
   
   public final void registerBlocks(final IForgeRegistry<Block> game){
-    game.register(new OreBlock(ore_name, min_experience, max_experience));
+    game.register(new OreBlock(ore.getId(), min_experience, max_experience));
   }
   
   public final void registerItems(final IForgeRegistry<Item> game){
-    game.register(new MaterialItem(gem_name));
-    game.register(RegistryUtil.create_ItemBlock(getOre(), ADDSynthMaterials.creative_tab, ore_name));
+    game.register(new MaterialItem(gem.getId()));
+    game.register(RegistryUtil.createItemBlock(ore, ADDSynthMaterials.creative_tab));
   }
 
   @Override
   public final Item getGem(){
-    return ForgeRegistries.ITEMS.getValue(gem_name);
+    return gem.get();
   }
   
   @Override
   public final Block getOre(){
-    return ForgeRegistries.BLOCKS.getValue(ore_name);
+    return ore.get();
   }
 
 }

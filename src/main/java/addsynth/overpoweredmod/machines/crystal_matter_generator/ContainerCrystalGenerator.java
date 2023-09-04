@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerCrystalGenerator extends TileEntityContainer<TileCrystalMatterGenerator> {
 
   public ContainerCrystalGenerator(final int id, final Inventory player_inventory, final TileCrystalMatterGenerator tile){
-    super(Containers.CRYSTAL_MATTER_GENERATOR, id, player_inventory, tile);
+    super(Containers.CRYSTAL_MATTER_GENERATOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerCrystalGenerator(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.CRYSTAL_MATTER_GENERATOR, id, player_inventory, data);
+    super(Containers.CRYSTAL_MATTER_GENERATOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

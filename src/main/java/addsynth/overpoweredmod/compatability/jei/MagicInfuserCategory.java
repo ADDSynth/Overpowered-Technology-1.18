@@ -26,7 +26,7 @@ public final class MagicInfuserCategory implements IRecipeCategory<MagicInfuserR
 
   public MagicInfuserCategory(final IGuiHelper gui_helper){
     background = gui_helper.createDrawable(GuiReference.jei_recipe_background, 0, 16, 92, 18);
-          icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.magic_infuser));
+          icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.magic_infuser.get()));
   }
 
   public static RecipeType<MagicInfuserRecipe> getType(){
@@ -47,7 +47,7 @@ public final class MagicInfuserCategory implements IRecipeCategory<MagicInfuserR
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(OverpoweredBlocks.magic_infuser.getDescriptionId());
+    return new TranslatableComponent(OverpoweredBlocks.magic_infuser.get().getDescriptionId());
   }
 
   @Override

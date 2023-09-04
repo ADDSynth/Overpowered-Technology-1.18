@@ -26,7 +26,7 @@ public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRe
 
   public AdvancedOreRefineryCategory(final IGuiHelper gui_helper){
     background = gui_helper.createDrawable(GuiReference.jei_recipe_background, 18, 16, 74, 18);
-    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.advanced_ore_refinery));
+    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.advanced_ore_refinery.get()));
   }
 
   public static RecipeType<OreRefineryRecipe> getType(){
@@ -47,7 +47,7 @@ public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRe
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(OverpoweredBlocks.advanced_ore_refinery.getDescriptionId());
+    return new TranslatableComponent(OverpoweredBlocks.advanced_ore_refinery.get().getDescriptionId());
   }
 
   @Override

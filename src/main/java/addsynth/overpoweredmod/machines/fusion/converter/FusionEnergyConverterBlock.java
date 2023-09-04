@@ -2,10 +2,8 @@ package addsynth.overpoweredmod.machines.fusion.converter;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.TextReference;
 import addsynth.overpoweredmod.machines.data_cable.DataCable;
@@ -27,7 +25,7 @@ public final class FusionEnergyConverterBlock extends MachineBlock {
 
   public FusionEnergyConverterBlock(){
     super(MaterialColor.SNOW);
-    RegistryUtil.register_block(this, Names.FUSION_CONVERTER, CreativeTabs.creative_tab);
+    setRegistryName(Names.FUSION_CONVERTER);
     DataCable.addAttachableBlock(this);
   }
 
@@ -45,7 +43,7 @@ public final class FusionEnergyConverterBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.FUSION_ENERGY_CONVERTER);
+    return standardTicker(world, type, Tiles.FUSION_ENERGY_CONVERTER.get());
   }
 
   @Override

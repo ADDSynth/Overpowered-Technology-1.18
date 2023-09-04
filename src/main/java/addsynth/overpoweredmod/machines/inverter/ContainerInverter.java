@@ -10,12 +10,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerInverter extends TileEntityContainer<TileInverter> {
 
   public ContainerInverter(final int id, final Inventory player_inventory, final TileInverter tile){
-    super(Containers.INVERTER, id, player_inventory, tile);
+    super(Containers.INVERTER.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerInverter(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.INVERTER, id, player_inventory, data);
+    super(Containers.INVERTER.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

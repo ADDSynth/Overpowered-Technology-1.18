@@ -2,8 +2,6 @@ package addsynth.energy.gameplay.machines.energy_wire;
 
 import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
-import addsynth.core.game.RegistryUtil;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.machines.energy_diagnostics.TileEnergyDiagnostics;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.lib.blocks.Wire;
@@ -26,7 +24,7 @@ public final class EnergyWire extends Wire {
 
   public EnergyWire(){
     super(Block.Properties.of(Material.WOOL, MaterialColor.COLOR_GRAY).strength(0.1f, 0.0f));
-    RegistryUtil.register_block(this, Names.ENERGY_WIRE, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.ENERGY_WIRE);
   }
 
   @Override
@@ -53,7 +51,7 @@ public final class EnergyWire extends Wire {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.ENERGY_WIRE);
+    return standardTicker(world, type, Tiles.ENERGY_WIRE.get());
   }
 
   @Override

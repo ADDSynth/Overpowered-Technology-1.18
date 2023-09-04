@@ -14,7 +14,7 @@ public final class CreativeTabs {
   {
     @Override
     public final ItemStack makeIcon(){
-      return new ItemStack(OverpoweredBlocks.inverter, 1);
+      return new ItemStack(OverpoweredBlocks.inverter.get(), 1);
     }
   };
 

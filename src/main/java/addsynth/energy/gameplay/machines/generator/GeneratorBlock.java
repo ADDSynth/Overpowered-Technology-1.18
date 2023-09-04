@@ -2,9 +2,7 @@ package addsynth.energy.gameplay.machines.generator;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
@@ -31,7 +29,7 @@ public final class GeneratorBlock extends MachineBlock {
 
   public GeneratorBlock(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.GENERATOR, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.GENERATOR);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class GeneratorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.GENERATOR);
+    return standardTicker(world, type, Tiles.GENERATOR.get());
   }
 
   @Override

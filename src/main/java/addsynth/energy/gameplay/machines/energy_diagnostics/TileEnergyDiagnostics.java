@@ -22,7 +22,7 @@ public final class TileEnergyDiagnostics extends TileBaseNoData implements ITick
   public final EnergyDiagnosticData totals = new EnergyDiagnosticData("Total:");
 
   public TileEnergyDiagnostics(BlockPos position, BlockState blockstate){
-    super(Tiles.ENERGY_DIAGNOSTICS_BLOCK, position, blockstate);
+    super(Tiles.ENERGY_DIAGNOSTICS_BLOCK.get(), position, blockstate);
   }
 
   @Override

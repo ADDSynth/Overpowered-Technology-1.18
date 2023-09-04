@@ -62,7 +62,7 @@ public final class TileBlackHole extends BlockEntity implements ITickingTileEnti
   private int max_z;
 
   public TileBlackHole(BlockPos position, BlockState blockstate){
-    super(Tiles.BLACK_HOLE, position, blockstate);
+    super(Tiles.BLACK_HOLE.get(), position, blockstate);
   }
 
   // OPTIMIZE: Remove save and load in the 1.17 version because we don't use it?
@@ -181,6 +181,7 @@ public final class TileBlackHole extends BlockEntity implements ITickingTileEnti
   private final void delete_blocks(){
     final BlockPos.MutableBlockPos position = new BlockPos.MutableBlockPos();
     Block block;
+    final Block black_hole = OverpoweredBlocks.black_hole.get();
     boolean check_1;
     boolean check_2;
     do{
@@ -189,7 +190,7 @@ public final class TileBlackHole extends BlockEntity implements ITickingTileEnti
       position.setY(y);
       position.setZ(z);
       block = level.getBlockState(position).getBlock();
-      if(block != Blocks.AIR && block != OverpoweredBlocks.black_hole){
+      if(block != Blocks.AIR && block != black_hole){
         if(BlockMath.is_inside_sphere(worldPosition, radius, position)){
           if(Config.black_holes_erase_bedrock.get()){
             WorldUtil.delete_block(level, position);

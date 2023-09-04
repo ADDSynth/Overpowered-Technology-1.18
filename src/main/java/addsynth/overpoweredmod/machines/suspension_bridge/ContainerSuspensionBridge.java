@@ -11,12 +11,12 @@ public final class ContainerSuspensionBridge extends TileEntityContainer<TileSus
   public static final int lens_slot_x = 148;
 
   public ContainerSuspensionBridge(final int id, final Inventory player_inventory, final TileSuspensionBridge tile){
-    super(Containers.ENERGY_SUSPENSION_BRIDGE, id, player_inventory, tile);
+    super(Containers.ENERGY_SUSPENSION_BRIDGE.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerSuspensionBridge(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.ENERGY_SUSPENSION_BRIDGE, id, player_inventory, data);
+    super(Containers.ENERGY_SUSPENSION_BRIDGE.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

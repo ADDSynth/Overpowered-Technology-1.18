@@ -1,10 +1,8 @@
 package addsynth.energy.gameplay.machines.energy_diagnostics;
 
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.game.blocks.TileEntityBlock;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.client.GuiProvider;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.registers.Tiles;
@@ -25,7 +23,7 @@ public final class EnergyDiagnosticsBlock extends TileEntityBlock {
 
   public EnergyDiagnosticsBlock(){
     super(Properties.of(Material.METAL, MaterialColor.WOOL).strength(1.5f, 6.0f));
-    RegistryUtil.register_block(this, Names.ENERGY_DIAGNOSTICS_BLOCK, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.ENERGY_DIAGNOSTICS_BLOCK);
   }
 
   @Override
@@ -37,7 +35,7 @@ public final class EnergyDiagnosticsBlock extends TileEntityBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.ENERGY_DIAGNOSTICS_BLOCK);
+    return standardTicker(world, type, Tiles.ENERGY_DIAGNOSTICS_BLOCK.get());
   }
 
   @Deprecated

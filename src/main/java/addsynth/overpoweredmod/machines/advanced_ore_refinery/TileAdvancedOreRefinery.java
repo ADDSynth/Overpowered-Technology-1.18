@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TileAdvancedOreRefinery extends TileAlwaysOnMachine implements MenuProvider {
 
   public TileAdvancedOreRefinery(BlockPos position, BlockState blockstate){
-    super(Tiles.ADVANCED_ORE_REFINERY, position, blockstate,
+    super(Tiles.ADVANCED_ORE_REFINERY.get(), position, blockstate,
       1, OreRefineryRecipes.get_input_filter(), 1,
       MachineValues.advanced_ore_refinery
     );

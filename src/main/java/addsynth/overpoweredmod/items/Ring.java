@@ -7,6 +7,7 @@ import addsynth.core.game.item.constants.ItemValue;
 import addsynth.overpoweredmod.compatability.curios.CuriosCapabilityProvider;
 import addsynth.overpoweredmod.compatability.curios.RingEffects;
 import addsynth.overpoweredmod.game.reference.Names;
+import addsynth.overpoweredmod.items.register.OverpoweredItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;

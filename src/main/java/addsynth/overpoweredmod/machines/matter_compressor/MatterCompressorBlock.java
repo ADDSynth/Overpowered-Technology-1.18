@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.matter_compressor;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ public final class MatterCompressorBlock extends MachineBlock {
 
   public MatterCompressorBlock(){
     super(MaterialColor.COLOR_BLACK);
-    RegistryUtil.register_block(this, Names.MATTER_COMPRESSOR, CreativeTabs.creative_tab);
+    setRegistryName(Names.MATTER_COMPRESSOR);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class MatterCompressorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.MATTER_COMPRESSOR);
+    return standardTicker(world, type, Tiles.MATTER_COMPRESSOR.get());
   }
   
   @Override

@@ -1,7 +1,6 @@
 package addsynth.overpoweredmod.machines.energy_extractor;
 
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.energy.lib.tiles.energy.TileStandardGenerator;
 import addsynth.overpoweredmod.config.MachineValues;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
@@ -19,27 +18,27 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TileCrystalEnergyExtractor extends TileStandardGenerator implements MenuProvider {
 
   public static final Item[] input_filter = new Item[] {
-    OverpoweredItems.energy_crystal_shards,
-    OverpoweredItems.energy_crystal,
-    Item.BY_BLOCK.get(OverpoweredBlocks.light_block)
+    OverpoweredItems.energy_crystal_shards.get(),
+    OverpoweredItems.energy_crystal.get(),
+    Item.BY_BLOCK.get(OverpoweredBlocks.light_block.get())
   };
 
   public TileCrystalEnergyExtractor(BlockPos position, BlockState blockstate){
-    super(Tiles.CRYSTAL_ENERGY_EXTRACTOR, position, blockstate, input_filter);
+    super(Tiles.CRYSTAL_ENERGY_EXTRACTOR.get(), position, blockstate, input_filter);
   }
 
   @Override
   protected final void setGeneratorData(){
     final Item item = input_inventory.extractItem(0, 1, false).getItem();
-    if(item == OverpoweredItems.energy_crystal){
+    if(item == OverpoweredItems.energy_crystal.get()){
       energy.setEnergyAndCapacity(MachineValues.energy_crystal_energy.get());
       energy.setMaxExtract(MachineValues.energy_crystal_max_extract.get());
     }
-    if(item == OverpoweredItems.energy_crystal_shards){
+    if(item == OverpoweredItems.energy_crystal_shards.get()){
       energy.setEnergyAndCapacity(MachineValues.energy_crystal_shards_energy.get());
       energy.setMaxExtract(MachineValues.energy_crystal_shards_max_extract.get());
     }
-    if(item == RegistryUtil.getItemBlock(OverpoweredBlocks.light_block)){
+    if(item == OverpoweredItems.light_block.get()){
       energy.setEnergyAndCapacity(MachineValues.light_block_energy.get());
       energy.setMaxExtract(MachineValues.light_block_max_extract.get());
     }

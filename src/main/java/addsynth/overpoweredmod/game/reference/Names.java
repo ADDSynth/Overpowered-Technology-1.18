@@ -42,15 +42,6 @@ public final class Names {
   public static final ResourceLocation DIMENSIONAL_ANCHOR      = new ResourceLocation(OverpoweredTechnology.MOD_ID, "dimensional_anchor");
   public static final ResourceLocation UNIMATTER               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unimatter");
 
-  public static final ResourceLocation FOCUS_LENS              = new ResourceLocation(OverpoweredTechnology.MOD_ID, "focus_lens");
-  public static final ResourceLocation RED_LENS                = new ResourceLocation(OverpoweredTechnology.MOD_ID, "red_lens");
-  public static final ResourceLocation ORANGE_LENS             = new ResourceLocation(OverpoweredTechnology.MOD_ID, "orange_lens");
-  public static final ResourceLocation YELLOW_LENS             = new ResourceLocation(OverpoweredTechnology.MOD_ID, "yellow_lens");
-  public static final ResourceLocation GREEN_LENS              = new ResourceLocation(OverpoweredTechnology.MOD_ID, "green_lens");
-  public static final ResourceLocation CYAN_LENS               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "cyan_lens");
-  public static final ResourceLocation BLUE_LENS               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "blue_lens");
-  public static final ResourceLocation MAGENTA_LENS            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "magenta_lens");
-
   public static final ResourceLocation DATA_CABLE               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "data_cable");
   public static final ResourceLocation CRYSTAL_ENERGY_EXTRACTOR = new ResourceLocation(OverpoweredTechnology.MOD_ID, "crystal_energy_extractor");
   public static final ResourceLocation GEM_CONVERTER            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "gem_converter");
@@ -70,30 +61,6 @@ public final class Names {
   public static final ResourceLocation UNKNOWN_LEAVES           = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unknown_leaves");
 
   public static final ResourceLocation LASER_HOUSING            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "laser_housing");
-  // Must register the different laser cannons as different blocks so they have different names and produce
-  // different color beams, but all the beams can be merged into a single block and use a color property.
-
-  public static final ResourceLocation[] LASER = {
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,   "white_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,     "red_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,  "orange_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,  "yellow_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,   "green_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,    "cyan_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,    "blue_laser"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID, "magenta_laser")
-  };
-
-  public static final ResourceLocation[] LASER_BEAM = {
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,   "white_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,     "red_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,  "orange_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,  "yellow_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,   "green_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,    "cyan_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID,    "blue_laser_beam"),
-    new ResourceLocation(OverpoweredTechnology.MOD_ID, "magenta_laser_beam")
-  };
 
   public static final ResourceLocation FUSION_CONVERTER          = new ResourceLocation(OverpoweredTechnology.MOD_ID, "fusion_energy_converter");
   public static final ResourceLocation FUSION_CHAMBER            = new ResourceLocation(OverpoweredTechnology.MOD_ID, "fusion_chamber");

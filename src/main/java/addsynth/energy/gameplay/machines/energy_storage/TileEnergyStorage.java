@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TileEnergyStorage extends TileEnergyBattery implements MenuProvider {
 
   public TileEnergyStorage(BlockPos position, BlockState blockstate){
-    super(Tiles.ENERGY_CONTAINER, position, blockstate,
+    super(Tiles.ENERGY_CONTAINER.get(), position, blockstate,
       new Energy(
         Config.energy_storage_container_capacity.get(),
         Config.energy_storage_container_extract_rate.get()

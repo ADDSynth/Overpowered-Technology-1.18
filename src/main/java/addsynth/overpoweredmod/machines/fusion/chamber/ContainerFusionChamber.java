@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerFusionChamber extends TileEntityContainer<TileFusionChamber> {
 
   public ContainerFusionChamber(final int id, final Inventory player_inventory, final TileFusionChamber tile){
-    super(Containers.FUSION_CHAMBER, id, player_inventory, tile);
+    super(Containers.FUSION_CHAMBER.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerFusionChamber(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.FUSION_CHAMBER, id, player_inventory, data);
+    super(Containers.FUSION_CHAMBER.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

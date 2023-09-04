@@ -22,7 +22,7 @@ public final class VanillaGem extends Gem implements OreMaterial {
   }
 
   public final void registerItems(final IForgeRegistry<Item> game){
-    game.register(new MaterialItem(shard_name));
+    game.register(new MaterialItem(shard.getId()));
   }
   
   @Override

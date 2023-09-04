@@ -26,7 +26,7 @@ public final class InverterCategory implements IRecipeCategory<InverterRecipe> {
 
   public InverterCategory(final IGuiHelper gui_helper){
     background = gui_helper.createDrawable(GuiReference.jei_recipe_background, 18, 16, 74, 18);
-    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.inverter));
+    icon = gui_helper.createDrawableItemStack(new ItemStack(OverpoweredBlocks.inverter.get()));
   }
 
   public static RecipeType<InverterRecipe> getType(){
@@ -47,7 +47,7 @@ public final class InverterCategory implements IRecipeCategory<InverterRecipe> {
 
   @Override
   public Component getTitle(){
-    return new TranslatableComponent(OverpoweredBlocks.inverter.getDescriptionId());
+    return new TranslatableComponent(OverpoweredBlocks.inverter.get().getDescriptionId());
   }
 
   @Override

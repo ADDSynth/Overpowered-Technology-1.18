@@ -17,8 +17,10 @@ public final class InverterRecipe {
 
   public static final ArrayList<InverterRecipe> get_recipes(){
     final ArrayList<InverterRecipe> list = new ArrayList<>(2);
-    list.add(new InverterRecipe(OverpoweredItems.energy_crystal, OverpoweredItems.void_crystal));
-    list.add(new InverterRecipe(OverpoweredItems.void_crystal, OverpoweredItems.energy_crystal));
+    final Item energy_crystal = OverpoweredItems.energy_crystal.get();
+    final Item   void_crystal = OverpoweredItems.void_crystal.get();
+    list.add(new InverterRecipe(energy_crystal, void_crystal));
+    list.add(new InverterRecipe(void_crystal, energy_crystal));
     return list;
   }
 

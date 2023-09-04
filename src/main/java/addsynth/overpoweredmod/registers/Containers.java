@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.registers;
 
+import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.ContainerOreRefinery;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.ContainerCrystalGenerator;
 import addsynth.overpoweredmod.machines.energy_extractor.ContainerCrystalEnergyExtractor;
@@ -15,50 +16,51 @@ import addsynth.overpoweredmod.machines.portal.control_panel.ContainerPortalCont
 import addsynth.overpoweredmod.machines.portal.frame.ContainerPortalFrame;
 import addsynth.overpoweredmod.machines.suspension_bridge.ContainerSuspensionBridge;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.network.IContainerFactory;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class Containers {
 
-  public static final MenuType<ContainerCrystalEnergyExtractor> CRYSTAL_ENERGY_EXTRACTOR  =
-    new MenuType<>((IContainerFactory<ContainerCrystalEnergyExtractor>)ContainerCrystalEnergyExtractor::new);
+  public static final RegistryObject<MenuType<ContainerCrystalEnergyExtractor>> CRYSTAL_ENERGY_EXTRACTOR  =
+    RegistryObject.create(Names.CRYSTAL_ENERGY_EXTRACTOR, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerInverter> INVERTER =
-    new MenuType<>((IContainerFactory<ContainerInverter>)ContainerInverter::new);
+  public static final RegistryObject<MenuType<ContainerInverter>> INVERTER =
+    RegistryObject.create(Names.INVERTER, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerGemConverter> GEM_CONVERTER =
-    new MenuType<>((IContainerFactory<ContainerGemConverter>)ContainerGemConverter::new);
+  public static final RegistryObject<MenuType<ContainerGemConverter>> GEM_CONVERTER =
+    RegistryObject.create(Names.GEM_CONVERTER, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerMagicInfuser> MAGIC_INFUSER =
-    new MenuType<>((IContainerFactory<ContainerMagicInfuser>)ContainerMagicInfuser::new);
+  public static final RegistryObject<MenuType<ContainerMagicInfuser>> MAGIC_INFUSER =
+    RegistryObject.create(Names.MAGIC_INFUSER, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerIdentifier> IDENTIFIER =
-    new MenuType<>((IContainerFactory<ContainerIdentifier>)ContainerIdentifier::new);
+  public static final RegistryObject<MenuType<ContainerIdentifier>> IDENTIFIER =
+    RegistryObject.create(Names.IDENTIFIER, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerSuspensionBridge> ENERGY_SUSPENSION_BRIDGE =
-    new MenuType<>((IContainerFactory<ContainerSuspensionBridge>)ContainerSuspensionBridge::new);
+  public static final RegistryObject<MenuType<ContainerSuspensionBridge>> ENERGY_SUSPENSION_BRIDGE =
+    RegistryObject.create(Names.ENERGY_SUSPENSION_BRIDGE, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerOreRefinery> ADVANCED_ORE_REFINERY =
-    new MenuType<>((IContainerFactory<ContainerOreRefinery>)ContainerOreRefinery::new);
+  public static final RegistryObject<MenuType<ContainerOreRefinery>> ADVANCED_ORE_REFINERY =
+    RegistryObject.create(Names.ADVANCED_ORE_REFINERY, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerCrystalGenerator> CRYSTAL_MATTER_GENERATOR =
-    new MenuType<>((IContainerFactory<ContainerCrystalGenerator>)ContainerCrystalGenerator::new);
+  public static final RegistryObject<MenuType<ContainerCrystalGenerator>> CRYSTAL_MATTER_GENERATOR =
+    RegistryObject.create(Names.CRYSTAL_MATTER_GENERATOR, ForgeRegistries.CONTAINERS);
   
-  public static final MenuType<ContainerPortalControlPanel> PORTAL_CONTROL_PANEL =
-    new MenuType<>((IContainerFactory<ContainerPortalControlPanel>)ContainerPortalControlPanel::new);
+  public static final RegistryObject<MenuType<ContainerPortalControlPanel>> PORTAL_CONTROL_PANEL =
+    RegistryObject.create(Names.PORTAL_CONTROL_PANEL, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerPortalFrame> PORTAL_FRAME =
-    new MenuType<>((IContainerFactory<ContainerPortalFrame>)ContainerPortalFrame::new);
+  public static final RegistryObject<MenuType<ContainerPortalFrame>> PORTAL_FRAME =
+    RegistryObject.create(Names.PORTAL_FRAME, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerLaserHousing> LASER_HOUSING =
-    new MenuType<>((IContainerFactory<ContainerLaserHousing>)ContainerLaserHousing::new);
+  public static final RegistryObject<MenuType<ContainerLaserHousing>> LASER_HOUSING =
+    RegistryObject.create(Names.LASER_HOUSING, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerFusionChamber> FUSION_CHAMBER =
-    new MenuType<>((IContainerFactory<ContainerFusionChamber>)ContainerFusionChamber::new);
+  public static final RegistryObject<MenuType<ContainerFusionChamber>> FUSION_CHAMBER =
+    RegistryObject.create(Names.FUSION_CHAMBER, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerPlasmaGenerator> PLASMA_GENERATOR =
-    new MenuType<>((IContainerFactory<ContainerPlasmaGenerator>)ContainerPlasmaGenerator::new);
+  public static final RegistryObject<MenuType<ContainerPlasmaGenerator>> PLASMA_GENERATOR =
+    RegistryObject.create(Names.PLASMA_GENERATOR, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<MatterCompressorContainer> MATTER_COMPRESSOR =
-    new MenuType<>((IContainerFactory<MatterCompressorContainer>)MatterCompressorContainer::new);
+  public static final RegistryObject<MenuType<MatterCompressorContainer>> MATTER_COMPRESSOR =
+    RegistryObject.create(Names.MATTER_COMPRESSOR, ForgeRegistries.CONTAINERS);
 
 }

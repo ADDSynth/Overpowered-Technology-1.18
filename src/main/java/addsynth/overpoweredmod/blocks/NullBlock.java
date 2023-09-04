@@ -1,7 +1,5 @@
 package addsynth.overpoweredmod.blocks;
 
-import addsynth.core.game.RegistryUtil;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,7 +15,7 @@ public final class NullBlock extends Block {
 
   public NullBlock(){
     super(Block.Properties.of(Material.AIR).noCollission());
-    RegistryUtil.register_block(this, Names.NULL_BLOCK, CreativeTabs.creative_tab);
+    setRegistryName(Names.NULL_BLOCK);
   }
 
   @Override

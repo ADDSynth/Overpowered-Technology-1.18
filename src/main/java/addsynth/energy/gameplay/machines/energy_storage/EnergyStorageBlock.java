@@ -2,9 +2,7 @@ package addsynth.energy.gameplay.machines.energy_storage;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
@@ -34,7 +32,7 @@ public final class EnergyStorageBlock extends MachineBlock {
 
   public EnergyStorageBlock(){
     super(Block.Properties.of(Material.METAL, MaterialColor.SNOW).noOcclusion().strength(3.5f, 6.0f));
-    RegistryUtil.register_block(this, Names.ENERGY_STORAGE, ADDSynthEnergy.creative_tab);
+    setRegistryName(Names.ENERGY_STORAGE);
   }
 
   @Override
@@ -51,7 +49,7 @@ public final class EnergyStorageBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.ENERGY_CONTAINER);
+    return standardTicker(world, type, Tiles.ENERGY_CONTAINER.get());
   }
 
   @Override

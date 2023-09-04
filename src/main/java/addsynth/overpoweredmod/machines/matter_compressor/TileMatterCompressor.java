@@ -17,6 +17,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -25,6 +26,7 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
   private boolean changed;
   private int matter;
   private final Receiver energy;
+  private final Item black_hole_item;
 
   public static final SlotData[] slot_data = {
     new SlotData(RegistryUtil.getItemBlock(OverpoweredBlocks.black_hole), 1),
@@ -32,17 +34,19 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
   };
 
   public TileMatterCompressor(final BlockPos position, final BlockState blockstate){
-    super(Tiles.MATTER_COMPRESSOR, position, blockstate, slot_data, 1);
+    super(Tiles.MATTER_COMPRESSOR.get(), position, blockstate, slot_data, 1);
     energy = new Receiver();
+    black_hole_item = OverpoweredItems.black_hole.get();
   }
 
   @Override
   public final void serverTick(){
     final ItemStack input = input_inventory.getStackInSlot(1);
     if(input.isEmpty() == false){
-      final ItemStack unimatter = new ItemStack(OverpoweredItems.unimatter, 1);
+      final Item unimatter_item = OverpoweredItems.unimatter.get();
+      final ItemStack unimatter = new ItemStack(unimatter_item, 1);
       
-      if(input.getItem() == OverpoweredItems.unimatter){
+      if(input.getItem() == unimatter_item){
         if(output_inventory.can_add(0, unimatter)){
           output_inventory.add(0, unimatter);
           input_inventory.decrease(1);
@@ -50,7 +54,7 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
         }
       }
       else{
-        if(input_inventory.getStackInSlot(0).getItem() == OverpoweredBlocks.black_hole.asItem()){
+        if(input_inventory.getStackInSlot(0).getItem() == black_hole_item){
           matter += input.getCount();
           input_inventory.setStackInSlot(1, ItemStack.EMPTY);
           changed = true;

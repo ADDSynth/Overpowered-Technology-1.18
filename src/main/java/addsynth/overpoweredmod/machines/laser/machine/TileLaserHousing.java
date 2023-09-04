@@ -37,7 +37,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
   private boolean auto_shutoff = true;
 
   public TileLaserHousing(BlockPos position, BlockState blockstate){
-    super(Tiles.LASER_MACHINE, position, blockstate);
+    super(Tiles.LASER_MACHINE.get(), position, blockstate);
   }
 
   @Override

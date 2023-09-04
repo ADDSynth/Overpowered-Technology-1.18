@@ -2,6 +2,7 @@ package addsynth.overpoweredmod.machines.magic_infuser.recipes;
 
 import javax.annotation.Nullable;
 import addsynth.overpoweredmod.OverpoweredTechnology;
+import addsynth.overpoweredmod.game.reference.Names;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import net.minecraft.core.NonNullList;
@@ -23,6 +24,10 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
   * @author ADDSynth
   */
 public final class MagicInfuserRecipeSerializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<MagicInfuserRecipe> {
+
+  public MagicInfuserRecipeSerializer(){
+    setRegistryName(Names.MAGIC_INFUSER);
+  }
 
   @Override
   public MagicInfuserRecipe fromJson(ResourceLocation recipeId, JsonObject json){

@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerGenerator extends TileEntityContainer<TileGenerator> {
 
   public ContainerGenerator(int id, Inventory player_inventory, TileGenerator tile){
-    super(Containers.GENERATOR, id, player_inventory, tile);
+    super(Containers.GENERATOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerGenerator(int id, Inventory player_inventory, FriendlyByteBuf data){
-    super(Containers.GENERATOR, id, player_inventory, data);
+    super(Containers.GENERATOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

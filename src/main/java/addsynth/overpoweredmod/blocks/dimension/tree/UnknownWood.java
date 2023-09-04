@@ -33,12 +33,14 @@ public final class UnknownWood extends Block {
           }
         }
       );
-      WorldUtil.spawnItemStack(world, position, new ItemStack(OverpoweredItems.void_crystal, 1));
+      WorldUtil.spawnItemStack(world, position, new ItemStack(OverpoweredItems.void_crystal.get(), 1));
     }
   }
 
   private static final boolean valid(final Node node, final BlockPos from){
-    return node.block == OverpoweredBlocks.unknown_wood || node.block == OverpoweredBlocks.unknown_leaves || node.position == from;
+    return node.block == OverpoweredBlocks.unknown_wood.get()   ||
+           node.block == OverpoweredBlocks.unknown_leaves.get() ||
+           node.position == from;
   }
 
 }

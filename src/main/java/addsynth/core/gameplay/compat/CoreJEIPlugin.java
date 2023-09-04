@@ -26,9 +26,9 @@ public final class CoreJEIPlugin  implements IModPlugin {
   }
 
   private static final void add_information(IRecipeRegistration registry){
-    registry.addIngredientInfo(new ItemStack(Core.music_box), VanillaTypes.ITEM_STACK, TextReference.music_box_description);
-    registry.addIngredientInfo(new ItemStack(Core.music_sheet), VanillaTypes.ITEM_STACK, TextReference.music_sheet_description);
-    // registry.addIngredientInfo(new ItemStack(Core.team_manager), VanillaTypes.ITEM_STACK, TextReference.team_manager_description);
+    registry.addIngredientInfo(new ItemStack(Core.music_box.get()), VanillaTypes.ITEM_STACK, TextReference.music_box_description);
+    registry.addIngredientInfo(new ItemStack(Core.music_sheet.get()), VanillaTypes.ITEM_STACK, TextReference.music_sheet_description);
+    // registry.addIngredientInfo(new ItemStack(Core.team_manager.get()), VanillaTypes.ITEM_STACK, TextReference.team_manager_description);
   }
 
 }

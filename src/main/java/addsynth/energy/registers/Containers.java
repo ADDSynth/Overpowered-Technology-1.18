@@ -6,27 +6,29 @@ import addsynth.energy.gameplay.machines.electric_furnace.ContainerElectricFurna
 import addsynth.energy.gameplay.machines.energy_storage.ContainerEnergyStorage;
 import addsynth.energy.gameplay.machines.generator.ContainerGenerator;
 import addsynth.energy.gameplay.machines.universal_energy_interface.ContainerUniversalEnergyInterface;
+import addsynth.energy.gameplay.reference.Names;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.network.IContainerFactory;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class Containers {
 
-  public static final MenuType<ContainerGenerator> GENERATOR =
-    new MenuType<>((IContainerFactory<ContainerGenerator>)ContainerGenerator::new);
+  public static final RegistryObject<MenuType<ContainerGenerator>> GENERATOR =
+    RegistryObject.create(Names.GENERATOR, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerCompressor> COMPRESSOR =
-    new MenuType<>((IContainerFactory<ContainerCompressor>)ContainerCompressor::new);
+  public static final RegistryObject<MenuType<ContainerCompressor>> COMPRESSOR =
+    RegistryObject.create(Names.COMPRESSOR, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerEnergyStorage> ENERGY_STORAGE_CONTAINER =
-    new MenuType<>((IContainerFactory<ContainerEnergyStorage>)ContainerEnergyStorage::new);
+  public static final RegistryObject<MenuType<ContainerEnergyStorage>> ENERGY_STORAGE_CONTAINER =
+    RegistryObject.create(Names.ENERGY_STORAGE, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerUniversalEnergyInterface> UNIVERSAL_ENERGY_INTERFACE =
-    new MenuType<>((IContainerFactory<ContainerUniversalEnergyInterface>)ContainerUniversalEnergyInterface::new);
+  public static final RegistryObject<MenuType<ContainerUniversalEnergyInterface>> UNIVERSAL_ENERGY_INTERFACE =
+    RegistryObject.create(Names.UNIVERSAL_ENERGY_INTERFACE, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<ContainerElectricFurnace> ELECTRIC_FURNACE =
-    new MenuType<>((IContainerFactory<ContainerElectricFurnace>)ContainerElectricFurnace::new);
+  public static final RegistryObject<MenuType<ContainerElectricFurnace>> ELECTRIC_FURNACE =
+    RegistryObject.create(Names.ELECTRIC_FURNACE, ForgeRegistries.CONTAINERS);
 
-  public static final MenuType<CircuitFabricatorContainer> CIRCUIT_FABRICATOR =
-    new MenuType<>((IContainerFactory<CircuitFabricatorContainer>)CircuitFabricatorContainer::new);
+  public static final RegistryObject<MenuType<CircuitFabricatorContainer>> CIRCUIT_FABRICATOR =
+    RegistryObject.create(Names.CIRCUIT_FABRICATOR, ForgeRegistries.CONTAINERS);
 
 }

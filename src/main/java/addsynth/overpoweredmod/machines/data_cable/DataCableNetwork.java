@@ -16,6 +16,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
 
+  private final Block fusion_converter_block;
+  private final Block fusion_control_unit;
+  private final Block fusion_control_laser;
+  private final Block fusion_chamber_block;
+
   // TODO: We could probably handle these lists better if we were using Nodes.
   /** All scanning units that are connected to this Data Cable network. */
   private final ArrayList<BlockPos> scanning_units = new ArrayList<>(6);
@@ -38,6 +43,10 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
 
   public DataCableNetwork(final Level world, final TileDataCable tile){
     super(world, tile);
+    fusion_converter_block = OverpoweredBlocks.fusion_converter.get();
+    fusion_control_unit    = OverpoweredBlocks.fusion_control_unit.get();
+    fusion_control_laser   = OverpoweredBlocks.fusion_control_laser.get();
+    fusion_chamber_block   = OverpoweredBlocks.fusion_chamber.get();
   }
 
   @Override
@@ -48,12 +57,12 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
 
   @Override
   protected final void customSearch(final Node node){
-    if(node.block == OverpoweredBlocks.fusion_control_unit){
+    if(node.block == fusion_control_unit){
       if(scanning_units.contains(node.position) == false){
         scanning_units.add(node.position);
       }
     }
-    if(node.block == OverpoweredBlocks.fusion_converter){
+    if(node.block == fusion_converter_block){
       if(fusion_energy_converters.contains(node.position) == false){
         fusion_energy_converters.add(node.position);
       }
@@ -64,7 +73,7 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
   public final void neighbor_was_changed(final BlockPos current_position, final BlockPos position_of_neighbor){
     // Is this optimized? Wouldn't it be better just to call updateBlockNetwork() regardless?
     Block block = world.getBlockState(position_of_neighbor).getBlock();
-    if(block == OverpoweredBlocks.fusion_converter || block == OverpoweredBlocks.fusion_control_unit){
+    if(block == fusion_converter_block || block == fusion_control_unit){
       // If a Fusion Converter or Fusion Control Unit was added.
       updateBlockNetwork(current_position);
       return;
@@ -73,7 +82,7 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
     // Check all positions of scanning units and fusion energy converters and make sure they still exist there.
     if(update == false){
       for(BlockPos position : scanning_units){
-        if(world.getBlockState(position).getBlock() != OverpoweredBlocks.fusion_control_unit){
+        if(world.getBlockState(position).getBlock() != fusion_control_unit){
           update = true;
           break;
         }
@@ -81,7 +90,7 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
     }
     if(update == false){
       for(BlockPos position : fusion_energy_converters){
-        if(world.getBlockState(position).getBlock() != OverpoweredBlocks.fusion_converter){
+        if(world.getBlockState(position).getBlock() != fusion_converter_block){
           update = true;
           break;
         }
@@ -122,10 +131,10 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
       for(BlockPos scanning_unit : scanning_units){
         for(Direction side : Direction.values()){
           block_state = world.getBlockState(scanning_unit.relative(side));
-          if(block_state.getBlock() == OverpoweredBlocks.fusion_control_laser){
+          if(block_state.getBlock() == fusion_control_laser){
             if(block_state.getValue(LaserCannon.FACING) == side){
               position = scanning_unit.relative(side, TileFusionChamber.container_radius);
-              if(world.getBlockState(position).getBlock() == OverpoweredBlocks.fusion_chamber){
+              if(world.getBlockState(position).getBlock() == fusion_chamber_block){
                 // FIX: we need to keep a list of singularity containers, otherwise, if the scanning units are out of order, we immediately replace the current one.
                 if(structure == null){
                   structure = new FusionEnergyStructure(position);

@@ -9,7 +9,8 @@ import addsynth.core.util.constants.DirectionConstant;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.energy.lib.tiles.TileBasicMachine;
 import addsynth.overpoweredmod.config.Config;
-import addsynth.overpoweredmod.game.core.Lens;
+import addsynth.overpoweredmod.game.reference.OverpoweredItems;
+import addsynth.overpoweredmod.items.basic.LensItem;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -24,7 +25,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileSuspensionBridge extends TileBasicMachine implements IBlockNetworkUser<BridgeNetwork>, MenuProvider {
 
-  public static final Item[] filter = Lens.index;
+  public static final Item[] filter = {
+    OverpoweredItems.focus_lens.get(), OverpoweredItems.red_lens.get(), OverpoweredItems.orange_lens.get(), OverpoweredItems.yellow_lens.get(),
+    OverpoweredItems.green_lens.get(), OverpoweredItems.cyan_lens.get(), OverpoweredItems.blue_lens.get(), OverpoweredItems.magenta_lens.get()
+  };
 
   private BridgeNetwork network;
 
@@ -40,7 +44,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   private int maximum_length = Config.energy_bridge_max_distance.get();
 
   public TileSuspensionBridge(BlockPos position, BlockState blockstate){
-    super(Tiles.ENERGY_SUSPENSION_BRIDGE, position, blockstate, new SlotData[] {new SlotData(filter, 1)}, new Receiver());
+    super(Tiles.ENERGY_SUSPENSION_BRIDGE.get(), position, blockstate, new SlotData[] {new SlotData(filter, 1)}, new Receiver());
   }
 
   @Override
@@ -92,11 +96,11 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
 
   @Override
   public void load_block_network_data(){
-    network.load_data(Lens.get_index(inventory.getStackInSlot(0)), active, bridge_data, maximum_length);
+    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), active, bridge_data, maximum_length);
   }
 
   public final void save_block_network_data(final int lens_index, final boolean active, final BridgeData[] data, final int maximum_length){
-    inventory.setStackInSlot(0, lens_index < 0 ? ItemStack.EMPTY : new ItemStack(Lens.index[lens_index]));
+    inventory.setStackInSlot(0, lens_index < 0 ? ItemStack.EMPTY : new ItemStack(LensItem.get(lens_index)));
     this.active = active;
     bridge_data[0].set(data[0]);
     bridge_data[1].set(data[1]);
@@ -111,7 +115,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public final void onInventoryChanged(){
     if(onServerSide()){
-      network.update_lens(Lens.get_index(inventory.getStackInSlot(0)));
+      network.update_lens(LensItem.get_index(inventory.getStackInSlot(0)));
     }
   }
 

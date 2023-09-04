@@ -88,21 +88,21 @@ public class ADDSynthEnergy {
   }
 
   private static final void client_setup(final FMLClientSetupEvent event){
-    register_guis();
+    event.enqueueWork(ADDSynthEnergy::register_guis);
     set_block_render_types();
   }
 
   private static final void register_guis(){
-    MenuScreens.register(Containers.GENERATOR,                  GuiGenerator::new);
-    MenuScreens.register(Containers.ENERGY_STORAGE_CONTAINER,   GuiEnergyStorageContainer::new);
-    MenuScreens.register(Containers.COMPRESSOR,                 GuiCompressor::new);
-    MenuScreens.register(Containers.ELECTRIC_FURNACE,           GuiElectricFurnace::new);
-    MenuScreens.register(Containers.CIRCUIT_FABRICATOR,         CircuitFabricatorGui::new);
-    MenuScreens.register(Containers.UNIVERSAL_ENERGY_INTERFACE, GuiUniversalEnergyInterface::new);
+    MenuScreens.register(Containers.GENERATOR.get(),                  GuiGenerator::new);
+    MenuScreens.register(Containers.ENERGY_STORAGE_CONTAINER.get(),   GuiEnergyStorageContainer::new);
+    MenuScreens.register(Containers.COMPRESSOR.get(),                 GuiCompressor::new);
+    MenuScreens.register(Containers.ELECTRIC_FURNACE.get(),           GuiElectricFurnace::new);
+    MenuScreens.register(Containers.CIRCUIT_FABRICATOR.get(),         CircuitFabricatorGui::new);
+    MenuScreens.register(Containers.UNIVERSAL_ENERGY_INTERFACE.get(), GuiUniversalEnergyInterface::new);
   }
 
   private static final void set_block_render_types(){
-    ItemBlockRenderTypes.setRenderLayer(EnergyBlocks.energy_storage, RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(EnergyBlocks.energy_storage.get(), RenderType.translucent());
   }
 
 }

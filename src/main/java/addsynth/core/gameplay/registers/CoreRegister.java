@@ -4,7 +4,14 @@ import addsynth.core.ADDSynthCore;
 import addsynth.core.game.RegistryUtil;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.Trophy;
+import addsynth.core.gameplay.blocks.CautionBlock;
+import addsynth.core.gameplay.blocks.TrophyBlock;
+import addsynth.core.gameplay.items.CoreItem;
+import addsynth.core.gameplay.music_box.MusicBox;
+import addsynth.core.gameplay.music_box.MusicSheet;
+import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.reference.Names;
+import addsynth.core.gameplay.team_manager.TeamManagerBlock;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,16 +30,16 @@ public final class CoreRegister {
 
     final IForgeRegistry<Block> game = event.getRegistry();
 
-    game.register(Core.caution_block);
-    game.register(Core.music_box);
-    game.register(Core.team_manager);
+    game.register(new CautionBlock());
+    game.register(new MusicBox());
+    game.register(new TeamManagerBlock());
     
-    game.register(Trophy.bronze);
-    game.register(Trophy.silver);
-    game.register(Trophy.gold);
-    game.register(Trophy.platinum);
+    game.register(new TrophyBlock(Names.BRONZE_TROPHY));
+    game.register(new TrophyBlock(Names.SILVER_TROPHY));
+    game.register(new TrophyBlock(Names.GOLD_TROPHY));
+    game.register(new TrophyBlock(Names.PLATINUM_TROPHY));
     
-    // game.register(Core.test_block);
+    // game.register(new TestBlock());
     
     ADDSynthCore.log.info("Done registering blocks.");
   }
@@ -43,18 +50,18 @@ public final class CoreRegister {
 
     final IForgeRegistry<Item> game = event.getRegistry();
 
-    game.register(RegistryUtil.getItemBlock(Core.caution_block));
-    game.register(RegistryUtil.getItemBlock(Core.music_box));
-    game.register(Core.music_sheet);
-    game.register(RegistryUtil.getItemBlock(Core.team_manager));
+    game.register(RegistryUtil.createItemBlock(Core.caution_block, ADDSynthCore.creative_tab));
+    game.register(RegistryUtil.createItemBlock(Core.music_box,     ADDSynthCore.creative_tab));
+    game.register(new MusicSheet());
+    game.register(RegistryUtil.createItemBlock(Core.team_manager,  ADDSynthCore.creative_tab));
     
-    game.register(Trophy.trophy_base);
-    game.register(Trophy.BRONZE.item_block);
-    game.register(Trophy.SILVER.item_block);
-    game.register(Trophy.GOLD.item_block);
-    game.register(Trophy.PLATINUM.item_block);
+    game.register(new CoreItem(Names.TROPHY_BASE));
+    game.register(RegistryUtil.createItemBlock(Trophy.bronze,   ADDSynthCore.creative_tab));
+    game.register(RegistryUtil.createItemBlock(Trophy.silver,   ADDSynthCore.creative_tab));
+    game.register(RegistryUtil.createItemBlock(Trophy.gold,     ADDSynthCore.creative_tab));
+    game.register(RegistryUtil.createItemBlock(Trophy.platinum, ADDSynthCore.creative_tab));
     
-    // game.register(RegistryUtil.getItemBlock(Core.test_block));
+    // game.register(RegistryUtil.createItemBlock(Core.test_block, ADDSynthCore.creative_tab));
 
     ADDSynthCore.log.info("Done registering items.");
   }
@@ -62,7 +69,7 @@ public final class CoreRegister {
   @SubscribeEvent
   public static final void register_tileentities(final RegistryEvent.Register<BlockEntityType<?>> event){
     final IForgeRegistry<BlockEntityType<?>> game = event.getRegistry();
-    RegistryUtil.register(game, Tiles.MUSIC_BOX, Names.MUSIC_BOX);
+    game.register(RegistryUtil.createBlockEntityType(TileMusicBox::new, Core.music_box));
   }
 
   @SubscribeEvent

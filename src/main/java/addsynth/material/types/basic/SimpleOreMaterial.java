@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryObject;
 
 /** This is a material that just has an item and an ore block. No storage block. */
 public final class SimpleOreMaterial extends AbstractMaterial implements OreMaterial {
@@ -20,8 +21,8 @@ public final class SimpleOreMaterial extends AbstractMaterial implements OreMate
   private final int min_experience;
   private final int max_experience;
 
-  private final ResourceLocation item_name;
-  private final ResourceLocation ore_name;
+  private final RegistryObject<Item> item;
+  private final RegistryObject<Block> ore;
   
   public SimpleOreMaterial(final String name, final MaterialColor color){
     this(name, color, 0, 0);
@@ -30,28 +31,28 @@ public final class SimpleOreMaterial extends AbstractMaterial implements OreMate
   public SimpleOreMaterial(final String name, final MaterialColor color, final int min_experience, final int max_experience){
     super(name);
     this.color = color;
-     item_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name);
-      ore_name = new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore");
+     item = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name),       ForgeRegistries.ITEMS);
+      ore = RegistryObject.create(new ResourceLocation(ADDSynthMaterials.MOD_ID, name+"_ore"), ForgeRegistries.BLOCKS);
     this.min_experience = min_experience;
     this.max_experience = max_experience;
   }
   
   public final void registerBlocks(final IForgeRegistry<Block> game){
-    game.register(new OreBlock(ore_name, min_experience, max_experience));
+    game.register(new OreBlock(ore.getId(), min_experience, max_experience));
   }
   
   public final void registerItems(final IForgeRegistry<Item> game){
-    game.register(new MaterialItem(item_name));
-    game.register(RegistryUtil.create_ItemBlock(getOre(), ADDSynthMaterials.creative_tab, ore_name));
+    game.register(new MaterialItem(item.getId()));
+    game.register(RegistryUtil.createItemBlock(ore, ADDSynthMaterials.creative_tab));
   }
 
   public final Item getItem(){
-    return ForgeRegistries.ITEMS.getValue(item_name);
+    return item.get();
   }
   
   @Override
   public final Block getOre(){
-    return ForgeRegistries.BLOCKS.getValue(ore_name);
+    return ore.get();
   }
 
 }

@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.crystal_matter_generator;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ public final class CrystalMatterGeneratorBlock extends MachineBlock {
 
   public CrystalMatterGeneratorBlock(){
     super(MaterialColor.WOOL);
-    RegistryUtil.register_block(this, Names.CRYSTAL_MATTER_GENERATOR, CreativeTabs.creative_tab);
+    setRegistryName(Names.CRYSTAL_MATTER_GENERATOR);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class CrystalMatterGeneratorBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.CRYSTAL_MATTER_REPLICATOR);
+    return standardTicker(world, type, Tiles.CRYSTAL_MATTER_REPLICATOR.get());
   }
 
   @Override

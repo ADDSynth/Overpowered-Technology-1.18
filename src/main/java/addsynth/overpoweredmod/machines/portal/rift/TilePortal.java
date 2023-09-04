@@ -15,7 +15,7 @@ public final class TilePortal extends TileBase implements ITickingTileEntity {
   private final int life = Values.portal_spawn_time.get() * TimeConstants.ticks_per_second;
 
   public TilePortal(BlockPos position, BlockState blockstate){
-    super(Tiles.PORTAL_BLOCK, position, blockstate);
+    super(Tiles.PORTAL_RIFT.get(), position, blockstate);
   }
 
   @Override

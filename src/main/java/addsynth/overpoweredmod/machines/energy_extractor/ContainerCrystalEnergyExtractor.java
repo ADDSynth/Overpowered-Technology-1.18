@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerCrystalEnergyExtractor extends TileEntityContainer<TileCrystalEnergyExtractor> {
 
   public ContainerCrystalEnergyExtractor(final int id, final Inventory player_inventory, final TileCrystalEnergyExtractor tile){
-    super(Containers.CRYSTAL_ENERGY_EXTRACTOR, id, player_inventory, tile);
+    super(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerCrystalEnergyExtractor(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.CRYSTAL_ENERGY_EXTRACTOR, id, player_inventory, data);
+    super(Containers.CRYSTAL_ENERGY_EXTRACTOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

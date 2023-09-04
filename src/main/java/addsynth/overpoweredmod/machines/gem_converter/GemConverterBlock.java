@@ -2,11 +2,9 @@ package addsynth.overpoweredmod.machines.gem_converter;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
-import addsynth.overpoweredmod.assets.CreativeTabs;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -31,7 +29,7 @@ public final class GemConverterBlock extends MachineBlock {
 
   public GemConverterBlock(){
     super(MaterialColor.SNOW);
-    RegistryUtil.register_block(this, Names.GEM_CONVERTER, CreativeTabs.creative_tab);
+    setRegistryName(Names.GEM_CONVERTER);
   }
 
   @Override
@@ -48,7 +46,7 @@ public final class GemConverterBlock extends MachineBlock {
   @Override
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
-    return standardTicker(world, type, Tiles.GEM_CONVERTER);
+    return standardTicker(world, type, Tiles.GEM_CONVERTER.get());
   }
 
   @Override

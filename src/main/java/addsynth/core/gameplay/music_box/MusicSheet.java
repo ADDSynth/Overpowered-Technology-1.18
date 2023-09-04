@@ -45,7 +45,7 @@ public final class MusicSheet extends CoreItem {
     
     // if we're hitting block
     if(raytrace.getType() == BlockHitResult.Type.BLOCK){
-      if(world.getBlockState(((BlockHitResult)raytrace).getBlockPos()).getBlock() == Core.music_box){
+      if(world.getBlockState(((BlockHitResult)raytrace).getBlockPos()).getBlock() == Core.music_box.get()){
         return new InteractionResultHolder<ItemStack>(InteractionResult.PASS, stack);
       }
     }
@@ -66,7 +66,7 @@ public final class MusicSheet extends CoreItem {
   public final InteractionResult useOn(final UseOnContext context){
     final Level world = context.getLevel();
     final BlockPos pos = context.getClickedPos();
-    if(world.getBlockState(pos).getBlock() == Core.music_box){
+    if(world.getBlockState(pos).getBlock() == Core.music_box.get()){
       if(world.isClientSide){
         return InteractionResult.SUCCESS;
       }
@@ -100,7 +100,7 @@ public final class MusicSheet extends CoreItem {
     }
     else{
       stack.shrink(1);
-      final ItemStack music_sheet = new ItemStack(Core.music_sheet, 1);
+      final ItemStack music_sheet = new ItemStack(Core.music_sheet.get(), 1);
       music_sheet.setTag(nbt);
       PlayerUtil.add_to_player_inventory(player, music_sheet);
     }

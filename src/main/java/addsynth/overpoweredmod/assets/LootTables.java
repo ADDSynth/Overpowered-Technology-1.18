@@ -2,10 +2,12 @@ package addsynth.overpoweredmod.assets;
 
 import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.constants.ArmorMaterial;
+import addsynth.core.game.item.constants.EquipmentType;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.config.UnidentifiedItemDropConfig;
 import addsynth.overpoweredmod.config.Values;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
+import addsynth.overpoweredmod.items.UnidentifiedItem;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
@@ -33,26 +35,26 @@ public final class LootTables {
     // As long as items of the same type have the same weight, and each type has
     // the same number of items, then they all have an equal chance of being picked.
     // For instance: [30, 18, 9, 9, 3, 4] is the same as [120, 72, 36, 36, 12, 16]
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.LEATHER.ordinal()][0]).setWeight(leather_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.LEATHER.ordinal()][1]).setWeight(leather_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.LEATHER.ordinal()][2]).setWeight(leather_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.LEATHER.ordinal()][3]).setWeight(leather_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.GOLD.ordinal()][0]).setWeight(gold_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.GOLD.ordinal()][1]).setWeight(gold_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.GOLD.ordinal()][2]).setWeight(gold_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.GOLD.ordinal()][3]).setWeight(gold_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.CHAINMAIL.ordinal()][0]).setWeight(chainmail_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.CHAINMAIL.ordinal()][1]).setWeight(chainmail_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.CHAINMAIL.ordinal()][2]).setWeight(chainmail_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.CHAINMAIL.ordinal()][3]).setWeight(chainmail_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.IRON.ordinal()][0]).setWeight(iron_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.IRON.ordinal()][1]).setWeight(iron_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.IRON.ordinal()][2]).setWeight(iron_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.IRON.ordinal()][3]).setWeight(iron_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][0]).setWeight(diamond_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][1]).setWeight(diamond_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][2]).setWeight(diamond_weight));
-    loot.add(LootItem.lootTableItem(OverpoweredItems.unidentified_armor[ArmorMaterial.DIAMOND.ordinal()][3]).setWeight(diamond_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.HELMET    )).setWeight(leather_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.CHESTPLATE)).setWeight(leather_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.LEGGINGS  )).setWeight(leather_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.BOOTS     )).setWeight(leather_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.HELMET    )).setWeight(gold_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.CHESTPLATE)).setWeight(gold_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.LEGGINGS  )).setWeight(gold_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.BOOTS     )).setWeight(gold_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.HELMET    )).setWeight(chainmail_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.CHESTPLATE)).setWeight(chainmail_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.LEGGINGS  )).setWeight(chainmail_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.BOOTS     )).setWeight(chainmail_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.HELMET    )).setWeight(iron_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.CHESTPLATE)).setWeight(iron_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.LEGGINGS  )).setWeight(iron_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.BOOTS     )).setWeight(iron_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.HELMET    )).setWeight(diamond_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.CHESTPLATE)).setWeight(diamond_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.LEGGINGS  )).setWeight(diamond_weight));
+    loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.BOOTS     )).setWeight(diamond_weight));
     if(Compatibility.CURIOS.loaded){
       final int      ring_weight = Values.ring_drop_weight.get();
       loot.add(LootItem.lootTableItem(OverpoweredItems.ring_0.get()).setWeight(ring_weight));

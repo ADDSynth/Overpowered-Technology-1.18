@@ -20,16 +20,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class RecipeCollection <T extends AbstractRecipe> {
 
   public final RecipeType<T> type;
-  public final ShapelessRecipeSerializer<T> serializer;
 
   @Deprecated
   public final ArrayList<T> recipes = new ArrayList<T>();
   private Item[] filter;
   private boolean update = true;
 
-  public RecipeCollection(RecipeType<T> type, ShapelessRecipeSerializer<T> serializer){
+  public RecipeCollection(RecipeType<T> type){
     this.type = type;
-    this.serializer = serializer;
   }
 
   /** Adds the recipe to this collection, so that it may be used in the other functions. */

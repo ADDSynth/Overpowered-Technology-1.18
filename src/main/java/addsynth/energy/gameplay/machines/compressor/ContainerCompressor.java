@@ -11,12 +11,12 @@ import net.minecraft.world.entity.player.Inventory;
 public final class ContainerCompressor extends TileEntityContainer<TileCompressor> {
 
   public ContainerCompressor(final int id, final Inventory player_inventory, final TileCompressor tile){
-    super(Containers.COMPRESSOR, id, player_inventory, tile);
+    super(Containers.COMPRESSOR.get(), id, player_inventory, tile);
     common_setup(player_inventory);
   }
 
   public ContainerCompressor(final int id, final Inventory player_inventory, final FriendlyByteBuf data){
-    super(Containers.COMPRESSOR, id, player_inventory, data);
+    super(Containers.COMPRESSOR.get(), id, player_inventory, data);
     common_setup(player_inventory);
   }
 

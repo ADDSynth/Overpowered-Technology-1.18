@@ -27,7 +27,7 @@ public final class TileFusionEnergyConverter extends TileBase implements IEnergy
   private boolean valid;
 
   public TileFusionEnergyConverter(BlockPos position, BlockState blockstate){
-    super(Tiles.FUSION_ENERGY_CONVERTER, position, blockstate);
+    super(Tiles.FUSION_ENERGY_CONVERTER.get(), position, blockstate);
   }
 
   @Override

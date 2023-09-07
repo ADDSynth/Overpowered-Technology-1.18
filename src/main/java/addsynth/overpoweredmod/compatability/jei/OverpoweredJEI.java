@@ -1,7 +1,6 @@
 package addsynth.overpoweredmod.compatability.jei;
 
 import java.util.ArrayList;
-import addsynth.core.compat.Compatibility;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.game.core.Laser;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
@@ -31,24 +30,10 @@ public final class OverpoweredJEI implements IModPlugin {
 
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime){
-    final ArrayList<ItemStack> blacklist = new ArrayList<>(1);
-    // blacklist.add(new ItemStack(OverpoweredItems.portal_image));
-    if(Compatibility.CURIOS.loaded){
-      if(OverpoweredItems.magic_ring_0.isPresent()){
-        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_0.get()));
-      }
-      if(OverpoweredItems.magic_ring_1.isPresent()){
-        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_1.get()));
-      }
-      if(OverpoweredItems.magic_ring_2.isPresent()){
-        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_2.get()));
-      }
-      if(OverpoweredItems.magic_ring_3.isPresent()){
-        blacklist.add(new ItemStack(OverpoweredItems.magic_ring_3.get()));
-      }
-    }
-    // blacklist.add(new ItemStack(OverpoweredItems.bridge_image));
-    jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, blacklist);
+    // JEI builds the Ingredient list from items in the Creative Inventory.
+    // See: mezz.jei.common.plugins.vanilla.ingredients.item.ItemStackListFactory.create()
+    // Since the items we don't want players to access are not in the Creative Inventory,
+    // there's no need to remove them from the JEI Ingredient list.
   }
 
   @Override

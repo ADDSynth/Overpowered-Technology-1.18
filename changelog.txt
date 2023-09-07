@@ -14,6 +14,7 @@ FIXED:
   Energy Suspension Bridge lengths are now saved with the world. If players change the
     maximum length in the config and load a world with an Energy Suspension Bridge already
     active, it will check if the new maximum length is shorter and shut itself off.
+  Fixed elements in a gui window was not being repositioned after the game window was resized.
   Minecraft 1.18 version only: Fix not being able to quit a world / shutdown a server properly
     if you were near a BlockNetwork TileEntity.
     - Data Cable, Energy Wire, Energy Suspension Bridge, or Laser Housing.

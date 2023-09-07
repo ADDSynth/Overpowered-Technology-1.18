@@ -7,7 +7,6 @@ import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.data.TeamDataUnit;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
 import addsynth.core.gui.GuiBase;
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.buttons.ClientCheckbox;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import addsynth.core.util.StringUtil;
@@ -76,21 +75,21 @@ public final class TeamManagerTeamEditGui extends GuiBase {
 
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     
-    right_text_x = guiUtil.center_x + center_space;
+    right_text_x = center_x + center_space;
 
     // Widgets
-    final int left_x     = guiUtil.guiLeft + 6;
-    final int left_edge  = guiUtil.guiCenter - center_space;
-    final int right_x    = guiUtil.guiCenter + center_space;
-    final int right_edge = guiUtil.guiRight - 6;
-    final int widget_line_1 = guiUtil.guiTop + line_1 + 8 + widget_spacing;
-    final int widget_line_2 = guiUtil.guiTop + line_2 + 8 + widget_spacing;
-    final int widget_line_3 = guiUtil.guiTop + line_3 + 8 + widget_spacing;
-    final int widget_line_4 = guiUtil.guiTop + line_4 + 8 + widget_spacing;
-    final int button_y      = guiUtil.guiTop + line_5 + 8 + 4;
+    final int left_x     = guiBox.left + 6;
+    final int left_edge  = guiBox.center_x - center_space;
+    final int right_x    = guiBox.center_x + center_space;
+    final int right_edge = guiBox.right - 6;
+    final int widget_line_1 = guiBox.top + line_1 + 8 + widget_spacing;
+    final int widget_line_2 = guiBox.top + line_2 + 8 + widget_spacing;
+    final int widget_line_3 = guiBox.top + line_3 + 8 + widget_spacing;
+    final int widget_line_4 = guiBox.top + line_4 + 8 + widget_spacing;
+    final int button_y      = guiBox.top + line_5 + 8 + 4;
     final int left_text_box_width  =  left_edge -  left_x;
     final int right_text_box_width = right_edge - right_x; // even though technically these should be the same
     final int button_x1 = (( left_x +  left_edge) / 2) - (button_width/2);
@@ -202,20 +201,20 @@ public final class TeamManagerTeamEditGui extends GuiBase {
 
   @Override
   protected void drawGuiBackgroundLayer(PoseStack matrix, float partialTicks, int mouse_x, int mouse_y){
-    guiUtil.draw_custom_background_texture(matrix, 384, 256);
+    draw_custom_background_texture(matrix, 384, 256);
   }
 
   @Override
   protected void drawGuiForegroundLayer(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_left(matrix, team_id_name_text+":",         left_text_x, line_1);
-    GuiUtil.draw_text_left(matrix, team_display_name_text+":",   right_text_x, line_1);
-    GuiUtil.draw_text_left(matrix, team_color_text+":",          right_text_x, line_2);
-    GuiUtil.draw_text_left(matrix, show_nametag_option_text+":",  left_text_x, line_3);
-    GuiUtil.draw_text_left(matrix, show_death_messages_text+":", right_text_x, line_3);
-    GuiUtil.draw_text_left(matrix, member_prefix_text+":",        left_text_x, line_4);
-    GuiUtil.draw_text_left(matrix, member_suffix_text+":",       right_text_x, line_4);
-    GuiUtil.draw_text_left(matrix, message,                       left_text_x, line_5);
+    draw_title(matrix);
+    draw_text_left(matrix, team_id_name_text+":",         left_text_x, line_1);
+    draw_text_left(matrix, team_display_name_text+":",   right_text_x, line_1);
+    draw_text_left(matrix, team_color_text+":",          right_text_x, line_2);
+    draw_text_left(matrix, show_nametag_option_text+":",  left_text_x, line_3);
+    draw_text_left(matrix, show_death_messages_text+":", right_text_x, line_3);
+    draw_text_left(matrix, member_prefix_text+":",        left_text_x, line_4);
+    draw_text_left(matrix, member_suffix_text+":",       right_text_x, line_4);
+    draw_text_left(matrix, message,                       left_text_x, line_5);
   }
 
 }

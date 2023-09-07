@@ -14,7 +14,7 @@ public final class GuiFusionChamber extends GuiContainerBase<ContainerFusionCham
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
   }
 
 }

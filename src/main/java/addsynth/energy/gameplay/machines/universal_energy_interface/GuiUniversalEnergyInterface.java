@@ -1,6 +1,5 @@
 package addsynth.energy.gameplay.machines.universal_energy_interface;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.core.util.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
@@ -49,24 +48,24 @@ public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUnivers
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
-    final int button_x = leftPos + guiUtil.center_x - (button_width / 2) + 4;
+    final int button_x = leftPos + center_x - (button_width / 2) + 4;
     addRenderableWidget(new CycleTransferModeButton(button_x, topPos + 17, tile));
   }
 
   @Override
   protected final void renderBg(PoseStack matrix, final float partialTicks, final int mouseX, final int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     energy_bar.drawVertical(matrix, this, energy);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_left(matrix, mode_text+":", 6, line_1);
-    GuiUtil.draw_text_left(matrix, energy_text+":", 6, line_2);
-    GuiUtil.draw_text_right(matrix, energy.getEnergy() + " / "+energy.getCapacity(), 130, line_2);
+    draw_title(matrix);
+    draw_text_left(matrix, mode_text+":", 6, line_1);
+    draw_text_left(matrix, energy_text+":", 6, line_2);
+    draw_text_right(matrix, energy.getEnergy() + " / "+energy.getCapacity(), 130, line_2);
   }
 
 }

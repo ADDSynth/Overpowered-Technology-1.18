@@ -172,21 +172,21 @@ public final class TeamManagerGui extends GuiBase {
   // private static final int last_y = 
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     
     // Common Data
     int i;
-    final int start_y = guiUtil.guiTop + line_1 + text_space;
-    final int x_position_1 = guiUtil.guiLeft + text_x1;
-    final int x_position_2 = guiUtil.guiLeft + text_x2;
-    final int x_position_3 = guiUtil.guiLeft + text_x3;
+    final int start_y = guiBox.top + line_1 + text_space;
+    final int x_position_1 = guiBox.left + text_x1;
+    final int x_position_2 = guiBox.left + text_x2;
+    final int x_position_3 = guiBox.left + text_x3;
 
     // Player Controls
     final int player_x_center = x_position_1 + (list_width / 2);
     final int player_button_x1 = player_x_center - 3 - TeamManagerGuiButtons.player_button_size;
     final int player_button_x2 = player_x_center + 3;
-    final int player_list_y = guiUtil.guiTop + players_text_line + text_space;
+    final int player_list_y = guiBox.top + players_text_line + text_space;
     for(i = 0; i < team_players.length; i++){
       team_players[i] = new ListEntry(x_position_1, start_y + (entry_height * i), list_width, entry_height);
       addRenderableWidget(team_players[i]);
@@ -195,8 +195,8 @@ public final class TeamManagerGui extends GuiBase {
     team_players_list.setResponder(onTeamPlayerSelected);
     addRenderableWidget(team_players_list);
     
-    player_to_team_button = new TeamManagerGuiButtons.MovePlayerToTeamButton(    player_button_x1, guiUtil.guiTop + player_buttons_y);
-    player_from_team_button = new TeamManagerGuiButtons.RemovePlayerFromTeamButton(player_button_x2, guiUtil.guiTop + player_buttons_y);
+    player_to_team_button   = new TeamManagerGuiButtons.MovePlayerToTeamButton(    player_button_x1, guiBox.top + player_buttons_y);
+    player_from_team_button = new TeamManagerGuiButtons.RemovePlayerFromTeamButton(player_button_x2, guiBox.top + player_buttons_y);
     addRenderableWidget(player_to_team_button);
     addRenderableWidget(player_from_team_button);
     
@@ -239,9 +239,9 @@ public final class TeamManagerGui extends GuiBase {
     addRenderableWidget(delete_objective_button);
     
     // Score Controls
-    new_score = new EditBox(this.font, x_position_2 + text_box_x_adjust, guiUtil.guiTop + text_box_y, text_box_width, text_box_height, new TextComponent("0"));
+    new_score = new EditBox(this.font, x_position_2 + text_box_x_adjust, guiBox.top + text_box_y, text_box_width, text_box_height, new TextComponent("0"));
     addWidget(new_score);
-    final int score_buttons_y = guiUtil.guiTop + text_box_y + text_box_height + score_spacing;
+    final int score_buttons_y = guiBox.top + text_box_y + text_box_height + score_spacing;
     final int[] score_buttons_width = {70, 50, 75, 60};
     final int score_button_x2 =    x_position_2 + score_buttons_width[0] + button_x_spacing;
     final int score_button_x3 = score_button_x2 + score_buttons_width[1] + button_x_spacing;
@@ -253,15 +253,15 @@ public final class TeamManagerGui extends GuiBase {
     addRenderableWidget(set_score_button);
     
     // Display Slot widgets
-    display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x1, guiUtil.guiTop + display_slot_button_y1, 0);
-    display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x1, guiUtil.guiTop + display_slot_button_y2, 1);
-    display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x1, guiUtil.guiTop + display_slot_button_y3, 2);
+    display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
+    display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
+    display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
     addRenderableWidget(display_slot_button[0]);
     addRenderableWidget(display_slot_button[1]);
     addRenderableWidget(display_slot_button[2]);
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x2, guiUtil.guiTop + display_slot_button_y1, 0));
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x2, guiUtil.guiTop + display_slot_button_y2, 1));
-    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiUtil.guiLeft + display_slot_button_x2, guiUtil.guiTop + display_slot_button_y3, 2));
+    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y1, 0));
+    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y2, 1));
+    addRenderableWidget(new TeamManagerGuiButtons.ClearDisplaySlotButton(guiBox.left + display_slot_button_x2, guiBox.top + display_slot_button_y3, 2));
     
     TeamData.changed = true;
   }
@@ -341,35 +341,35 @@ public final class TeamManagerGui extends GuiBase {
 
   @Override
   protected final void drawGuiBackgroundLayer(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_custom_background_texture(matrix, 512, 384);
+    draw_custom_background_texture(matrix, 512, 384);
   }
 
   @Override
   protected final void drawGuiForegroundLayer(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     // Main Labels
-    GuiUtil.draw_text_left(matrix, team_players_header_text+":", text_x1, line_1);
-    GuiUtil.draw_text_left(matrix,  all_players_header_text+":", text_x1, players_text_line);
-    GuiUtil.draw_text_left(matrix,         team_header_text+":", text_x2, line_1);
-    GuiUtil.draw_text_left(matrix,    objective_header_text+":", text_x3, line_1);
+    draw_text_left(matrix, team_players_header_text+":", text_x1, line_1);
+    draw_text_left(matrix,  all_players_header_text+":", text_x1, players_text_line);
+    draw_text_left(matrix,         team_header_text+":", text_x2, line_1);
+    draw_text_left(matrix,    objective_header_text+":", text_x3, line_1);
     // Selected
-    GuiUtil.draw_text_right(matrix,      team_selected_text+":", selected_text_left, selected_text_y);
-    GuiUtil.draw_text_right(matrix,    player_selected_text+":", selected_text_left, selected_text_y + 10);
-    GuiUtil.draw_text_right(matrix, objective_selected_text+":", selected_text_left, selected_text_y + 20);
-    GuiUtil.draw_text_left(matrix,      team_selected != null ? team_selected      : "", selected_text_right, selected_text_y);
-    GuiUtil.draw_text_left(matrix,    player_selected != null ? player_selected    : "", selected_text_right, selected_text_y + 10);
-    GuiUtil.draw_text_left(matrix, objective_selected != null ? objective_selected : "", selected_text_right, selected_text_y + 20);
+    draw_text_right(matrix,      team_selected_text+":", selected_text_left, selected_text_y);
+    draw_text_right(matrix,    player_selected_text+":", selected_text_left, selected_text_y + 10);
+    draw_text_right(matrix, objective_selected_text+":", selected_text_left, selected_text_y + 20);
+    draw_text_left(matrix,      team_selected != null ? team_selected      : "", selected_text_right, selected_text_y);
+    draw_text_left(matrix,    player_selected != null ? player_selected    : "", selected_text_right, selected_text_y + 10);
+    draw_text_left(matrix, objective_selected != null ? objective_selected : "", selected_text_right, selected_text_y + 20);
     // Score Text
-    GuiUtil.draw_text_left(matrix, current_score_text+": "+player_score, text_x2, line_2);
-    GuiUtil.draw_text_left(matrix, input_value_text+":", text_x2, line_3);
+    draw_text_left(matrix, current_score_text+": "+player_score, text_x2, line_2);
+    draw_text_left(matrix, input_value_text+":", text_x2, line_3);
     // Display Slot text
-    GuiUtil.draw_text_left(matrix, display_slot_header_text+":", text_x2, line_4);
-    GuiUtil.draw_text_right(matrix, display_slot_text_1, display_slot_x1, display_slot_text_y1);
-    GuiUtil.draw_text_right(matrix, display_slot_text_2, display_slot_x1, display_slot_text_y2);
-    GuiUtil.draw_text_right(matrix, display_slot_text_3, display_slot_x1, display_slot_text_y3);
-    GuiUtil.draw_text_center(matrix, TeamData.getDisplaySlotObjective(0), display_slot_x2, display_slot_text_y1);
-    GuiUtil.draw_text_center(matrix, TeamData.getDisplaySlotObjective(1), display_slot_x2, display_slot_text_y2);
-    GuiUtil.draw_text_center(matrix, TeamData.getDisplaySlotObjective(2), display_slot_x2, display_slot_text_y3);
+    draw_text_left(matrix, display_slot_header_text+":", text_x2, line_4);
+    draw_text_right(matrix, display_slot_text_1, display_slot_x1, display_slot_text_y1);
+    draw_text_right(matrix, display_slot_text_2, display_slot_x1, display_slot_text_y2);
+    draw_text_right(matrix, display_slot_text_3, display_slot_x1, display_slot_text_y3);
+    draw_text_center(matrix, TeamData.getDisplaySlotObjective(0), display_slot_x2, display_slot_text_y1);
+    draw_text_center(matrix, TeamData.getDisplaySlotObjective(1), display_slot_x2, display_slot_text_y2);
+    draw_text_center(matrix, TeamData.getDisplaySlotObjective(2), display_slot_x2, display_slot_text_y3);
   }
 
 }

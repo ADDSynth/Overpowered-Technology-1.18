@@ -20,26 +20,26 @@ public final class GuiInverter extends GuiEnergyBase<TileInverter, ContainerInve
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
     
     final ItemStack s1 = tile.getWorkingInventory().getStackInSlot(0);
     if(Config.blend_working_item.get()){
       final ItemStack s2 = TileInverter.getInverted(s1);
-      GuiUtil.blendItemStacks(s1, s2, 77, 44, work_progress_bar.getWorkTime());
+      GuiUtil.blendItemStacks(itemRenderer, s1, s2, 77, 44, work_progress_bar.getWorkTime());
     }
     else{
-      GuiUtil.drawItemStack(s1, 77, 44);
+      itemRenderer.renderGuiItem(s1, 77, 44);
     }
     
-    GuiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), guiUtil.center_x, 70);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), center_x, 70);
     draw_time_left(matrix, 93);
   }
 

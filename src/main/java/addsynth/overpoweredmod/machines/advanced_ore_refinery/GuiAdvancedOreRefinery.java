@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.advanced_ore_refinery;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.WorkProgressBar;
 import addsynth.overpoweredmod.game.reference.GuiReference;
@@ -18,18 +17,17 @@ public final class GuiAdvancedOreRefinery extends GuiEnergyBase<TileAdvancedOreR
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
-    // RenderHelper.enableGUIStandardItemLighting();
-    GuiUtil.drawItemStack(tile.getWorkingInventory().getStackInSlot(0), 76, 43);
-    GuiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), guiUtil.center_x, 69);
+    itemRenderer.renderGuiItem(tile.getWorkingInventory().getStackInSlot(0), 76, 43);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 69);
     draw_time_left(matrix, 92);
   }
 

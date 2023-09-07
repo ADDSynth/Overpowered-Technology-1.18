@@ -1,6 +1,5 @@
 package addsynth.energy.gameplay.machines.energy_storage;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.util.StringUtil;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;
@@ -22,17 +21,17 @@ public final class GuiEnergyStorageContainer extends GuiEnergyBase<TileEnergySto
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     energy_bar.drawHorizontal(matrix, this, energy);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_center(matrix, energy_stored_text+":", guiUtil.center_x, 25);
-    GuiUtil.draw_text_right(matrix, String.format("%.2f", energy.getEnergy()), 88, draw_energy_level_y);
-    GuiUtil.draw_text_left(matrix, "/ "+energy.getCapacity(), 93, draw_energy_level_y);
-    GuiUtil.draw_text_center(matrix, energy_bar.getEnergyPercentage(), guiUtil.center_x, 47);
+    draw_title(matrix);
+    draw_text_center(matrix, energy_stored_text+":", center_x, 25);
+    draw_text_right(matrix, String.format("%.2f", energy.getEnergy()), 88, draw_energy_level_y);
+    draw_text_left(matrix, "/ "+energy.getCapacity(), 93, draw_energy_level_y);
+    draw_text_center(matrix, energy_bar.getEnergyPercentage(), center_x, 47);
     draw_energy_difference(matrix, 80);
   }
 

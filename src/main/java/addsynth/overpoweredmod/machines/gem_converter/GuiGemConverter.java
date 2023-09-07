@@ -58,7 +58,7 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     addRenderableWidget(new CycleGemButton(this.leftPos + left_button_x, this.topPos + cycle_button_y,false, tile));
     addRenderableWidget(new CycleGemButton(this.leftPos + right_button_x, this.topPos + cycle_button_y,true, tile));
@@ -66,27 +66,27 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
 
   @Override
   protected final void renderBg(PoseStack matrix, final float partialTicks, final int mouseX, final int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
-    GuiUtil.drawItemStack(gem[tile.get_gem_selected()], this.leftPos + left_button_x + 12, this.topPos + cycle_button_y);
+    itemRenderer.renderGuiItem(gem[tile.get_gem_selected()], this.leftPos + left_button_x + 12, this.topPos + cycle_button_y);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
     
     final ItemStack s1 = tile.getWorkingInventory().getStackInSlot(0);
     if(Config.blend_working_item.get()){
       final ItemStack s2 = gem[tile.getConvertingStack()];
-      GuiUtil.blendItemStacks(s1, s2, 76, 45, work_progress_bar.getWorkTime());
+      GuiUtil.blendItemStacks(itemRenderer, s1, s2, 76, 45, work_progress_bar.getWorkTime());
     }
     else{
-      GuiUtil.drawItemStack(s1, 76, 45);
+      itemRenderer.renderGuiItem(s1, 76, 45);
     }
     
-    GuiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 25, 88);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 25, 88);
     draw_time_left(matrix, 99);
   }
 

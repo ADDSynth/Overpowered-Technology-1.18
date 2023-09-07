@@ -69,7 +69,7 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     addRenderableWidget(new OnOffSwitch<>(this, tile));
     addRenderableWidget(new AutoShutoffCheckbox<TilePortalControlPanel>(this.leftPos + checkbox_x, this.topPos + checkbox_y, tile));
@@ -96,19 +96,19 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     energy_bar.drawVertical(matrix, this, energy);
     draw_portal_items(matrix);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_below_switch(matrix);
     draw_status(matrix, tile.getStatus(), energy_percentage_y);
-    guiUtil.draw_text_right(matrix, WorkProgressBar.getWorkTimeProgress(tile), energy_percentage_y);
+    draw_text_right(matrix, WorkProgressBar.getWorkTimeProgress(tile), energy_percentage_y);
     draw_energy_difference(matrix, energy_change_y);
-    guiUtil.draw_text_center(matrix, tile.getMessage(), status_message_y);
+    draw_text_center(matrix, tile.getMessage(), status_message_y);
   }
   
   /**
@@ -123,13 +123,12 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
     int index;
     int x;
     int y;
-    // RenderHelper.enableGUIStandardItemLighting();
     for(j = 0; j < 2; j++){
       for(i = 0; i < 4; i++){
         index = (j*4) + i;
         x = this.leftPos + image_x + (i * space_x);
         y = this.topPos  + image_y + (j * space_y);
-        gem_blocks.drawIngredient(index, x, y);
+        gem_blocks.drawIngredient(itemRenderer, index, x, y);
       }
     }
     RenderSystem.setShaderTexture(0, GuiReference.icons);

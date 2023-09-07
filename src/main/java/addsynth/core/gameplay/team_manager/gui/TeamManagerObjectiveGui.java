@@ -9,8 +9,7 @@ import addsynth.core.gameplay.team_manager.data.ObjectiveDataUnit;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
 import addsynth.core.gui.GuiBase;
-import addsynth.core.gui.util.GuiSection;
-import addsynth.core.gui.util.GuiUtil;
+import addsynth.core.gui.section.MutableGuiSection;
 import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import addsynth.core.gui.widgets.scrollbar.ListEntry;
@@ -22,10 +21,12 @@ import net.minecraft.network.chat.TextComponent;
 
 public final class TeamManagerObjectiveGui extends GuiBase {
 
+  private static final int gui_height = 314;
+
   private final boolean new_objective;
 
   public TeamManagerObjectiveGui(boolean new_objective){
-    super(473, 314, TextReference.objective_gui, GuiReference.edit_objective_gui);
+    super(473, gui_height, TextReference.objective_gui, GuiReference.edit_objective_gui);
     this.new_objective = new_objective;
   }
 
@@ -66,17 +67,14 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   // Text
   private static final int line_1 = 18;
   private static final int line_2 = line_1 + 8 + widget_spacing + text_box_height + line_space;
-  private final int line_5 = guiUtil.guiHeight - 8 - button_height - 12;
+  private static final int line_5 = gui_height - 8 - button_height - 12;
 
   // Widgets
   private static final int left_section_width = 120;
   private static final int middle_section_width = 100;
-  private final int bottom = guiUtil.guiTop + line_5 - 4;
-  private final int widget_line_1 = guiUtil.guiTop + line_1 + 8 + widget_spacing;
-  private final int widget_line_2 = guiUtil.guiTop + line_2 + 8 + widget_spacing;
-  private final GuiSection   left_section = GuiSection.box(     guiUtil.guiLeft + 6, widget_line_1, guiUtil.guiLeft    + 6 + left_section_width,   bottom);
-  private final GuiSection middle_section = GuiSection.box(  left_section.right + 6, widget_line_1, left_section.right + 6 + middle_section_width, bottom);
-  private final GuiSection  right_section = GuiSection.box(middle_section.right + 6, widget_line_1, guiUtil.guiRight   - 6 - scrollbar_width,      guiUtil.guiBottom - 6);
+  private static final MutableGuiSection   left_section = new MutableGuiSection();
+  private static final MutableGuiSection middle_section = new MutableGuiSection();
+  private static final MutableGuiSection  right_section = new MutableGuiSection();
 
   // Criteria List
   private final int criteria_list_length = right_section.height / entry_height;
@@ -86,6 +84,14 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   @Override
   protected void init(){
     super.init();
+    
+    // update position variables that depend on guiBox
+    final int bottom = guiBox.top + line_5 - 4;
+    final int widget_line_1 = guiBox.top + line_1 + 8 + widget_spacing;
+    final int widget_line_2 = guiBox.top + line_2 + 8 + widget_spacing;
+      left_section.setBox(         guiBox.left + 6, widget_line_1, guiBox.left        + 6 + left_section_width,   bottom);
+    middle_section.setBox(  left_section.right + 6, widget_line_1, left_section.right + 6 + middle_section_width, bottom);
+     right_section.setBox(middle_section.right + 6, widget_line_1, guiBox.right       - 6 - scrollbar_width,      guiBox.bottom - 6);
     
     // Name TextBoxes
     objective_id_name = new EditBox(this.font, left_section.x, left_section.y, left_section_width, text_box_height, new TextComponent(""));
@@ -110,10 +116,10 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     // Done and Cancel Buttons
     final int button_area = middle_section.right - left_section.left;
     final int[] button_x = WidgetUtil.evenAlignment(button_area, button_width, 2);
-    final int button_y = guiUtil.guiBottom - 8 - button_height;
-    finish_button = new TeamManagerGuiButtons.FinishButton(guiUtil.guiLeft + button_x[0], button_y, button_width, button_height, this::create_objective);
+    final int   button_y = guiBox.bottom - 8 - button_height;
+    finish_button = new TeamManagerGuiButtons.FinishButton(guiBox.left + button_x[0], button_y, button_width, button_height, this::create_objective);
     addRenderableWidget(finish_button);
-    addRenderableWidget(new TeamManagerGuiButtons.CancelButton(guiUtil.guiLeft + button_x[1], button_y, button_width, button_height));
+    addRenderableWidget(new TeamManagerGuiButtons.CancelButton(guiBox.left + button_x[1], button_y, button_width, button_height));
     
     if(new_objective){
       // Initialize Criteria List
@@ -295,17 +301,17 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   @Override
   protected void drawGuiBackgroundLayer(PoseStack matrix, float partialTicks, int mouse_x, int mouse_y){
-    guiUtil.draw_custom_background_texture(matrix, 512, 384);
+    draw_custom_background_texture(matrix, 512, 384);
   }
 
   @Override
   protected void drawGuiForegroundLayer(PoseStack matrix, int mouse_x, int mouse_y){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_left(matrix,      objective_id_name_text+":", 6, line_1);
-    GuiUtil.draw_text_left(matrix, objective_display_name_text+":", 6, line_2);
-    GuiUtil.draw_text_left(matrix,          criteria_type_text+":", middle_section.left - guiUtil.guiLeft, line_1);
-    GuiUtil.draw_text_left(matrix,        criteria_header_text+":",  right_section.left - guiUtil.guiLeft, line_1);
-    GuiUtil.draw_text_left(matrix, message,                         6, line_5);
+    draw_title(matrix);
+    draw_text_left(matrix,      objective_id_name_text+":", 6, line_1);
+    draw_text_left(matrix, objective_display_name_text+":", 6, line_2);
+    draw_text_left(matrix,          criteria_type_text+":", middle_section.left - guiBox.left, line_1);
+    draw_text_left(matrix,        criteria_header_text+":",  right_section.left - guiBox.left, line_1);
+    draw_text_left(matrix, message,                         6, line_5);
   }
 
 }

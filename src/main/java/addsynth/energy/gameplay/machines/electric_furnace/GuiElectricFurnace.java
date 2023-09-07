@@ -1,6 +1,5 @@
 package addsynth.energy.gameplay.machines.electric_furnace;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.ProgressBar;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;
@@ -19,18 +18,17 @@ public final class GuiElectricFurnace extends GuiEnergyBase<TileElectricFurnace,
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, ProgressBar.Direction.BOTTOM_TO_TOP, tile);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
-    // RenderHelper.enableGUIStandardItemLighting();
-    GuiUtil.drawItemStack(tile.getWorkingInventory().getStackInSlot(0), 80, 40);
-    GuiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), guiUtil.center_x + 21, 65);
+    itemRenderer.renderGuiItem(tile.getWorkingInventory().getStackInSlot(0), 80, 40);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), center_x + 21, 65);
     draw_time_left(matrix, 78);
   }
 

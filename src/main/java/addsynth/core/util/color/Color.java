@@ -2,10 +2,9 @@ package addsynth.core.util.color;
 
 import net.minecraft.util.Mth;
 
+/** @see addsynth.core.gui.util.GuiUtil#text_color */
 public final class Color {
 
-  public static final int text_color = 4210752;
-  
   public static final Color BLACK   = new Color(  0,   0,   0);
   public static final Color GRAY    = new Color(128, 128, 128);
   public static final Color WHITE   = new Color(255, 255, 255);

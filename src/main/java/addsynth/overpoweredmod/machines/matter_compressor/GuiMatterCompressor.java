@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.matter_compressor;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.ProgressBar;
 import addsynth.core.util.StringUtil;
 import addsynth.core.util.math.RoundMode;
@@ -25,21 +24,21 @@ public final class GuiMatterCompressor extends GuiEnergyBase<TileMatterCompresso
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     progress_bar.draw(matrix, this, ProgressBar.Direction.LEFT_TO_RIGHT, tile.getProgress(), RoundMode.Floor);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_right(matrix, black_hole_text+':', 76, 27);
+    draw_title(matrix);
+    draw_text_right(matrix, black_hole_text+':', 76, 27);
     // final int slash = font.width("/"); // 6
     // final int space = font.width(" "); // 4
     
-    GuiUtil.draw_text_left(matrix, matter_text+":", 6, 71);
-    GuiUtil.draw_text_right(matrix, tile.getMatter(), guiUtil.center_x - 7, 71);
-    GuiUtil.draw_text_left(matrix, "/ "+Config.max_matter.get(), guiUtil.center_x - 3, 71);
-    guiUtil.draw_text_right(matrix, StringUtil.toPercentageString(tile.getProgress(), RoundMode.Floor), 71);
+    draw_text_left(matrix, matter_text+":", 6, 71);
+    draw_text_right(matrix, tile.getMatter(), center_x - 7, 71);
+    draw_text_left(matrix, "/ "+Config.max_matter.get(), center_x - 3, 71);
+    draw_text_right(matrix, StringUtil.toPercentageString(tile.getProgress(), RoundMode.Floor), 71);
   }
 
 }

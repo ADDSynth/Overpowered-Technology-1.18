@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 import addsynth.core.gui.util.GuiUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -41,9 +42,9 @@ public final class IngredientWidget {
     index = 0;
   }
 
-  public final void draw(int x, int y){
+  public final void draw(final ItemRenderer itemRenderer, int x, int y){
     if(stacks != null){
-      GuiUtil.drawItemStack(stacks[index], x, y);
+      itemRenderer.renderGuiItem(stacks[index], x, y);
     }
   }
 

@@ -4,6 +4,8 @@ import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.WidgetUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.TextComponent;
@@ -24,10 +26,13 @@ public abstract class Checkbox extends AbstractButton {
 
   @Override
   public final void renderButton(PoseStack matrix, final int mouseX, final int mouseY, final float partial_ticks){
+    @SuppressWarnings("resource")
+    final Minecraft minecraft = Minecraft.getInstance();
+    final Font font = minecraft.font;
     final boolean checked = get_toggle_state();
     WidgetUtil.common_button_render_setup(GuiReference.widgets);
     blit(matrix, x, y, gui_size, gui_size, checked ? texture_x : texture_x + texture_height, texture_y, texture_width, texture_height, 256, 256);
-    GuiUtil.draw_text_left(matrix, getMessage().getString(), x + 16, y + 2);
+    font.draw(matrix, getMessage(), x + 16, y + 2, GuiUtil.text_color);
   }
 
   @Override

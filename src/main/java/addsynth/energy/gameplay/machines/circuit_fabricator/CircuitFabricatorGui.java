@@ -1,7 +1,6 @@
 package addsynth.energy.gameplay.machines.circuit_fabricator;
 
-import addsynth.core.gui.util.GuiSection;
-import addsynth.core.gui.util.GuiUtil;
+import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.widgets.item.IngredientWidgetGroup;
 import addsynth.core.gui.widgets.scrollbar.ItemListEntry;
 import addsynth.core.gui.widgets.scrollbar.ItemListScrollbar;
@@ -50,16 +49,16 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
     int i;
     for(i = 0; i < 5; i++){
       item_list_entries[i] = new ItemListEntry(
-        guiUtil.guiLeft + 6,
-        guiUtil.guiTop + list_entry_y[i],
+        leftPos + 6,
+        topPos + list_entry_y[i],
         item_list_section.width - 12, 18
       );
       addRenderableWidget(item_list_entries[i]);
     }
     // construct scrollbar
     item_scrollbar = new ItemListScrollbar(
-      guiUtil.guiLeft + 6 + item_list_section.width - 12,
-      guiUtil.guiTop + item_list_section.y,
+      leftPos + 6 + item_list_section.width - 12,
+      topPos + item_list_section.y,
       item_list_section.height,
       item_list_entries,
       CircuitFabricatorRecipes.getRecipes()
@@ -96,52 +95,52 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_custom_background_texture(matrix, 384, 256);
+    draw_custom_background_texture(matrix, 384, 256);
     work_progress_bar.draw(matrix, this, tile);
     // draw arrows and ingredients
     final int length = recipe_ingredients.getLength();
     if(length >= 1){
-      guiUtil.draw(matrix, arrow_draw_x[0], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(0, leftPos + ingredient_draw_x[0], topPos + ingredient_draw_y[0]);
+      draw(matrix, arrow_draw_x[0], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 0, leftPos + ingredient_draw_x[0], topPos + ingredient_draw_y[0]);
     }
     if(length >= 2){
-      guiUtil.draw(matrix, arrow_draw_x[1], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(1, leftPos + ingredient_draw_x[1], topPos + ingredient_draw_y[1]);
+      draw(matrix, arrow_draw_x[1], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 1, leftPos + ingredient_draw_x[1], topPos + ingredient_draw_y[1]);
     }
     if(length >= 3){
-      guiUtil.draw(matrix, arrow_draw_x[2], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(2, leftPos + ingredient_draw_x[2], topPos + ingredient_draw_y[2]);
+      draw(matrix, arrow_draw_x[2], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 2, leftPos + ingredient_draw_x[2], topPos + ingredient_draw_y[2]);
     }
     if(length >= 4){
-      guiUtil.draw(matrix, arrow_draw_x[3], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(3, leftPos + ingredient_draw_x[3], topPos + ingredient_draw_y[3]);
+      draw(matrix, arrow_draw_x[3], arrow_draw_y[0], down_arrow_texture_x, down_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 3, leftPos + ingredient_draw_x[3], topPos + ingredient_draw_y[3]);
     }
     if(length >= 5){
-      guiUtil.draw(matrix, arrow_draw_x[0], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(4, leftPos + ingredient_draw_x[4], topPos + ingredient_draw_y[4]);
+      draw(matrix, arrow_draw_x[0], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 4, leftPos + ingredient_draw_x[4], topPos + ingredient_draw_y[4]);
     }
     if(length >= 6){
-      guiUtil.draw(matrix, arrow_draw_x[1], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(5, leftPos + ingredient_draw_x[5], topPos + ingredient_draw_y[5]);
+      draw(matrix, arrow_draw_x[1], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 5, leftPos + ingredient_draw_x[5], topPos + ingredient_draw_y[5]);
     }
     if(length >= 7){
-      guiUtil.draw(matrix, arrow_draw_x[2], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(6, leftPos + ingredient_draw_x[6], topPos + ingredient_draw_y[6]);
+      draw(matrix, arrow_draw_x[2], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 6, leftPos + ingredient_draw_x[6], topPos + ingredient_draw_y[6]);
     }
     if(length >= 8){
-      guiUtil.draw(matrix, arrow_draw_x[3], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
-      recipe_ingredients.drawIngredient(7, leftPos + ingredient_draw_x[7], topPos + ingredient_draw_y[7]);
+      draw(matrix, arrow_draw_x[3], arrow_draw_y[1],   up_arrow_texture_x,   up_arrow_texture_y, 14, 8, 28, 16);
+      recipe_ingredients.drawIngredient(itemRenderer, 7, leftPos + ingredient_draw_x[7], topPos + ingredient_draw_y[7]);
     }
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
-    GuiUtil.draw_text_left(matrix, selected_text+": "+selected_item, 6, 39);
-    // GuiUtil.drawItemStack(circuit_stack[tile.getCircuitID()], 102, 29);
-    GuiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 270, 113);
+    draw_text_left(matrix, selected_text+": "+selected_item, 6, 39);
+    // itemRenderer.renderGuiItem(circuit_stack[tile.getCircuitID()], 102, 29);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 270, 113);
     draw_time_left_center(matrix, 145);
   }
 

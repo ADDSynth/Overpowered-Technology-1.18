@@ -5,7 +5,6 @@ import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.data.MusicGrid;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.GuiBase;
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.util.StringUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -99,18 +98,18 @@ public final class GuiMusicBox extends GuiBase {
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
 
     // controls list
-    final int play_button_x = guiUtil.guiCenter - (play_button_width / 2);
-    final int tempo_x1 = guiUtil.guiLeft + 6;
-    final int tempo_x2 = guiUtil.guiLeft + 6 + tempo_button_width + tempo_text_width;
-    final int tempo_y = guiUtil.guiTop + tempo_button_y;
-    addRenderableWidget(new MusicButtons.PlayButton(play_button_x, guiUtil.guiTop + 17, play_button_width, tile));
+    final int play_button_x = guiBox.center_x - (play_button_width / 2);
+    final int tempo_x1 = guiBox.left + 6;
+    final int tempo_x2 = guiBox.left + 6 + tempo_button_width + tempo_text_width;
+    final int tempo_y = guiBox.top + tempo_button_y;
+    addRenderableWidget(new MusicButtons.PlayButton(play_button_x, guiBox.top + 17, play_button_width, tile));
     addRenderableWidget(new MusicButtons.TempoButton(tempo_x1, tempo_y, tempo_button_width, tempo_button_height, true, tile));
     addRenderableWidget(new MusicButtons.TempoButton(tempo_x2, tempo_y, tempo_button_width, tempo_button_height, false, tile));
-    addRenderableWidget(new MusicButtons.NextDirectionButton(guiUtil.guiRight - 6 - next_direction_button_width, guiUtil.guiTop + 17, next_direction_button_width, tile));
+    addRenderableWidget(new MusicButtons.NextDirectionButton(guiBox.right - 6 - next_direction_button_width, guiBox.top + 17, next_direction_button_width, tile));
 
     // music grid buttons
     create_dynamic_buttons();
@@ -123,24 +122,24 @@ public final class GuiMusicBox extends GuiBase {
     int y;
 
     // Mute Buttons
-    x = guiUtil.guiLeft + mute_button_x;
+    x = guiBox.left + mute_button_x;
     for(i = 0; i < MusicGrid.tracks; i++){
-      y = guiUtil.guiTop + music_grid_y + (i * (track_height));
+      y = guiBox.top + music_grid_y + (i * (track_height));
       addRenderableWidget(new MusicButtons.MuteButton(x, y, i, tile));
     }
 
     // Track Instrument Buttons
-    x = guiUtil.guiLeft + track_instrument_x;
+    x = guiBox.left + track_instrument_x;
     for(i = 0; i < MusicGrid.tracks; i++){
-      y = guiUtil.guiTop + music_grid_y + (i * track_height);
+      y = guiBox.top + music_grid_y + (i * track_height);
       addRenderableWidget(new MusicButtons.TrackInstrumentButton(x, y, i, tile));
     }
 
     // Note Buttons
     for(j = 0; j < MusicGrid.tracks; j++){
       for(i = 0; i < MusicGrid.frames; i++){
-        x = guiUtil.guiLeft + music_grid_x + (i * track_width);
-        y = guiUtil.guiTop  + music_grid_y + (j * track_height);
+        x = guiBox.left + music_grid_x + (i * track_width);
+        y = guiBox.top  + music_grid_y + (j * track_height);
         addRenderableWidget(new NoteButton(x, y, j, i, tile));
       }
     }
@@ -150,24 +149,24 @@ public final class GuiMusicBox extends GuiBase {
       for(i = 0; i < instrument_buttons; i++){
         instrument = i + (j * instrument_buttons);
         if(instrument < MusicGrid.instruments.length){
-          x = guiUtil.guiLeft + instrument_button_x + (i * instrument_button_size);
-          y = guiUtil.guiTop  + instrument_button_y + (j * instrument_button_size);
+          x = guiBox.left + instrument_button_x + (i * instrument_button_size);
+          y = guiBox.top  + instrument_button_y + (j * instrument_button_size);
           addRenderableWidget(new MusicButtons.SelectInstrumentButton(x, y, instrument));
         }
       }
     }
     
     // Track Swap Buttons
-    x = guiUtil.guiLeft + track_swap_button_x;
+    x = guiBox.left + track_swap_button_x;
     for(i = 0; i < MusicGrid.tracks - 1; i++){
-      y = guiUtil.guiTop + track_swap_button_y + (i * track_height);
+      y = guiBox.top + track_swap_button_y + (i * track_height);
       addRenderableWidget(new MusicButtons.SwapTrackButton(x, y, tile, i));
     }
   }
 
   @Override
   protected final void drawGuiBackgroundLayer(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_custom_background_texture(matrix, 384, 256);
+    draw_custom_background_texture(matrix, 384, 256);
     get_variables_from_music_box();
     draw_playhead(matrix);
     draw_muted_tracks();
@@ -183,7 +182,7 @@ public final class GuiMusicBox extends GuiBase {
     if(tile != null){
       if(tile.is_playing()){
         RenderSystem.setShaderTexture(0, GuiReference.widgets);
-        blit(matrix, guiUtil.guiLeft + playhead_x + (tile.playhead * track_width), guiUtil.guiTop + playhead_y,
+        blit(matrix, guiBox.left + playhead_x + (tile.playhead * track_width), guiBox.top + playhead_y,
                                        playhead_texture_x, playhead_texture_y, 16, 8);
       }
     }
@@ -202,23 +201,23 @@ public final class GuiMusicBox extends GuiBase {
     final int texture_x = 112;
     final int texture_y = 32;
     final int texture_size = 40;
-    final int x = guiUtil.guiLeft + instrument_cursor_x + ( (instrument_selected % instrument_buttons) * instrument_button_size);
-    final int y = guiUtil.guiTop  + instrument_cursor_y + ( (instrument_selected / instrument_buttons) * instrument_button_size);
+    final int x = guiBox.left + instrument_cursor_x + ( (instrument_selected % instrument_buttons) * instrument_button_size);
+    final int y = guiBox.top  + instrument_cursor_y + ( (instrument_selected / instrument_buttons) * instrument_button_size);
     blit(matrix, x, y, instrument_button_size, instrument_button_size, texture_x, texture_y, texture_size, texture_size, 256, 256);
   }
 
   @Override
   protected final void drawGuiForegroundLayer(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     // draw tempo:
-    GuiUtil.draw_text_center(matrix, tempo_text+":", tempo_text_x_center, 6);
-    GuiUtil.draw_text_center(matrix, ticks + " "+ticks_text,tempo_text_x_center, 17);
-    GuiUtil.draw_text_center(matrix, bpm + " "+bpm_text,tempo_text_x_center, 27);
+    draw_text_center(matrix, tempo_text+":",         tempo_text_x_center,  6);
+    draw_text_center(matrix, ticks + " "+ticks_text, tempo_text_x_center, 17);
+    draw_text_center(matrix, bpm + " "+bpm_text,     tempo_text_x_center, 27);
     
-    GuiUtil.draw_text_center(matrix, next_text+":", guiUtil.right_edge - (next_direction_button_width / 2), 6);
+    draw_text_center(matrix, next_text+":", right_edge - (next_direction_button_width / 2), 6);
     
-    GuiUtil.draw_text_left(matrix, current_note_text+": "+NoteButton.note[note_selected],6,info_text_y);
-    GuiUtil.draw_text_left(matrix, instrument_text+": "+instrument[instrument_selected], guiUtil.center_x - 10, info_text_y);
+    draw_text_left(matrix, current_note_text+": "+NoteButton.note[note_selected],            6, info_text_y);
+    draw_text_left(matrix, instrument_text+": "+instrument[instrument_selected], center_x - 10, info_text_y);
   }
 
   /**

@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.plasma_generator;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.util.math.CommonMath;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
@@ -60,7 +59,7 @@ public final class GuiPlasmaGenerator extends GuiEnergyBase<TilePlasmaGenerator,
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     addRenderableWidget(new OnOffSwitch<>(this, tile));
     addRenderableWidget(new AutoShutoffCheckbox<TilePlasmaGenerator>(this.leftPos + 19, this.topPos + 52, tile));
@@ -87,16 +86,16 @@ public final class GuiPlasmaGenerator extends GuiEnergyBase<TilePlasmaGenerator,
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_status_after_switch(matrix, tile.getStatus());
     draw_energy_usage(matrix, 6, 38);
-    GuiUtil.draw_text_right(matrix, work_progress_bar.getWorkTimeProgress(), 77, 74);
+    draw_text_right(matrix, work_progress_bar.getWorkTimeProgress(), 77, 74);
     draw_time_left(matrix, 102);
   }
 

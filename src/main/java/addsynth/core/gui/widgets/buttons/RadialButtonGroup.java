@@ -5,6 +5,8 @@ import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.WidgetUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.sounds.SoundManager;
@@ -56,12 +58,15 @@ public final class RadialButtonGroup extends AbstractButton {
 
   @Override
   public void renderButton(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
+    @SuppressWarnings("resource")
+    final Minecraft minecraft = Minecraft.getInstance();
+    final Font font = minecraft.font;
     WidgetUtil.common_button_render_setup(GuiReference.widgets);
     for(i = 0; i < buttons; i++){
       blit(matrix, x, y + (line_height*i), radial_gui_size, radial_gui_size, radial_texture_x, i == option_selected ? radial_selected_texture_y : radial_texture_y, radial_texture_size, radial_texture_size, 256, 256);
     }
     for(i = 0; i < buttons; i++){
-      GuiUtil.draw_text_left(matrix, options[i], x + 16, y + (line_height*i) + 2);
+      font.draw(matrix, options[i], x + 16, y + (line_height*i) + 2, GuiUtil.text_color);
     }
   }
 

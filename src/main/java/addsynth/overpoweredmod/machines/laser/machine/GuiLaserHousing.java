@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.laser.machine;
 
-import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.util.StringUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
@@ -87,7 +86,7 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     addRenderableWidget(new OnOffSwitch<>(this, tile));
     addRenderableWidget(new AutoShutoffCheckbox<TileLaserHousing>(this.leftPos + check_box_x, this.topPos + check_box_y, tile));
@@ -124,17 +123,17 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     energy_bar.drawHorizontal(matrix, this, energy);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
-    GuiUtil.draw_text_left(matrix, lasers_text+": "+tile.number_of_lasers, 6, line_1);
-    GuiUtil.draw_text_right(matrix, distance_text+": ", text_box_x - 2, line_1);
+    draw_title(matrix);
+    draw_text_left(matrix, lasers_text+": "+tile.number_of_lasers, 6, line_1);
+    draw_text_right(matrix, distance_text+": ", text_box_x - 2, line_1);
     draw_energy_requirements(matrix);
-    GuiUtil.draw_text_right(matrix, energy_bar.getEnergyPercentage(), imageWidth - 6, line_4);
+    draw_text_right(matrix, energy_bar.getEnergyPercentage(), line_4);
     draw_energy_difference_center(matrix, line_5);
   }
 
@@ -148,14 +147,14 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
     final int word_2_width = font.width(word_2);
     
     if(Math.max(word_1_width, word_2_width) == word_1_width){
-      GuiUtil.draw_text_left(matrix, word_1, 6, line_2);
-      GuiUtil.draw_text_left(matrix, current_energy_text+":", 6, line_3);
-      GuiUtil.draw_text_right(matrix, current_energy, 6 + word_1_width, line_3);
+      draw_text_left(matrix, word_1, 6, line_2);
+      draw_text_left(matrix, current_energy_text+":", 6, line_3);
+      draw_text_right(matrix, current_energy, 6 + word_1_width, line_3);
     }
     else{
-      GuiUtil.draw_text_left(matrix, required_energy_text+":", 6, line_2);
-      GuiUtil.draw_text_right(matrix, required_energy, 6 + word_2_width, line_2);
-      GuiUtil.draw_text_left(matrix, word_2, 6, line_3);
+      draw_text_left(matrix, required_energy_text+":", 6, line_2);
+      draw_text_right(matrix, required_energy, 6 + word_2_width, line_2);
+      draw_text_left(matrix, word_2, 6, line_3);
     }
   }
 

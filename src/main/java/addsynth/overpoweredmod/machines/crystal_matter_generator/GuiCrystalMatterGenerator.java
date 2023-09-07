@@ -17,23 +17,23 @@ public final class GuiCrystalMatterGenerator extends GuiEnergyBase<TileCrystalMa
   }
 
   @Override
-  public final void init(){
+  protected final void init(){
     super.init();
     addRenderableWidget(new OnOffSwitch<>(this, tile));
   }
 
   @Override
   protected final void renderBg(PoseStack matrix, float partialTicks, int mouseX, int mouseY){
-    guiUtil.draw_background_texture(matrix);
+    draw_background_texture(matrix);
     work_progress_bar.draw(matrix, this, tile);
   }
 
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
     draw_status_after_switch(matrix, tile.getStatus());
     draw_energy_usage(matrix, 6, 38);
-    guiUtil.draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 77);
+    draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 77);
     draw_time_left(matrix, 98);
   }
 

@@ -4,6 +4,7 @@ import addsynth.core.util.java.ArrayUtil;
 import addsynth.core.util.time.TickHandler;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
 
 public final class IngredientWidgetGroup {
@@ -73,16 +74,16 @@ public final class IngredientWidgetGroup {
     return length;
   }
 
-  public final void drawIngredient(int index, int x, int y){
-    ingredient[index].draw(x, y);
+  public final void drawIngredient(final ItemRenderer itemRenderer, int index, int x, int y){
+    ingredient[index].draw(itemRenderer, x, y);
   }
   
   // public final void draw(int[] x, int[] y){
   // }
   
-  public final void draw(int guiLeft, int[] x, int guiTop, int[] y){
+  public final void draw(final ItemRenderer itemRenderer, int guiLeft, int[] x, int guiTop, int[] y){
     for(i = 0; i < length; i++){
-      ingredient[i].draw(guiLeft + x[i], guiTop + y[i]);
+      ingredient[i].draw(itemRenderer, guiLeft + x[i], guiTop + y[i]);
     }
   }
 

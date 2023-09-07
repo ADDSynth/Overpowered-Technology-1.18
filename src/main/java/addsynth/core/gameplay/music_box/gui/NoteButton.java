@@ -18,7 +18,6 @@ public final class NoteButton extends AbstractWidget {
 
   private static final int center_x = Math.round((float)GuiMusicBox.note_button_width / 2);
   private static final int text_draw_y = Math.round((float)GuiMusicBox.note_button_height / 2) - 4;
-  private static final int text_color = 4210752; //Color.make_color(0,0,0); // 4210752;
 
   private final TileMusicBox tile;
   private final byte track;
@@ -46,7 +45,7 @@ public final class NoteButton extends AbstractWidget {
     if(note != null){
       @SuppressWarnings("resource")
       final Minecraft mc = Minecraft.getInstance();
-      mc.font.draw(matrix, note, x + center_x - (mc.font.width(note) / 2), y + text_draw_y, text_color);
+      mc.font.draw(matrix, note, x + center_x - (mc.font.width(note) / 2), y + text_draw_y, 4210752);
     }
   }
 

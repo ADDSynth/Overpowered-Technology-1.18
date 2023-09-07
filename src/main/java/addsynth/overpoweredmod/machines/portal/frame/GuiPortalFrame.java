@@ -14,7 +14,7 @@ public final class GuiPortalFrame extends GuiContainerBase<ContainerPortalFrame>
 
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
-    guiUtil.draw_title(matrix, this.title);
+    draw_title(matrix);
   }
 
 }

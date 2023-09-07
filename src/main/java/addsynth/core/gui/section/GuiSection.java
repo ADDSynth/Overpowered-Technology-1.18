@@ -1,4 +1,4 @@
-package addsynth.core.gui.util;
+package addsynth.core.gui.section;
 
 import addsynth.core.util.StringUtil;
 

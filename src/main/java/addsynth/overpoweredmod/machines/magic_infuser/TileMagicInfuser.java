@@ -2,10 +2,10 @@ package addsynth.overpoweredmod.machines.magic_infuser;
 
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.SlotData;
+import addsynth.core.game.inventory.filter.SingleItemFilter;
 import addsynth.core.recipe.jobs.JobSystem;
 import addsynth.energy.lib.tiles.machines.TileStandardWorkMachine;
 import addsynth.overpoweredmod.config.MachineValues;
-import addsynth.overpoweredmod.machines.Filters;
 import addsynth.overpoweredmod.machines.magic_infuser.recipes.MagicInfuserRecipes;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -20,11 +20,10 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileMagicInfuser extends TileStandardWorkMachine implements MenuProvider {
 
-  // TODO: Add an abstract method to IInputInventory so TileEntities that use an InputInventory MUST override it to provide the Item filter.
   private static final SlotData[] getSlotData(){
     return new SlotData[] {
-      new SlotData(Items.BOOK),
-      new SlotData(Filters.magic_infuser)
+      new SlotData(new SingleItemFilter(Items.BOOK)),
+      new SlotData(MagicInfuserRecipes.INSTANCE.getFilter(1))
     };
   }
 

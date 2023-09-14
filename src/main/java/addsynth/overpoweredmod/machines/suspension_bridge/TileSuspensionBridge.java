@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.machines.suspension_bridge;
 
+import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.block_network.IBlockNetworkUser;
@@ -9,7 +10,6 @@ import addsynth.core.util.constants.DirectionConstant;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.energy.lib.tiles.TileBasicMachine;
 import addsynth.overpoweredmod.config.Config;
-import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.items.basic.LensItem;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -25,10 +25,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileSuspensionBridge extends TileBasicMachine implements IBlockNetworkUser<BridgeNetwork>, MenuProvider {
 
-  public static final Item[] filter = {
-    OverpoweredItems.focus_lens.get(), OverpoweredItems.red_lens.get(), OverpoweredItems.orange_lens.get(), OverpoweredItems.yellow_lens.get(),
-    OverpoweredItems.green_lens.get(), OverpoweredItems.cyan_lens.get(), OverpoweredItems.blue_lens.get(), OverpoweredItems.magenta_lens.get()
+  public static final Predicate<ItemStack> filter = (ItemStack stack) -> {
+    final Item item = stack.getItem();
+    return item instanceof LensItem;
   };
+  private static final SlotData[] slot_data = {new SlotData(filter, 1)};
 
   private BridgeNetwork network;
 
@@ -44,7 +45,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   private int maximum_length = Config.energy_bridge_max_distance.get();
 
   public TileSuspensionBridge(BlockPos position, BlockState blockstate){
-    super(Tiles.ENERGY_SUSPENSION_BRIDGE.get(), position, blockstate, new SlotData[] {new SlotData(filter, 1)}, new Receiver());
+    super(Tiles.ENERGY_SUSPENSION_BRIDGE.get(), position, blockstate, slot_data, new Receiver());
   }
 
   @Override

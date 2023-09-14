@@ -5,7 +5,7 @@ import addsynth.core.util.time.TickHandler;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public final class IngredientWidgetGroup {
 
@@ -19,7 +19,7 @@ public final class IngredientWidgetGroup {
     setIngredientArray(max_number_of_ingredients);
   }
 
-  public IngredientWidgetGroup(int max_number_of_ingredients, final ItemStack[][] recipe){
+  public IngredientWidgetGroup(int max_number_of_ingredients, final Ingredient[] recipe){
     setIngredientArray(max_number_of_ingredients);
     setRecipe(recipe);
   }
@@ -40,7 +40,7 @@ public final class IngredientWidgetGroup {
     }
   }
 
-  public final void setRecipe(final ItemStack[][] recipe){
+  public final void setRecipe(final Ingredient[] recipe){
     length = recipe.length;
     // if(length > max_length){
       // automatically increase the size of the IngredientWidget array.

@@ -9,14 +9,14 @@ import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
 import addsynth.energy.lib.gui.widgets.OnOffSwitch;
 import addsynth.energy.lib.gui.widgets.WorkProgressBar;
 import addsynth.material.util.MaterialTag;
-import addsynth.material.util.MaterialsUtil;
 import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 
 public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControlPanel, ContainerPortalControlPanel> {
 
@@ -76,15 +76,15 @@ public final class GuiPortalControlPanel extends GuiEnergyBase<TilePortalControl
     addRenderableWidget(new GeneratePortalButton(this.leftPos + button_x, this.topPos + button_y, tile));
     
     // Set Portal Control Panel Gui Displayed ItemStacks
-    final ItemStack[][] portal_control_panel_displayed_itemstacks = {
-      MaterialsUtil.getTagIngredient(MaterialTag.RUBY.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.TOPAZ.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.CITRINE.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.EMERALD.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.DIAMOND.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.SAPPHIRE.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.AMETHYST.BLOCKS).getItems(),
-      MaterialsUtil.getTagIngredient(MaterialTag.QUARTZ.BLOCKS).getItems()
+    final Ingredient[] portal_control_panel_displayed_itemstacks = {
+      Ingredient.of(MaterialTag.RUBY.BLOCKS),
+      Ingredient.of(MaterialTag.TOPAZ.BLOCKS),
+      Ingredient.of(MaterialTag.CITRINE.BLOCKS),
+      Ingredient.of(Tags.Items.STORAGE_BLOCKS_EMERALD),
+      Ingredient.of(Tags.Items.STORAGE_BLOCKS_DIAMOND),
+      Ingredient.of(MaterialTag.SAPPHIRE.BLOCKS),
+      Ingredient.of(Tags.Items.STORAGE_BLOCKS_AMETHYST),
+      Ingredient.of(Tags.Items.STORAGE_BLOCKS_QUARTZ)
     };
     gem_blocks.setRecipe(portal_control_panel_displayed_itemstacks);
   }

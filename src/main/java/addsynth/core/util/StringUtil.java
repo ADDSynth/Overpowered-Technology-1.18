@@ -11,6 +11,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 
 public final class StringUtil {
@@ -212,6 +213,14 @@ public final class StringUtil {
       return registry_name.toString();
     }
     return "null";
+  }
+
+  public static final String print(final Recipe recipe){
+    final String class_name = recipe.getClass().getSimpleName();
+    final String id = recipe.getId().toString();
+    // final String type = recipe.getType().getClass().getSimpleName();
+    final String output = recipe.getResultItem().toString();
+    return build(class_name, "(", id, ", Output: ", output, ")");
   }
 
 }

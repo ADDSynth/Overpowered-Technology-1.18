@@ -62,7 +62,7 @@ public final class GemConverterCategory implements IRecipeCategory<GemConverterR
 
   @Override
   public void setIngredients(GemConverterRecipe recipe, IIngredients ingredients){
-    ingredients.setInputIngredients(recipe.ingredients);
+    ingredients.setInputIngredients(GemConverterRecipe.getIngredient());
     ingredients.setOutput(VanillaTypes.ITEM_STACK, recipe.result);
   }
 

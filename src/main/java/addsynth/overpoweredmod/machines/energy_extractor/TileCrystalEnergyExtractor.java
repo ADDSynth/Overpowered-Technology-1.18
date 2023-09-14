@@ -1,9 +1,9 @@
 package addsynth.overpoweredmod.machines.energy_extractor;
 
 import javax.annotation.Nullable;
+import addsynth.core.game.inventory.filter.BasicFilter;
 import addsynth.energy.lib.tiles.energy.TileStandardGenerator;
 import addsynth.overpoweredmod.config.MachineValues;
-import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -17,11 +17,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileCrystalEnergyExtractor extends TileStandardGenerator implements MenuProvider {
 
-  public static final Item[] input_filter = new Item[] {
-    OverpoweredItems.energy_crystal_shards.get(),
-    OverpoweredItems.energy_crystal.get(),
-    Item.BY_BLOCK.get(OverpoweredBlocks.light_block.get())
-  };
+  public static final BasicFilter input_filter = new BasicFilter(
+    OverpoweredItems.energy_crystal_shards,
+    OverpoweredItems.energy_crystal,
+    OverpoweredItems.light_block
+  );
 
   public TileCrystalEnergyExtractor(BlockPos position, BlockState blockstate){
     super(Tiles.CRYSTAL_ENERGY_EXTRACTOR.get(), position, blockstate, input_filter);

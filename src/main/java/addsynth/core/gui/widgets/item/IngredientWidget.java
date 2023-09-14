@@ -44,7 +44,9 @@ public final class IngredientWidget {
 
   public final void draw(final ItemRenderer itemRenderer, int x, int y){
     if(stacks != null){
-      itemRenderer.renderGuiItem(stacks[index], x, y);
+      if(stacks.length > 0){
+        itemRenderer.renderGuiItem(stacks[index], x, y);
+      }
     }
   }
 
@@ -52,7 +54,9 @@ public final class IngredientWidget {
    *  You must add <code>guiLeft</code> and <code>guiTop</code> to the x and y coordinates. */
   public final void drawTooltip(PoseStack matrix, final Screen screen, final int x, final int y, final int mouse_x, final int mouse_y){
     if(stacks != null){
-      GuiUtil.drawItemTooltip(matrix, screen, stacks[index], x, y, mouse_x, mouse_y);
+      if(stacks.length > 0){
+        GuiUtil.drawItemTooltip(matrix, screen, stacks[index], x, y, mouse_x, mouse_y);
+      }
     }
   }
 

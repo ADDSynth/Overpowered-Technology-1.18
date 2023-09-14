@@ -1,5 +1,6 @@
 package addsynth.energy.lib.tiles;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.IInputInventory;
@@ -10,7 +11,7 @@ import addsynth.energy.lib.main.Receiver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,7 +35,7 @@ public abstract class TileBasicMachine extends TileAbstractMachine implements II
   }
 
   public TileBasicMachine(BlockEntityType type, BlockPos position, BlockState blockstate,
-                          int input_slots, Item[] filter, Receiver energy){
+                          int input_slots, Predicate<ItemStack> filter, Receiver energy){
     super(type, position, blockstate, energy);
     this.inventory = InputInventory.create(this, input_slots, filter);
   }

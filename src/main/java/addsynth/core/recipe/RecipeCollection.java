@@ -1,79 +1,86 @@
-package addsynth.core.recipe.shapeless;
+package addsynth.core.recipe;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
-import addsynth.core.Debug;
-import addsynth.core.recipe.RecipeUtil;
-import addsynth.material.util.MaterialsUtil;
+import addsynth.core.game.inventory.filter.MachineFilter;
+import addsynth.core.game.resource.ResourceUtil;
+import addsynth.core.util.server.ServerUtils;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class RecipeCollection <T extends AbstractRecipe> {
+/** The RecipeCollection keeps a list of recipes of the {@link RecipeType}
+ *  that you passed into the constructor. It also maintains an item
+ *  filter that only allows an item in that slot if there's a recipe that
+ *  needs an item in that slot.The recipe cache and item filter are
+ *  automatically updated whenever resource are reloaded.
+ */
+public class RecipeCollection<T extends Recipe<Container>> {
 
   public final RecipeType<T> type;
+  private final ArrayList<T> recipes = new ArrayList<T>();
+  private final MachineFilter filter;
 
-  @Deprecated
-  public final ArrayList<T> recipes = new ArrayList<T>();
-  private Item[] filter;
-  private boolean update = true;
-
-  public RecipeCollection(RecipeType<T> type){
+  public RecipeCollection(RecipeType<T> type, int recipe_max_size){
     this.type = type;
+    filter = new MachineFilter(recipe_max_size);
   }
 
-  /** Adds the recipe to this collection, so that it may be used in the other functions. */
-  @Deprecated
-  public final void addRecipe(final T recipe){
-    if(recipes.contains(recipe) == false){
-      recipes.add(recipe);
-      Debug.log_recipe(recipe);
-    }
-  }
-
-  /** This ensures the input filter gets rebuilt whenever Tags or Recipes are reloaded. */
+  /** This ensures the input filter gets rebuilt whenever resources are reloaded. */
   public final void registerResponders(){
-    ADDSynthCore.log.info(type.getClass().getSimpleName()+" input filter was rebuilt.");
-    // rebuild filter on recipe reload.
-    RecipeUtil.registerResponder(() -> {update = true;});
-    // rebuild filter on tag reload.
-    MaterialsUtil.registerResponder(() -> {update = true;});
+    // rebuild filter on resource reload.
+    ResourceUtil.addListener(() -> {
+      @SuppressWarnings("resource")
+      final MinecraftServer server = ServerUtils.getServer();
+      if(server != null){
+        build_filter(server.getRecipeManager());
+      }
+    });
+    MinecraftForge.EVENT_BUS.addListener((RecipesUpdatedEvent event) -> {
+      build_filter(event.getRecipeManager());
+    });
   }
 
   /** This builds the ingredient filter. */
-  public final void build_filter(){
+  private final void build_filter(final RecipeManager recipe_manager){
+    // rebuild recipe cache
+    recipes.clear();
+    recipes.addAll(recipe_manager.getAllRecipesFor(type));
+    
     if(recipes.size() == 0){
       ADDSynthCore.log.error("No recipes of type "+type.getClass().getSimpleName()+" exist!");
-      filter = new Item[0];
       return;
     }
-    final ArrayList<Item> item_list = new ArrayList<>();
-    for(final T recipe : recipes){
-      for(final Ingredient ingredient : recipe.getIngredients()){
-        for(final ItemStack stack : ingredient.getItems()){
-          item_list.add(stack.getItem());
-        }
-      }
-    }
-    filter = item_list.toArray(new Item[item_list.size()]);
+    filter.set(recipes);
+    ADDSynthCore.log.info(type.getClass().getSimpleName()+" input filter was rebuilt.");
   }
 
-  // TODO: RecipeCollection.getFilter() works with Shapeless recipes, but not if Slots
-  //       are filtered on a per-slot basis. I'll need a more robust system for that.
-  public final Item[] getFilter(){
-    if(update || filter == null){
-      build_filter();
-      update = false;
-    }
-    return filter;
+  /** Gets the filter for the first slot. Useful for recipes that only have 1 ingredient. */
+  public final Predicate<ItemStack> getFilter(){
+    return filter.get(0);
+  }
+
+  public final Predicate<ItemStack> getFilter(final int slot){
+    return filter.get(slot);
+  }
+
+  /** This is mainly used for adding the recipes to JEI. */
+  public final ArrayList<T> getRecipes(){
+    return new ArrayList<T>(recipes);
   }
 
   /** Returns whether the input items matches a recipe in this collection. */

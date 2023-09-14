@@ -1,5 +1,6 @@
 package addsynth.energy.lib.tiles.machines;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.*;
@@ -9,7 +10,7 @@ import addsynth.energy.lib.config.MachineData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -35,7 +36,7 @@ public abstract class TileStandardWorkMachine extends TileSwitchableMachine
   }
 
   public TileStandardWorkMachine(BlockEntityType type, BlockPos position, BlockState blockstate,
-                                 int input_slots, Item[] filter, int output_slots, MachineData data){
+                                 int input_slots, Predicate<ItemStack> filter, int output_slots, MachineData data){
     super(type, position, blockstate, MachineState.IDLE, data);
     this.inventory = new MachineInventory(input_slots, filter, output_slots);
     this.idle_energy = data.get_idle_energy();

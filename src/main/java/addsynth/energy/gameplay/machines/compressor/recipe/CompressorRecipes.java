@@ -1,6 +1,6 @@
 package addsynth.energy.gameplay.machines.compressor.recipe;
 
-import addsynth.core.recipe.shapeless.RecipeCollection;
+import addsynth.core.recipe.RecipeCollection;
 import net.minecraft.world.item.crafting.RecipeType;
 
 public final class CompressorRecipes {
@@ -9,6 +9,6 @@ public final class CompressorRecipes {
   }
 
   public static final RecipeCollection<CompressorRecipe> INSTANCE =
-    new RecipeCollection<CompressorRecipe>(new CompressorRecipeType());
+    new RecipeCollection<CompressorRecipe>(new CompressorRecipeType(), 1);
 
 }

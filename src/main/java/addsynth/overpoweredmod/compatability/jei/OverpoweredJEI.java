@@ -55,10 +55,10 @@ public final class OverpoweredJEI implements IModPlugin {
 
   @Override
   public void registerRecipes(IRecipeRegistration registration){
-    registration.addRecipes(GemConverterCategory.type, GemConverterRecipe.recipes);
+    registration.addRecipes(GemConverterCategory.type, GemConverterRecipe.getRecipes());
     registration.addRecipes(AdvancedOreRefineryCategory.type, OreRefineryRecipes.recipes);
     registration.addRecipes(InverterCategory.type, InverterRecipe.get_recipes());
-    registration.addRecipes(MagicInfuserCategory.type, MagicInfuserRecipes.recipes);
+    registration.addRecipes(MagicInfuserCategory.type, MagicInfuserRecipes.INSTANCE.getRecipes());
     add_information(registration);
   }
 

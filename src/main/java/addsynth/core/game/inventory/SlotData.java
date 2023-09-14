@@ -1,26 +1,30 @@
 package addsynth.core.game.inventory;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
-import net.minecraft.world.item.Item;
+import addsynth.core.recipe.RecipeCollection;
 import net.minecraft.world.item.ItemStack;
 
 /** SlotData allows you to specify item filter and stack limit on a per-slot basis.
- *  {@link InputInventory} uses this. */
+ *  All items are accepted by default. To restrict which items can go in this slot,
+ *  specify your own Item filter during creation. Filters should be dynamically
+ *  tested whenever possible, but if the number of items is too large, then you can
+ *  use {@link RecipeCollection#getFilter(int)}. {@link InputInventory}s uses this. */
 public final class SlotData {
 
-  @Deprecated
-  // PRIORITY: Instead of passing an array of items as a filter, pass in a static function
-  //           with which we can use to test whether the item is accepted by the machine or not.
-  //           Must pass in the Item and slot number, and return a boolean
-  //           I must create my own @FunctionalInterface to describe the function we need as an argument.
-  private Item[] filter;
+  private final Predicate<ItemStack> is_valid;
   public final int stack_limit;
 
   public final static SlotData[] create_new_array(final int number_of_slots){
-    return create_new_array(number_of_slots, null);
+    final SlotData[] data = new SlotData[number_of_slots];
+    int i;
+    for(i = 0; i < number_of_slots; i++){
+      data[i] = new SlotData();
+    }
+    return data;
   }
 
-  public final static SlotData[] create_new_array(final int number_of_slots, final Item[] filter){
+  public final static SlotData[] create_new_array(final int number_of_slots, @Nonnull final Predicate<ItemStack> filter){
     final SlotData[] data = new SlotData[number_of_slots];
     int i;
     for(i = 0; i < number_of_slots; i++){
@@ -29,65 +33,33 @@ public final class SlotData {
     return data;
   }
 
+  /** This constructor uses the default Item filter, which allows everything. */
   public SlotData(){
-    this.filter = null;
+    this.is_valid = (ItemStack) -> true;
     this.stack_limit = -1; // stack size depends on the ItemStack
   }
 
-  public SlotData(final Item item){
-    this.filter = new Item[]{item};
-    this.stack_limit = -1;
-  }
-
-  public SlotData(final Item item, final int slot_limit){
-    this.filter = new Item[]{item};
-    this.stack_limit = slot_limit;
-  }
-
-  public SlotData(final Item[] filter){
-    this.filter = filter;
-    this.stack_limit = -1;
-  }
-
+  /** This constructor uses the default Item filter, which allows everything. */
   public SlotData(final int slot_limit){
-    this.filter = null;
+    this.is_valid = (ItemStack) -> true;
     this.stack_limit = slot_limit;
   }
 
-  public SlotData(final Item[] filter, final int slot_limit){
-    this.filter = filter;
+  public SlotData(@Nonnull final Predicate<ItemStack> filter){
+    this.is_valid = filter;
+    this.stack_limit = -1;
+  }
+
+  public SlotData(@Nonnull final Predicate<ItemStack> filter, final int slot_limit){
+    this.is_valid = filter;
     this.stack_limit = slot_limit;
   }
 
   public final boolean is_item_valid(@Nonnull final ItemStack stack){
-    if(filter == null){
-      return true;
-    }
     if(stack.isEmpty() == false){
-      final Item item = stack.getItem();
-      for(Item valid_item : filter){
-        if(item == valid_item){
-          return true;
-        }
-      }
+      return is_valid.test(stack);
     }
     return false;
-  }
-
-  public final void setFilter(final Item[] new_filter){
-    this.filter = new_filter;
-  }
-
-  public final void setNoFilter(){
-    this.filter = null;
-  }
-  
-  public final void setFilterAll(){
-    this.filter = new Item[0];
-  }
-
-  public final Item[] getFilter(){
-    return filter;
   }
 
 }

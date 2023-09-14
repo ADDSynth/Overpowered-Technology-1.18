@@ -21,7 +21,7 @@ public final class MatterCompressorContainer extends TileEntityContainer<TileMat
 
   private final void common_setup(final Inventory player_inventory){
     make_player_inventory(player_inventory, 11, 100);
-    addSlot(new InputSlot(tile, 0, TileMatterCompressor.slot_data[0].getFilter(), 1, 83, 24));
+    addSlot(new InputSlot(tile, 0, TileMatterCompressor.filter, 1, 83, 24));
     addSlot(new InputSlot(tile, 1, 59, 50));
     addSlot(new OutputSlot(tile, 0, 107, 50));
   }

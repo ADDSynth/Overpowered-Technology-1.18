@@ -1,17 +1,18 @@
 package addsynth.overpoweredmod.machines.gem_converter;
 
 import javax.annotation.Nullable;
+import addsynth.core.game.inventory.filter.TagFilter;
 import addsynth.core.util.game.data.AdvancementUtil;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.energy.lib.tiles.machines.TileStandardWorkMachine;
 import addsynth.material.Material;
 import addsynth.material.util.MaterialTag;
-import addsynth.material.util.MaterialsUtil;
+import addsynth.material.util.MaterialUtil;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
 import addsynth.overpoweredmod.assets.CustomStats;
 import addsynth.overpoweredmod.config.MachineValues;
 import addsynth.overpoweredmod.game.core.Gems;
-import addsynth.overpoweredmod.machines.Filters;
+import addsynth.overpoweredmod.game.tags.OverpoweredItemTags;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,15 +27,18 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
 
 public final class TileGemConverter extends TileStandardWorkMachine implements MenuProvider {
+
+  public static final TagFilter filter = new TagFilter(OverpoweredItemTags.convertable_gems);
 
   private byte selection;
   private ItemStack gem_selected = new ItemStack(Material.RUBY.getGem(), 1);
   private byte converting_to;
   
   public TileGemConverter(BlockPos position, BlockState blockstate){
-    super(Tiles.GEM_CONVERTER.get(), position, blockstate, 1, Filters.gem_converter, 1, MachineValues.gem_converter);
+    super(Tiles.GEM_CONVERTER.get(), position, blockstate, 1, filter, 1, MachineValues.gem_converter);
   }
 
   public final void cycle(final boolean direction){
@@ -100,14 +104,14 @@ public final class TileGemConverter extends TileStandardWorkMachine implements M
 
   /** Returns whether the input ItemStack matches the specified Gem Index. */
   private static final boolean match(final Item item, final int id){
-    if(id == 0){ return MaterialsUtil.match(item, MaterialTag.RUBY.GEMS);     }
-    if(id == 1){ return MaterialsUtil.match(item, MaterialTag.TOPAZ.GEMS);    }
-    if(id == 2){ return MaterialsUtil.match(item, MaterialTag.CITRINE.GEMS);  }
-    if(id == 3){ return MaterialsUtil.match(item, MaterialTag.EMERALD.GEMS);  }
-    if(id == 4){ return MaterialsUtil.match(item, MaterialTag.DIAMOND.GEMS);  }
-    if(id == 5){ return MaterialsUtil.match(item, MaterialTag.SAPPHIRE.GEMS); }
-    if(id == 6){ return MaterialsUtil.match(item, MaterialTag.AMETHYST.GEMS); }
-    if(id == 7){ return MaterialsUtil.match(item, MaterialTag.QUARTZ.GEMS);   }
+    if(id == 0){ return MaterialUtil.match(item, MaterialTag.RUBY.GEMS);     }
+    if(id == 1){ return MaterialUtil.match(item, MaterialTag.TOPAZ.GEMS);    }
+    if(id == 2){ return MaterialUtil.match(item, MaterialTag.CITRINE.GEMS);  }
+    if(id == 3){ return MaterialUtil.match(item, Tags.Items.GEMS_EMERALD);  }
+    if(id == 4){ return MaterialUtil.match(item, Tags.Items.GEMS_DIAMOND);  }
+    if(id == 5){ return MaterialUtil.match(item, MaterialTag.SAPPHIRE.GEMS); }
+    if(id == 6){ return MaterialUtil.match(item, Tags.Items.GEMS_AMETHYST); }
+    if(id == 7){ return MaterialUtil.match(item, Tags.Items.GEMS_QUARTZ);   }
     return false;
   }
 

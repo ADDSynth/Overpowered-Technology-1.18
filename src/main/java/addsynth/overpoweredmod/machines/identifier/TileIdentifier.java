@@ -1,12 +1,9 @@
 package addsynth.overpoweredmod.machines.identifier;
 
+import java.util.function.Predicate;
 import javax.annotation.Nullable;
-import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.ItemUtil;
-import addsynth.core.game.item.constants.ArmorMaterial;
-import addsynth.core.game.item.constants.EquipmentType;
 import addsynth.core.util.game.data.AdvancementUtil;
-import addsynth.core.util.java.ArrayUtil;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.energy.lib.tiles.machines.TileStandardWorkMachine;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
@@ -30,47 +27,13 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileIdentifier extends TileStandardWorkMachine implements MenuProvider {
 
-  private static final Item[] unidentified_armor = {
-    UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.HELMET),
-    UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.CHESTPLATE),
-    UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.LEGGINGS),
-    UnidentifiedItem.get(ArmorMaterial.LEATHER,   EquipmentType.BOOTS),
-    UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.HELMET),
-    UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.CHESTPLATE),
-    UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.LEGGINGS),
-    UnidentifiedItem.get(ArmorMaterial.CHAINMAIL, EquipmentType.BOOTS),
-    UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.HELMET),
-    UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.CHESTPLATE),
-    UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.LEGGINGS),
-    UnidentifiedItem.get(ArmorMaterial.IRON,      EquipmentType.BOOTS),
-    UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.HELMET),
-    UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.CHESTPLATE),
-    UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.LEGGINGS),
-    UnidentifiedItem.get(ArmorMaterial.GOLD,      EquipmentType.BOOTS),
-    UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.HELMET),
-    UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.CHESTPLATE),
-    UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.LEGGINGS),
-    UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.BOOTS)
+  public static final Predicate<ItemStack> filter = (ItemStack stack) -> {
+    final Item item = stack.getItem();
+    return item instanceof UnidentifiedItem;
   };
 
-  public static final Item[] input_filter = create_input_filter();
-
-  private static final Item[] create_input_filter(){
-    if(Compatibility.CURIOS.loaded){
-      return ArrayUtil.combine_arrays(unidentified_armor,
-        new Item[]{
-          OverpoweredItems.ring_0.get(),
-          OverpoweredItems.ring_1.get(),
-          OverpoweredItems.ring_2.get(),
-          OverpoweredItems.ring_3.get()
-        }
-      );
-    }
-    return unidentified_armor;
-  }
-
   public TileIdentifier(BlockPos position, BlockState blockstate){
-    super(Tiles.IDENTIFIER.get(), position, blockstate, 1, input_filter, 1, MachineValues.identifier);
+    super(Tiles.IDENTIFIER.get(), position, blockstate, 1, filter, 1, MachineValues.identifier);
   }
 
   @Override

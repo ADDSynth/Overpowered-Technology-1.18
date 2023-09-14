@@ -2,7 +2,6 @@ package addsynth.overpoweredmod.machines.portal.frame;
 
 import addsynth.core.container.TileEntityContainer;
 import addsynth.core.container.slots.InputSlot;
-import addsynth.overpoweredmod.machines.Filters;
 import addsynth.overpoweredmod.registers.Containers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,7 +20,7 @@ public final class ContainerPortalFrame extends TileEntityContainer<TilePortalFr
 
   private final void common_setup(final Inventory player_inventory){
     make_player_inventory(player_inventory);
-    addSlot(new InputSlot(tile, 0, Filters.portal_frame, 80, 37));
+    addSlot(new InputSlot(tile, 0, TilePortalFrame.filter, 80, 37));
   }
 
 }

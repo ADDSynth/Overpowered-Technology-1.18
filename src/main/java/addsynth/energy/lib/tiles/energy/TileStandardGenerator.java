@@ -1,5 +1,6 @@
 package addsynth.energy.lib.tiles.energy;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.IInputInventory;
@@ -8,7 +9,7 @@ import addsynth.core.game.inventory.InventoryUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -23,7 +24,7 @@ public abstract class TileStandardGenerator extends TileAbstractGenerator implem
 
   protected final InputInventory input_inventory;
 
-  public TileStandardGenerator(final BlockEntityType type, BlockPos position, BlockState blockstate, final Item[] filter){
+  public TileStandardGenerator(final BlockEntityType type, BlockPos position, BlockState blockstate, final Predicate<ItemStack> filter){
     super(type, position, blockstate);
     this.input_inventory = InputInventory.create(this, 1, filter);
   }

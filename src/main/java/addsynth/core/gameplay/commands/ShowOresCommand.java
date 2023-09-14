@@ -12,7 +12,7 @@ import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.java.FileUtil;
 import addsynth.core.util.math.block.BlockMath;
 import addsynth.core.util.world.WorldConstants;
-import addsynth.material.util.MaterialsUtil;
+import addsynth.material.util.MaterialUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.commands.CommandSourceStack;
@@ -132,7 +132,7 @@ public final class ShowOresCommand {
     if(entity != null){
       
       final TreeMap<String, Integer> block_count = new TreeMap<>();
-      final Collection<Block> ore_blocks = MaterialsUtil.getOreBlocks();
+      final Collection<Block> ore_blocks = MaterialUtil.getOreBlocks();
       final Level world = source.getLevel();
       final BlockPos position = entity.blockPosition();
       final int chunks = size * size;

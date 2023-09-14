@@ -1,5 +1,6 @@
 package addsynth.core.game.tiles;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.IInputInventory;
@@ -9,7 +10,7 @@ import addsynth.core.game.inventory.SlotData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,7 +30,7 @@ public abstract class TileStorageMachine extends TileBase implements IInputInven
     this.input_inventory = InputInventory.create(this, slots);
   }
 
-  public TileStorageMachine(final BlockEntityType type, BlockPos position, BlockState blockstate, final int input_slots, final Item[] filter){
+  public TileStorageMachine(final BlockEntityType type, BlockPos position, BlockState blockstate, final int input_slots, final Predicate<ItemStack> filter){
     super(type, position, blockstate);
     this.input_inventory = InputInventory.create(this, input_slots, filter);
   }

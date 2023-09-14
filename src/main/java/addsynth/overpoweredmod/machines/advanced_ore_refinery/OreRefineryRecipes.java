@@ -2,42 +2,47 @@ package addsynth.overpoweredmod.machines.advanced_ore_refinery;
 
 import java.util.ArrayList;
 import addsynth.core.game.item.ItemUtil;
-import addsynth.core.recipe.RecipeUtil;
-import addsynth.material.util.MaterialsUtil;
+import addsynth.core.game.resource.ResourceUtil;
+import addsynth.core.recipe.FurnaceRecipes;
+import addsynth.material.util.MaterialUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 public final class OreRefineryRecipes {
 
   private static final int output_multiplier = 2;
-  private static Item[] valid_ores;
+  private static Item[] valid_ores = new Item[0];
   public static final ArrayList<OreRefineryRecipe> recipes = new ArrayList<>(200);
 
   // https://github.com/skyboy/MineFactoryReloaded/blob/master/src/main/java/powercrystals/minefactoryreloaded/modhelpers/vanilla/Minecraft.java
   
+  public static final void registerResponders(){
+    ResourceUtil.addListener(OreRefineryRecipes::rebuild_recipes);
+    MinecraftForge.EVENT_BUS.addListener((RecipesUpdatedEvent event) -> rebuild_recipes());
+  }
+  
   /**
    * <p>This will only add an Ore recipe to the Advanced Ore Refinery if, other mods have registered their
    *    ore with the "ores" tag, and it has a Furnace Recipe.
-   * <p>This is registered as an Event Responder in {@link OverpoweredTechnology} and executed
-   *    whenever {@link MaterialsUtil} or {@link RecipeUtil} is updated.
    */
-  @Deprecated // TODO: Come up with a better way of re-creating machine filters based on the loaded recipes.
-  public static final void refresh_ore_refinery_recipes(){
-    if(RecipeUtil.check_furnace_recipes()){
-      recipes.clear();
+  private static final void rebuild_recipes(){
+    recipes.clear();
+    try{
       final ArrayList<Item> list = new ArrayList<Item>(100);
       ItemStack result_check;
-      ArrayList<Item> ores = new ArrayList<Item>(MaterialsUtil.getOres());
+      ArrayList<Item> ores = new ArrayList<Item>(MaterialUtil.getOres());
       // Manually Add Raw Iron, Raw Copper, and Raw Gold for the Minecraft 1.17+ versions
       // TODO: Check to see if Mojang or Forge Team added Item tags for these items in MC 1.18.
       ores.add(Items.RAW_IRON);
       ores.add(Items.RAW_COPPER);
       ores.add(Items.RAW_GOLD);
       for(final Item item : ores){
-        if(RecipeUtil.isFurnaceIngredient(item)){
-          result_check = RecipeUtil.getFurnaceRecipeResult(item);
+        if(FurnaceRecipes.isFurnaceIngredient(item)){
+          result_check = FurnaceRecipes.getResult(item);
           if(result_check.isEmpty() == false){
             list.add(item);
             final ItemStack result = result_check.copy();
@@ -49,22 +54,20 @@ public final class OreRefineryRecipes {
       
       valid_ores = list.toArray(new Item[list.size()]);
     }
+    catch(Exception e){
+      OverpoweredTechnology.log.error("An exception occured in OreRefineryRecipes.rebuild_recipes().", e);
+      valid_ores = new Item[0];
+    }
   }
 
-  public static final Item[] get_input_filter(){
-    if(valid_ores == null){
-      refresh_ore_refinery_recipes();
-      if(valid_ores == null){
-        OverpoweredTechnology.log.error(
-          new NullPointerException(
-            OreRefineryRecipes.class.getSimpleName()+" Item[] array input filter is null! There must be "+
-            "a problem in the refresh_ore_refinery_recipes() function!"
-          )
-        );
-        return new Item[0];
+  public static final boolean filter(final ItemStack stack){
+    final Item stack_item = stack.getItem();
+    for(final Item item : valid_ores){
+      if(item == stack_item){
+        return true;
       }
     }
-    return valid_ores;
+    return false;
   }
 
   @Deprecated // REMOVE in 2026

@@ -1,6 +1,7 @@
 package addsynth.core.game.inventory.machine;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.IInventoryResponder;
@@ -9,12 +10,11 @@ import addsynth.core.game.inventory.InventoryUtil;
 import addsynth.core.game.inventory.OutputInventory;
 import addsynth.core.game.inventory.SlotData;
 import addsynth.core.game.inventory.WorkingInventory;
+import addsynth.core.recipe.RecipeCollection;
 import addsynth.core.recipe.jobs.JobSystem;
 import addsynth.core.recipe.jobs.WorkJob;
-import addsynth.core.recipe.shapeless.RecipeCollection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -39,7 +39,7 @@ public final class MachineInventory implements IInventoryResponder, IInventorySy
     setResponder(this);
   }
 
-  public MachineInventory(final int input_slots, final Item[] filter, final int output_slots){
+  public MachineInventory(final int input_slots, final Predicate<ItemStack> filter, final int output_slots){
     input_inventory   =  InputInventory.create(null, input_slots, filter);
     working_inventory = WorkingInventory.create(input_slots);
     output_inventory  = OutputInventory.create(null, output_slots);

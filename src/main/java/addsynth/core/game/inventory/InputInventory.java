@@ -2,20 +2,14 @@ package addsynth.core.game.inventory;
 
 import java.util.ArrayList;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
-import addsynth.core.ADDSynthCore;
-import addsynth.core.game.item.ItemUtil;
-import addsynth.core.recipe.shapeless.RecipeCollection;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.core.util.world.WorldUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 
 /** This inventory only allows items to be inserted. It also has an Item filter to control
@@ -42,10 +36,10 @@ public final class InputInventory extends CommonInventory {
   }
 
   public static final InputInventory create(final IInputInventory responder, final int number_of_slots){
-    return number_of_slots > 0 ? new InputInventory(responder, SlotData.create_new_array(number_of_slots, null)) : null;
+    return number_of_slots > 0 ? new InputInventory(responder, SlotData.create_new_array(number_of_slots)) : null;
   }
 
-  public static final InputInventory create(final IInputInventory responder, final int number_of_slots, final Item[] filter){
+  public static final InputInventory create(final IInputInventory responder, final int number_of_slots, final Predicate<ItemStack> filter){
     return number_of_slots > 0 ? new InputInventory(responder, SlotData.create_new_array(number_of_slots, filter)) : null;
   }
 
@@ -126,47 +120,6 @@ public final class InputInventory extends CommonInventory {
   @Override
   public final void load(final CompoundTag nbt){
     deserializeNBT(nbt.getCompound("InputInventory"));
-  }
-
-  /** Normally, slot item filters are based on the recipe input items, and never change
-   *  through the life of the TileEntity machine. However, you can use this function to
-   *  change the slot item filters on-the-fly. Still recommend you don't use this though.
-   * @param slot
-   * @param new_filter
-   */
-  public final void setFilter(final int slot, final Item[] new_filter){
-    if(is_valid_slot(slot)){
-      slot_data[slot].setFilter(new_filter);
-    }
-  }
-
-  /** Changes the item slot filters of this inventory to match a specific recipe.
-   *  If you want to filter items based on all recipes (which is the standard behaviour),
-   *  then use {@link RecipeCollection#build_filter()}. If the inventory has more
-   *  slots than required by the recipe, then the extra slots are filtered to
-   *  accept no items.
-   * @param recipe
-   */
-  public final void setFilter(final Recipe<?> recipe){
-    final NonNullList<Ingredient> ingredients = recipe.getIngredients();
-    final int ingredients_length = ingredients.size();
-    final int inventory_size = stacks.size();
-    if(ingredients_length > inventory_size){
-      ADDSynthCore.log.error(
-        "Cannot set the InputInventory slot filters to match '"+recipe.getClass().getSimpleName()+
-        "' because the recipe has too many ingredients."
-      );
-      Thread.dumpStack();
-    }
-    int i;
-    for(i = 0; i < inventory_size; i++){
-      if(i < ingredients_length){
-        slot_data[i].setFilter(ItemUtil.toItemArray(ingredients.get(i).getItems()));
-      }
-      else{
-        slot_data[i].setFilterAll();
-      }
-    }
   }
 
   /** Checks all slots in this inventory and returns invalid ItemStacks to the player. */

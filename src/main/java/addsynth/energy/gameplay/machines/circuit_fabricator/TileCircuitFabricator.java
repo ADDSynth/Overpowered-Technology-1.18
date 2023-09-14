@@ -1,9 +1,9 @@
 package addsynth.energy.gameplay.machines.circuit_fabricator;
 
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import addsynth.core.container.slots.InputSlot;
-import addsynth.core.game.item.ItemUtil;
+import addsynth.core.game.inventory.filter.RecipeFilter;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.config.Config;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipe;
@@ -19,7 +19,6 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -29,18 +28,12 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
   private static final ResourceLocation defaultRecipe = Names.CIRCUIT_TIER_1;
   @Nonnull
   private ResourceLocation output_itemStack = defaultRecipe;
-  private ItemStack[][] filter = new ItemStack[8][];
+  // This RecipeFilter is different for every machine, therefore, it SHOULD NOT BE STATIC.
+  private final RecipeFilter filter = new RecipeFilter(8);
 
-  private final InputSlot[] input_slot = {
-    new InputSlot(this, 0, 162, 76),
-    new InputSlot(this, 1, 180, 76),
-    new InputSlot(this, 2, 198, 76),
-    new InputSlot(this, 3, 216, 76),
-    new InputSlot(this, 4, 162, 94),
-    new InputSlot(this, 5, 180, 94),
-    new InputSlot(this, 6, 198, 94),
-    new InputSlot(this, 7, 216, 94)
-  };
+  public final Predicate<ItemStack> getFilter(final int slot){
+    return filter.get(slot);
+  }
 
   // NBT Labels
   private static final String legacyNBTSaveTag = "Circuit to Craft";
@@ -80,26 +73,11 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
     }
   }
 
-  // TODO: Ideally, this should be rebuilt every recipe and tag reload, but this is the best I can do for now.
   public final void rebuild_filters(){
     // find recipe
     final CircuitFabricatorRecipe recipe = CircuitFabricatorRecipes.INSTANCE.find_recipe(output_itemStack);
     if(recipe != null){
-      // get ingredients, create filters
-      filter = recipe.getItemStackIngredients();
-      int i;
-      for(i = 0; i < 8; i++){
-        // apply filters
-        if(i < filter.length){
-          input_slot[i].setFilter(filter[i]);
-          inventory.getInputInventory().setFilter(i, ItemUtil.toItemArray(filter[i]));
-        }
-        else{
-          input_slot[i].setFilter(new Item[0]);
-          inventory.getInputInventory().setFilter(i, new Item[0]);
-        }
-      }
-      
+      filter.set(recipe);
       // update recipe in gui if on client side
       updateGui();
     }
@@ -123,7 +101,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
   public final void updateGui(){
     if(level != null){
       if(level.isClientSide){
-        CircuitFabricatorGui.updateRecipeDisplay(filter);
+        CircuitFabricatorGui.updateRecipeDisplay(filter.getIngredients());
       }
     }
   }
@@ -163,10 +141,6 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
     }
     // load normally
     change_recipe(recipe);
-  }
-
-  public final InputSlot[] getInputSlots(){
-    return input_slot;
   }
 
   @Override

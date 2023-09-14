@@ -15,12 +15,15 @@ FIXED:
     maximum length in the config and load a world with an Energy Suspension Bridge already
     active, it will check if the new maximum length is shorter and shut itself off.
   Fixed elements in a gui window was not being repositioned after the game window was resized.
+  Fixed not being able to insert items into the proper slots in the Magic Infuser machine.
+  Fixed duplicate recipes appearing in JEI if you pressed F3 + T to reload resources.
   Minecraft 1.18 version only: Fix not being able to quit a world / shutdown a server properly
     if you were near a BlockNetwork TileEntity.
     - Data Cable, Energy Wire, Energy Suspension Bridge, or Laser Housing.
   Minecraft 1.18 version only: Re-enabled Project E integration.
   Minecraft 1.18 version only: Fix Titanium worldgen using platinum configuration settings.
   Minecraft 1.18 version only: Fixed Show Ores command only counting blocks above Y level 0.
+  Minecraft 1.18 version only: Fixed not being able to identify rings in the Identifier.
 KNOWN PROBLEMS:
   If an Energy Suspension Bridge 1 block wide is destroyed, the energy bridge will not disappear.
 

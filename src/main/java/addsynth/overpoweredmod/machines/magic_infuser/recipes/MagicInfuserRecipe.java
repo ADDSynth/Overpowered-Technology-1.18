@@ -21,7 +21,6 @@ public final class MagicInfuserRecipe extends AbstractRecipe {
 
   public MagicInfuserRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> input){
     super(id, group, output, input);
-    MagicInfuserRecipes.addRecipe(this);
   }
 
   public static final ItemStack getEnchantedBook(final Enchantment enchantment){
@@ -40,7 +39,7 @@ public final class MagicInfuserRecipe extends AbstractRecipe {
 
   @Override
   public RecipeType<?> getType(){
-    return MagicInfuserRecipes.recipe_type;
+    return MagicInfuserRecipes.INSTANCE.type;
   }
 
 }

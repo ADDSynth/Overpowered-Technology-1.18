@@ -17,7 +17,7 @@ public final class TileAdvancedOreRefinery extends TileAlwaysOnMachine implement
 
   public TileAdvancedOreRefinery(BlockPos position, BlockState blockstate){
     super(Tiles.ADVANCED_ORE_REFINERY.get(), position, blockstate,
-      1, OreRefineryRecipes.get_input_filter(), 1,
+      1, OreRefineryRecipes::filter, 1,
       MachineValues.advanced_ore_refinery
     );
     inventory.setRecipeProvider(OreRefineryRecipes::get_result);

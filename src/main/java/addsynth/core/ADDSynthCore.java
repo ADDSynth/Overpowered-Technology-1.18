@@ -5,14 +5,15 @@ import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
 import addsynth.core.config.*;
 import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.resource.ResourceUtil;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.commands.ADDSynthCommands;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.TeamData;
+import addsynth.core.recipe.FurnaceRecipes;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
-import addsynth.material.util.MaterialsUtil;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -83,7 +84,9 @@ public final class ADDSynthCore {
       event.enqueueWork(Compatibility::debug);
     }
     NetworkHandler.registerMessages();
-    MaterialsUtil.registerResponder(Debug::dump_tags);
+    ResourceUtil.addListener(Debug::dump_tags);
+    
+    FurnaceRecipes.INSTANCE.registerResponders();
 
     log.info("Finished ADDSynthCore main setup.");
   }

@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabricator, CircuitFabricatorContainer> {
 
@@ -84,7 +85,7 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
 
   /** Called when the player changes the selected recipe on the server side.
       Only updates the IngredientWidgets drawn ItemStacks.  */
-  public static final void updateRecipeDisplay(final ItemStack[][] recipe){
+  public static final void updateRecipeDisplay(final Ingredient[] recipe){
     recipe_ingredients.setRecipe(recipe);
   }
 

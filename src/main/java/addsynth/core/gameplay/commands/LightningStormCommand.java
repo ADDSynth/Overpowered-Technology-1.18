@@ -4,7 +4,7 @@ import java.util.Random;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.StringUtil;
 import addsynth.core.util.command.PermissionLevel;
-import addsynth.core.util.math.MathUtility;
+import addsynth.core.util.math.common.MathUtility;
 import addsynth.core.util.world.WorldUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;

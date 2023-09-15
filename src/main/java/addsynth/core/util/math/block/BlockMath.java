@@ -3,7 +3,7 @@ package addsynth.core.util.math.block;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import addsynth.core.util.math.MathUtility;
+import addsynth.core.util.math.common.MathUtility;
 import net.minecraft.core.BlockPos;
 
 public final class BlockMath {

@@ -1,6 +1,6 @@
 package addsynth.core.gui.widgets;
 
-import addsynth.core.util.math.RoundMode;
+import addsynth.core.util.math.common.RoundMode;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.util.Mth;

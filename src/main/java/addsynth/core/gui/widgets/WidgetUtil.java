@@ -1,7 +1,7 @@
 package addsynth.core.gui.widgets;
 
 import addsynth.core.ADDSynthCore;
-import addsynth.core.util.math.MathUtility;
+import addsynth.core.util.math.common.MathUtility;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -2,7 +2,7 @@ package addsynth.energy.lib.gui.widgets;
 
 import addsynth.core.gui.widgets.ProgressBar;
 import addsynth.core.util.StringUtil;
-import addsynth.core.util.math.RoundMode;
+import addsynth.core.util.math.common.RoundMode;
 import addsynth.energy.lib.tiles.machines.TileAbstractWorkMachine;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

@@ -188,7 +188,11 @@ public final class ArrayUtil {
         i++;
       }
     }
-    return Arrays.copyOfRange(final_array, 0, i);
+    if(i != final_array.length){
+      // in case we encountered a null array, only return an array containing the elements we actually copied.
+      return Arrays.copyOfRange(final_array, 0, i);
+    }
+    return final_array;
   }
 
   @SafeVarargs

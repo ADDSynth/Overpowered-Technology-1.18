@@ -5,7 +5,7 @@ import addsynth.core.ADDSynthCore;
 import addsynth.core.util.command.CommandUtil;
 import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.game.entity.MobUtil;
-import addsynth.core.util.math.CommonMath;
+import addsynth.core.util.math.common.CommonMath;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.core.util.time.TimeConstants;
 import addsynth.core.util.time.WorldTime;

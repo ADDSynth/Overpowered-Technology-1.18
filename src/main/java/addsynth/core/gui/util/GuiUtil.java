@@ -3,7 +3,7 @@ package addsynth.core.gui.util;
 import java.util.List;
 import java.util.Optional;
 import addsynth.core.gui.widgets.WidgetUtil;
-import addsynth.core.util.math.CommonMath;
+import addsynth.core.util.math.common.CommonMath;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

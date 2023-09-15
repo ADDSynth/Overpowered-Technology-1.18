@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.machines.plasma_generator;
 
-import addsynth.core.util.math.CommonMath;
+import addsynth.core.util.math.common.CommonMath;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
 import addsynth.energy.lib.gui.widgets.OnOffSwitch;

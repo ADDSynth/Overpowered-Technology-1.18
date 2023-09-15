@@ -1,6 +1,6 @@
 package addsynth.core.util.time;
 
-import addsynth.core.util.math.CommonMath;
+import addsynth.core.util.math.common.CommonMath;
 import net.minecraft.world.level.Level;
 
 public final class WorldTime {

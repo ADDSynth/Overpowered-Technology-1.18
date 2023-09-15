@@ -1,7 +1,7 @@
 package addsynth.energy.lib.gui.widgets;
 
 import addsynth.core.gui.widgets.ProgressBar;
-import addsynth.core.util.math.RoundMode;
+import addsynth.core.util.math.common.RoundMode;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.main.Energy;
 import com.mojang.blaze3d.vertex.PoseStack;

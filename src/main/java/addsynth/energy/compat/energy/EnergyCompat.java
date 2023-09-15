@@ -2,7 +2,7 @@ package addsynth.energy.compat.energy;
 
 import java.util.ArrayList;
 import addsynth.core.compat.Compatibility;
-import addsynth.core.util.math.MathUtility;
+import addsynth.core.util.math.common.MathUtility;
 import addsynth.energy.compat.energy.forge.ForgeEnergy;
 import addsynth.energy.compat.energy.redstoneflux.RedstoneFluxEnergy;
 import addsynth.energy.compat.energy.tesla.TeslaEnergy;

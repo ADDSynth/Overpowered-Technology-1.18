@@ -1,8 +1,7 @@
-package addsynth.core.util.math;
+package addsynth.core.util.math.common;
 
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.java.JavaUtils;
-import net.minecraft.util.Mth;
 
 /** This class is meant to hold commom math functions, such as Rounds, Clamps, getMin, and getMax.
  *  @author ADDSynth
@@ -64,13 +63,11 @@ public final class CommonMath {
     return number > maximum ? maximum : number;
   }
   
-  // these clamp functions are here so I can find them, but they're also deprecated
-  // so I know to replace them with Vanilla's methods. Please leave them as they are!
-
-  /** @deprecated Look at what this function does. Bypass this and use the vanilla method instead. */
-  @Deprecated
   public static final int clamp(final int number, final int minimum, final int maximum){
-    return Mth.clamp(number, minimum, maximum);
+    if(number < minimum){
+      return minimum;
+    }
+    return number > maximum ? maximum : number;
   }
 
   public static final long clamp(final long number, final long minimum, final long maximum){
@@ -80,16 +77,18 @@ public final class CommonMath {
     return number > maximum ? maximum : number;
   }
 
-  /** @deprecated Look at what this function does. Bypass this and use the vanilla method instead. */
-  @Deprecated
   public static final float clamp(final float number, final float minimum, final float maximum){
-    return Mth.clamp(number, minimum, maximum);
+    if(number < minimum){
+      return minimum;
+    }
+    return number > maximum ? maximum : number;
   }
   
-  /** @deprecated Look at what this function does. Bypass this and use the vanilla method instead. */
-  @Deprecated
   public static final double clamp(final double number, final double minimum, final float maximum){
-    return Mth.clamp(number, minimum, maximum);
+    if(number < minimum){
+      return minimum;
+    }
+    return number > maximum ? maximum : number;
   }
 
   public static final int get_smallest_index(final short[] array){

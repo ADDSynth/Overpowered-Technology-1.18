@@ -1,7 +1,7 @@
 package addsynth.energy.lib.main;
 
 import javax.annotation.Nonnegative;
-import addsynth.core.util.math.CommonMath;
+import addsynth.core.util.math.common.CommonMath;
 import addsynth.core.util.math.number.DecimalNumber;
 import net.minecraft.nbt.CompoundTag;
 

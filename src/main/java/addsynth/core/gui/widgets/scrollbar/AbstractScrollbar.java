@@ -7,7 +7,7 @@ import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.widgets.Dimensions;
 import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.util.java.ArrayUtil;
-import addsynth.core.util.math.MathUtility;
+import addsynth.core.util.math.common.MathUtility;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;

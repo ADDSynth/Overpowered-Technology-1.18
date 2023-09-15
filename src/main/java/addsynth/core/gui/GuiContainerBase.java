@@ -154,6 +154,7 @@ public abstract class GuiContainerBase<T extends AbstractContainerMenu> extends 
     return false;
   }
 
+  /** Main render function. */
   @Override
   public void render(PoseStack matrix, final int mouseX, final int mouseY, final float partialTicks){
     this.renderBackground(matrix);
@@ -161,6 +162,8 @@ public abstract class GuiContainerBase<T extends AbstractContainerMenu> extends 
     this.renderTooltip(matrix, mouseX, mouseY);
   }
 
+  /** This draws your main gui window.
+   *  {@link #renderBackground(PoseStack)} dims the screen behind your gui. */
   @Override
   protected void renderBg(PoseStack matrix, final float partialTicks, final int mouseX, final int mouseY){
     draw_background_texture(matrix);

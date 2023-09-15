@@ -1,5 +1,6 @@
 package addsynth.core.gui.widgets;
 
+/** This is used in some widget functions to shorten the parameter list. */
 public final class Dimensions {
 
   public final int x;

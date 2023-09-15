@@ -121,6 +121,7 @@ public abstract class GuiBase extends Screen {
     guiBox.screenResize(width, height);
   }
 
+  /** Main render function. */
   @Override
   public void render(PoseStack matrix, int mouse_x, int mouse_y, float partialTicks){
     // REPLICA: This is a replica of AbstractContainerScreen.render() but without drawing any ItemStacks. Make sure it matches whenever we update Forge.
@@ -146,10 +147,12 @@ public abstract class GuiBase extends Screen {
     return false;
   }
 
+  /** This draws your gui window. */
   protected void drawGuiBackgroundLayer(PoseStack matrix, float partialTicks, int mouse_x, int mouse_y){
     draw_background_texture(matrix);
   }
   
+  /** All text should be drawn in this function. */  
   protected void drawGuiForegroundLayer(PoseStack matrix, int mouse_x, int mouse_y){
   }
 

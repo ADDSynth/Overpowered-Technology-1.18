@@ -1,4 +1,4 @@
-package addsynth.core.config;
+package addsynth.core.gameplay;
 
 import org.apache.commons.lang3.tuple.Pair;
 import net.minecraftforge.common.ForgeConfigSpec;

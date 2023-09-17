@@ -1,6 +1,8 @@
 package addsynth.material.worldgen;
 
 import java.util.List;
+import addsynth.core.config.WorldgenOreConfig;
+import addsynth.core.config.WorldgenSingleOreConfig;
 import addsynth.material.Material;
 import addsynth.material.config.WorldgenConfig;
 import addsynth.material.types.*;
@@ -25,102 +27,21 @@ import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 // https://github.com/Tutorials-By-Kaupenjoe/Forge-Tutorial-1.18.1/tree/34-oreGeneration/src/main/java/net/kaupenjoe/tutorialmod/world
 public final class GenFeatures {
 
-  public static final Holder<PlacedFeature> RUBY_ORE_FEATURE = gen_single_ore(
-    Material.RUBY,
-    WorldgenConfig.ruby_spawn_tries.get(),
-    WorldgenConfig.ruby_min_height.get(),
-    WorldgenConfig.ruby_max_height.get()
-  );
+  public static final Holder<PlacedFeature>     RUBY_ORE_FEATURE = gen_single_ore(Material.RUBY,     WorldgenConfig.ruby);
+  public static final Holder<PlacedFeature>    TOPAZ_ORE_FEATURE = gen_single_ore(Material.TOPAZ,    WorldgenConfig.topaz);
+  public static final Holder<PlacedFeature>  CITRINE_ORE_FEATURE = gen_single_ore(Material.CITRINE,  WorldgenConfig.citrine);
+  public static final Holder<PlacedFeature>  EMERALD_ORE_FEATURE = gen_single_ore(Material.EMERALD,  WorldgenConfig.emerald);
+  public static final Holder<PlacedFeature> SAPPHIRE_ORE_FEATURE = gen_single_ore(Material.SAPPHIRE, WorldgenConfig.sapphire);
+  public static final Holder<PlacedFeature> AMETHYST_ORE_FEATURE = gen_single_ore(Material.AMETHYST, WorldgenConfig.amethyst);
 
-  public static final Holder<PlacedFeature> TOPAZ_ORE_FEATURE = gen_single_ore(
-    Material.TOPAZ,
-    WorldgenConfig.topaz_spawn_tries.get(),
-    WorldgenConfig.topaz_min_height.get(),
-    WorldgenConfig.topaz_max_height.get()
-  );
+  public static final Holder<PlacedFeature>      TIN_ORE_FEATURE = gen_standard_ore(Material.TIN,      WorldgenConfig.tin);
+  public static final Holder<PlacedFeature> ALUMINUM_ORE_FEATURE = gen_standard_ore(Material.ALUMINUM, WorldgenConfig.aluminum);
+  public static final Holder<PlacedFeature>   SILVER_ORE_FEATURE = gen_standard_ore(Material.SILVER,   WorldgenConfig.silver);
+  public static final Holder<PlacedFeature> PLATINUM_ORE_FEATURE = gen_standard_ore(Material.PLATINUM, WorldgenConfig.platinum);
+  public static final Holder<PlacedFeature> TITANIUM_ORE_FEATURE = gen_standard_ore(Material.TITANIUM, WorldgenConfig.titanium);
 
-  public static final Holder<PlacedFeature> CITRINE_ORE_FEATURE = gen_single_ore(
-    Material.CITRINE,
-    WorldgenConfig.citrine_spawn_tries.get(),
-    WorldgenConfig.citrine_min_height.get(),
-    WorldgenConfig.citrine_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> EMERALD_ORE_FEATURE = gen_single_ore(
-    Material.EMERALD,
-    WorldgenConfig.emerald_spawn_tries.get(),
-    WorldgenConfig.emerald_min_height.get(),
-    WorldgenConfig.emerald_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> SAPPHIRE_ORE_FEATURE = gen_single_ore(
-    Material.SAPPHIRE,
-    WorldgenConfig.sapphire_spawn_tries.get(),
-    WorldgenConfig.sapphire_min_height.get(),
-    WorldgenConfig.sapphire_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> AMETHYST_ORE_FEATURE = gen_single_ore(
-    Material.AMETHYST,
-    WorldgenConfig.amethyst_spawn_tries.get(),
-    WorldgenConfig.amethyst_min_height.get(),
-    WorldgenConfig.amethyst_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> TIN_ORE_FEATURE = gen_standard_ore(
-    Material.TIN,
-    WorldgenConfig.tin_ore_size.get(),
-    WorldgenConfig.tin_spawn_tries.get(),
-    WorldgenConfig.tin_min_height.get(),
-    WorldgenConfig.tin_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> ALUMINUM_ORE_FEATURE = gen_standard_ore(
-    Material.ALUMINUM,
-    WorldgenConfig.aluminum_ore_size.get(),
-    WorldgenConfig.aluminum_spawn_tries.get(),
-    WorldgenConfig.aluminum_min_height.get(),
-    WorldgenConfig.aluminum_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> SILVER_ORE_FEATURE = gen_standard_ore(
-    Material.SILVER,
-    WorldgenConfig.silver_ore_size.get(),
-    WorldgenConfig.silver_spawn_tries.get(),
-    WorldgenConfig.silver_min_height.get(),
-    WorldgenConfig.silver_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> PLATINUM_ORE_FEATURE = gen_standard_ore(
-    Material.PLATINUM,
-    WorldgenConfig.platinum_ore_size.get(),
-    WorldgenConfig.platinum_spawn_tries.get(),
-    WorldgenConfig.platinum_min_height.get(),
-    WorldgenConfig.platinum_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> TITANIUM_ORE_FEATURE = gen_standard_ore(
-    Material.TITANIUM,
-    WorldgenConfig.titanium_ore_size.get(),
-    WorldgenConfig.titanium_spawn_tries.get(),
-    WorldgenConfig.titanium_min_height.get(),
-    WorldgenConfig.titanium_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> SILICON_ORE_FEATURE = gen_standard_ore(
-    Material.SILICON,
-    WorldgenConfig.silicon_ore_size.get(),
-    WorldgenConfig.silicon_spawn_tries.get(),
-    WorldgenConfig.silicon_min_height.get(),
-    WorldgenConfig.silicon_max_height.get()
-  );
-
-  public static final Holder<PlacedFeature> ROSE_QUARTZ_ORE_FEATURE = gen_single_ore(
-    Material.ROSE_QUARTZ,
-    WorldgenConfig.rose_quartz_spawn_tries.get(),
-    WorldgenConfig.rose_quartz_min_height.get(),
-    WorldgenConfig.rose_quartz_max_height.get()
-  );
+  public static final Holder<PlacedFeature>     SILICON_ORE_FEATURE = gen_standard_ore(Material.SILICON, WorldgenConfig.silicon);
+  public static final Holder<PlacedFeature> ROSE_QUARTZ_ORE_FEATURE = gen_single_ore(Material.ROSE_QUARTZ, WorldgenConfig.rose_quartz);
 
   private static final List<OreConfiguration.TargetBlockState> getReplaceableBlockList(final Block ore){
     return List.of(
@@ -129,21 +50,23 @@ public final class GenFeatures {
     );
   }
 
-  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_single_ore(final O material, int tries, int min_level, int max_level){
+  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_single_ore(final O material, final WorldgenSingleOreConfig ore_config){
     // Configured Feature:
     final Holder<ConfiguredFeature<ReplaceBlockConfiguration, ?>> ore_configuration = FeatureUtils.register(material.getOre().getRegistryName().getPath(), Feature.REPLACE_SINGLE_BLOCK, new ReplaceBlockConfiguration(getReplaceableBlockList(material.getOre())));
     // Placement Modifiers:
     // TODO: Change uniform placement to triangle placement. Extend into the new lower depths below Y=0.
-    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
+    final HeightRangePlacement height_range_placement = HeightRangePlacement.uniform(VerticalAnchor.absolute(ore_config.min_height.get()), VerticalAnchor.absolute(ore_config.max_height.get()));
+    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(ore_config.tries.get()), InSquarePlacement.spread(), height_range_placement, BiomeFilter.biome());
     // Placement:
     return PlacementUtils.register(material.name+"_placement", ore_configuration, placement_modifiers);
   }
 
-  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_standard_ore(final O material, int size, int tries, int min_level, int max_level){
+  private static final <O extends AbstractMaterial & OreMaterial> Holder<PlacedFeature> gen_standard_ore(final O material, final WorldgenOreConfig ore_config){
     // Configured Feature:
-    final Holder<ConfiguredFeature<OreConfiguration, ?>> ore_configuration = FeatureUtils.register(material.getOre().getRegistryName().getPath(), Feature.ORE, new OreConfiguration(getReplaceableBlockList(material.getOre()), size));
+    final Holder<ConfiguredFeature<OreConfiguration, ?>> ore_configuration = FeatureUtils.register(material.getOre().getRegistryName().getPath(), Feature.ORE, new OreConfiguration(getReplaceableBlockList(material.getOre()), ore_config.ore_size.get()));
     // Placement Modifiers:
-    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(tries), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(min_level), VerticalAnchor.absolute(max_level)), BiomeFilter.biome());
+    final HeightRangePlacement height_range_placement = HeightRangePlacement.uniform(VerticalAnchor.absolute(ore_config.min_height.get()), VerticalAnchor.absolute(ore_config.max_height.get()));
+    final List<PlacementModifier> placement_modifiers = List.of(CountPlacement.of(ore_config.tries.get()), InSquarePlacement.spread(), height_range_placement, BiomeFilter.biome());
     // Placement:
     return PlacementUtils.register(material.name+"_placement", ore_configuration, placement_modifiers);
   }

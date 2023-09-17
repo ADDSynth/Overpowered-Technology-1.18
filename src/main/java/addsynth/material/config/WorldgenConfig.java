@@ -1,7 +1,9 @@
 package addsynth.material.config;
 
 import org.apache.commons.lang3.tuple.Pair;
-import addsynth.core.util.world.WorldConstants;
+import addsynth.core.config.OreGenerationSettings;
+import addsynth.core.config.WorldgenOreConfig;
+import addsynth.core.config.WorldgenSingleOreConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 /**
@@ -10,32 +12,23 @@ import net.minecraftforge.common.ForgeConfigSpec;
  */
 public final class WorldgenConfig { // TODO: Consider adjusting gen values for new world heights in Minecraft 1.18.
 
-  private static final int DEFAULT_MIN_HEIGHT = 5;
+  private static final int MIN_HEIGHT = 5;
   
-  private static final int DEFAULT_GEM_MAX_HEIGHT = 40;
-  private static final int DEFAULT_GEM_TRIES = 3;
-  
-  private static final int DEFAULT_ROSE_QUARTZ_MAX_HEIGHT = 128;
+  private static final OreGenerationSettings gem_settings = new OreGenerationSettings(MIN_HEIGHT,  40, 3);
+  private static final OreGenerationSettings rose_quartz_settings  = new OreGenerationSettings(MIN_HEIGHT, 128, 1);
   
   // should be the same as Iron Ore
-  private static final int DEFAULT_COMMON_METAL_MAX_HEIGHT = 128;
-  private static final int DEFAULT_COMMON_METAL_TRIES = 10;
-  private static final int DEFAULT_COMMON_METAL_ORE_SIZE = 9;
+  private static final OreGenerationSettings common_metal = new OreGenerationSettings(MIN_HEIGHT, 128, 10, 9);
   // 8x  (0 - 120) every 15 levels
 
-  private static final int DEFAULT_SILVER_ORE_MAX_HEIGHT = 64;
-  private static final int DEFAULT_SILVER_ORE_TRIES = 3;
-  private static final int DEFAULT_SILVER_ORE_SIZE = 9;
+  private static final OreGenerationSettings silver_settings = new OreGenerationSettings(MIN_HEIGHT, 64, 3, 9);
   // Gold: 2x (0 - 32) every 16 levels,     Silver: 4x (0 - 64) every 16 levels.
   
-  private static final int DEFAULT_RARE_METAL_MAX_HEIGHT = 96;
-  private static final int DEFAULT_RARE_METAL_TRIES = 2;
-  private static final int DEFAULT_RARE_METAL_ORE_SIZE = 7;
+  private static final OreGenerationSettings rare_metal = new OreGenerationSettings(MIN_HEIGHT, 96, 2, 7);
   // Rare: 3x (0 - 96) every 32 levels.
   
-  private static final int DEFAULT_SILICON_MAX_HEIGHT = 128;
-  private static final int DEFAULT_SILICON_TRIES = 13;
-  private static final int DEFAULT_SILICON_ORE_SIZE = 4; // Keep this at 4. Good number.
+  // Keep silicon ore size at 4. Good number.
+  private static final OreGenerationSettings silicon_settings = new OreGenerationSettings(MIN_HEIGHT, 128, 13, 4);
   /* December 2021 Silicon tests. All these use a Range of 5 to 128.
   Tested in Minecraft 1.16.5   World seed: -6884434917911476714
   Size: Tries: Count:  Density:       Notes:
@@ -62,192 +55,42 @@ public final class WorldgenConfig { // TODO: Consider adjusting gen values for n
     6      9    3518    15.636    Way too much! 1.4 Test 2
   */
 
-  public static ForgeConfigSpec.BooleanValue generate_ruby;
-  public static ForgeConfigSpec.IntValue ruby_min_height;
-  public static ForgeConfigSpec.IntValue ruby_max_height;
-  public static ForgeConfigSpec.IntValue ruby_spawn_tries;
+  public static final WorldgenSingleOreConfig ruby     = new WorldgenSingleOreConfig(    "Ruby Ore", gem_settings);
+  public static final WorldgenSingleOreConfig topaz    = new WorldgenSingleOreConfig(   "Topaz Ore", gem_settings);
+  public static final WorldgenSingleOreConfig citrine  = new WorldgenSingleOreConfig( "Citrine Ore", gem_settings);
+  public static final WorldgenSingleOreConfig emerald  = new WorldgenSingleOreConfig( "Emerald Ore", gem_settings);
+  public static final WorldgenSingleOreConfig sapphire = new WorldgenSingleOreConfig("Sapphire Ore", gem_settings);
+  public static final WorldgenSingleOreConfig amethyst = new WorldgenSingleOreConfig("Amethyst Ore", gem_settings);
 
-  public static ForgeConfigSpec.BooleanValue generate_topaz;
-  public static ForgeConfigSpec.IntValue topaz_min_height;
-  public static ForgeConfigSpec.IntValue topaz_max_height;
-  public static ForgeConfigSpec.IntValue topaz_spawn_tries;
+  public static final WorldgenOreConfig tin       = new WorldgenOreConfig(     "Tin Ore", common_metal);
+  public static final WorldgenOreConfig aluminum  = new WorldgenOreConfig("Aluminum Ore", common_metal);
+  public static final WorldgenOreConfig silver    = new WorldgenOreConfig(  "Silver Ore", silver_settings);
+  public static final WorldgenOreConfig platinum  = new WorldgenOreConfig("Platinum Ore", rare_metal);
+  public static final WorldgenOreConfig titanium  = new WorldgenOreConfig("Titanium Ore", rare_metal);
 
-  public static ForgeConfigSpec.BooleanValue generate_citrine;
-  public static ForgeConfigSpec.IntValue citrine_min_height;
-  public static ForgeConfigSpec.IntValue citrine_max_height;
-  public static ForgeConfigSpec.IntValue citrine_spawn_tries;
-
-  public static ForgeConfigSpec.BooleanValue generate_emerald;
-  public static ForgeConfigSpec.IntValue emerald_min_height;
-  public static ForgeConfigSpec.IntValue emerald_max_height;
-  public static ForgeConfigSpec.IntValue emerald_spawn_tries;
-
-  public static ForgeConfigSpec.BooleanValue generate_sapphire;
-  public static ForgeConfigSpec.IntValue sapphire_min_height;
-  public static ForgeConfigSpec.IntValue sapphire_max_height;
-  public static ForgeConfigSpec.IntValue sapphire_spawn_tries;
-
-  public static ForgeConfigSpec.BooleanValue generate_amethyst;
-  public static ForgeConfigSpec.IntValue amethyst_min_height;
-  public static ForgeConfigSpec.IntValue amethyst_max_height;
-  public static ForgeConfigSpec.IntValue amethyst_spawn_tries;
-
-  public static ForgeConfigSpec.BooleanValue generate_silicon;
-  public static ForgeConfigSpec.IntValue silicon_min_height;
-  public static ForgeConfigSpec.IntValue silicon_max_height;
-  public static ForgeConfigSpec.IntValue silicon_spawn_tries;
-  public static ForgeConfigSpec.IntValue silicon_ore_size;
-  
-  public static ForgeConfigSpec.BooleanValue generate_rose_quartz;
-  public static ForgeConfigSpec.IntValue rose_quartz_min_height;
-  public static ForgeConfigSpec.IntValue rose_quartz_max_height;
-  public static ForgeConfigSpec.IntValue rose_quartz_spawn_tries;
-
-  public static ForgeConfigSpec.BooleanValue generate_tin;
-  public static ForgeConfigSpec.IntValue tin_min_height;
-  public static ForgeConfigSpec.IntValue tin_max_height;
-  public static ForgeConfigSpec.IntValue tin_spawn_tries;
-  public static ForgeConfigSpec.IntValue tin_ore_size;
-
-  public static ForgeConfigSpec.BooleanValue generate_aluminum;
-  public static ForgeConfigSpec.IntValue aluminum_min_height;
-  public static ForgeConfigSpec.IntValue aluminum_max_height;
-  public static ForgeConfigSpec.IntValue aluminum_spawn_tries;
-  public static ForgeConfigSpec.IntValue aluminum_ore_size;
-
-  public static ForgeConfigSpec.BooleanValue generate_silver;
-  public static ForgeConfigSpec.IntValue silver_min_height;
-  public static ForgeConfigSpec.IntValue silver_max_height;
-  public static ForgeConfigSpec.IntValue silver_spawn_tries;
-  public static ForgeConfigSpec.IntValue silver_ore_size;
-
-  public static ForgeConfigSpec.BooleanValue generate_platinum;
-  public static ForgeConfigSpec.IntValue platinum_min_height;
-  public static ForgeConfigSpec.IntValue platinum_max_height;
-  public static ForgeConfigSpec.IntValue platinum_spawn_tries;
-  public static ForgeConfigSpec.IntValue platinum_ore_size;
-
-  public static ForgeConfigSpec.BooleanValue generate_titanium;
-  public static ForgeConfigSpec.IntValue titanium_min_height;
-  public static ForgeConfigSpec.IntValue titanium_max_height;
-  public static ForgeConfigSpec.IntValue titanium_spawn_tries;
-  public static ForgeConfigSpec.IntValue titanium_ore_size;
+  public static final WorldgenOreConfig silicon = new WorldgenOreConfig("Silicon Ore", silicon_settings);
+  public static final WorldgenSingleOreConfig rose_quartz = new WorldgenSingleOreConfig("Rose Quartz Ore", rose_quartz_settings);
 
   private static final Pair<WorldgenConfig, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(WorldgenConfig::new);
   public static final WorldgenConfig INSTANCE = SPEC_PAIR.getLeft();
   public static final ForgeConfigSpec CONFIG_SPEC = SPEC_PAIR.getRight();
 
   public WorldgenConfig(final ForgeConfigSpec.Builder builder){
-    builder.push("Ruby Ore");
-    generate_ruby    = builder.define("generate", true);
-    ruby_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    ruby_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    ruby_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
+    ruby.build(builder);
+    topaz.build(builder);
+    citrine.build(builder);
+    emerald.build(builder);
+    sapphire.build(builder);
+    amethyst.build(builder);
 
-    builder.push("Topaz Ore");
-    generate_topaz    = builder.define("generate", true);
-    topaz_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    topaz_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    topaz_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
+    tin.build(builder);
+    aluminum.build(builder);
+    silver.build(builder);
+    platinum.build(builder);
+    titanium.build(builder);
 
-    builder.push("Citrine Ore");
-    generate_citrine    = builder.define("generate", true);
-    citrine_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    citrine_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    citrine_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
-
-    builder.push("Emerald Ore");
-    generate_emerald    = builder.comment(
-      "Set this to false to revert back to Vanilla generation, which only generates\n"+
-      "Emerald Ore in the Extreme Hills biomes.").define("generate", true);
-    emerald_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    emerald_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    emerald_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
-
-    builder.push("Sapphire Ore");
-    generate_sapphire    = builder.define("generate", true);
-    sapphire_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    sapphire_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    sapphire_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
-
-    builder.push("Amethyst Ore");
-    generate_amethyst    = builder.define("generate", true);
-    amethyst_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    amethyst_max_height  = worldgen(builder, "maximum height", DEFAULT_GEM_MAX_HEIGHT);
-    amethyst_spawn_tries = tries(builder, DEFAULT_GEM_TRIES);
-    builder.pop();
-    
-    builder.push("Tin Ore");
-    generate_tin    = builder.define("generate", true);
-    tin_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    tin_max_height  = worldgen(builder, "maximum height", DEFAULT_COMMON_METAL_MAX_HEIGHT);
-    tin_spawn_tries = tries(builder, DEFAULT_COMMON_METAL_TRIES);
-    tin_ore_size    = size(builder, DEFAULT_COMMON_METAL_ORE_SIZE);
-    builder.pop();
-
-    builder.push("Aluminum Ore");
-    generate_aluminum    = builder.define("generate", true);
-    aluminum_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    aluminum_max_height  = worldgen(builder, "maximum height", DEFAULT_COMMON_METAL_MAX_HEIGHT);
-    aluminum_spawn_tries = tries(builder, DEFAULT_COMMON_METAL_TRIES);
-    aluminum_ore_size    = size(builder, DEFAULT_COMMON_METAL_ORE_SIZE);
-    builder.pop();
-
-    builder.push("Silver Ore");
-    generate_silver    = builder.define("generate", true);
-    silver_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    silver_max_height  = worldgen(builder, "maximum height", DEFAULT_SILVER_ORE_MAX_HEIGHT);
-    silver_spawn_tries = tries(builder, DEFAULT_SILVER_ORE_TRIES);
-    silver_ore_size    = size(builder, DEFAULT_SILVER_ORE_SIZE);
-    builder.pop();
-
-    builder.push("Platinum Ore");
-    generate_platinum    = builder.define("generate", true);
-    platinum_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    platinum_max_height  = worldgen(builder, "maximum height", DEFAULT_RARE_METAL_MAX_HEIGHT);
-    platinum_spawn_tries = tries(builder, DEFAULT_RARE_METAL_TRIES);
-    platinum_ore_size    = size(builder, DEFAULT_RARE_METAL_ORE_SIZE);
-    builder.pop();
-
-    builder.push("Titanium Ore");
-    generate_titanium    = builder.define("generate", true);
-    titanium_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    titanium_max_height  = worldgen(builder, "maximum height", DEFAULT_RARE_METAL_MAX_HEIGHT);
-    titanium_spawn_tries = tries(builder, 3);
-    titanium_ore_size    = size(builder, DEFAULT_RARE_METAL_ORE_SIZE);
-    builder.pop();
-
-    builder.push("Silicon Ore");
-    generate_silicon    = builder.define("generate", true);
-    silicon_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    silicon_max_height  = worldgen(builder, "maximum height", DEFAULT_SILICON_MAX_HEIGHT);
-    silicon_spawn_tries = tries(builder, DEFAULT_SILICON_TRIES);
-    silicon_ore_size    = size(builder, DEFAULT_SILICON_ORE_SIZE);
-    builder.pop();
-    
-    builder.push("Rose Quartz Ore");
-    generate_rose_quartz    = builder.define("generate", true);
-    rose_quartz_min_height  = worldgen(builder, "minimum height", DEFAULT_MIN_HEIGHT);
-    rose_quartz_max_height  = worldgen(builder, "maximum height", DEFAULT_ROSE_QUARTZ_MAX_HEIGHT);
-    rose_quartz_spawn_tries = tries(builder, 1);
-    builder.pop();
-  }
-
-  private static final ForgeConfigSpec.IntValue worldgen(final ForgeConfigSpec.Builder builder, final String name, final int default_value){
-    return builder.defineInRange(name, default_value, WorldConstants.bottom_level, WorldConstants.world_height - 1);
-  }
-
-  private static final ForgeConfigSpec.IntValue tries(final ForgeConfigSpec.Builder builder, final int default_value){
-    return builder.defineInRange("tries", default_value, 1, 40); // same as Vanilla Minecraft custom world gen settings.
-  }
-
-  private static final ForgeConfigSpec.IntValue size(final ForgeConfigSpec.Builder builder, final int default_value){
-    return builder.defineInRange("size", default_value, 1, 20); // vanilla custom world settings has this set as 50.
+    silicon.build(builder);
+    rose_quartz.build(builder);
   }
 
 }

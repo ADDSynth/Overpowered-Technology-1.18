@@ -1,6 +1,6 @@
 package addsynth.core.gameplay.music_box.gui;
 
-import addsynth.core.config.Config;
+import addsynth.core.gameplay.Config;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.network_messages.NoteMessage;

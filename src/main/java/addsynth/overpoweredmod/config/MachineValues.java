@@ -15,25 +15,25 @@ public final class MachineValues {
   public static ForgeConfigSpec.IntValue light_block_max_extract;
 
   // Standard Machines
-  public static final MachineDataConfig gem_converter = new MachineDataConfig(   800,  28,    0.06 ,  60); // 22,400 for 40 seconds (allowing 12 conversions per Energy Crystal.)
-  public static final MachineDataConfig inverter      = new MachineDataConfig(18_000,  15,    0.1  , 200); // 1 full energy crystal for 15 minutes
-  public static final MachineDataConfig magic_infuser = new MachineDataConfig( 1_200,  50,    0.075,  60); // 60,000
-  public static final MachineDataConfig identifier    = new MachineDataConfig(   500,  16,    0.05 ,  10); //  8,000
+  public static final MachineDataConfig gem_converter = new MachineDataConfig("Gem Converter",    800,  28,    0.06 ,  60); // 22,400 for 40 seconds (allowing 12 conversions per Energy Crystal.)
+  public static final MachineDataConfig inverter      = new MachineDataConfig("Inverter"     , 18_000,  15,    0.1  , 200); // 1 full energy crystal for 15 minutes
+  public static final MachineDataConfig magic_infuser = new MachineDataConfig("Magic Infuser",  1_200,  50,    0.075,  60); // 60,000
+  public static final MachineDataConfig identifier    = new MachineDataConfig("Identifier"   ,    500,  16,    0.05 ,  10); //  8,000
 
   // Passive Machines
   public static final MachineDataConfig crystal_matter_generator =
-    new MachineDataConfig(MachineType.PASSIVE, 16_000,  31.25, 0,  600); // 500,000 energy for 1 shard every 13.3 minutes
+    new MachineDataConfig("Crystal Matter Generator", MachineType.PASSIVE, 16_000,  31.25, 0,  600); // 500,000 energy for 1 shard every 13.3 minutes
   public static final MachineDataConfig plasma_generator =
-    new MachineDataConfig(MachineType.PASSIVE, 4_800, 50, 0.08, 300); // 50 energy per tick for 4 minutes = 240,000 Energy (1 Plasma per Energy Crystal.)
+    new MachineDataConfig("Plasma Generator", MachineType.PASSIVE, 4_800, 50, 0.08, 300); // 50 energy per tick for 4 minutes = 240,000 Energy (1 Plasma per Energy Crystal.)
     // First Plasma will require 30 Coal or Charcoal to produce.
 
   // Manual Activation Machines
   public static final MachineDataConfig portal =
-    new MachineDataConfig(MachineType.MANUAL_ACTIVATION, 50_000, 100, 0, 1200); // 5 million Energy, 42 minutes to generate
+    new MachineDataConfig("Portal Control Panel", MachineType.MANUAL_ACTIVATION, 50_000, 100, 0, 1200); // 5 million Energy, 42 minutes to generate
 
   // Always On Machines
   public static final MachineDataConfig advanced_ore_refinery =
-    new MachineDataConfig(MachineType.ALWAYS_ON, 400, 20, 0.1, 0); // 8,000
+    new MachineDataConfig("Advanced Ore Refinery", MachineType.ALWAYS_ON, 400, 20, 0.1, 0); // 8,000
 
   public static ForgeConfigSpec.IntValue required_energy_per_laser;
   public static ForgeConfigSpec.IntValue required_energy_per_laser_distance;
@@ -78,25 +78,11 @@ public final class MachineValues {
                                           DEFAULT_LIGHT_BLOCK_MAX_EXTRACT, 0, Integer.MAX_VALUE);
     builder.pop();
     
-    builder.push("Gem Converter");
     gem_converter.build(builder);
-    builder.pop();
-    
-    builder.push("Inverter");
     inverter.build(builder);
-    builder.pop();
-    
-    builder.push("Magic Infuser");
     magic_infuser.build(builder);
-    builder.pop();
-    
-    builder.push("Identifier");
     identifier.build(builder);
-    builder.pop();
-    
-    builder.push("Portal Control Panel");
     portal.build(builder);
-    builder.pop();
     
     builder.push("Laser");
     required_energy_per_laser          = builder.defineInRange("Energy per Laser Cannon",
@@ -106,17 +92,9 @@ public final class MachineValues {
     laser_max_receive = builder.defineInRange("Max Receive Per Tick", DEFAULT_LASER_MAX_RECEIVE, 1, Integer.MAX_VALUE);
     builder.pop();
 
-    builder.push("Plasma Generator");
     plasma_generator.build(builder);
-    builder.pop();
-    
-    builder.push("Crystal Matter Generator");
     crystal_matter_generator.build(builder);
-    builder.pop();
-    
-    builder.push("Advanced Ore Refinery");
     advanced_ore_refinery.build(builder);
-    builder.pop();
 
     builder.push("Fusion Energy Converter");
     fusion_energy_output_per_tick = builder.defineInRange("Energy Produced per tick",

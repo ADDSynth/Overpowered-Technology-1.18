@@ -2,7 +2,7 @@ package addsynth.energy.compat;
 
 import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
-import addsynth.core.config.Config;
+import addsynth.core.gameplay.Config;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.gameplay.EnergyItems;
 import net.minecraftforge.fml.InterModComms;

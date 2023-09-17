@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import addsynth.core.config.Config;
+import addsynth.core.gameplay.Config;
 import addsynth.core.util.color.ColorUtil;
 import addsynth.core.util.java.FileUtil;
 import net.minecraft.core.BlockPos;

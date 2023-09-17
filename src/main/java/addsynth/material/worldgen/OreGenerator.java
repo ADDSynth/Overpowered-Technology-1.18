@@ -16,47 +16,47 @@ public final class OreGenerator {
     // This is how it's done now apparently.
     if(category != Biome.BiomeCategory.NETHER && category != Biome.BiomeCategory.THEEND){
 
-      if(WorldgenConfig.generate_ruby.get()){
+      if(WorldgenConfig.ruby.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.RUBY_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_topaz.get()){
+      if(WorldgenConfig.topaz.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.TOPAZ_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_citrine.get()){
+      if(WorldgenConfig.citrine.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.CITRINE_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_emerald.get()){
+      if(WorldgenConfig.emerald.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.EMERALD_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_sapphire.get()){
+      if(WorldgenConfig.sapphire.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.SAPPHIRE_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_amethyst.get()){
+      if(WorldgenConfig.amethyst.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.AMETHYST_ORE_FEATURE);
       }
       
-      if(WorldgenConfig.generate_tin.get()){
+      if(WorldgenConfig.tin.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.TIN_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_aluminum.get()){
+      if(WorldgenConfig.aluminum.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.ALUMINUM_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_silver.get()){
+      if(WorldgenConfig.silver.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.SILVER_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_platinum.get()){
+      if(WorldgenConfig.platinum.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.PLATINUM_ORE_FEATURE);
       }
-      if(WorldgenConfig.generate_titanium.get()){
+      if(WorldgenConfig.titanium.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.TITANIUM_ORE_FEATURE);
       }
       
-      if(WorldgenConfig.generate_silicon.get()){
+      if(WorldgenConfig.silicon.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.SILICON_ORE_FEATURE);
       }
       
       // Rose Quartz is the most rare. Make sure it is the last one generated
-      if(WorldgenConfig.generate_rose_quartz.get()){
+      if(WorldgenConfig.rose_quartz.generate.get()){
         builder.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, GenFeatures.ROSE_QUARTZ_ORE_FEATURE);
       }
     }

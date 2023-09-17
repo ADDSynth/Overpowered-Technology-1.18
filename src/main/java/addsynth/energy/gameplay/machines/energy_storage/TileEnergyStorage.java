@@ -18,8 +18,8 @@ public final class TileEnergyStorage extends TileEnergyBattery implements MenuPr
   public TileEnergyStorage(BlockPos position, BlockState blockstate){
     super(Tiles.ENERGY_CONTAINER.get(), position, blockstate,
       new Energy(
-        Config.energy_storage_container_capacity.get(),
-        Config.energy_storage_container_extract_rate.get()
+        Config.energy_storage.getCapacity(),
+        Config.energy_storage.getMaxTransferRate()
       )
     );
   }

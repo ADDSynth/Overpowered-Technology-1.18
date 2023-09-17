@@ -11,19 +11,19 @@ public class MachineData {
 
   /** Number of work units needed to perform 1 operation. */
   @Nonnegative
-  protected final int work_time;
+  protected final int WORK_TIME;
 
   /** Number of Ticks the machine spends 'powering on' when the player turns the machine off. */
   @Nonnegative
-  protected final int power_on_time;
+  protected final int POWER_ON_TIME;
 
   /** Amount of Energy needed to increment the work time by 1. */
   @Nonnegative
-  protected final double max_energy_accepted;
+  protected final double ENERGY_PER_TICK;
 
   /** Amount of Energy that is used every tick when the machine is not doing work. */
   @Nonnegative
-  protected final double idle_energy;
+  protected final double IDLE_ENERGY;
 
   /** Total amount energy needed to perform 1 operation. */
   public final double get_total_energy_needed(){
@@ -40,27 +40,27 @@ public class MachineData {
   }
 
   public MachineData(MachineType type, int work_time, double energy_needed, double idle_energy, int power_on_time){
-    this.type                = type;
-    this.work_time           = work_time;
-    this.power_on_time       = power_on_time;
-    this.max_energy_accepted = energy_needed;
-    this.idle_energy         = idle_energy < 0 ? DEFAULT_IDLE_ENERGY : idle_energy;
+    this.type            = type;
+    this.WORK_TIME       = work_time;
+    this.POWER_ON_TIME   = power_on_time;
+    this.ENERGY_PER_TICK = energy_needed;
+    this.IDLE_ENERGY     = idle_energy < 0 ? DEFAULT_IDLE_ENERGY : idle_energy;
   }
 
   public int get_work_time(){
-    return work_time;
+    return WORK_TIME;
   }
   
   public double get_max_receive(){
-    return max_energy_accepted;
+    return ENERGY_PER_TICK;
   }
 
   public double get_idle_energy(){
-    return idle_energy;
+    return IDLE_ENERGY;
   }
   
   public int get_power_time(){
-    return power_on_time;
+    return POWER_ON_TIME;
   }
 
 }

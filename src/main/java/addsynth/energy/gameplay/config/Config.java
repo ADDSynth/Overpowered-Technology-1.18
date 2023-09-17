@@ -3,20 +3,18 @@ package addsynth.energy.gameplay.config;
 import org.apache.commons.lang3.tuple.Pair;
 import addsynth.energy.lib.config.MachineDataConfig;
 import addsynth.energy.lib.config.MachineType;
+import addsynth.energy.lib.config.SimpleBatteryConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public final class Config {
 
-  public static final MachineDataConfig compressor_data         = new MachineDataConfig(MachineType.ALWAYS_ON, 200, 10, 0, 0); // 2,000
-  public static final MachineDataConfig circuit_fabricator_data = new MachineDataConfig(MachineType.ALWAYS_ON, 1000, 25, 0, 0);
+  public static final MachineDataConfig compressor         = new MachineDataConfig("Compressor",         MachineType.ALWAYS_ON,  200, 10, 0, 0); // 2,000
+  public static final MachineDataConfig circuit_fabricator = new MachineDataConfig("Circuit Fabricator", MachineType.ALWAYS_ON, 1000, 25, 0, 0);
 
-  public static ForgeConfigSpec.IntValue     energy_storage_container_capacity;
-  public static ForgeConfigSpec.IntValue     energy_storage_container_extract_rate;
-  public static ForgeConfigSpec.IntValue     universal_energy_interface_buffer;
+  public static final SimpleBatteryConfig energy_storage = new SimpleBatteryConfig("Energy Storage Block", 200_000, 100);
 
-  private static final int DEFAULT_ENERGY_STORAGE_CAPACITY         = 200_000;
-  private static final int DEFAULT_ENERGY_STORAGE_MAX_EXTRACT        =   100;
   private static final int DEFAULT_UNIVERSAL_ENERGY_INTERFACE_BUFFER = 1_000;
+  public static ForgeConfigSpec.IntValue     universal_energy_interface_buffer;
 
   private static final Pair<Config, ForgeConfigSpec> SPEC_PAIR = new ForgeConfigSpec.Builder().configure(Config::new);
   public static final Config INSTANCE = SPEC_PAIR.getLeft();
@@ -24,20 +22,10 @@ public final class Config {
 
   public Config(final ForgeConfigSpec.Builder builder){
   
-    builder.push("Compressor");
-    compressor_data.build(builder);
-    builder.pop();
+    compressor.build(builder);
+    circuit_fabricator.build(builder);
     
-    builder.push("Circuit Fabricator");
-    circuit_fabricator_data.build(builder);
-    builder.pop();
-    
-    builder.push("Energy Storage Block");
-    energy_storage_container_capacity     = builder.defineInRange("Energy Storage Container Capacity",
-                                              DEFAULT_ENERGY_STORAGE_CAPACITY, 0, Integer.MAX_VALUE);
-    energy_storage_container_extract_rate = builder.defineInRange("Energy Storage Container Extract Rate",
-                                              DEFAULT_ENERGY_STORAGE_MAX_EXTRACT, 0, Integer.MAX_VALUE);
-    builder.pop();
+    energy_storage.build(builder);
     
     builder.push("Universal Energy Interface");
     universal_energy_interface_buffer     = builder.defineInRange("Universal Energy Interface Buffer",

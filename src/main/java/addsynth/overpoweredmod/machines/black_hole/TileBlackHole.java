@@ -16,7 +16,6 @@ import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.items.DimensionalAnchor;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
@@ -64,8 +63,6 @@ public final class TileBlackHole extends BlockEntity implements ITickingTileEnti
   public TileBlackHole(BlockPos position, BlockState blockstate){
     super(Tiles.BLACK_HOLE.get(), position, blockstate);
   }
-
-  // OPTIMIZE: Remove save and load in the 1.17 version because we don't use it?
 
   @Override
   @SuppressWarnings("null")

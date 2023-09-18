@@ -2,6 +2,7 @@ package addsynth.energy.lib.network_messages;
 
 import java.util.function.Supplier;
 import addsynth.energy.ADDSynthEnergy;
+import addsynth.energy.lib.gui.widgets.OnOffSwitch;
 import addsynth.energy.lib.tiles.machines.ISwitchableMachine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,6 +11,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 
+/** After a player clicks on a {@link OnOffSwitch} this message gets sent to a
+ *  TileEntity that implements the {@link ISwitchableMachine} and calls the
+ *  {@link ISwitchableMachine#togglePowerSwitch() togglePowerSwitch()} method.
+ */
 public final class SwitchMachineMessage {
 
   private final BlockPos position;

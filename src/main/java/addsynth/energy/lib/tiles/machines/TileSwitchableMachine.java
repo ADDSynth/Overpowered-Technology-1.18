@@ -3,6 +3,7 @@ package addsynth.energy.lib.tiles.machines;
 import addsynth.core.util.StringUtil;
 import addsynth.core.util.math.common.RoundMode;
 import addsynth.energy.lib.config.MachineData;
+import addsynth.energy.lib.network_messages.SwitchMachineMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -46,6 +47,8 @@ public abstract class TileSwitchableMachine extends TileAbstractWorkMachine impl
     nbt.putInt("Power Time", power_time);
   }
 
+  /** This should only be called by the TileEntity's {@link #machine_tick()}
+   *  method while in the {@link MachineState#POWERING_OFF POWERING_OFF} state. */
   protected final void powering_off(){
     power_time += 1;
     if(power_time >= power_off_time){
@@ -55,6 +58,13 @@ public abstract class TileSwitchableMachine extends TileAbstractWorkMachine impl
     changed = true;
   }
 
+  /** This is called after switching off the power switch, either by a
+   *  {@link SwitchMachineMessage} or by a TileEntity that implements
+   *  the {@link IAutoShutoff} interface and checks if the auto shutoff
+   *  is enabled, and shuts itself off after performing work. This will
+   *  put the machine in the {@link MachineState#POWERING_OFF POWERING_OFF}
+   *  state if the machine has {@code power_cycle_time} > 0.
+   */
   protected final void turn_off(){
     if(power_off_time > 0){
       state = MachineState.POWERING_OFF;

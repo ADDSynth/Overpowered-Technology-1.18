@@ -7,6 +7,8 @@ import addsynth.energy.lib.network_messages.ToggleAutoShutoffMessage;
 import addsynth.energy.lib.tiles.machines.IAutoShutoff;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+/** A special checkbox that toggles the {@code auto_shutoff} state of a
+ *  TileEntity that implements the {@link IAutoShutoff} interface. */
 public final class AutoShutoffCheckbox<T extends BlockEntity & IAutoShutoff> extends Checkbox {
 
   private final T tile;

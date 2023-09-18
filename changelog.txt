@@ -78,6 +78,8 @@ NEW:
    - TODO: doesn't drop more than once! Need to use something other than LootItemRandomChanceCondition.
   Mouse scrollwheel can now scroll the lists next to scrollbars.
   Magic Infuser recipes now show up in JEI.
+  Starting in Minecraft 1.18, the vanilla Amethyst Shards can now be accepted in the Gem Converter.
+    And the vanilla Amethyst block can be accepted in the Portal Frame.
   Added an advancement for the Crystal Energy Extractor.
 CHANGED:
   Increased the chance to drop an Unidentified Ring when killing enemy mobs.

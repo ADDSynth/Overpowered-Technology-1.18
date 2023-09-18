@@ -56,7 +56,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
       case 6 -> Names.CIRCUIT_TIER_7;
       case 7 -> Names.CIRCUIT_TIER_8;
       case 8 -> Names.CIRCUIT_TIER_9;
-      default -> null;
+      default -> defaultRecipe;
     };
     change_recipe(circuit);
   }

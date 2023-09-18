@@ -19,9 +19,6 @@ public final class CircuitFabricatorContainer extends TileEntityContainer<TileCi
     common_setup(player_inventory);
   }
 
-  public static final int input_slot_x = 76;
-  public static final int input_slot_y = 48;
-
   private final void common_setup(final Inventory player_inventory){
     make_player_inventory(player_inventory, 87, 157);
     addSlot(new  InputSlot(tile, 0, tile.getFilter(0), 162, 76));

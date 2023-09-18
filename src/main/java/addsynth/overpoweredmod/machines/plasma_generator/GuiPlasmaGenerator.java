@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.machines.plasma_generator;
 
+import addsynth.core.game.item.constants.ItemConstants;
 import addsynth.core.util.math.common.CommonMath;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
@@ -47,7 +48,7 @@ public final class GuiPlasmaGenerator extends GuiEnergyBase<TilePlasmaGenerator,
         return; // do nothing if input is invalid
       }
 
-      final int adjusted_value = CommonMath.clamp(captured_value, 1, 64);
+      final int adjusted_value = CommonMath.clamp(captured_value, 1, ItemConstants.stack_size);
       if(adjusted_value != captured_value){ // if valid but outside range
         setValue(Integer.toString(adjusted_value)); // will call the responder again
         return;
@@ -94,7 +95,7 @@ public final class GuiPlasmaGenerator extends GuiEnergyBase<TilePlasmaGenerator,
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
     draw_title(matrix);
     draw_status_after_switch(matrix, tile.getStatus());
-    draw_energy_usage(matrix, 6, 38);
+    draw_energy_usage_below_switch(matrix);
     draw_text_right(matrix, work_progress_bar.getWorkTimeProgress(), 77, 74);
     draw_time_left(matrix, 102);
   }

@@ -53,7 +53,7 @@ public final class BlockShape {
     final int south = state.getValue(BlockStateProperties.SOUTH) ? SOUTH : 0;
     final int west  = state.getValue(BlockStateProperties.WEST)  ? WEST  : 0;
     final int east  = state.getValue(BlockStateProperties.EAST)  ? EAST  : 0;
-    return down + up + north + south + east + west; // MAYBE computationally faster to use bitwise OR instead of adding?
+    return down | up | north | south | east | west;
   }
 
   public static final VoxelShape combine(final VoxelShape ... shapes){

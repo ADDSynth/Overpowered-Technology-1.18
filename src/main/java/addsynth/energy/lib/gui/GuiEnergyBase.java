@@ -88,6 +88,11 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
     this.draw_energy_usage(matrix, 50, 21);
   }
   
+  /** Draws the Energy Usage below the Power Switch. */
+  protected final void draw_energy_usage_below_switch(final PoseStack matrix){
+    this.draw_energy_usage(matrix, 6, 38);
+  }
+  
   protected final void draw_energy_usage(PoseStack matrix, final int draw_x, final int draw_y){
     if(energy != null){
       draw_text_left(matrix, efficiency_text+":", draw_x, draw_y);

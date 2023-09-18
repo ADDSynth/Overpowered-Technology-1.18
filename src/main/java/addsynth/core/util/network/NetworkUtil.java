@@ -85,9 +85,9 @@ public final class NetworkUtil {
   }
 
   /** Sends a network message to only those players that are close to the TileEntity,
-   *  with a default radius of 32 blocks.   */
+   *  with a default radius of 64 blocks (4 chunks).  */
   public static final void send_to_TileEntity(final SimpleChannel network, final BlockEntity tile, final Object message){
-    send_to_TileEntity(network, tile, 32, message);
+    send_to_TileEntity(network, tile, 64, message);
   }
 
   /** Further restricts which clients to send the network message to by only sending

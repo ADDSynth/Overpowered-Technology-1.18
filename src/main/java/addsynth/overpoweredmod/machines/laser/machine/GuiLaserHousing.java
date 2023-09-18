@@ -57,8 +57,7 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
     public LaserDistanceTextField(Font fontIn, int x, int y, int width, int height, TileLaserHousing tile){
       super(fontIn, x, y, width, height, new TextComponent(""));
       this.tile = tile;
-      final String initial_distance = Integer.toString(tile.getLaserDistance());
-      setValue(initial_distance);
+      setValue(Integer.toString(tile.getLaserDistance()));
       setMaxLength(4); // FEATURE: add a numbers-only textbox to ADDSynthCore. Also add Unsigned textbox. Set text to red if input is invalid.
       setTextColor(16777215);
       setResponder((String text) -> text_field_changed());

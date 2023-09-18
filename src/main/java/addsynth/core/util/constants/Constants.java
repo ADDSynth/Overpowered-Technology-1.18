@@ -4,6 +4,7 @@ import addsynth.core.util.color.ColorCode;
 import net.minecraft.world.level.block.Blocks;
 
 /** @see addsynth.core.game.item.constants.HarvestLevel
+ *  @see addsynth.core.game.item.constants.ItemConstants
  *  @see addsynth.core.game.item.constants.ItemValue
  *  @see addsynth.core.game.item.constants.ToolConstants
  *  @see addsynth.core.gui.util.GuiUtil#text_color

@@ -3,7 +3,6 @@ package addsynth.core.gameplay.commands;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 import addsynth.core.ADDSynthCore;
@@ -12,7 +11,6 @@ import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.java.FileUtil;
 import addsynth.core.util.math.block.BlockMath;
 import addsynth.core.util.world.WorldConstants;
-import addsynth.material.util.MaterialUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.commands.CommandSourceStack;
@@ -25,6 +23,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITag;
 
 public final class ShowOresCommand {
 
@@ -87,7 +88,7 @@ public final class ShowOresCommand {
     final Entity entity = source.getEntity();
     if(entity != null){
       final World world = source.getLevel();
-      final Collection<Block> ore_blocks = Tags.Blocks.ORES.getValues();
+      final ITag<Block> ore_blocks = ForgeRegistries.BLOCKS.tags().getTag(Tags.Blocks.ORES);
       final BlockPos position = entity.blockPosition();
       final int x_coord = BlockMath.get_first_block_in_chunk(position.getX());
       final int z_coord = BlockMath.get_first_block_in_chunk(position.getZ());
@@ -132,7 +133,7 @@ public final class ShowOresCommand {
     if(entity != null){
       
       final TreeMap<String, Integer> block_count = new TreeMap<>();
-      final Collection<Block> ore_blocks = MaterialUtil.getOreBlocks();
+      final ITag<Block> ore_blocks = ForgeRegistries.BLOCKS.tags().getTag(Tags.Blocks.ORES);
       final Level world = source.getLevel();
       final BlockPos position = entity.blockPosition();
       final int chunks = size * size;

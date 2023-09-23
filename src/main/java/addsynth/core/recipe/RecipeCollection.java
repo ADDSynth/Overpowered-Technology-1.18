@@ -6,10 +6,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.game.inventory.filter.MachineFilter;
-import addsynth.core.game.resource.ResourceUtil;
-import addsynth.core.util.server.ServerUtils;
+import addsynth.core.util.StringUtil;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.StackedContents;
@@ -19,8 +17,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /** The RecipeCollection keeps a list of recipes of the {@link RecipeType}
@@ -40,33 +36,27 @@ public class RecipeCollection<T extends Recipe<Container>> {
     filter = new MachineFilter(recipe_max_size);
   }
 
-  /** This ensures the input filter gets rebuilt whenever resources are reloaded. */
-  public final void registerResponders(){
-    // rebuild filter on resource reload.
-    ResourceUtil.addListener(() -> {
-      @SuppressWarnings("resource")
-      final MinecraftServer server = ServerUtils.getServer();
-      if(server != null){
-        build_filter(server.getRecipeManager());
-      }
-    });
-    MinecraftForge.EVENT_BUS.addListener((RecipesUpdatedEvent event) -> {
-      build_filter(event.getRecipeManager());
-    });
+  /** RecipeCollections should be registered in your Mod's class constructor or main setup
+   *  function. This will ensure they get rebuilt on server and client whenever resources
+   *  are reloaded. However, we really shouldn't be doing this. I just want this because
+   *  I want slots to be filtered based on their recipes.
+   */
+  public final void register(){
+    RecipeUtil.addResponder(this::rebuild);
   }
 
-  /** This builds the ingredient filter. */
-  private final void build_filter(final RecipeManager recipe_manager){
+  /** This rebuilds the recipe cache and ingredient filter. */
+  public final void rebuild(final RecipeManager recipe_manager){
     // rebuild recipe cache
     recipes.clear();
     recipes.addAll(recipe_manager.getAllRecipesFor(type));
     
     if(recipes.size() == 0){
-      ADDSynthCore.log.error("No recipes of type "+type.getClass().getSimpleName()+" exist!");
+      ADDSynthCore.log.error("No recipes of type "+getRecipeTypeName()+" exist!");
       return;
     }
     filter.set(recipes);
-    ADDSynthCore.log.info(type.getClass().getSimpleName()+" input filter was rebuilt.");
+    ADDSynthCore.log.info(this.toString()+" was rebuilt.");
   }
 
   /** Gets the filter for the first slot. Useful for recipes that only have 1 ingredient. */
@@ -154,6 +144,19 @@ public class RecipeCollection<T extends Recipe<Container>> {
       }
     }
     return recipe;
+  }
+
+  public final String getRecipeTypeName(){
+    if(type == null){
+      return "null";
+    }
+    final String type_name = type.getClass().getSimpleName();
+    return type_name.isEmpty() ? StringUtil.Capitalize(type.toString()) : type_name;
+  }
+
+  @Override
+  public String toString(){
+    return StringUtil.build(getRecipeTypeName(), ' ', RecipeCollection.class.getSimpleName());
   }
 
 }

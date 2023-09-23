@@ -4,7 +4,6 @@ import java.io.File;
 import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
 import addsynth.core.game.RegistryUtil;
-import addsynth.core.game.resource.ResourceUtil;
 import addsynth.core.gameplay.Config;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;
@@ -12,12 +11,14 @@ import addsynth.core.gameplay.commands.ADDSynthCommands;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.recipe.FurnaceRecipes;
+import addsynth.core.recipe.RecipeUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -65,6 +66,9 @@ public final class ADDSynthCore {
     MinecraftForge.EVENT_BUS.addListener(TeamData::serverTick);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthCommands::tick);
     
+    MinecraftForge.EVENT_BUS.addListener(RecipeUtil::tags_updated);
+    MinecraftForge.EVENT_BUS.addListener(RecipeUtil::recipes_updated);
+    
     ADDSynthCore.log.info("Done constructing ADDSynthCore class object.");
   }
 
@@ -84,9 +88,9 @@ public final class ADDSynthCore {
       event.enqueueWork(Compatibility::debug);
     }
     NetworkHandler.registerMessages();
-    ResourceUtil.addListener(Debug::dump_tags);
+    MinecraftForge.EVENT_BUS.addListener((TagsUpdatedEvent tag_event) -> Debug.dump_tags());
     
-    FurnaceRecipes.INSTANCE.registerResponders();
+    FurnaceRecipes.INSTANCE.register();
 
     log.info("Finished ADDSynthCore main setup.");
   }

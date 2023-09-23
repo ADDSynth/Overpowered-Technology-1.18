@@ -5,7 +5,6 @@ import addsynth.core.game.inventory.SlotData;
 import addsynth.core.game.inventory.filter.TagFilter;
 import addsynth.core.game.tiles.TileStorageMachine;
 import addsynth.material.util.MaterialTag;
-import addsynth.material.util.MaterialUtil;
 import addsynth.overpoweredmod.game.tags.OverpoweredItemTags;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -18,6 +17,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITagManager;
 
 public final class TilePortalFrame extends TileStorageMachine implements MenuProvider {
 
@@ -31,14 +32,15 @@ public final class TilePortalFrame extends TileStorageMachine implements MenuPro
     final ItemStack stack = input_inventory.getStackInSlot(0);
     if(stack.isEmpty()){ return -1; }
     final Item item = stack.getItem();
-    if(MaterialUtil.match(item, MaterialTag.RUBY.BLOCKS)){            return 0; }
-    if(MaterialUtil.match(item, MaterialTag.TOPAZ.BLOCKS)){           return 1; }
-    if(MaterialUtil.match(item, MaterialTag.CITRINE.BLOCKS)){         return 2; }
-    if(MaterialUtil.match(item, Tags.Items.STORAGE_BLOCKS_EMERALD)){  return 3; }
-    if(MaterialUtil.match(item, Tags.Items.STORAGE_BLOCKS_DIAMOND)){  return 4; }
-    if(MaterialUtil.match(item, MaterialTag.SAPPHIRE.BLOCKS)){        return 5; }
-    if(MaterialUtil.match(item, Tags.Items.STORAGE_BLOCKS_AMETHYST)){ return 6; }
-    if(MaterialUtil.match(item, Tags.Items.STORAGE_BLOCKS_QUARTZ)){   return 7; }
+    final ITagManager<Item> tag_manager = ForgeRegistries.ITEMS.tags();
+    if(tag_manager.getTag(MaterialTag.RUBY.BLOCKS           ).contains(item)){ return 0; }
+    if(tag_manager.getTag(MaterialTag.TOPAZ.BLOCKS          ).contains(item)){ return 1; }
+    if(tag_manager.getTag(MaterialTag.CITRINE.BLOCKS        ).contains(item)){ return 2; }
+    if(tag_manager.getTag(Tags.Items.STORAGE_BLOCKS_EMERALD ).contains(item)){ return 3; }
+    if(tag_manager.getTag(Tags.Items.STORAGE_BLOCKS_DIAMOND ).contains(item)){ return 4; }
+    if(tag_manager.getTag(MaterialTag.SAPPHIRE.BLOCKS       ).contains(item)){ return 5; }
+    if(tag_manager.getTag(Tags.Items.STORAGE_BLOCKS_AMETHYST).contains(item)){ return 6; }
+    if(tag_manager.getTag(Tags.Items.STORAGE_BLOCKS_QUARTZ  ).contains(item)){ return 7; }
     return -1;
   }
 

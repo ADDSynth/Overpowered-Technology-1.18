@@ -7,7 +7,6 @@ import addsynth.core.util.player.PlayerUtil;
 import addsynth.energy.lib.tiles.machines.TileStandardWorkMachine;
 import addsynth.material.Material;
 import addsynth.material.util.MaterialTag;
-import addsynth.material.util.MaterialUtil;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
 import addsynth.overpoweredmod.assets.CustomStats;
 import addsynth.overpoweredmod.config.MachineValues;
@@ -28,6 +27,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITagManager;
 
 public final class TileGemConverter extends TileStandardWorkMachine implements MenuProvider {
 
@@ -104,14 +105,15 @@ public final class TileGemConverter extends TileStandardWorkMachine implements M
 
   /** Returns whether the input ItemStack matches the specified Gem Index. */
   private static final boolean match(final Item item, final int id){
-    if(id == 0){ return MaterialUtil.match(item, MaterialTag.RUBY.GEMS);     }
-    if(id == 1){ return MaterialUtil.match(item, MaterialTag.TOPAZ.GEMS);    }
-    if(id == 2){ return MaterialUtil.match(item, MaterialTag.CITRINE.GEMS);  }
-    if(id == 3){ return MaterialUtil.match(item, Tags.Items.GEMS_EMERALD);  }
-    if(id == 4){ return MaterialUtil.match(item, Tags.Items.GEMS_DIAMOND);  }
-    if(id == 5){ return MaterialUtil.match(item, MaterialTag.SAPPHIRE.GEMS); }
-    if(id == 6){ return MaterialUtil.match(item, Tags.Items.GEMS_AMETHYST); }
-    if(id == 7){ return MaterialUtil.match(item, Tags.Items.GEMS_QUARTZ);   }
+    final ITagManager<Item> tag_manager = ForgeRegistries.ITEMS.tags();
+    if(id == 0){ return tag_manager.getTag(MaterialTag.RUBY.GEMS    ).contains(item); }
+    if(id == 1){ return tag_manager.getTag(MaterialTag.TOPAZ.GEMS   ).contains(item); }
+    if(id == 2){ return tag_manager.getTag(MaterialTag.CITRINE.GEMS ).contains(item); }
+    if(id == 3){ return tag_manager.getTag(Tags.Items.GEMS_EMERALD  ).contains(item); }
+    if(id == 4){ return tag_manager.getTag(Tags.Items.GEMS_DIAMOND  ).contains(item); }
+    if(id == 5){ return tag_manager.getTag(MaterialTag.SAPPHIRE.GEMS).contains(item); }
+    if(id == 6){ return tag_manager.getTag(Tags.Items.GEMS_AMETHYST ).contains(item); }
+    if(id == 7){ return tag_manager.getTag(Tags.Items.GEMS_QUARTZ   ).contains(item); }
     return false;
   }
 

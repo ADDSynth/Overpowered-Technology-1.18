@@ -85,8 +85,8 @@ public class OverpoweredTechnology {
     
     NetworkHandler.registerMessages();
     // WeirdDimension.register();
-    OreRefineryRecipes.registerResponders();
-    MagicInfuserRecipes.INSTANCE.registerResponders();
+    OreRefineryRecipes.register();
+    MagicInfuserRecipes.INSTANCE.register();
     
     // Register Stats
     // Can't add Overpowered Technology Name to stats because then the text overlaps the stat values.

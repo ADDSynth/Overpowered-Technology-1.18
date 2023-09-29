@@ -40,7 +40,7 @@ public final class SwitchMachineMessage {
       @SuppressWarnings("resource")
       final ServerLevel world = player.getLevel();
       context.enqueueWork(() -> {
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final BlockEntity tile = world.getBlockEntity(message.position);
           if(tile != null){
             if(tile instanceof ISwitchableMachine){

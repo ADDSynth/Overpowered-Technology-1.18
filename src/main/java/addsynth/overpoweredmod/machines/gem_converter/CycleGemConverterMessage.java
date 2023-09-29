@@ -36,7 +36,7 @@ public final class CycleGemConverterMessage {
       context.enqueueWork(() -> {
         @SuppressWarnings("resource")
         final ServerLevel world = player.getLevel();
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileGemConverter tile = MinecraftUtility.getTileEntity(message.position, world, TileGemConverter.class);
           if(tile != null){
             tile.cycle(message.cycle_direction);

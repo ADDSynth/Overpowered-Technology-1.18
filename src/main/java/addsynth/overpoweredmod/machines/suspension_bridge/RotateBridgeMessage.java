@@ -33,7 +33,7 @@ public final class RotateBridgeMessage {
       context.enqueueWork(() -> {
         @SuppressWarnings("resource")
         final ServerLevel world = player.getLevel();
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileSuspensionBridge tile = MinecraftUtility.getTileEntity(message.position, world, TileSuspensionBridge.class);
           if(tile != null){
             final BridgeNetwork bridge_network = tile.getBlockNetwork();

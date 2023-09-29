@@ -38,7 +38,7 @@ public final class SetLaserDistanceMessage {
       context.enqueueWork(() -> {
         @SuppressWarnings("resource")
         final ServerLevel world = player.getLevel();
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileLaserHousing tile = MinecraftUtility.getTileEntity(message.position, world, TileLaserHousing.class);
           if(tile != null){
             final LaserNetwork network = tile.getBlockNetwork();

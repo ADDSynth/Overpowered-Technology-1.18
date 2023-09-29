@@ -33,7 +33,7 @@ public final class CycleTransferModeMessage {
       @SuppressWarnings("resource")
       final ServerLevel world = player.getLevel();
       context.enqueueWork(() -> {
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileUniversalEnergyInterface tile = MinecraftUtility.getTileEntity(message.position, world, TileUniversalEnergyInterface.class);
           if(tile != null){
             tile.set_next_transfer_mode();

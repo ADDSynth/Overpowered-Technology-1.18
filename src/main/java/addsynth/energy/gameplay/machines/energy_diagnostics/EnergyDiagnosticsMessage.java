@@ -76,7 +76,7 @@ public final class EnergyDiagnosticsMessage {
       @SuppressWarnings("null")
       final Level world = minecraft.player.level;
 
-      if(world.isAreaLoaded(message.position, 0)){
+      if(world.isLoaded(message.position)){
         final TileEnergyDiagnostics energy_diagnostics_machine = MinecraftUtility.getTileEntity(message.position, world, TileEnergyDiagnostics.class);
         if(energy_diagnostics_machine != null){
           energy_diagnostics_machine.set(message.diagnostic_data, message.totals);

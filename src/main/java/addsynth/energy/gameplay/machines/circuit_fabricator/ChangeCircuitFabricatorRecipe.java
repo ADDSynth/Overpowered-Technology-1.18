@@ -37,7 +37,7 @@ public final class ChangeCircuitFabricatorRecipe {
       @SuppressWarnings("resource")
       final ServerLevel world = player.getLevel();
       context.enqueueWork(() -> {
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileCircuitFabricator tile = MinecraftUtility.getTileEntity(message.position, world, TileCircuitFabricator.class);
           if(tile != null){
             tile.change_recipe(message.recipe_output);

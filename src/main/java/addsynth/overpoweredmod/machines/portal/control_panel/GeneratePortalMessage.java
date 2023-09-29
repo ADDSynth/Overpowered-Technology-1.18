@@ -35,7 +35,7 @@ public final class GeneratePortalMessage {
       context.enqueueWork(() -> {
         @SuppressWarnings("resource")
         final ServerLevel world = player.getLevel();
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TilePortalControlPanel tile = MinecraftUtility.getTileEntity(message.position, world, TilePortalControlPanel.class);
           if(tile != null){
             tile.generate_portal();

@@ -36,7 +36,7 @@ public final class SetOutputThresholdMessage {
       context.enqueueWork(() -> {
         @SuppressWarnings("resource")
         final ServerLevel world = player.getLevel();
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TilePlasmaGenerator tile = MinecraftUtility.getTileEntity(message.position, world, TilePlasmaGenerator.class);
           if(tile != null){
             tile.set_output_number(message.output_threshold);

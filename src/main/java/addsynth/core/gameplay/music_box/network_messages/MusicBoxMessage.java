@@ -46,7 +46,7 @@ public final class MusicBoxMessage {
       @SuppressWarnings("resource")
       final ServerLevel world = player.getLevel();
       context.enqueueWork(() -> {
-        if(world.isAreaLoaded(message.position, 0)){
+        if(world.isLoaded(message.position)){
           final TileMusicBox music_box = MinecraftUtility.getTileEntity(message.position, world, TileMusicBox.class);
           if(music_box != null){
             switch(message.command){

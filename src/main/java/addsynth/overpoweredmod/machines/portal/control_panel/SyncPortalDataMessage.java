@@ -58,7 +58,7 @@ public final class SyncPortalDataMessage {
       @SuppressWarnings("null")
       final Level world = minecraft.player.level;
 
-      if(world.isAreaLoaded(message.position, 0)){
+      if(world.isLoaded(message.position)){
         final TilePortalControlPanel control_panel = MinecraftUtility.getTileEntity(message.position, world, TilePortalControlPanel.class);
         if(control_panel != null){
           control_panel.setData(message.items, message.message, message.valid_portal);

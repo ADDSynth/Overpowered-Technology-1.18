@@ -74,7 +74,7 @@ public final class SyncClientBridgeMessage {
       
       TileSuspensionBridge tile;
       for(final BlockPos pos : message.positions){
-        if(world.isAreaLoaded(pos, 0)){
+        if(world.isLoaded(pos)){
           tile = MinecraftUtility.getTileEntity(pos, world, TileSuspensionBridge.class);
           if(tile != null){
             tile.setMessages(message.bridge_message, message.messages);

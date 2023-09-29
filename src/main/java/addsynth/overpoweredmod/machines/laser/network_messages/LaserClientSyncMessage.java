@@ -45,7 +45,7 @@ public final class LaserClientSyncMessage {
 
       TileLaserHousing tile;
       for(final BlockPos pos : message.positions){
-        if(world.isAreaLoaded(pos, 0)){
+        if(world.isLoaded(pos)){
           tile = MinecraftUtility.getTileEntity(pos, world, TileLaserHousing.class);
           if(tile != null){
             tile.number_of_lasers = message.number_of_lasers;

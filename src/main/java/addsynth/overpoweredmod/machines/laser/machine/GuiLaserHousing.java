@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.machines.laser.machine;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;

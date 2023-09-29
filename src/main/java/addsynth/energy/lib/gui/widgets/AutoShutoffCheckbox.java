@@ -1,7 +1,7 @@
 package addsynth.energy.lib.gui.widgets;
 
 import addsynth.core.gui.widgets.buttons.Checkbox;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.lib.network_messages.ToggleAutoShutoffMessage;
 import addsynth.energy.lib.tiles.machines.IAutoShutoff;

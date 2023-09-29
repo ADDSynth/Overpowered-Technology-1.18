@@ -6,7 +6,6 @@ import java.lang.reflect.Modifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.ADDSynthCore;
-import addsynth.core.util.StringUtil;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public final class JavaUtils {

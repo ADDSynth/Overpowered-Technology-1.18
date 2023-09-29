@@ -14,7 +14,7 @@ import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import addsynth.core.gui.widgets.scrollbar.ListEntry;
 import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.TextComponent;

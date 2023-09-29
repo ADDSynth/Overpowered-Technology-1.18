@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines.portal.control_panel;
 
-import addsynth.core.util.StringUtil;
 import addsynth.core.util.color.ColorCode;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.ChatFormatting;
 
 public enum PortalMessage {

@@ -6,6 +6,7 @@ import java.time.format.FormatStyle;
 import java.util.Collection;
 import java.util.Set;
 import addsynth.core.util.constants.DevStage;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;

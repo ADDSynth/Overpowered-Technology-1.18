@@ -3,7 +3,7 @@ package addsynth.energy.gameplay.machines.energy_diagnostics;
 import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractButton;

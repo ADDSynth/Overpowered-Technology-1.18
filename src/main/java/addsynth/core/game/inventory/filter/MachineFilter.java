@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.recipe.RecipeCollection;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.core.util.java.list.ItemStackList;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;

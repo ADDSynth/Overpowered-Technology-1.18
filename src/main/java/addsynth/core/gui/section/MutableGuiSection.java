@@ -1,6 +1,6 @@
 package addsynth.core.gui.section;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 
 /** Used to define sections on a Gui to assist in positioning widgets and text.<br>
  *  You are allowed to edit any variable at any time, though it is generally recommended<br>

@@ -3,7 +3,7 @@ package addsynth.energy.lib.gui;
 import addsynth.core.container.TileEntityContainer;
 import addsynth.core.game.inventory.machine.IMachineInventory;
 import addsynth.core.gui.GuiContainerBase;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.lib.main.Energy;
 import addsynth.energy.lib.main.IEnergyUser;
 import com.mojang.blaze3d.vertex.PoseStack;

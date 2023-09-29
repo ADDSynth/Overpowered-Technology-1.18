@@ -1,7 +1,7 @@
 package addsynth.core.block_network;
 
 import addsynth.core.ADDSynthCore;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.core.BlockPos;
 
 public final class DebugBlockNetwork {

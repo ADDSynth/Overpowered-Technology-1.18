@@ -4,7 +4,7 @@ import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.widgets.item.IngredientWidgetGroup;
 import addsynth.core.gui.widgets.scrollbar.ItemListEntry;
 import addsynth.core.gui.widgets.scrollbar.ItemListScrollbar;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipes;
 import addsynth.energy.gameplay.reference.GuiReference;

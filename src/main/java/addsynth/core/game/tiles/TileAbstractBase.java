@@ -1,7 +1,7 @@
 package addsynth.core.game.tiles;
 
-import addsynth.core.util.StringUtil;
 import addsynth.core.util.game.tileentity.TileEntityUtil;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.MenuProvider;

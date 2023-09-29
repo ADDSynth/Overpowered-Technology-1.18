@@ -2,7 +2,7 @@ package addsynth.core.compat;
 
 import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;

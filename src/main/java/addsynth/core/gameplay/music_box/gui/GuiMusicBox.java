@@ -5,7 +5,7 @@ import addsynth.core.gameplay.music_box.TileMusicBox;
 import addsynth.core.gameplay.music_box.data.MusicGrid;
 import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gui.GuiBase;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

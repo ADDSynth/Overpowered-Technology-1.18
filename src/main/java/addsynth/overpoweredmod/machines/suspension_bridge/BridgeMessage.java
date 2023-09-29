@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines.suspension_bridge;
 
-import addsynth.core.util.StringUtil;
 import addsynth.core.util.color.ColorCode;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.ChatFormatting;
 
 public enum BridgeMessage {

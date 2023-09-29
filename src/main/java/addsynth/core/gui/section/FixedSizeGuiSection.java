@@ -1,6 +1,6 @@
 package addsynth.core.gui.section;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.client.gui.screens.Screen;
 
 /** Used to define sections on a Gui to assist in positioning widgets and text.<br>

@@ -1,7 +1,7 @@
 package addsynth.energy.gameplay.machines.universal_energy_interface;
 
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;

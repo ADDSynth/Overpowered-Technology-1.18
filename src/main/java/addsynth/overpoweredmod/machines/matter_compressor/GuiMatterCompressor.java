@@ -1,7 +1,7 @@
 package addsynth.overpoweredmod.machines.matter_compressor;
 
 import addsynth.core.gui.widgets.ProgressBar;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.core.util.math.common.RoundMode;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.overpoweredmod.config.Config;

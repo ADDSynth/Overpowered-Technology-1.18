@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.machines.energy_extractor;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
 import addsynth.overpoweredmod.game.reference.GuiReference;

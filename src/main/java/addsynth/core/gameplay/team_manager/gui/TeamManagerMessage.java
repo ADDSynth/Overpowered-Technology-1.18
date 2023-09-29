@@ -1,7 +1,7 @@
 package addsynth.core.gameplay.team_manager.gui;
 
-import addsynth.core.util.StringUtil;
 import addsynth.core.util.color.ColorCode;
+import addsynth.core.util.java.StringUtil;
 
 public final class TeamManagerMessage {
 

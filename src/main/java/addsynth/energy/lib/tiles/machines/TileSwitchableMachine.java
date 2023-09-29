@@ -1,6 +1,6 @@
 package addsynth.energy.lib.tiles.machines;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import addsynth.core.util.math.common.RoundMode;
 import addsynth.energy.lib.config.MachineData;
 import addsynth.energy.lib.network_messages.SwitchMachineMessage;

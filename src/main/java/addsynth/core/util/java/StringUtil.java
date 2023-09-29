@@ -1,4 +1,4 @@
-package addsynth.core.util;
+package addsynth.core.util.java;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package addsynth.material.types;
 
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 
 /** This is the base class for all materials. */
 public abstract class AbstractMaterial {

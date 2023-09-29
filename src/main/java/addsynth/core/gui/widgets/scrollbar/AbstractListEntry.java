@@ -1,7 +1,7 @@
 package addsynth.core.gui.widgets.scrollbar;
 
 import addsynth.core.gameplay.reference.GuiReference;
-import addsynth.core.util.StringUtil;
+import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

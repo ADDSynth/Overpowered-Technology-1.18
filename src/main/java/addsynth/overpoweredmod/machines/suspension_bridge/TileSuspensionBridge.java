@@ -2,7 +2,7 @@ package addsynth.overpoweredmod.machines.suspension_bridge;
 
 import java.util.function.Predicate;
 import javax.annotation.Nullable;
-import addsynth.core.block_network.BlockNetworkUtil;
+import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.inventory.SlotData;
 import addsynth.core.util.constants.Constants;
@@ -50,11 +50,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
 
   @Override
   public final void serverTick(){
-    if(network == null){
-      // creates block network, loads data, and calls updateBlockNetwork() and onUpdateNetworkFinished()
-      BlockNetworkUtil.create_or_join(level, this, BridgeNetwork::new);
-    }
-    network.tick(this);
+    BlockNetwork.tick(network, level, this, BridgeNetwork::new);
   }
 
   @Override
@@ -90,12 +86,6 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   }
 
   @Override
-  public void setRemoved(){
-    super.setRemoved();
-    // BlockNetworkUtil.tileentity_was_removed(this, BridgeNetwork::new);
-  }
-
-  @Override
   public void load_block_network_data(){
     network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), active, bridge_data, maximum_length);
   }
@@ -116,7 +106,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public final void onInventoryChanged(){
     if(onServerSide()){
-      network.update_lens(LensItem.get_index(inventory.getStackInSlot(0)));
+      network.update_lens(level, LensItem.get_index(inventory.getStackInSlot(0)));
     }
   }
 

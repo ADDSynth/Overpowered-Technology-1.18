@@ -80,6 +80,12 @@ public final class DataCable extends Wire {
 
   @Override
   @SuppressWarnings("deprecation")
+  public final void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
+    BlockNetworkUtil.onRemove(super::onRemove, TileDataCable.class, DataCableNetwork::new, state, world, pos, newState, isMoving);
+  }
+
+  @Override
+  @SuppressWarnings("deprecation")
   public final void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos neighbor, boolean isMoving){
     BlockNetworkUtil.neighbor_changed(world, pos, neighbor);
   }

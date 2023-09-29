@@ -56,7 +56,7 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
   }
 
   @Override
-  protected final void customSearch(final Node node){
+  protected final void customSearch(final Node node, final Level world){
     if(node.block == fusion_control_unit){
       if(scanning_units.contains(node.position) == false){
         scanning_units.add(node.position);
@@ -70,12 +70,12 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
   }
 
   @Override
-  public final void neighbor_was_changed(final BlockPos current_position, final BlockPos position_of_neighbor){
+  public final void neighbor_was_changed(final Level world, final BlockPos current_position, final BlockPos position_of_neighbor){
     // Is this optimized? Wouldn't it be better just to call updateBlockNetwork() regardless?
     Block block = world.getBlockState(position_of_neighbor).getBlock();
     if(block == fusion_converter_block || block == fusion_control_unit){
       // If a Fusion Converter or Fusion Control Unit was added.
-      updateBlockNetwork(current_position);
+      updateBlockNetwork(world, current_position);
       return;
     }
     boolean update = false;
@@ -97,12 +97,12 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
       }
     }
     if(update){
-      updateBlockNetwork(current_position); // run update outside of for loop to avoid ConcurrentModificationException's.
+      updateBlockNetwork(world, current_position); // run update outside of for loop to avoid ConcurrentModificationException's.
     }
   }
 
   @Override
-  protected final void onUpdateNetworkFinished(){
+  protected final void onUpdateNetworkFinished(final Level world){
     // What we're doing here is, even if the player has a valid fusion chamber constructed properly,
     //   its energy output can be divided amongst multiple Fusion Energy Converter machines.
     // check_singularity_container();
@@ -121,7 +121,7 @@ public final class DataCableNetwork extends BlockNetwork<TileDataCable> {
   /** THIS, is the algorithm that goes through all the scanning units, and performs an arsenal of
    *  validity checks on them! It ends as soon as it finds 1 valid Singularity Containment structure!
    */
-  public final BlockPos get_valid_fusion_container(){
+  public final BlockPos get_valid_fusion_container(final Level world){
     BlockPos valid_fusion_chamber = null;
     if(scanning_units.size() >= 6){
       boolean found_valid = false;

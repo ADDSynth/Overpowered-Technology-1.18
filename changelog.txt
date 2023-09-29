@@ -8,6 +8,9 @@ CHANGES:
     pick up an Energy Crystal.
 REMOVED:
   Since disabling things in the config doesn't work, it has been removed.
+  Batteries will no longer transfer their energy to other Batteries on the Energy network
+    when their block is removed.
+    - This was the behaviour since version 1.3.4.
 FIXED:
   Fixed not showing a message to players that can't access the Team Manager because they
     don't have the required permission level.

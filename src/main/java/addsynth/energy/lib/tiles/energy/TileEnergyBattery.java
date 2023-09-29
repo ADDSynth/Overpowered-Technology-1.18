@@ -1,7 +1,7 @@
 package addsynth.energy.lib.tiles.energy;
 
 import javax.annotation.Nullable;
-import addsynth.core.block_network.BlockNetworkUtil;
+import addsynth.core.block_network.BlockNetwork;
 import addsynth.energy.lib.energy_network.EnergyNetwork;
 import addsynth.energy.lib.energy_network.tiles.AbstractEnergyNetworkTile;
 import addsynth.energy.lib.main.Energy;
@@ -25,10 +25,7 @@ public abstract class TileEnergyBattery extends AbstractEnergyNetworkTile implem
 
   @Override
   public void serverTick(){
-    if(network == null){
-      BlockNetworkUtil.create_or_join(level, this, EnergyNetwork::new);
-    }
-    network.tick(this);
+    BlockNetwork.tick(network, level, this, EnergyNetwork::new);
     if(energy.tick()){
       update_data();
     }
@@ -51,23 +48,13 @@ public abstract class TileEnergyBattery extends AbstractEnergyNetworkTile implem
   }
 
   @Override
-  public final void setRemoved(){
-    super.setRemoved();
-    if(onServerSide()){
-      if(network != null){
-        network.drain_battery(energy);
-        // BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
-      }
-    }
-  }
-
-  @Override
   public final void setBlockNetwork(final EnergyNetwork network){
     this.network = network;
   }
 
   @Override
-  public final @Nullable EnergyNetwork getBlockNetwork(){
+  @Nullable
+  public final EnergyNetwork getBlockNetwork(){
     return network;
   }
 

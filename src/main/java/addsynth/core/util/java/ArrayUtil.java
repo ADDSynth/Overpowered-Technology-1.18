@@ -3,6 +3,7 @@ package addsynth.core.util.java;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
@@ -303,9 +304,24 @@ public final class ArrayUtil {
     return changed;
   }
 
-  /** Syncs the data in the cached_list with that in the supplied list. Only copies data.
-   *  Does not replace the cached_list object. Returns true if an update occured. */
-  public static final <T> boolean syncList(final ArrayList<T> cached_list, final ArrayList<T> new_list){
+  /** Syncs the data in the cached_list with that in the supplied list. Items are
+   *  first removed from the cached list if they do not exist in the new List. Any
+   *  new items are appended to the cached list. Returns true if an update occured. */
+  public static final <T> boolean syncList(final Collection<T> cached_list, final Collection<T> new_list){
+    boolean changed = cached_list.removeIf((T item) -> {return !new_list.contains(item);});
+    for(final T item : new_list){
+      if(cached_list.contains(item) == false){
+        cached_list.add(item);
+        changed = true;
+      }
+    }
+    return changed;
+  }
+
+  /** Syncs the data in the cached_list with that in the supplied list. First the cached
+   *  list is resized to match the new list, then each Item is copied over directly. This
+   *  ensures the order matches that of the new list. Returns true if an update occured. */
+  public static final <T> boolean syncListExactly(final List<T> cached_list, final List<T> new_list){
     boolean changed = false;
     final int length = new_list.size();
     while(cached_list.size() > length){

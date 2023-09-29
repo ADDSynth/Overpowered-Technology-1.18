@@ -38,7 +38,7 @@ public final class RotateBridgeMessage {
           if(tile != null){
             final BridgeNetwork bridge_network = tile.getBlockNetwork();
             if(bridge_network != null){
-              bridge_network.rotate();
+              bridge_network.rotate(world);
             }
           }
         }

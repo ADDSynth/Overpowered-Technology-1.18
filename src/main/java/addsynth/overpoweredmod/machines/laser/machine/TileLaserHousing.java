@@ -1,6 +1,7 @@
 package addsynth.overpoweredmod.machines.laser.machine;
 
 import javax.annotation.Nullable;
+import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.tiles.TileBase;
@@ -42,16 +43,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
 
   @Override
   public final void serverTick(){
-    if(network == null){
-      BlockNetworkUtil.create_or_join(level, this, LaserNetwork::new);
-    }
-    network.tick(this);
-  }
-
-  @Override
-  public final void setRemoved(){
-    super.setRemoved();
-    // BlockNetworkUtil.tileentity_was_removed(this, LaserNetwork::new);
+    BlockNetwork.tick(network, level, this, LaserNetwork::new);
   }
 
   @Override

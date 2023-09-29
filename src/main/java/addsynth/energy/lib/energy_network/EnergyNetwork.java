@@ -3,7 +3,6 @@ package addsynth.energy.lib.energy_network;
 import java.util.ArrayList;
 import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.Node;
-import addsynth.core.util.math.number.DecimalNumber;
 import addsynth.core.util.time.TimeUtil;
 import addsynth.energy.ADDSynthEnergy;
 import addsynth.energy.lib.energy_network.tiles.AbstractEnergyNetworkTile;
@@ -63,49 +62,40 @@ public final class EnergyNetwork extends BlockNetwork<AbstractEnergyNetworkTile>
   }
 
   @Override
-  public final void tick(final AbstractEnergyNetworkTile tile){
-    if(tile == first_tile){
-      final long start = TimeUtil.get_start_time();
-      
-      remove_invalid_nodes(all_machines);
-      remove_invalid_nodes(batteries);
-      remove_invalid_nodes(receivers);
-      remove_invalid_nodes(generators);
-
-      try{
-        // TEST: Step 1 and 2 should probably be reversed.
-      
-        // Step 1: subtract as much energy as we can from the generators.
-        EnergyUtil.transfer_energy(generators, receivers);
-        
-        // Step 2: if receivers still need energy, subtract it from batteries.
-        EnergyUtil.transfer_energy(batteries, receivers);
-        
-        // Step 3: put remaining energy from generators into batteries.
-        EnergyUtil.transfer_energy(generators, batteries);
-        
-        // Step 4: balance all batteries
-        if(batteries.size() >= 2){
-          EnergyUtil.balance_batteries(batteries);
-        }
-      }
-      catch(Exception e){
-        ADDSynthEnergy.log.fatal("Encountered a fatal error during Energy Network Tick.", e);
-      }
-      
-      tick_time = TimeUtil.get_elapsed_time(start);
-    }
-  }
-
-  public final void drain_battery(final Energy battery){
+  protected final void tick(final Level world){
+    final long start = TimeUtil.get_start_time();
+    
+    remove_invalid_nodes(all_machines);
     remove_invalid_nodes(batteries);
-    if(batteries.size() > 0){
-      EnergyUtil.balance_batteries(batteries, (long)(battery.getEnergy() * DecimalNumber.DECIMAL_ACCURACY));
+    remove_invalid_nodes(receivers);
+    remove_invalid_nodes(generators);
+
+    try{
+      // TEST: Step 1 and 2 should probably be reversed.
+    
+      // Step 1: subtract as much energy as we can from the generators.
+      EnergyUtil.transfer_energy(generators, receivers);
+      
+      // Step 2: if receivers still need energy, subtract it from batteries.
+      EnergyUtil.transfer_energy(batteries, receivers);
+      
+      // Step 3: put remaining energy from generators into batteries.
+      EnergyUtil.transfer_energy(generators, batteries);
+      
+      // Step 4: balance all batteries
+      if(batteries.size() >= 2){
+        EnergyUtil.balance_batteries(batteries);
+      }
     }
+    catch(Exception e){
+      ADDSynthEnergy.log.fatal("Encountered a fatal error during Energy Network Tick.", e);
+    }
+    
+    tick_time = TimeUtil.get_elapsed_time(start);
   }
 
   @Override
-  protected final void customSearch(final Node node){
+  protected final void customSearch(final Node node, final Level world){
     final BlockEntity tile = node.getTile();
     if(tile != null){
       if(tile instanceof ICustomEnergyUser){
@@ -135,11 +125,11 @@ public final class EnergyNetwork extends BlockNetwork<AbstractEnergyNetworkTile>
   }
 
   @Override
-  public void neighbor_was_changed(final BlockPos current_position, final BlockPos position_of_neighbor){
+  public void neighbor_was_changed(final Level world, final BlockPos current_position, final BlockPos position_of_neighbor){
     final BlockEntity tile = world.getBlockEntity(position_of_neighbor);
     if(tile != null){
       if(tile instanceof IEnergyUser){
-        updateBlockNetwork(current_position);
+        updateBlockNetwork(world, current_position);
       }
     }
   }

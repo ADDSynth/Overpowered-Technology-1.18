@@ -3,7 +3,6 @@ package addsynth.energy.lib.energy_network.tiles;
 import javax.annotation.Nullable;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.tiles.TileBase;
-import addsynth.core.util.game.tileentity.ITickingTileEntity;
 import addsynth.energy.gameplay.machines.energy_wire.EnergyWire;
 import addsynth.energy.lib.energy_network.EnergyNetwork;
 import addsynth.energy.lib.tiles.energy.TileEnergyBattery;
@@ -17,8 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * connect to.
  * @author ADDSynth
  */
-public abstract class AbstractEnergyNetworkTile extends TileBase
-  implements IBlockNetworkUser<EnergyNetwork>, ITickingTileEntity {
+public abstract class AbstractEnergyNetworkTile extends TileBase implements IBlockNetworkUser<EnergyNetwork> {
 
   @Nullable
   protected EnergyNetwork network;

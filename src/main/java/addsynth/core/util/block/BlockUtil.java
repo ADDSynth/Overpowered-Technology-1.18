@@ -2,7 +2,7 @@ package addsynth.core.util.block;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.block_network.Node;
@@ -30,7 +30,7 @@ public final class BlockUtil {
    * @param predicate The function that tests the Node.
    * @param consumer Supply a function that takes a Node as an argument. Allows you to run additional code on all Nodes searched.
    */
-  public static final HashSet<Node> find_blocks(final BlockPos from, final Level world, final Predicate<Node> predicate, final Consumer<Node> consumer){
+  public static final HashSet<Node> find_blocks(final BlockPos from, final Level world, final Predicate<Node> predicate, final BiConsumer<Node, Level> consumer){
     final HashSet<Node> list = new HashSet<>(100);
     try{
       final ArrayList<BlockPos> searched = new ArrayList<>(500);
@@ -50,7 +50,7 @@ public final class BlockUtil {
   }
 
   private static final void search
-  (BlockPos from, ArrayList<BlockPos> searched, HashSet<Node> list, Level world, Predicate<Node> predicate, Consumer<Node> consumer){
+  (BlockPos from, ArrayList<BlockPos> searched, HashSet<Node> list, Level world, Predicate<Node> predicate, BiConsumer<Node, Level> consumer){
     BlockPos position;
     for(final Direction side : Direction.values()){
       position = from.relative(side);
@@ -63,10 +63,10 @@ public final class BlockUtil {
     }
   }
 
-  private static final boolean check(BlockPos position, HashSet<Node> list, Level world, Predicate<Node> predicate, Consumer<Node> consumer){
+  private static final boolean check(BlockPos position, HashSet<Node> list, Level world, Predicate<Node> predicate, BiConsumer<Node, Level> consumer){
     final Node node = new Node(position, world);
     if(consumer != null){
-      consumer.accept(node);
+      consumer.accept(node, world);
     }
     if(predicate.test(node)){
       list.add(node);

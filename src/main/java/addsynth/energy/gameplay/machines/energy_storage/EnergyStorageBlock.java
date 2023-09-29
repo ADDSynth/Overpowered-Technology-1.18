@@ -2,10 +2,13 @@ package addsynth.energy.gameplay.machines.energy_storage;
 
 import java.util.List;
 import javax.annotation.Nullable;
+import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
+import addsynth.energy.lib.energy_network.EnergyNetwork;
+import addsynth.energy.lib.energy_network.tiles.AbstractEnergyNetworkTile;
 import addsynth.energy.registers.Tiles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -68,6 +71,11 @@ public final class EnergyStorageBlock extends MachineBlock {
       }
     }
     return InteractionResult.SUCCESS;
+  }
+
+  @Override
+  public final void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
+    BlockNetworkUtil.onRemove(super::onRemove, AbstractEnergyNetworkTile.class, EnergyNetwork::new, state, world, pos, newState, isMoving);
   }
 
   @Override

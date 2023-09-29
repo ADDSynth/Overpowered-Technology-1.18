@@ -82,7 +82,7 @@ public final class TileFusionEnergyConverter extends TileBase implements IEnergy
     BlockPos position;
     if(data_cable_networks.size() > 0){
       for(DataCableNetwork network : data_cable_networks){
-        position = network.get_valid_fusion_container();
+        position = network.get_valid_fusion_container(level);
         if(position != null){
           fusion_chamber = (TileFusionChamber)level.getBlockEntity(position);
           if(fusion_chamber != null){

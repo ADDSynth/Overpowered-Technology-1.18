@@ -2,6 +2,7 @@ package addsynth.core.block_network;
 
 import javax.annotation.Nullable;
 import addsynth.core.game.tiles.TileBase;
+import addsynth.core.util.game.tileentity.ITickingTileEntity;
 
 /**
  * <p>Attach this to TileEntities that use a Block Network. The {@link BlockNetwork} class
@@ -11,7 +12,7 @@ import addsynth.core.game.tiles.TileBase;
  *    your block network. During the update process call your own TileEntity's method to
  *    set the data, then call <code>super.update_data()</code>.</p>
  */
-public interface IBlockNetworkUser<T extends BlockNetwork> {
+public interface IBlockNetworkUser<T extends BlockNetwork> extends ITickingTileEntity {
 
   public void setBlockNetwork(T network);
 
@@ -21,7 +22,7 @@ public interface IBlockNetworkUser<T extends BlockNetwork> {
   @Nullable
   public T getBlockNetwork();
 
-  /** This function is called by {@link BlockNetworkUtil#create_or_join} after initializing the
+  /** This function is called by {@link BlockNetworkUtil#createBlockNetwork} after initializing the
    *  Block Network. Use this function to set Block Network data from the TileEntity, after it's
    *  been loaded by Minecraft.
    */

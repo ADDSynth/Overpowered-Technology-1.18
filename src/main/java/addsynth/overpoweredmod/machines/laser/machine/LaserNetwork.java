@@ -45,8 +45,6 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   public boolean running;
   public boolean auto_shutoff;
 
-  // https://stackoverflow.com/questions/4963300/which-notnull-java-annotation-should-i-use
-  // https://blogs.oracle.com/java-platform-group/java-8s-new-type-annotations
   public LaserNetwork(final Level world, final TileLaserHousing tile){
     super(world, tile);
   }
@@ -57,12 +55,12 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   }
 
   @Override
-  protected final void onUpdateNetworkFinished(){
-    check_if_lasers_changed();
+  protected final void onUpdateNetworkFinished(final Level world){
+    check_if_lasers_changed(world);
   }
 
   @Override
-  protected final void customSearch(final Node node){
+  protected final void customSearch(final Node node, final Level world){
     final BlockEntity tile = node.getTile();
     if(tile != null){
       if(tile.getClass() == TileLaserHousing.class){
@@ -71,14 +69,14 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
         BlockPos position;
         for(Direction direction : Direction.values()){
           position = tile_position.relative(direction);
-          check_and_add_LaserCannon(position, direction);
+          check_and_add_LaserCannon(world, position, direction);
         }
       }
     }
   }
 
   /** Checks position if it is a valid LaserCannon, and adds it. */
-  private final void check_and_add_LaserCannon(final BlockPos position, final Direction direction){
+  private final void check_and_add_LaserCannon(final Level world, final BlockPos position, final Direction direction){
     BlockState state = world.getBlockState(position);
     LaserCannon laser_block;
     if(state.getBlock() instanceof LaserCannon){
@@ -90,13 +88,13 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   }
 
   @Override
-  public void neighbor_was_changed(final BlockPos current_position, final BlockPos position_of_neighbor){
-    check_and_add_LaserCannon(position_of_neighbor, DirectionUtil.getDirection(current_position, position_of_neighbor));
+  public void neighbor_was_changed(final Level world, final BlockPos current_position, final BlockPos position_of_neighbor){
+    check_and_add_LaserCannon(world, position_of_neighbor, DirectionUtil.getDirection(current_position, position_of_neighbor));
     lasers.removeIf((BlockPos pos) -> world.getBlockState(pos).getBlock() instanceof LaserCannon == false);
     // if(world.getBlockState(position_of_neighbor).getBlock() instanceof LaserCannon == false){
     //   lasers.remove(position_of_neighbor);
     // }
-    check_if_lasers_changed();
+    check_if_lasers_changed(world);
   }
 
   public final void load_data(Energy energy, boolean power_switch, int laser_distance, boolean auto_shutoff){
@@ -115,11 +113,11 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
     update_energy_requirements();
   }
 
-  private final void check_if_lasers_changed(){
+  private final void check_if_lasers_changed(final Level world){
     if(lasers.size() != number_of_lasers){
       number_of_lasers = lasers.size();
       update_energy_requirements();
-      updateClient();
+      updateClient(world);
     }
   }
 
@@ -136,63 +134,55 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   }
 
   /**
-   * Only the first Laser Machine in this <code>LaserNetwork</code> calls the tick function,
-   * and basically it checks if any {@link TileLaserHousing} is powered with redstone and calls the
+   * Checks if any {@link TileLaserHousing} is powered with redstone and calls the
    * {@link #fire_lasers()} function, if certain conditions are met.
-   * @param tile
    */
   @Override
-  public final void tick(final TileLaserHousing tile){
-    if(tile == first_tile){
-      if(is_redstone_powered()){
-        if(activated == false){
-          if(lasers.size() > 0 && laser_distance > 0){
-            if(energy.isFull()){
-              fire_lasers();
-            }
+  protected final void tick(final Level world){
+    if(is_redstone_powered(world)){
+      if(activated == false){
+        if(lasers.size() > 0 && laser_distance > 0){
+          if(energy.isFull()){
+            fire_lasers(world);
           }
         }
-        activated = true;
       }
-      else{
-        activated = false;
-      }
-      if(energy.tick()){
-        changed = true;
-      }
-      if(changed){
-        updateLaserNetwork();
-        changed = false;
-      }
-      energy.updateEnergyIO();
+      activated = true;
     }
+    else{
+      activated = false;
+    }
+    if(energy.tick()){
+      changed = true;
+    }
+    if(changed){
+      updateLaserNetwork();
+      changed = false;
+    }
+    energy.updateEnergyIO();
   }
 
   /** updates server (needs to be saved to world data) */
   private final void updateLaserNetwork(){
-    remove_invalid_nodes(blocks);
-    TileLaserHousing laser_housing;
-    for(final Node node : blocks){
-      laser_housing = (TileLaserHousing)node.getTile();
-      if(laser_housing != null){
-        laser_housing.setDataDirectlyFromNetwork(energy, laser_distance, running, auto_shutoff);
-      }
-    }
+    blocks.remove_invalid();
+    blocks.forAllTileEntities((TileLaserHousing laser_housing) -> 
+      laser_housing.setDataDirectlyFromNetwork(energy, laser_distance, running, auto_shutoff)
+    );
   }
   
-  public final void updateClient(){ // (client can determine the information)
+  public final void updateClient(final Level world){ // (client can determine the information)
     final LaserClientSyncMessage message = new LaserClientSyncMessage(blocks.getBlockPositions(), number_of_lasers);
     NetworkUtil.send_to_clients_in_world(NetworkHandler.INSTANCE, world, message);
   }
 
-  private final void fire_lasers(){
-    remove_invalid_nodes(blocks);
+  private final void fire_lasers(final Level world){
+    blocks.remove_invalid();
     
     LaserJobs.addNew(world, lasers, laser_distance);
     
     final double[] center_position = BlockMath.getExactCenter(blocks.getBlockPositions());
     world.playSound(null, center_position[0], center_position[1], center_position[2], Sounds.laser_fire_sound.get(), SoundSource.AMBIENT, 2.0f, 1.0f);
-    awardPlayers();
+    awardPlayers(world);
     
     this.energy.subtract_capacity();
     if(auto_shutoff){
@@ -201,10 +191,10 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
     changed = true;
   }
 
-  private final void awardPlayers(){
+  private final void awardPlayers(final Level world){
     final ArrayList<ServerPlayer> players = new ArrayList<>();
     
-    blocks.forAllTileEntities(TileLaserHousing.class, (TileLaserHousing tile) -> {
+    blocks.forAllTileEntities((TileLaserHousing tile) -> {
       // only count each player once, increment Laser Fired stat of each player
       final String player_name = tile.getLastUsedBy();
       final ServerPlayer player = PlayerUtil.getPlayer(world, player_name);

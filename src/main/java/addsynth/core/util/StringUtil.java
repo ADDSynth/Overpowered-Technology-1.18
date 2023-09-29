@@ -106,6 +106,20 @@ public final class StringUtil {
     return print_time(ticks);
   }
 
+  /** Returns the noun prefixed by 'an' or 'a' depending on if the first letter is a vowel. */
+  public static final String singleNoun(final String noun){
+    return singleNoun(noun, false);
+  }
+
+  /** Returns the noun prefixed by 'an' or 'a' depending on if the first letter is a vowel. */
+  public static final String singleNoun(final String noun, final boolean capitalize){
+    final char c = noun.charAt(0);
+    if(c == 'a' || c == 'A' || c == 'e' || c == 'E' || c == 'i' || c == 'I' || c == 'o' || c == 'O' || c == 'u' || c == 'U'){
+      return (capitalize ? "An " : "an") + noun;
+    }
+    return (capitalize ? "A " : "a ") + noun;
+  }
+
   /** Prints the Types of your array, such as <code>Class, Object, Integer, Short, Long,
    *  Float, Double, Boolean, String, </code>or <code> Character</code>.
    * @param array

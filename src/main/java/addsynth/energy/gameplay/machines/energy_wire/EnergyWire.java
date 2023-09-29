@@ -5,6 +5,7 @@ import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.energy.gameplay.machines.energy_diagnostics.TileEnergyDiagnostics;
 import addsynth.energy.gameplay.reference.Names;
 import addsynth.energy.lib.blocks.Wire;
+import addsynth.energy.lib.energy_network.EnergyNetwork;
 import addsynth.energy.lib.energy_network.tiles.AbstractEnergyNetworkTile;
 import addsynth.energy.lib.main.IEnergyUser;
 import addsynth.energy.registers.Tiles;
@@ -52,6 +53,12 @@ public final class EnergyWire extends Wire {
   @Nullable
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState blockstate, BlockEntityType<T> type){
     return standardTicker(world, type, Tiles.ENERGY_WIRE.get());
+  }
+
+  @Override
+  @SuppressWarnings("deprecation")
+  public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
+    BlockNetworkUtil.onRemove(super::onRemove, AbstractEnergyNetworkTile.class, EnergyNetwork::new, state, world, pos, newState, isMoving);
   }
 
   @Override

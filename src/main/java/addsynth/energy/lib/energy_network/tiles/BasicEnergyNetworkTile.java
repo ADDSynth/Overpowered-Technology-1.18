@@ -1,7 +1,7 @@
 package addsynth.energy.lib.energy_network.tiles;
 
 import javax.annotation.Nullable;
-import addsynth.core.block_network.BlockNetworkUtil;
+import addsynth.core.block_network.BlockNetwork;
 import addsynth.energy.lib.energy_network.EnergyNetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,16 +21,7 @@ public abstract class BasicEnergyNetworkTile extends AbstractEnergyNetworkTile {
 
   @Override
   public void serverTick(){
-    if(network == null){
-      BlockNetworkUtil.create_or_join(level, this, EnergyNetwork::new);
-    }
-    network.tick(this);
-  }
-
-  @Override
-  public final void setRemoved(){
-    super.setRemoved();
-    // BlockNetworkUtil.tileentity_was_removed(this, EnergyNetwork::new);
+    BlockNetwork.tick(network, level, this, EnergyNetwork::new);
   }
 
   @Override

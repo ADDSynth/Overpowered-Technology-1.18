@@ -2,6 +2,7 @@ package addsynth.overpoweredmod.machines.suspension_bridge;
 
 import java.util.List;
 import javax.annotation.Nullable;
+import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.core.util.game.tileentity.TileEntityUtil;
 import addsynth.energy.gameplay.reference.TextReference;
@@ -65,7 +66,7 @@ public final class EnergySuspensionBridgeBlock extends MachineBlock {
       if(tile != null){
         final BridgeNetwork network = tile.getBlockNetwork();
         if(network != null){
-          network.check_and_update();
+          network.check_and_update(world);
           NetworkHooks.openGui((ServerPlayer)player, tile, pos);
         }
         else{
@@ -76,15 +77,9 @@ public final class EnergySuspensionBridgeBlock extends MachineBlock {
     return InteractionResult.SUCCESS;
   }
 
-/* DELETE: Energy Suspension Bridges don't need to update when the adjacent block changes.
   @Override
-  @SuppressWarnings("deprecation")
-  public void neighborChanged(BlockState state, World world, BlockPos pos, Block blockIn, BlockPos neighbor, boolean isMoving){
-    if(world.isRemote == false){
-      final BlockNetwork network = ((IBlockNetworkUser)(world.getTileEntity(pos))).getBlockNetwork();
-      network.neighbor_was_changed(pos, neighbor);
-    }
+  public final void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
+    BlockNetworkUtil.onRemove(super::onRemove, TileSuspensionBridge.class, BridgeNetwork::new, state, world, pos, newState, isMoving);
   }
-*/
 
 }

@@ -30,12 +30,14 @@ public abstract class MachineBlock extends TileEntityBlock {
   @SuppressWarnings("deprecation")
    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
     final BlockEntity tile = world.getBlockEntity(pos);
+    super.onRemove(state, world, pos, newState, isMoving);
     if(tile != null){
-      if(tile instanceof IInventoryUser){
-        ((IInventoryUser)tile).drop_inventory();
+      if(tile.isRemoved()){
+        if(tile instanceof IInventoryUser){
+          ((IInventoryUser)tile).drop_inventory();
+        }
       }
     }
-    super.onRemove(state, world, pos, newState, isMoving);
   }
   
 }

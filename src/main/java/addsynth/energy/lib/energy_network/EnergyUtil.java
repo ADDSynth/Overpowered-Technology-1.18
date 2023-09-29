@@ -108,16 +108,12 @@ public final class EnergyUtil {
   }
 
   public static final void balance_batteries(final ArrayList<EnergyNode> batteries){
-    balance_batteries(batteries, 0);
-  }
-  
-  public static final void balance_batteries(final ArrayList<EnergyNode> batteries, final long removed_battery_energy){
 
     int i;
     final int length = batteries.size();
     Energy energy_storage;
 
-    long total_energy = removed_battery_energy;
+    long total_energy = 0;
     long total_capacity = 0;
     final long[] capacity = new long[length];
 

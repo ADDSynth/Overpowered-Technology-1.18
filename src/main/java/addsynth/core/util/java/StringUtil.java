@@ -8,6 +8,7 @@ import addsynth.core.util.math.common.CommonMath;
 import addsynth.core.util.math.common.RoundMode;
 import addsynth.core.util.time.TimeConstants;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -227,6 +228,14 @@ public final class StringUtil {
       return registry_name.toString();
     }
     return "null";
+  }
+
+  public static final String print(final Vec3i position){
+    return build("( ", position.toShortString(), " )");
+  }
+
+  public static final String printPosition(final int x, final int y, final int z){
+    return build("( ", x, ", ", y, ", ", z, " )");
   }
 
   public static final String print(final Recipe recipe){

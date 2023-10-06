@@ -6,7 +6,7 @@ import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.constants.DirectionConstant;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.core.util.game.data.AdvancementUtil;
-import addsynth.core.util.math.block.BlockMath;
+import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.math.block.DirectionUtil;
 import addsynth.core.util.network.NetworkUtil;
 import addsynth.core.util.world.WorldUtil;
@@ -14,9 +14,7 @@ import addsynth.energy.lib.main.Receiver;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
 import addsynth.overpoweredmod.config.Config;
 import addsynth.overpoweredmod.game.NetworkHandler;
-import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,12 +40,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     new BridgeData(3), new BridgeData(4), new BridgeData(5)
   };
 
-  private int min_x;
-  private int min_y;
-  private int min_z;
-  private int max_x;
-  private int max_y;
-  private int max_z;
+  private BlockArea shape;
 
   /** This is the status of THIS bridge. */
   private BridgeMessage bridge_message;
@@ -62,12 +55,12 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     super(world, tile);
   }
 
-  public final int get_min_x(){ return min_x; }
-  public final int get_min_y(){ return min_y; }
-  public final int get_min_z(){ return min_z; }
-  public final int get_max_x(){ return max_x; }
-  public final int get_max_y(){ return max_y; }
-  public final int get_max_z(){ return max_z; }
+  public final int get_min_x(){ return shape.min_x; }
+  public final int get_min_y(){ return shape.min_y; }
+  public final int get_min_z(){ return shape.min_z; }
+  public final int get_max_x(){ return shape.max_x; }
+  public final int get_max_y(){ return shape.max_y; }
+  public final int get_max_z(){ return shape.max_z; }
 
   @Override
   protected final void onUpdateNetworkFinished(final Level world){
@@ -106,35 +99,13 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     data_changed = true;
   }
 
-  /** Sets the <code>valid_shape</code> variable.
-   *  Also sets all the <code>min</code> and <code>max</code> dimensions. */
+  /** Sets the {@link shape} and {@link valid_shape} fields. */
   private final void check_shape(final Level world){
-    // This is a copy of the BlockMath.is_full_rectangle() function, but
-    // keep this as is because we set important variables for this class.
-    valid_shape = true;
-    final BlockPos[] positions = BlockMath.get_min_max_positions(blocks.getBlockPositions());
-    int x;
-    int y;
-    int z;
-    min_x = positions[0].getX();
-    min_y = positions[0].getY();
-    min_z = positions[0].getZ();
-    max_x = positions[1].getX();
-    max_y = positions[1].getY();
-    max_z = positions[1].getZ();
-    final MutableBlockPos position = new MutableBlockPos();
-    for(z = min_z; z <= max_z && valid_shape; z++){
-      position.setZ(z);
-      for(y = min_y; y <= max_y && valid_shape; y++){
-        position.setY(y);
-        for(x = min_x; x <= max_x && valid_shape; x++){
-          position.setX(x);
-          if(world.getBlockState(position).getBlock() != OverpoweredBlocks.energy_suspension_bridge.get()){
-            valid_shape = false;
-            bridge_message = BridgeMessage.INVALID_SHAPE;
-          }
-        }
-      }
+    final ArrayList<BlockPos> positions = blocks.getBlockPositions();
+    shape = BlockArea.get(positions);
+    valid_shape = BlockArea.isFullRectangle(positions);
+    if(valid_shape == false){
+      bridge_message = BridgeMessage.INVALID_SHAPE;
     }
   }
 
@@ -174,12 +145,12 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     int x;
     int y;
     int z;
-    final int start_x = min_x;
-    final int end_x   = max_x;
-    final int start_y = min_y - 1;
-    final int end_y   = Math.max(min_y - 1 - maximum_length, world.getMinBuildHeight());
-    final int start_z = min_z;
-    final int end_z   = max_z;
+    final int start_x = shape.min_x;
+    final int end_x   = shape.max_x;
+    final int start_y = shape.min_y - 1;
+    final int end_y   = Math.max(shape.min_y - 1 - maximum_length, world.getMinBuildHeight());
+    final int start_z = shape.min_z;
+    final int end_z   = shape.max_z;
     int distance = -1;
     boolean pass = true;
     for(y = start_y; y >= end_y && pass; y--){
@@ -200,12 +171,12 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     int x;
     int y;
     int z;
-    final int start_x = min_x;
-    final int end_x   = max_x;
-    final int start_y = max_y + 1;
-    final int end_y   = Math.min(max_y + 1 + maximum_length, world.getMaxBuildHeight() - 1);
-    final int start_z = min_z;
-    final int end_z   = max_z;
+    final int start_x = shape.min_x;
+    final int end_x   = shape.max_x;
+    final int start_y = shape.max_y + 1;
+    final int end_y   = Math.min(shape.max_y + 1 + maximum_length, world.getMaxBuildHeight() - 1);
+    final int start_z = shape.min_z;
+    final int end_z   = shape.max_z;
     int distance = -1;
     boolean pass = true;
     for(y = start_y; y <= end_y && pass; y++){
@@ -225,15 +196,15 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     bridge_data[direction].clear();
     int x;
     int z;
-    final int start_x = min_x;
-    final int end_x   = max_x;
-    final int start_z = min_z - 1;
-    final int end_z   = min_z - 1 - maximum_length;
+    final int start_x = shape.min_x;
+    final int end_x   = shape.max_x;
+    final int start_z = shape.min_z - 1;
+    final int end_z   = shape.min_z - 1 - maximum_length;
     int distance = -1;
     boolean pass = true;
     for(z = start_z; z >= end_z && pass; z--){
       for(x = start_x; x <= end_x && pass; x++){
-        pass = check_position(world, direction, new BlockPos(x, max_y, z));
+        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
       }
       distance++;
     }
@@ -246,15 +217,15 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     bridge_data[direction].clear();
     int x;
     int z;
-    final int start_x = min_x;
-    final int end_x   = max_x;
-    final int start_z = max_z + 1;
-    final int end_z   = max_z + 1 + maximum_length;
+    final int start_x = shape.min_x;
+    final int end_x   = shape.max_x;
+    final int start_z = shape.max_z + 1;
+    final int end_z   = shape.max_z + 1 + maximum_length;
     int distance = -1;
     boolean pass = true;
     for(z = start_z; z <= end_z && pass; z++){
       for(x = start_x; x <= end_x && pass; x++){
-        pass = check_position(world, direction, new BlockPos(x, max_y, z));
+        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
       }
       distance++;
     }
@@ -267,15 +238,15 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     bridge_data[direction].clear();
     int x;
     int z;
-    final int start_x = min_x - 1;
-    final int end_x   = min_x - 1 - maximum_length;
-    final int start_z = min_z;
-    final int end_z   = max_z;
+    final int start_x = shape.min_x - 1;
+    final int end_x   = shape.min_x - 1 - maximum_length;
+    final int start_z = shape.min_z;
+    final int end_z   = shape.max_z;
     int distance = -1;
     boolean pass = true;
     for(x = start_x; x >= end_x && pass; x--){
       for(z = start_z; z <= end_z && pass; z++){
-        pass = check_position(world, direction, new BlockPos(x, max_y, z));
+        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
       }
       distance++;
     }
@@ -288,15 +259,15 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     bridge_data[direction].clear();
     int x;
     int z;
-    final int start_x = max_x + 1;
-    final int end_x   = max_x + 1 + maximum_length;
-    final int start_z = min_z;
-    final int end_z   = max_z;
+    final int start_x = shape.max_x + 1;
+    final int end_x   = shape.max_x + 1 + maximum_length;
+    final int start_z = shape.min_z;
+    final int end_z   = shape.max_z;
     int distance = -1;
     boolean pass = true;
     for(x = start_x; x <= end_x && pass; x++){
       for(z = start_z; z <= end_z && pass; z++){
-        pass = check_position(world, direction, new BlockPos(x, max_y, z));
+        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
       }
       distance++;
     }
@@ -326,7 +297,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     bridge_data.network = tile.getBlockNetwork();
     
     // check bridge shape
-    if(bridge_data.network.check(world, direction, min_x, max_x, min_z, max_z)){
+    if(bridge_data.network.check(world, direction, shape)){
       if(bridge_data.obstructed){
         bridge_data.message = BridgeMessage.OBSTRUCTED;
       }
@@ -341,11 +312,11 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   }
 
   /** This is an internal method. Only OTHER Bridge Networks should be calling this. */
-  private final boolean check(final Level world, final int direction, final int min_x, final int max_x, final int min_z, final int max_z){
+  private final boolean check(final Level world, final int direction, final BlockArea shape){
     check_shape(world);
     if(valid_shape){
-      final boolean length = this.min_z == min_z && this.max_z == max_z;
-      final boolean width  = this.min_x == min_x && this.max_x == max_x;
+      final boolean length = this.shape.sameLength(shape);
+      final boolean width  = this.shape.sameWidth(shape);
       if(direction == DirectionConstant.DOWN || direction == DirectionConstant.UP){
         return width && length;
       }

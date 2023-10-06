@@ -15,7 +15,7 @@ public final class DebugBlockNetwork {
   }
 
   private static final String position(final BlockPos pos){
-    return StringUtil.build("position ( ", pos.toShortString(), " )");
+    return "position "+StringUtil.print(pos);
   }
 
   static final void CREATED(final BlockNetwork network, final BlockPos pos){

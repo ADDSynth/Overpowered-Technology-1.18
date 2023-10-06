@@ -5,7 +5,7 @@ import java.util.HashSet;
 import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.Node;
 import addsynth.core.util.game.data.AdvancementUtil;
-import addsynth.core.util.math.block.BlockMath;
+import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.math.block.DirectionUtil;
 import addsynth.core.util.network.NetworkUtil;
 import addsynth.core.util.player.PlayerUtil;
@@ -21,7 +21,12 @@ import addsynth.overpoweredmod.machines.laser.cannon.LaserCannon;
 import addsynth.overpoweredmod.machines.laser.network_messages.LaserClientSyncMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -179,9 +184,7 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
     blocks.remove_invalid();
     
     LaserJobs.addNew(world, lasers, laser_distance);
-    
-    final double[] center_position = BlockMath.getExactCenter(blocks.getBlockPositions());
-    world.playSound(null, center_position[0], center_position[1], center_position[2], Sounds.laser_fire_sound.get(), SoundSource.AMBIENT, 2.0f, 1.0f);
+    playSound((ServerLevel)world);
     awardPlayers(world);
     
     this.energy.subtract_capacity();
@@ -189,6 +192,34 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
       running = false;
     }
     changed = true;
+  }
+
+  /**Loops through all players on the server and sends a {@link ClientboundSoundPacket} to players
+   * in the same dimension. Loops through all blocks and finds the block closest to the player
+   * and uses that as the SoundEvent coordinates.
+   * @see ServerLevel#playSound(net.minecraft.world.entity.player.Player, double, double, double, net.minecraft.sounds.SoundEvent, SoundSource, float, float)
+   * @see PlayerList#broadcast(net.minecraft.world.entity.player.Player, double, double, double, double, ResourceKey, net.minecraft.network.protocol.Packet)
+   */
+  private final void playSound(final ServerLevel world){
+    @SuppressWarnings("resource")
+    final MinecraftServer server = world.getServer();
+    final ResourceKey<Level> dimension = world.dimension();
+    final ArrayList<BlockPos> positions = blocks.getBlockPositions();
+    BlockPos closest_position;
+    double x;
+    double y;
+    double z;
+    for(final ServerPlayer player : server.getPlayerList().getPlayers()){
+      if(player.level.dimension() == dimension){
+        closest_position = BlockArea.getClosest(positions, player);
+        x = closest_position.getX() + 0.5;
+        y = closest_position.getY() + 0.5;
+        z = closest_position.getZ() + 0.5;
+        // TODO: Vanilla function PlayerList.broadcast does some additional calculation to only send messages close to the player.
+        //       I need to run some tests to see exactly what it does, but I don't have time for that now.
+        player.connection.send(new ClientboundSoundPacket(Sounds.laser_fire_sound.get(), SoundSource.BLOCKS, x, y, z, 2.0f, 1.0f));
+      }
+    }
   }
 
   private final void awardPlayers(final Level world){

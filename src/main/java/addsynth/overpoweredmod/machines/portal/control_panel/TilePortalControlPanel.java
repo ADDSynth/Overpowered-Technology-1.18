@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.core.util.math.block.BlockMath;
+import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.network.NetworkUtil;
 import addsynth.core.util.world.WorldUtil;
 import addsynth.energy.lib.tiles.machines.IAutoShutoff;
@@ -195,7 +195,7 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
     
     if(portal_frames_valid){
       // get lowest portal frame
-      lowest_portal_frame = BlockMath.get_minimum_position(portal_frames);
+      lowest_portal_frame = BlockArea.getMinimumPosition(portal_frames);
       // the portal could be constructed either along the X axis or Z axis.
       final int x = lowest_portal_frame.getX();
       final int y = lowest_portal_frame.getY();

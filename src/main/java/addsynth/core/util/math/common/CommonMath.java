@@ -10,9 +10,10 @@ public final class CommonMath {
 
   public static final int getMin(final int ... input){
     if(input == null){     throw new NullPointerException(    CommonMath.class.getName()+".getMin() input was null!"); }
-    if(input.length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMin() requires at least one integer as input."); }
+    final int length = input.length;
+    if(length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMin() requires at least one integer as input."); }
     int min = input[0];
-    for(int i = 1; i < input.length; i++){
+    for(int i = 1; i < length; i++){
       if(input[i] < min){
         min = input[i];
       }
@@ -22,9 +23,10 @@ public final class CommonMath {
 
   public static final long getMin(final long ... input){
     if(input == null){     throw new NullPointerException(    CommonMath.class.getName()+".getMin() input was null!"); }
-    if(input.length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMin() requires at least one integer as input."); }
+    final int length = input.length;
+    if(length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMin() requires at least one integer as input."); }
     long min = input[0];
-    for(int i = 1; i < input.length; i++){
+    for(int i = 1; i < length; i++){
       if(input[i] < min){
         min = input[i];
       }
@@ -34,9 +36,10 @@ public final class CommonMath {
 
   public static final int getMax(final int ... input){
     if(input == null){     throw new NullPointerException(    CommonMath.class.getName()+".getMax() input was null!"); }
-    if(input.length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMax() requires at least one integer as input."); }
+    final int length = input.length;
+    if(length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMax() requires at least one integer as input."); }
     int max = input[0];
-    for(int i = 1; i < input.length; i++){
+    for(int i = 1; i < length; i++){
       if(input[i] > max){
         max = input[i];
       }
@@ -46,9 +49,10 @@ public final class CommonMath {
 
   public static final long getMax(final long ... input){
     if(input == null){     throw new NullPointerException(    CommonMath.class.getName()+".getMax() input was null!"); }
-    if(input.length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMax() requires at least one integer as input."); }
+    final int length = input.length;
+    if(length == 0){ throw new IllegalArgumentException(CommonMath.class.getName()+".getMax() requires at least one integer as input."); }
     long max = input[0];
-    for(int i = 1; i < input.length; i++){
+    for(int i = 1; i < length; i++){
       if(input[i] > max){
         max = input[i];
       }

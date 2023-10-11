@@ -17,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
 /** <p>The BlockArea defines a volume of blocks from a Minimum position (inclusive)
@@ -65,6 +66,19 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     max_x = 0;
     max_y = 0;
     max_z = 0;
+  }
+
+  public BlockArea(final Vec3i first_position){
+    this(first_position.getX(), first_position.getY(), first_position.getZ());
+  }
+  
+  public BlockArea(final int x, final int y, final int z){
+    min_x = x;
+    min_y = y;
+    min_z = z;
+    max_x = x;
+    max_y = y;
+    max_z = z;
   }
 
   public BlockArea(final Vec3i min, final Vec3i max){
@@ -238,49 +252,76 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     return getNewVolumeSouth(getLength());
   }
 
+  public final BlockArea getNewAdjacentVolume(final int direction, final int size){
+    return switch(direction){
+      case DirectionConstant.WEST  -> getNewVolumeWest(size);
+      case DirectionConstant.EAST  -> getNewVolumeEast(size);
+      case DirectionConstant.DOWN  -> getNewVolumeDown(size);
+      case DirectionConstant.UP    -> getNewVolumeUp(size);
+      case DirectionConstant.NORTH -> getNewVolumeNorth(size);
+      case DirectionConstant.SOUTH -> getNewVolumeSouth(size);
+      default -> null;
+    };
+  }
+
   /** Returns a new BlockArea place directly West of this BlockArea that
    *  has the same Height and Length, but extended in the -X direction
    *  with the specified Width. */
   public final BlockArea getNewVolumeWest(final int size){
-    return new BlockArea(min_x - size - 1, min_y, min_z, min_x - 1, max_y, max_z);
+    return new BlockArea(min_x - size, min_y, min_z, min_x - 1, max_y, max_z);
   }
   
   /** Returns a new BlockArea placed directly East of this BlockArea that
    *  has the same Height and Length, but extended in the +X direction
    *  with the specified Width. */
   public final BlockArea getNewVolumeEast(final int size){
-    return new BlockArea(max_x + 1, min_y, min_z, max_x + size + 1, max_y, max_z);
+    return new BlockArea(max_x + 1, min_y, min_z, max_x + size, max_y, max_z);
   }
   
   /** Returns a new BlockArea placed directly Down from this BlockArea that
    *  has the same Width and Length, but extended in the -Y direction
    *  with the specified Height. */
   public final BlockArea getNewVolumeDown(final int size){
-    return new BlockArea(min_x, min_y - size - 1, min_z, max_x, min_y - 1, max_z);
+    return new BlockArea(min_x, min_y - size, min_z, max_x, min_y - 1, max_z);
   }
   
   /** Returns a new BlockArea placed directly Up from this BlockArea that
    *  has the same Width and Length, but extended in the +Y direction
    *  with the specified Height. */
   public final BlockArea getNewVolumeUp(final int size){
-    return new BlockArea(min_x, max_y + 1, min_z, max_x, max_y + size + 1, max_z);
+    return new BlockArea(min_x, max_y + 1, min_z, max_x, max_y + size, max_z);
   }
   
   /** Returns a new BlockArea placed directly North of this BlockArea that
    *  has the same Width and Height, but extended in the -Z direction
    *  with the specified Length. */
   public final BlockArea getNewVolumeNorth(final int size){
-    return new BlockArea(min_x, min_y, min_z - size - 1, max_x, max_y, min_z - 1);
+    return new BlockArea(min_x, min_y, min_z - size, max_x, max_y, min_z - 1);
   }
   
   /** Returns a new BlockArea placed directly South of this BlockArea that
    *  has the same Width and Height, but extended in the +Z direction
    *  with the specified Length. */
   public final BlockArea getNewVolumeSouth(final int size){
-    return new BlockArea(min_x, min_y, max_z + 1, max_x, max_y, max_z + size + 1);
+    return new BlockArea(min_x, min_y, max_z + 1, max_x, max_y, max_z + size);
   }
 
   // Setters
+
+  /** I think normally it wouldn't matter if you set a BlockArea = to another, but
+   *  it would matter you have two references that are meant to describe the same
+   *  area but be separate, if it's the same reference then changes to one will
+   *  affect the other.
+   *  This also saves memory by not having the Garbage Collector collect the free
+   *  BlockArea that no longer has any references pointed to it. */
+  public final void set(final BlockArea other){
+    min_x = other.min_x;
+    min_y = other.min_y;
+    min_z = other.min_z;
+    max_x = other.max_x;
+    max_y = other.max_y;
+    max_z = other.max_z;
+  }
 
   public final void set(final Vec3i min, final Vec3i max){
     min_x = min.getX();
@@ -322,6 +363,266 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     this.max_x = x;
     this.max_y = y;
     this.max_z = z;
+  }
+
+  /** Sets the total height by extending the Maximum X from the Minimum X.
+   *  A value of 1 will set the Maximum equal to the Minimum.<br>
+   *  Does not change the Minimum position, so you may want to offset the
+   *  BlockArea to your preferred position. */
+  public final void setWidth(final int width){
+    max_x = min_x - 1 + width;
+  }
+  
+  /** Sets the total height by extending the Maximum Y from the Minimum Y.
+   *  A value of 1 will set the Maximum equal to the Minimum.<br>
+   *  Does not change the Minimum position, so you may want to offset the
+   *  BlockArea to your preferred position. */
+  public final void setHeight(final int height){
+    max_y = min_y - 1 + height;
+  }
+  
+  /** Sets the total height by extending the Maximum Z from the Minimum Z.
+   *  A value of 1 will set the Maximum equal to the Minimum.<br>
+   *  Does not change the Minimum position, so you may want to offset the
+   *  BlockArea to your preferred position. */
+  public final void setLength(final int length){
+    max_z = min_z - 1 + length;
+  }
+
+  /** Sets this Minimum X and Maximum X to match that of the passed-in BlockArea. */
+  public final void setWidth(final BlockArea area){
+    min_x = area.min_x;
+    max_x = area.max_x;
+  }
+  
+  /** Sets this Minimum Y and Maximum Y to match that of the passed-in BlockArea. */
+  public final void setHeight(final BlockArea area){
+    min_y = area.min_y;
+    max_y = area.max_y;
+  }
+  
+  /** Sets this Minimum Z and Maximum Z to match that of the passed-in BlockArea. */
+  public final void setLength(final BlockArea area){
+    min_z = area.min_z;
+    max_z = area.max_z;
+  }
+
+  // Special Set functions
+  
+  /** Sets this BlockArea's dimensions to be directly West of the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setWest(final BlockArea area){
+    setWest(area, area.getWidth());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly East of the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setEast(final BlockArea area){
+    setEast(area, area.getWidth());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly Below the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setBelow(final BlockArea area){
+    setBelow(area, area.getHeight());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly Above the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setAbove(final BlockArea area){
+    setAbove(area, area.getHeight());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly North of the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setNorth(final BlockArea area){
+    setNorth(area, area.getLength());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly South of the
+   *  passed-in area, and sets it to be the same size. */
+  public final void setSouth(final BlockArea area){
+    setSouth(area, area.getLength());
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly West of the
+   *  passed-in area, extended by the specified size. */
+  public final void setWest(final BlockArea area, final int size){
+    min_x = area.min_x - size;
+    min_y = area.min_y;
+    min_z = area.min_z;
+    max_x = area.min_x - 1;
+    max_y = area.max_y;
+    max_z = area.max_z;
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly East of the
+   *  passed-in area, extended by the specified size. */
+  public final void setEast(final BlockArea area, final int size){
+    min_x = area.max_x + 1;
+    min_y = area.min_y;
+    min_z = area.min_z;
+    max_x = area.max_x + size;
+    max_y = area.max_y;
+    max_z = area.max_z;
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly Below the
+   *  passed-in area, extended by the specified size. */
+  public final void setBelow(final BlockArea area, final int size){
+    min_x = area.min_x;
+    min_y = area.min_y - size;
+    min_z = area.min_z;
+    max_x = area.max_x;
+    max_y = area.min_y - 1;
+    max_z = area.max_z;
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly Above of the
+   *  passed-in area, extended by the specified size. */
+  public final void setAbove(final BlockArea area, final int size){
+    min_x = area.min_x;
+    min_y = area.max_y + 1;
+    min_z = area.min_z;
+    max_x = area.max_x;
+    max_y = area.max_y + size;
+    max_z = area.max_z;
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly North of the
+   *  passed-in area, extended West by the specified size. */
+  public final void setNorth(final BlockArea area, final int size){
+    min_x = area.min_x;
+    min_y = area.min_y;
+    min_z = area.min_z - size;
+    max_x = area.max_x;
+    max_y = area.max_y;
+    max_z = area.min_z - 1;
+  }
+  
+  /** Sets this BlockArea's dimensions to be directly South of the
+   *  passed-in area, extended West by the specified size. */
+  public final void setSouth(final BlockArea area, final int size){
+    min_x = area.min_x;
+    min_y = area.min_y;
+    min_z = area.max_z + 1;
+    max_x = area.max_x;
+    max_y = area.max_y;
+    max_z = area.max_z + size;
+  }
+
+  /** Sets this BlockArea to be just West of the supplied BlockArea,
+   *  but doesn't align the Y or Z dimensions. */
+  public final void setWestOf(final BlockArea area){
+    final int width = getWidth();
+    min_x = area.min_x - width;
+    max_x = area.min_x - 1;
+  }
+  
+  /** Sets this BlockArea to be just East of the supplied BlockArea,
+   *  but doesn't align the Y or Z dimensions. */
+  public final void setEastOf(final BlockArea area){
+    final int width = getWidth();
+    min_x = area.max_x + 1;
+    max_x = area.max_x + width;
+  }
+  
+  /** Sets this BlockArea to be just Below the supplied BlockArea,
+   *  but doesn't align the X or Z dimensions. */
+  public final void setBelowOf(final BlockArea area){
+    final int height = getHeight();
+    min_y = area.min_y - height;
+    max_y = area.min_y - 1;
+  }
+  
+  /** Sets this BlockArea to be just Above the supplied BlockArea,
+   *  but doesn't align the X or Z dimensions. */
+  public final void setAboveOf(final BlockArea area){
+    final int height = getHeight();
+    min_y = area.max_y + 1;
+    max_y = area.max_y + height;
+  }
+  
+  /** Sets this BlockArea to be just North of the supplied BlockArea,
+   *  but doesn't align the X or Y dimensions. */
+  public final void setNorthOf(final BlockArea area){
+    final int length = getLength();
+    min_z = area.min_z - length;
+    max_z = area.min_z - 1;
+  }
+  
+  /** Sets this BlockArea to be just South of the supplied BlockArea,
+   *  but doesn't align the X or Y dimensions. */
+  public final void setSouthOf(final BlockArea area){
+    final int length = getLength();
+    min_z = area.max_z + 1;
+    max_z = area.max_z + length;
+  }
+
+  /** Places this BlockArea directly West of the specified BlockArea
+   *  and also aligns along the Y and Z axiis. Does not change size. */
+  public final void setDirectlyWestOf(final BlockArea area){
+    setWestOf(area);
+    alignCenterY(area);
+    alignCenterZ(area);
+  }
+  
+  /** Places this BlockArea directly East of the specified BlockArea
+   *  and also aligns along the Y and Z axiis. Does not change size. */
+  public final void setDirectlyEastOf(final BlockArea area){
+    setEastOf(area);
+    alignCenterY(area);
+    alignCenterZ(area);
+  }
+  
+  /** Places this BlockArea directly Below the specified BlockArea
+   *  and also aligns along the X and Z axiis. Does not change size. */
+  public final void setDirectlyBelowOf(final BlockArea area){
+    setBelowOf(area);
+    alignCenterX(area);
+    alignCenterZ(area);
+  }
+  
+  /** Places this BlockArea directly Above the specified BlockArea
+   *  and also aligns along the X and Z axiis. Does not change size. */
+  public final void setDirectlyAboveOf(final BlockArea area){
+    setAboveOf(area);
+    alignCenterX(area);
+    alignCenterZ(area);
+  }
+  
+  /** Places this BlockArea directly North of the specified BlockArea
+   *  and also aligns along the X and Y axiis. Does not change size. */
+  public final void setDirectlyNorthOf(final BlockArea area){
+    setNorthOf(area);
+    alignCenterX(area);
+    alignCenterY(area);
+  }
+  
+  /** Places this BlockArea directly South of the specified BlockArea
+   *  and also aligns along the X and Y axiis. Does not change size. */
+  public final void setDirectlySouthOf(final BlockArea area){
+    setSouthOf(area);
+    alignCenterX(area);
+    alignCenterY(area);
+  }
+
+  /** Checks if any part of this BlockArea lies outside
+   *  the World boundary, and resizes itself to fit inside. */
+  public final void setWithinWorldBoundary(final Level world){
+    final int min_build_height = world.getMinBuildHeight();
+    if(min_y < min_build_height){
+      min_y = min_build_height;
+    }
+    final int max_build_height = world.getMaxBuildHeight() - 1;
+    if(max_y > max_build_height){
+      max_y = max_build_height;
+    }
+    // X and Z dimension have the same limit as an Integer which is
+    // +/- 2.7 Billion, but world boundary is capped at +/- 3 Million.
+    // World border is configurable and prevents entities from moving beyond
+    // or placing or interacting with blocks beyond.
+    // Can't figure out how to restrict along the X or Z axiis at this moment.
   }
 
   // Standard BlockArea functions
@@ -385,51 +686,15 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     if(other.max_z < max_z){ max_z = other.max_z; }
   }
 
-  /** Shrinks this BlockArea so the dimensions are less than the supplied 3D vector. */
-  public final void reduce(final Vec3i pos){
-    reduce(pos.getX(), pos.getY(), pos.getZ());
-  }
-  
-  /** Shrinks this BlockArea so the dimensions are less than the supplied 3D vector. */
-  public final void reduce(final int x, final int y, final int z){
-    if(withinX(x)){
-      final int x_offset = getOffsetRelativeToCenterX(x);
-      if(x_offset <= 0){
-        min_x = x + 1;
-      }
-      else{
-        max_x = x - 1;
-      }
-    }
-    if(withinY(y)){
-      final int y_offset = getOffsetRelativeToCenterY(y);
-      if(y_offset <= 0){
-        min_y = y + 1;
-      }
-      else{
-        max_y = y - 1;
-      }
-    }
-    if(withinZ(z)){
-      final int z_offset = getOffsetRelativeToCenterZ(z);
-      if(z_offset <= 0){
-        min_z = z + 1;
-      }
-      else{
-        max_z = z - 1;
-      }
-    }
-  }
-
   /** If this position lies inside the BlockArea, then the BlockArea
    *  will shrink until it does not include the position. */
-  public final void subtract(final Vec3i pos){
-    subtract(pos.getX(), pos.getY(), pos.getZ());
+  public final void remove(final Vec3i pos){
+    remove(pos.getX(), pos.getY(), pos.getZ());
   }
   
   /** If this position lies inside the BlockArea, then the BlockArea
    *  will shrink until it does not include the position. */
-  public final void subtract(final int x, final int y, final int z){
+  public final void remove(final int x, final int y, final int z){
     if(contains(x, y, z)){
       final int x_offset = getOffsetRelativeToCenterX(x);
       final int y_offset = getOffsetRelativeToCenterY(y);
@@ -460,7 +725,7 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
    *  one BlockArea of 2 to 8, and another BlockArea of 5 to 13, the
    *  first BlockArea will be changed to 2 to 4. It shrunk from the
    *  right side because the other BlockArea was closer to that side. */
-  public final void subtract(final BlockArea other){
+  public final void remove(final BlockArea other){
     if(intersects(other)){
       final int x_offset = other.min_x - min_x;
       final int y_offset = other.min_y - min_y;
@@ -546,6 +811,42 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     }
   }
 
+  /** Rotates along the X-axis, or Pitch. Y and Z dimensions are swapped. */
+  public final void RotateXAxis(){
+    final int temp_min_y = min_y;
+    final int temp_max_y = max_y;
+    final int center_y = getCenterY();
+    final int center_z = getCenterZ();
+    min_y = center_y + (min_z - center_z);
+    max_y = center_y + (max_z - center_z);
+    min_z = center_z + (temp_min_y - center_y);
+    max_z = center_z + (temp_max_y - center_y);
+  }
+  
+  /** Rotates along the Y-axis, or Yaw. X and Z dimensions are swapped. */
+  public final void RotateYAxis(){
+    final int temp_min_x = min_x;
+    final int temp_max_x = max_x;
+    final int center_x = getCenterX();
+    final int center_z = getCenterZ();
+    min_x = center_x + (min_z - center_z);
+    max_x = center_x + (max_z - center_z);
+    min_z = center_z + (temp_min_x - center_x);
+    max_z = center_z + (temp_max_x - center_x);
+  }
+  
+  /** Rotates along the Z-axis, or Roll. X and Y dimensions are swapped. */
+  public final void RotateZAxis(){
+    final int temp_min_x = min_x;
+    final int temp_max_x = max_x;
+    final int center_x = getCenterX();
+    final int center_y = getCenterY();
+    min_x = center_x + (min_y - center_y);
+    max_x = center_x + (max_y - center_y);
+    min_y = center_y + (temp_min_x - center_x);
+    max_y = center_y + (temp_max_x - center_x);
+  }
+
   /** This will move the BlockArea so that the Minimum is at (0, 0, 0)
    *  preserving the size of the dimensions. For example, given a BlockArea
    *  with a Minimum of (2, 6, -3) and Maximum of (9, 18, 4), after normalize
@@ -592,7 +893,7 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
            min_z <= other.min_z && max_z >= other.max_z;
   }
 
-  // Expanding & Shrinking
+  // Expanding
 
   /** Expands in all directions by 1 space. */
   public final void expand(){
@@ -646,6 +947,8 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     }
   }
   
+  // Shrinking
+  
   /** Shrinks the entire area by 1 space in each dimension. */
   public final void shrink(){
     shrink(1);
@@ -695,6 +998,42 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     case DirectionConstant.UP:    max_y -= amount; break;
     case DirectionConstant.NORTH: min_z += amount; break;
     case DirectionConstant.SOUTH: max_z -= amount; break;
+    }
+  }
+
+  /** Shrinks this BlockArea so the dimensions are less than the supplied 3D vector. */
+  public final void reduce(final Vec3i pos){
+    reduce(pos.getX(), pos.getY(), pos.getZ());
+  }
+  
+  /** Shrinks this BlockArea so the dimensions are less than the supplied 3D vector. */
+  public final void reduce(final int x, final int y, final int z){
+    if(withinX(x)){
+      final int x_offset = getOffsetRelativeToCenterX(x);
+      if(x_offset <= 0){
+        min_x = x + 1;
+      }
+      else{
+        max_x = x - 1;
+      }
+    }
+    if(withinY(y)){
+      final int y_offset = getOffsetRelativeToCenterY(y);
+      if(y_offset <= 0){
+        min_y = y + 1;
+      }
+      else{
+        max_y = y - 1;
+      }
+    }
+    if(withinZ(z)){
+      final int z_offset = getOffsetRelativeToCenterZ(z);
+      if(z_offset <= 0){
+        min_z = z + 1;
+      }
+      else{
+        max_z = z - 1;
+      }
     }
   }
 
@@ -1058,7 +1397,7 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     return new Vec3i(position.getX() - center.getX(), position.getY() - center.getY(), position.getZ() - center.getZ());
   }
 
-  // Alignment functions
+  // Alignment Test functions
 
   /** Returns whether the value is within the X range of this BlockArea. */
   public final boolean withinX(final int x){ return x >= min_x && x <= max_x; }
@@ -1108,6 +1447,44 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     case Y -> min_y % grid_size == 0;
     case Z -> min_z % grid_size == 0;
     };
+  }
+
+  // Alignment functions
+
+  /** Moves this BlockArea so that it's Center X position
+   *  is aligned with the provided position. */
+  public final void alignCenterX(final Vec3i position){
+    MoveX(position.getX() - getCenterX());
+  }
+  
+  /** Moves this BlockArea so that it's Center Y position
+   *  is aligned with the provided position. */
+  public final void alignCenterY(final Vec3i position){
+    MoveY(position.getY() - getCenterY());
+  }
+  
+  /** Moves this BlockArea so that it's Center Z position
+   *  is aligned with the provided position. */
+  public final void alignCenterZ(final Vec3i position){
+    MoveZ(position.getZ() - getCenterZ());
+  }
+
+  /** Moves this BlockArea to be centered with the passed-in
+   *  BlockArea along the X dimension. */
+  public final void alignCenterX(final BlockArea area){
+    MoveX(area.getCenterX() - getCenterX());
+  }
+  
+  /** Moves this BlockArea to be centered with the passed-in
+   *  BlockArea along the Y dimension. */
+  public final void alignCenterY(final BlockArea area){
+    MoveY(area.getCenterY() - getCenterY());
+  }
+  
+  /** Moves this BlockArea to be centered with the passed-in
+   *  BlockArea along the Z dimension. */
+  public final void alignCenterZ(final BlockArea area){
+    MoveZ(area.getCenterZ() - getCenterZ());
   }
 
   /** Aligns the BlockArea to a grid with cells of the specified size.
@@ -1164,6 +1541,7 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   public static final BlockArea load(final CompoundTag nbt, final String name){
     final CompoundTag tag = nbt.getCompound(name);
     return new BlockArea(
+      // CompoundTag.getInt() returns the default 0 if it doesn't exist.
       tag.getInt("Min X"), tag.getInt("Min Y"), tag.getInt("Min Z"),
       tag.getInt("Max X"), tag.getInt("Max Y"), tag.getInt("Max Z")
     );
@@ -1227,20 +1605,21 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
 
   /** Returns a new BlockArea that is big enough to contain all the passed-in blocks. */
   public static final BlockArea get(final Collection<BlockPos> blocks){
-    final BlockArea area = new BlockArea();
-    for(final BlockPos pos : blocks){
-      area.add(pos);
-    }
-    return area;
+    return get(blocks.toArray(new BlockPos[blocks.size()]));
   }
   
   /** Returns a new BlockArea that is big enough to contain all the passed-in blocks. */
   public static final BlockArea get(final BlockPos[] blocks){
-    final BlockArea area = new BlockArea();
-    for(final BlockPos pos : blocks){
-      area.add(pos);
+    final int length = blocks.length;
+    if(length > 0){
+      final BlockArea area = new BlockArea(blocks[0]);
+      int i;
+      for(i = 1; i < length; i++){
+        area.add(blocks[i]);
+      }
+      return area;
     }
-    return area;
+    return null;
   }
 
   /** Returns the minimum position in the list of BlockPositions.<br>
@@ -1338,25 +1717,34 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   }
 
   /** Returns true if all the block positions in this list can be grouped
-   *  together to form a full rectangular shape with no holes or extrusions. */
-  public static final boolean isFullRectangle(final Collection<BlockPos> list){
+   *  together to form a full rectangular shape with no holes or extrusions.
+   *  You must call {@link #get(Collection)} first. */
+  public final boolean isFullRectangle(final Collection<BlockPos> list){
     return isFullRectangle(list.toArray(new BlockPos[list.size()]));
   }
 
   /** Returns true if all the block positions in this list can be grouped
-   *  together to form a full rectangular shape with no holes or extrusions. */
-  public static final boolean isFullRectangle(final BlockPos[] list){
-    final BlockArea area = get(list);
-    final int width  = area.getWidth();
-    final int height = area.getHeight();
-    final int length = area.getLength();
+   *  together to form a full rectangular shape with no holes or extrusions.
+   *  You must call {@link #get(BlockPos[])} first. */
+  public final boolean isFullRectangle(final BlockPos[] list){
+    final int width  = getWidth();
+    final int height = getHeight();
+    final int length = getLength();
     final boolean[][][] check = new boolean[width][height][length];
-    for(final BlockPos pos : list){
-      check[pos.getX() - area.min_x][pos.getY() - area.min_y][pos.getZ() - area.min_z] = true;
-    }
     int x;
     int y;
     int z;
+    try{
+      for(final BlockPos pos : list){
+        x = pos.getX() - min_x;
+        y = pos.getY() - min_y;
+        z = pos.getZ() - min_z;
+        check[x][y][z] = true;
+      }
+    }
+    catch(ArrayIndexOutOfBoundsException e){
+      return false;
+    }
     for(z = 0; z < length; z++){
       for(y = 0; y < height; y++){
         for(x = 0; x < width; x++){
@@ -1396,7 +1784,7 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     };
   }
 
-  // Meta functions
+  // Basic Geometric Test functions
 
   /** Returns true if the two BlockAreas have the same width. */
   public final boolean sameWidth(final BlockArea area){
@@ -1413,49 +1801,40 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     return min_z == area.min_z && max_z == area.max_z;
   }
 
-  /** We allow you to move the Minimum and Maximum positions so that the
-   *  Minimum is greater than the Maximum, thus creating a negative area.
-   *  In such a case, the result of some of these functions may be
-   *  unpredictable. Use this function to check if the BlockArea correctly
-   *  has its Minimum position lower or equal to the Maximum position.
-   */
-  public final boolean valid(){
-    return min_x <= max_x && min_y <= max_y && min_z <= max_z;
+  /** Returns whether at least one of the dimensions is flat. */
+  public final boolean isFlatPlane(){
+    return (min_x == max_x) || (min_y == max_y) || (min_z == max_z);
+  }
+
+  /** Returns whether the BlockArea is flat along the X axis. */  
+  public final boolean isFlatPlaneX(){ return min_x == max_x; }
+  
+  /** Returns whether the BlockArea is flat along the Y axis. */  
+  public final boolean isFlatPlaneY(){ return min_y == max_y; }
+  
+  /** Returns whether the BlockArea is flat along the Z axis. */  
+  public final boolean isFlatPlaneZ(){ return min_z == max_z; }
+
+  /** Returns whether this BlockArea is only extending along a single axis. */
+  public final boolean isPillar(){
+    return isPillarX() || isPillarY() || isPillarZ();
   }
   
-  /** We allow you to move the Minimum and Maximum positions so that the
-   *  Minimum is greater than the Maximum, thus creating a negative area. In
-   *  such a case, the result of some of these functions may be unpredictable.
-   *  Use this function to check if this BlockArea is invalid. You cannot
-   *  {@linkplain #getIndex(Vec3i) get an index value of a BlockPosition} in
-   *  this area or iterate through any positions in this area if it's invalid.
-   */
-  public final boolean isInvalid(){
-    return min_x > max_x || min_y > max_y || min_z > max_x;
+  /** Returns whether this BlockArea is only extending along the X axis. */
+  public final boolean isPillarX(){
+    return min_y == max_y && min_z == max_z;
   }
   
-  /** If this BlockArea {@link #isInvalid()}, meaning it has at least 1 dimension
-   *  whose Maximum is less than the Minimum, this will correct the BlockArea by
-   *  swapping any invalid Minimum and Maximum values. */
-  public final void correct(){
-    int temp;
-    if(max_x < min_x){
-      temp = min_x;
-      min_x = max_x;
-      max_x = temp;
-    }
-    if(max_y < min_y){
-      temp = min_y;
-      min_y = max_y;
-      max_y = temp;
-    }
-    if(max_z < min_z){
-      temp = min_z;
-      min_z = max_z;
-      max_z = temp;
-    }
+  /** Returns whether this BlockArea is only extending along the Y axis. */
+  public final boolean isPillarY(){
+    return min_x == max_x && min_z == max_z;
   }
   
+  /** Returns whether this BlockArea is only extending along the Z axis. */
+  public final boolean isPillarZ(){
+    return min_x == max_x && min_y == max_y;
+  }
+
   /** Returns true if this BlockArea has all values set to 0. */
   public final boolean isOrigin(){
     return min_x == 0 && min_y == 0 && min_z == 0 && max_x == 0 && max_y == 0 && max_z == 0;
@@ -1464,6 +1843,12 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   /** Returns true if this BlockArea is at position (0, 0, 0). */
   public final boolean isAtOrigin(){
     return min_x == 0 && min_y == 0 && min_z == 0;
+  }
+  
+  /** Returns true if the center position is at (0, 0, 0). */
+  public final boolean isCenterAtOrigin(){
+    final Vec3i center = getCenter();
+    return center.getX() == 0 && center.getY() == 0 && center.getZ() == 0;
   }
   
   /** Returns whether the Minimum position is the same as
@@ -1500,6 +1885,57 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     return size % 2 == 0;
   }
 
+  /** Returns whether this BlockArea has an area of 0 or less, so this is
+   *  just an alias for {@link #isInvalid()}. */
+  public final boolean isEmpty(){
+    return isInvalid();
+  }
+
+  // Meta functions
+
+  /** We allow you to move the Minimum and Maximum positions so that the
+   *  Minimum is greater than the Maximum, thus creating a negative area.
+   *  In such a case, the result of some of these functions may be
+   *  unpredictable. Use this function to check if the BlockArea correctly
+   *  has its Minimum position lower or equal to the Maximum position.
+   */
+  public final boolean valid(){
+    return min_x <= max_x && min_y <= max_y && min_z <= max_z;
+  }
+  
+  /** We allow you to move the Minimum and Maximum positions so that the
+   *  Minimum is greater than the Maximum, thus creating a negative area. In
+   *  such a case, the result of some of these functions may be unpredictable.
+   *  Use this function to check if this BlockArea is invalid. If this BlockArea
+   *  is invalid, you cannot {@linkplain #getIndex(Vec3i) get an index} value of
+   *  a BlockPosition in this area or iterate through any positions in this area.
+   */
+  public final boolean isInvalid(){
+    return min_x > max_x || min_y > max_y || min_z > max_x;
+  }
+  
+  /** If this BlockArea {@link #isInvalid()}, meaning it has at least 1 dimension
+   *  whose Maximum is less than the Minimum, this will correct the BlockArea by
+   *  swapping any invalid Minimum and Maximum values. */
+  public final void correct(){
+    int temp;
+    if(max_x < min_x){
+      temp = min_x;
+      min_x = max_x;
+      max_x = temp;
+    }
+    if(max_y < min_y){
+      temp = min_y;
+      min_y = max_y;
+      max_y = temp;
+    }
+    if(max_z < min_z){
+      temp = min_z;
+      min_z = max_z;
+      max_z = temp;
+    }
+  }
+  
   /** Returns whether this BlockArea is so big that you won't actually
    *  get the total number of blocks if you call {@link #getArea()}. */
   public final boolean hasOverflowIndex(){
@@ -1531,34 +1967,33 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
     return Arrays.hashCode(new int[]{min_x, min_y, min_z, max_x, max_y, max_z});
   }
 
-  private static final class BlockAreaIterator implements Iterator<BlockPos> {
-    private int x;
-    private int y;
-    private int z;
+  public final class BlockAreaIterator implements Iterator<BlockPos> {
     private final BlockArea internal;
-    private final int max_width;
-    private final int max_height;
-    private final int max_length;
     private final BlockArea area;
-    // private int index = 0;
-    // private final int total;
-    private boolean running = true;
-    public BlockAreaIterator(final BlockArea area){
+    private final DirectionalLoop loop;
+    
+    private BlockAreaIterator(final BlockArea area){
       this.internal = area.clone();
       this.area = area;
-      x = area.min_x;
-      y = area.min_y;
-      z = area.min_z;
-      max_width  = area.max_x;
-      max_height = area.max_y;
-      max_length = area.max_z;
-      // total = area.valid() ? area.getArea() : 0;
+      this.loop = new DirectionalLoop.South(area);
+    }
+    
+    private BlockAreaIterator(final BlockArea area, final Direction direction){
+      this.internal = area.clone();
+      this.area = area;
+      this.loop = switch(direction){
+        case WEST  -> new DirectionalLoop.West(area);
+        case EAST  -> new DirectionalLoop.East(area);
+        case UP    -> new DirectionalLoop.Up(area);
+        case DOWN  -> new DirectionalLoop.Down(area);
+        case NORTH -> new DirectionalLoop.North(area);
+        case SOUTH -> new DirectionalLoop.South(area);
+      };
     }
     
     @Override
     public final boolean hasNext(){
-      // return index < total;
-      return running;
+      return !loop.hasReachedEnd();
     }
     
     @Override
@@ -1567,21 +2002,8 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
         throw new ConcurrentModificationException("Cannot modify BlockArea while you are iterating through it.");
       }
       // get BlockPos first, then increment
-      final BlockPos pos = new BlockPos(x, y, z);
-      x++;
-      if(x >= max_width){
-        x = internal.min_x;
-        y++;
-        if(y >= max_height){
-          y = internal.min_y;
-          z++;
-          if(z >= max_length){
-            z = internal.min_z;
-            running = false;
-          }
-        }
-      }
-      // index++;
+      final BlockPos pos = loop.getPosition();
+      loop.increment();
       return pos;
     }
   
@@ -1595,6 +2017,10 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   @Override
   public final Iterator<BlockPos> iterator(){
     return new BlockAreaIterator(this);
+  }
+
+  public final BlockAreaIterator getDirectionalIterator(final Direction direction){
+    return new BlockAreaIterator(this, direction);
   }
 
   /** Creates a new BlockArea instance with the same Minimum and Maximum. */
@@ -1626,11 +2052,11 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   public final String toString(){
     final StringBuilder s = new StringBuilder();
     s.append(this.getClass().getSimpleName());
-    s.append("( Min: ");
+    s.append("(Minimum");
     s.append(StringUtil.printPosition(min_x, min_y, min_z));
-    s.append(" | Max: ");
+    s.append(", Maximum");
     s.append(StringUtil.printPosition(max_x, max_y, max_z));
-    s.append(" )");
+    s.append(")");
     return s.toString();
   }
 

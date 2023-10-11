@@ -14,9 +14,14 @@ REMOVED:
 FIXED:
   Fixed not showing a message to players that can't access the Team Manager because they
     don't have the required permission level.
-  Energy Suspension Bridge lengths are now saved with the world. If players change the
-    maximum length in the config and load a world with an Energy Suspension Bridge already
-    active, it will check if the new maximum length is shorter and shut itself off.
+  Energy Suspension Bridges:
+    - Bridge lengths are now saved with the world. If players change the maximum length
+        in the config and load a world with an Energy Suspension Bridge already active,
+        it will check if the new maximum length is shorter and shut itself off.
+    - Now bridges that are 1 block wide and powered will properly shut themselves off if removed.
+    - If two bridges along the same area are powered, the bridge that was powered first takes
+        priority, and thus the bridge will be that color lens. Now the bridge's color will
+        be maintained after world reload.
   Fixed elements in a gui window was not being repositioned after the game window was resized.
   Fixed not being able to insert items into the proper slots in the Magic Infuser machine.
   Fixed duplicate recipes appearing in JEI if you pressed F3 + T to reload resources.
@@ -30,8 +35,6 @@ FIXED:
   Minecraft 1.18 version only: Fix Titanium worldgen using platinum configuration settings.
   Minecraft 1.18 version only: Fixed Show Ores command only counting blocks above Y level 0.
   Minecraft 1.18 version only: Fixed not being able to identify rings in the Identifier.
-KNOWN PROBLEMS:
-  If an Energy Suspension Bridge 1 block wide is destroyed, the energy bridge will not disappear.
 
 
 

@@ -290,7 +290,10 @@ public abstract class BlockNetwork<T extends BlockEntity & IBlockNetworkUser> {
     final BlockPos tile_position = destroyed_tile.getBlockPos();
     DebugBlockNetwork.TILE_REMOVED(this, tile_position);
     blocks.remove(destroyed_tile);
-    if(blocks.size() > 0){
+    if(blocks.size() == 0){
+      lastTileWasRemoved(world, destroyed_tile);
+    }
+    else{
       boolean first = true;
       Node node;
       BlockPos position;
@@ -411,6 +414,11 @@ public abstract class BlockNetwork<T extends BlockEntity & IBlockNetworkUser> {
    * @param position_of_neighbor
    */
   public void neighbor_was_changed(final Level world, final BlockPos current_position, final BlockPos position_of_neighbor){
+  }
+
+  /** Override this to perform special actions when the last TileEntity
+   *  belongs to this BlockNetwork has been removed. */
+  protected void lastTileWasRemoved(final Level world, final T last_tile){
   }
 
 }

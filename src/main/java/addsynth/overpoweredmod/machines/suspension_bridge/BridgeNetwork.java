@@ -9,7 +9,6 @@ import addsynth.core.util.game.data.AdvancementUtil;
 import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.math.block.DirectionUtil;
 import addsynth.core.util.network.NetworkUtil;
-import addsynth.core.util.world.WorldUtil;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.overpoweredmod.assets.CustomAdvancements;
 import addsynth.overpoweredmod.config.Config;
@@ -17,7 +16,6 @@ import addsynth.overpoweredmod.game.NetworkHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,20 +25,24 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   private int lens_index = -1;
 
-  private boolean valid_shape;
   private boolean powered;
   /** Whether this Energy Suspension Bridge is active. */
-  private boolean active;
-  private boolean[] bridge_active = new boolean[6]; // Still doesn't keep Master/Slave relationship between saves because of this. This needs to be saved.
+  boolean active;
 
   private boolean data_changed;
 
-  private final BridgeData[] bridge_data = {
+  final BridgeData[] bridge_data = {
     new BridgeData(0), new BridgeData(1), new BridgeData(2),
     new BridgeData(3), new BridgeData(4), new BridgeData(5)
   };
 
   private BlockArea shape;
+  private boolean valid_shape;
+  
+  private final BlockArea[] check_area = {
+    new BlockArea(), new BlockArea(), new BlockArea(),
+    new BlockArea(), new BlockArea(), new BlockArea()
+  };
 
   /** This is the status of THIS bridge. */
   private BridgeMessage bridge_message;
@@ -50,6 +52,10 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   /** Used for the Maximum Bridge Length advancement. */
   private int longest_distance = 0;
+
+  /** This prevents setting opposite bridge data if that bridge is already
+   *  in the middle of updating. */
+  private boolean updating;
 
   public BridgeNetwork(final Level world, final TileSuspensionBridge tile){
     super(world, tile);
@@ -64,9 +70,6 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   @Override
   protected final void onUpdateNetworkFinished(final Level world){
-    // most likely the shape changed, which invalidates the bridge, so turn off
-    // the CURRENT area of blocks first, then reevaluate.
-    set_active(world, false); // on world load, the bridge data will have no blocks in their area, so this will do nothing?
     check_and_update(world);
     check_neighbor_bridges(world);
   }
@@ -74,15 +77,22 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   /** Main check function. Only run when needed, such as when you open the gui,
    *  When it is redstone powered, or when the BlockNetwork changes. */
   public final void check_and_update(final Level world){
+    updating = true;
     bridge_message = BridgeMessage.PENDING;
     longest_distance = 0;
+    
     check_shape(world);
-    check_all_directions(world);
-    update_active_state(world);
     if(maximum_length != Config.energy_bridge_max_distance.get()){
       maximum_length = Config.energy_bridge_max_distance.get();
-      check_all_directions(world);
     }
+    check_down(world);
+    check_up(world);
+    check_north(world);
+    check_south(world);
+    check_west(world);
+    check_east(world);
+    update_active_state(world);
+    
     if(bridge_message == BridgeMessage.PENDING){
       if(lens_index == -1){
         bridge_message = BridgeMessage.NO_LENS;
@@ -97,40 +107,32 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
       }
     }
     data_changed = true;
+    updating = false;
   }
 
   /** Sets the {@link shape} and {@link valid_shape} fields. */
   private final void check_shape(final Level world){
     final ArrayList<BlockPos> positions = blocks.getBlockPositions();
     shape = BlockArea.get(positions);
-    valid_shape = BlockArea.isFullRectangle(positions);
+    valid_shape = shape.isFullRectangle(positions);
     if(valid_shape == false){
       bridge_message = BridgeMessage.INVALID_SHAPE;
     }
   }
 
-  private final void check_all_directions(final Level world){
-    if(valid_shape){ // because checking directions requires the dimensions of this bridge, which is determined by check_shape()
-      check_down(world);
-      check_up(world);
-      check_north(world);
-      check_south(world);
-      check_west(world);
-      check_east(world);
+  // We need a single-directional update and a bi-directional update!
+  // The reason we update from both directions is because both networks might have
+  // valid shapes, but different shapes, so they think the other is incompatible.
+  // TODO: we need a single function that updates both directions, but only if
+  // the other network exists, and the other network isn't currently udpating!
+  // Move the single check_direction functions into the BridgeData.
+
+  private final void finalize_direction(final int direction, final int distance){
+    if(bridge_data[direction].message == BridgeMessage.PENDING){
+      bridge_data[direction].message = BridgeMessage.NO_BRIDGE;
+      return;
     }
-  }
-
-  private final void check_direction(final Level world, final int direction){
-    if(direction == DirectionConstant.DOWN ){ check_down(world);  return; }
-    if(direction == DirectionConstant.UP   ){ check_up(world);    return; }
-    if(direction == DirectionConstant.NORTH){ check_north(world); return; }
-    if(direction == DirectionConstant.SOUTH){ check_south(world); return; }
-    if(direction == DirectionConstant.WEST ){ check_west(world);  return; }
-    if(direction == DirectionConstant.EAST ){ check_east(world);  return; }
-  }
-
-  private final void finalize(final int direction, final int distance){
-    bridge_data[direction].finish(distance);
+    bridge_data[direction].length = distance;
     if(bridge_data[direction].message == BridgeMessage.OKAY){
       if(distance > longest_distance){
         longest_distance = distance;
@@ -141,151 +143,128 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   // -Y
   private final void check_down(final Level world){
     final int direction = DirectionConstant.DOWN;
-    bridge_data[direction].clear();
-    int x;
-    int y;
-    int z;
-    final int start_x = shape.min_x;
-    final int end_x   = shape.max_x;
-    final int start_y = shape.min_y - 1;
-    final int end_y   = Math.max(shape.min_y - 1 - maximum_length, world.getMinBuildHeight());
-    final int start_z = shape.min_z;
-    final int end_z   = shape.max_z;
-    int distance = -1;
-    boolean pass = true;
-    for(y = start_y; y >= end_y && pass; y--){
-      for(z = start_z; z <= end_z && pass; z++){
-        for(x = start_x; x <= end_x && pass; x++){
-          pass = check_position(world, direction, new BlockPos(x, y, z));
-        }
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    // We want to check 1 more space for TileSuspensionBridges, and the space in between will equal the distance.
+    area.setBelow(shape, maximum_length + 1);
+    area.setWithinWorldBoundary(world);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.DOWN);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.min_y = position.getY() + 1; // Lower area by 1 space to return to original length
+    finalize_direction(direction, pass ? 0 : area.getHeight());
   }
   
   // +Y
   private final void check_up(final Level world){
     final int direction = DirectionConstant.UP;
-    bridge_data[direction].clear();
-    int x;
-    int y;
-    int z;
-    final int start_x = shape.min_x;
-    final int end_x   = shape.max_x;
-    final int start_y = shape.max_y + 1;
-    final int end_y   = Math.min(shape.max_y + 1 + maximum_length, world.getMaxBuildHeight() - 1);
-    final int start_z = shape.min_z;
-    final int end_z   = shape.max_z;
-    int distance = -1;
-    boolean pass = true;
-    for(y = start_y; y <= end_y && pass; y++){
-      for(z = start_z; z <= end_z && pass; z++){
-        for(x = start_x; x <= end_x && pass; x++){
-          pass = check_position(world, direction, new BlockPos(x, y, z));
-        }
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    area.setAbove(shape, maximum_length + 1);
+    area.setWithinWorldBoundary(world);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.UP);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.max_y = position.getY() - 1;
+    finalize_direction(direction, pass ? 0 : area.getHeight());
   }
   
   // -Z
   private final void check_north(final Level world){
     final int direction = DirectionConstant.NORTH;
-    bridge_data[direction].clear();
-    int x;
-    int z;
-    final int start_x = shape.min_x;
-    final int end_x   = shape.max_x;
-    final int start_z = shape.min_z - 1;
-    final int end_z   = shape.min_z - 1 - maximum_length;
-    int distance = -1;
-    boolean pass = true;
-    for(z = start_z; z >= end_z && pass; z--){
-      for(x = start_x; x <= end_x && pass; x++){
-        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    area.setNorth(shape, maximum_length + 1);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.NORTH);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.min_z = position.getZ() + 1;
+    finalize_direction(direction, pass ? 0 : area.getLength());
   }
   
   // +Z
   private final void check_south(final Level world){
     final int direction = DirectionConstant.SOUTH;
-    bridge_data[direction].clear();
-    int x;
-    int z;
-    final int start_x = shape.min_x;
-    final int end_x   = shape.max_x;
-    final int start_z = shape.max_z + 1;
-    final int end_z   = shape.max_z + 1 + maximum_length;
-    int distance = -1;
-    boolean pass = true;
-    for(z = start_z; z <= end_z && pass; z++){
-      for(x = start_x; x <= end_x && pass; x++){
-        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    area.setSouth(shape, maximum_length + 1);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.SOUTH);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.max_z = position.getZ() - 1;
+    finalize_direction(direction, pass ? 0 : area.getLength());
   }
   
   // -X
   private final void check_west(final Level world){
     final int direction = DirectionConstant.WEST;
-    bridge_data[direction].clear();
-    int x;
-    int z;
-    final int start_x = shape.min_x - 1;
-    final int end_x   = shape.min_x - 1 - maximum_length;
-    final int start_z = shape.min_z;
-    final int end_z   = shape.max_z;
-    int distance = -1;
-    boolean pass = true;
-    for(x = start_x; x >= end_x && pass; x--){
-      for(z = start_z; z <= end_z && pass; z++){
-        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    area.setWest(shape, maximum_length + 1);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.WEST);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.min_x = position.getX() + 1;
+    finalize_direction(direction, pass ? 0 : area.getWidth());
   }
   
   // +X
   private final void check_east(final Level world){
     final int direction = DirectionConstant.EAST;
-    bridge_data[direction].clear();
-    int x;
-    int z;
-    final int start_x = shape.max_x + 1;
-    final int end_x   = shape.max_x + 1 + maximum_length;
-    final int start_z = shape.min_z;
-    final int end_z   = shape.max_z;
-    int distance = -1;
-    boolean pass = true;
-    for(x = start_x; x <= end_x && pass; x++){
-      for(z = start_z; z <= end_z && pass; z++){
-        pass = check_position(world, direction, new BlockPos(x, shape.max_y, z));
-      }
-      distance++;
+    final BridgeData bridge_data = this.bridge_data[direction];
+    bridge_data.clear();
+    final BlockArea area = check_area[direction];
+    area.setEast(shape, maximum_length + 1);
+    final BlockArea.BlockAreaIterator loop = area.getDirectionalIterator(Direction.EAST);
+    BlockPos position;
+    boolean pass;
+    do{
+      position = loop.next();
+      pass = check_position(world, bridge_data, direction, position);
     }
-    finalize(direction, distance);
+    while(loop.hasNext() && pass);
+    area.max_x = position.getX() - 1;
+    finalize_direction(direction, pass ? 0 : area.getWidth());
   }
 
-  private final boolean check_position(final Level world, final int direction, final BlockPos position){
-    final BridgeData bridge_data = this.bridge_data[direction];
+  private final boolean check_position(final Level world, final BridgeData bridge_data, final int direction, final BlockPos position){
     final TileSuspensionBridge tile = MinecraftUtility.getTileEntity(position, world, TileSuspensionBridge.class);
     
-    // empty space, add to area and return
+    // empty space, check if obstructed and return
     if(tile == null){
-      final BlockState state = world.getBlockState(position);
-      if(state.getMaterial().isReplaceable() || state.getBlock() instanceof EnergyBridge){
-        bridge_data.area.add(position);
-      }
-      else{
-        bridge_data.obstructed = true;
+      if(!bridge_data.obstructed){
+        final BlockState state = world.getBlockState(position);
+        bridge_data.obstructed = !(state.getMaterial().isReplaceable() || state.getBlock() instanceof EnergyBridge);
       }
       return true;
     }
@@ -296,6 +275,12 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
     bridge_data.network = tile.getBlockNetwork();
     
+    setBridgeMessage(world, direction, bridge_data);
+    
+    return false;
+  }
+
+  private final void setBridgeMessage(final Level world, final int direction, final BridgeData bridge_data){
     // check bridge shape
     if(bridge_data.network.check(world, direction, shape)){
       if(bridge_data.obstructed){
@@ -308,12 +293,12 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     else{
       bridge_data.message = BridgeMessage.INVALID_BRIDGE;
     }
-    return false;
   }
 
   /** This is an internal method. Only OTHER Bridge Networks should be calling this. */
   private final boolean check(final Level world, final int direction, final BlockArea shape){
-    check_shape(world);
+    // Other BridgeNetwork should've already been created, and Updated by now.
+    // check_shape(world);
     if(valid_shape){
       final boolean length = this.shape.sameLength(shape);
       final boolean width  = this.shape.sameWidth(shape);
@@ -333,13 +318,22 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   private final void check_neighbor_bridges(final Level world){
     int direction;
     int opposite;
-    BridgeNetwork bridge;
+    BridgeNetwork network;
     for(direction = 0; direction < 6; direction++){
-      bridge = bridge_data[direction].network;
-      if(bridge != null){
-        opposite = DirectionUtil.getOppositeDirection(direction);
-        bridge.check_direction(world, opposite); // updates messages, and bridge area.
-        bridge.update_direction(world, opposite);
+      network = bridge_data[direction].network;
+      if(network != null){
+        if(!network.updating){
+          opposite = DirectionUtil.getOppositeDirection(direction);
+          switch(opposite){
+          case DirectionConstant.DOWN:  network.check_down(world); break;
+          case DirectionConstant.UP:    network.check_up(world); break;
+          case DirectionConstant.WEST:  network.check_west(world); break;
+          case DirectionConstant.EAST:  network.check_east(world); break;
+          case DirectionConstant.NORTH: network.check_north(world); break;
+          case DirectionConstant.SOUTH: network.check_south(world); break;
+          }
+          network.update_direction(world, opposite);
+        }
       }
     }
   }
@@ -352,9 +346,9 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
   }
 
-  public final void load_data(final int lens_index, final boolean active, final BridgeData[] bridge_data, final int maximum_length){
+  public final void load_data(final int lens_index, final boolean powered, final BridgeData[] bridge_data, final int maximum_length){
     this.lens_index = lens_index;
-    // this.active = active;
+    this.powered = powered;
     this.bridge_data[0].set(bridge_data[0]);
     this.bridge_data[1].set(bridge_data[1]);
     this.bridge_data[2].set(bridge_data[2]);
@@ -368,7 +362,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   private final void syncBridgeNetworkData(final Level world){
     blocks.remove_invalid();
     blocks.forAllTileEntities((TileSuspensionBridge tile) -> {
-      tile.save_block_network_data(lens_index, active, bridge_data, maximum_length);
+      tile.save_block_network_data(lens_index, powered, bridge_data, maximum_length);
     });
     // bridge messages do not need to be saved to the world, they only need to be sent to the client.
     final SyncClientBridgeMessage msg = new SyncClientBridgeMessage(blocks.getBlockPositions(), bridge_message, bridge_data);
@@ -401,18 +395,18 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   }
 
   private final void update_active_state(final Level world){
-    final boolean valid = valid_shape && lens_index >= 0 && maximum_length >= Config.energy_bridge_max_distance.get();
+    final boolean valid = valid_shape && lens_index >= 0;
     set_active(world, valid && powered);
   }
 
   public final void set_active(final Level world, final boolean active){
     this.active = active;
-    update_direction(world, 0);
-    update_direction(world, 1);
-    update_direction(world, 2);
-    update_direction(world, 3);
-    update_direction(world, 4);
-    update_direction(world, 5);
+    update_direction(world, 0); // down
+    update_direction(world, 1); // up
+    update_direction(world, 2); // north
+    update_direction(world, 3); // south
+    update_direction(world, 4); // west
+    update_direction(world, 5); // east
     if(active){
       if(longest_distance >= Config.energy_bridge_max_distance.get()){
         award_players(world);
@@ -436,83 +430,34 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   /** This is the function that actually turns on/off the bridge depending on the active state. */
   private final void update_direction(final Level world, final int direction){
-    final BridgeData bridge_data = this.bridge_data[direction];
-    if(bridge_data.message == BridgeMessage.OKAY){
+    final BridgeData bridge = this.bridge_data[direction];
+    bridge.handleLegacy(check_area[direction]);
+    if(bridge.message == BridgeMessage.OKAY){
       // a message of OKAY means we already know WE'RE valid, and valid in that direction,
       // so we're free to manipulate blocks in that area.
-      final int opposite = DirectionUtil.getOppositeDirection(direction);
-      final BridgeNetwork other_bridge_network = bridge_data.network;
-      final BridgeData opposite_bridge_data = other_bridge_network.bridge_data[opposite];
+      final BridgeNetwork network = bridge.network;
+      final BridgeData opposite_data = bridge.getOpposite();
       if(active){
-        if(bridge_data.relation == BridgeRelation.NONE){
-          bridge_data.relation = BridgeRelation.MASTER;
-          opposite_bridge_data.relation = BridgeRelation.SLAVE;
-        }
-        if(bridge_data.relation == BridgeRelation.MASTER){
-          bridge_active[direction] = true;
-          for(final BlockPos position : bridge_data.area){
-            set_energy_block(world, direction, position);
-          }
-        }
+        bridge.turn_on(world, opposite_data, check_area[direction], lens_index);
       }
       else{
-        // If we turn off
-        bridge_active[direction] = false;
-        if(other_bridge_network.active){
-          // TileSuspension Bridge on other side of bridge becomes the Master.
-          other_bridge_network.bridge_active[opposite] = true;
-          bridge_data.relation = BridgeRelation.SLAVE;
-          opposite_bridge_data.relation = BridgeRelation.MASTER;
-          // other bridge is already active, I thought its maintain_bridge() function would
-          // put the correct bridge in place, but it doesn't check color or orientation.
-          // and we can't check for too many things in a single tick, for performance reasons.
-          // it would work if we deleted the energy bridge blocks, which is what we did before.
-          // must set blocks from the perspective of the other bridge
-          for(final BlockPos position : opposite_bridge_data.area){
-            other_bridge_network.set_energy_block(world, opposite, position);
-          }
-        }
-        else{
-          bridge_data.relation = BridgeRelation.NONE;
-          opposite_bridge_data.relation = BridgeRelation.NONE;
-          for(final BlockPos position : bridge_data.area){
-            if(world.getBlockState(position).getBlock() instanceof EnergyBridge){
-              WorldUtil.delete_block(world, position);
-            }
-          }
-        }
+        bridge.turn_off(world, opposite_data, check_area[direction], network.lens_index);
       }
       data_changed = true;
-      other_bridge_network.data_changed = true;
+      network.data_changed = true;
     }
     else{
-      if(bridge_active[direction]){ // if we suddenly become invalid, but the bridge is on.
-        for(final BlockPos position : bridge_data.area){
-          WorldUtil.delete_block(world, position);
-        }
-        bridge_active[direction] = false;
+      if(bridge.relation == BridgeRelation.MASTER){
+        // if we suddenly become invalid, but the bridge is on.
+        bridge.turn_off_immediately(world);
       }
     }
-  }
-
-  private final void set_energy_block(final Level world, final int direction, final BlockPos position){
-    final boolean vertical = direction == DirectionConstant.DOWN || direction == DirectionConstant.UP;
-    final Direction.Axis axis = vertical ? bridge_data[direction].getRotationAxis() : null;
-    world.setBlockAndUpdate(position, EnergyBridge.get(lens_index, axis));
   }
 
   private final void maintain_bridge(final Level world){
     int direction;
-    Block block;
     for(direction = 0; direction < 6; direction++){
-      if(bridge_data[direction].relation == BridgeRelation.MASTER){
-        for(final BlockPos position : bridge_data[direction].area){
-          block = world.getBlockState(position).getBlock();
-          if(block instanceof EnergyBridge == false){
-            set_energy_block(world, direction, position);
-          }
-        }
-      }
+      bridge_data[direction].maintain(world, lens_index);
     }
   }
 
@@ -536,13 +481,18 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
   }
 
-  // FIX: Bridge doesn't disappear when a neighbor bridge of a single block
-  // wide is destroyed. We need to check if neighbor bridges still exist.
-  // Each bridge needs to have their own active and valid boolean states.
-  // This needs to wait until after the BlockNetwork rewrite.
-
   @Override
   protected final void clear_custom_data(){
+  }
+
+  @Override
+  protected final void lastTileWasRemoved(final Level world, final TileSuspensionBridge removed_tile){
+    int direction;
+    for(direction = 0; direction < 6; direction++){
+      if(bridge_data[direction].relation == BridgeRelation.MASTER){
+        bridge_data[direction].turn_off_immediately(world);
+      }
+    }
   }
 
 }

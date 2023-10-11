@@ -41,7 +41,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
     new BridgeData(3), new BridgeData(4), new BridgeData(5)
   };
   
-  private boolean active;
+  private boolean powered;
   private int maximum_length = Config.energy_bridge_max_distance.get();
 
   public TileSuspensionBridge(BlockPos position, BlockState blockstate){
@@ -56,7 +56,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public final void load(final CompoundTag nbt){
     super.load(nbt);
-    active = nbt.getBoolean("Active");
+    powered = nbt.getBoolean("Powered");
     if(nbt.contains("Maximum Length")){
       maximum_length = nbt.getInt("Maximum Length");
     }
@@ -75,7 +75,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   protected final void saveAdditional(final CompoundTag nbt){
     super.saveAdditional(nbt);
-    nbt.putBoolean("Active", active);
+    nbt.putBoolean("Powered", powered);
     nbt.putInt("Maximum Length", maximum_length);
     bridge_data[0].save(nbt);
     bridge_data[1].save(nbt);
@@ -87,12 +87,12 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
 
   @Override
   public void load_block_network_data(){
-    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), active, bridge_data, maximum_length);
+    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), powered, bridge_data, maximum_length);
   }
 
-  public final void save_block_network_data(final int lens_index, final boolean active, final BridgeData[] data, final int maximum_length){
+  public final void save_block_network_data(final int lens_index, final boolean powered, final BridgeData[] data, final int maximum_length){
     inventory.setStackInSlot(0, lens_index < 0 ? ItemStack.EMPTY : new ItemStack(LensItem.get(lens_index)));
-    this.active = active;
+    this.powered = powered;
     bridge_data[0].set(data[0]);
     bridge_data[1].set(data[1]);
     bridge_data[2].set(data[2]);

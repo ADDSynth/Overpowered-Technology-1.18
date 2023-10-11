@@ -32,14 +32,7 @@ public final class EnergyBridge extends RotatedPillarBlock {
     setRegistryName(device_color.energy_bridge);
   }
 
-  /** This is a public static function used to get an Energy Bridge in the specified color
-   *  and orientation. Primarily used by {@link BridgeNetwork#set_energy_block(int, BlockPos)}.
-   *  Pass {@code null} as the rotation orientation to get the standard flat shape.
-   * @param index
-   * @param axis
-   * @return
-   */
-  public static final BlockState get(final int index, final Direction.Axis axis){
+  public static final BlockState get(final int index, final Direction direction, final Direction.Axis axis){
     final Block block = switch(index){
       case 0 -> OverpoweredBlocks.white_energy_bridge.get();
       case 1 -> OverpoweredBlocks.red_energy_bridge.get();
@@ -53,7 +46,7 @@ public final class EnergyBridge extends RotatedPillarBlock {
     };
     if(block != null){
       final BlockState block_state = block.defaultBlockState();
-      if(axis != null){
+      if(direction.getAxis() == Direction.Axis.Y){
         block_state.setValue(AXIS, axis);
       }
       return block_state;

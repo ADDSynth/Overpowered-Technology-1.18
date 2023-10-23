@@ -1,7 +1,7 @@
 package addsynth.core.recipe;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
 
@@ -13,23 +13,19 @@ public final class FurnaceRecipes extends RecipeCollection<SmeltingRecipe> {
 
   public static final FurnaceRecipes INSTANCE = new FurnaceRecipes();
 
-  public FurnaceRecipes(){
+  private FurnaceRecipes(){
     super(RecipeType.SMELTING, 1);
   }
 
-  public static final boolean isFurnaceIngredient(final Item item){
+  public static final boolean isFurnaceIngredient(final ItemStack stack){
     for(final SmeltingRecipe recipe : INSTANCE.getRecipes()){
-      for(final ItemStack stack : recipe.getIngredients().get(0).getItems()){
-        if(stack.getItem() == item){
+      for(final Ingredient ingredient : recipe.getIngredients()){
+        if(ingredient.test(stack)){
           return true;
         }
       }
     }
     return false;
-  }
-
-  public static final ItemStack getResult(final Item item){
-    return INSTANCE.getResult(new ItemStack(item, 1));
   }
 
 }

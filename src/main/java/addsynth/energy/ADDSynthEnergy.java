@@ -24,8 +24,10 @@ import addsynth.energy.registers.Containers;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -80,6 +82,14 @@ public class ADDSynthEnergy {
   }
 
   public static void onServerStarted(final ServerStartedEvent event){
+    @SuppressWarnings("resource")
+    final MinecraftServer server = event.getServer();
+    
+    // build recipe caches
+    final RecipeManager recipe_manager = server.getRecipeManager();
+    CompressorRecipes.INSTANCE.rebuild(recipe_manager);
+    CircuitFabricatorRecipes.INSTANCE.rebuild(recipe_manager);
+    
     if(Compatibility.PROJECT_E.loaded){
       if(DEV_STAGE.isDevelopment){
         EMCValue.check_items(MOD_ID);

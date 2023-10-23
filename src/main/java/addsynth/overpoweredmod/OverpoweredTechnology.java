@@ -14,7 +14,6 @@ import addsynth.overpoweredmod.game.OverpoweredSavedData;
 import addsynth.overpoweredmod.game.core.Laser;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.GuiAdvancedOreRefinery;
-import addsynth.overpoweredmod.machines.advanced_ore_refinery.OreRefineryRecipes;
 import addsynth.overpoweredmod.machines.crystal_matter_generator.GuiCrystalMatterGenerator;
 import addsynth.overpoweredmod.machines.energy_extractor.GuiCrystalEnergyExtractor;
 import addsynth.overpoweredmod.machines.fusion.chamber.GuiFusionChamber;
@@ -85,7 +84,6 @@ public class OverpoweredTechnology {
     
     NetworkHandler.registerMessages();
     // WeirdDimension.register();
-    OreRefineryRecipes.register();
     MagicInfuserRecipes.INSTANCE.register();
     
     // Register Stats
@@ -99,11 +97,16 @@ public class OverpoweredTechnology {
   }
 
   private static final void serverStarted(final ServerStartedEvent event){
-    // load world saved data
     @SuppressWarnings("resource")
     final MinecraftServer server = event.getServer();
+    
+    // set recipe caches
+    MagicInfuserRecipes.INSTANCE.rebuild(server.getRecipeManager());
+    
+    // load world saved data
     OverpoweredSavedData.load(server);
 
+    // check items missing EMC
     if(Compatibility.PROJECT_E.loaded){
       if(DEV_STAGE.isDevelopment){
         EMCValue.check_items(MOD_ID);

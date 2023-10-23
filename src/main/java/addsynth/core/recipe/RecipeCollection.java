@@ -1,6 +1,7 @@
 package addsynth.core.recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /** The RecipeCollection keeps a list of recipes of the {@link RecipeType}
@@ -36,10 +38,12 @@ public class RecipeCollection<T extends Recipe<Container>> {
     filter = new MachineFilter(recipe_max_size);
   }
 
-  /** RecipeCollections should be registered in your Mod's class constructor or main setup
+  /** <p>RecipeCollections should be registered in your Mod's class constructor or main setup
    *  function. This will ensure they get rebuilt on server and client whenever resources
-   *  are reloaded. However, we really shouldn't be doing this. I just want this because
-   *  I want slots to be filtered based on their recipes.
+   *  are reloaded.
+   *  <p>I've discovered that the server isn't available when the TagsUpdatedEvent is first
+   *  sent on the server side, so we can't get the RecipeManager and upate the recipes.
+   *  You need to call {@link #rebuild(RecipeManager)} in the {@link ServerStartedEvent}.
    */
   public final void register(){
     RecipeUtil.addResponder(this::rebuild);
@@ -49,14 +53,25 @@ public class RecipeCollection<T extends Recipe<Container>> {
   public final void rebuild(final RecipeManager recipe_manager){
     // rebuild recipe cache
     recipes.clear();
-    recipes.addAll(recipe_manager.getAllRecipesFor(type));
+    final List<T> final_recipes = alter_recipes(recipe_manager.getAllRecipesFor(type));
+    recipes.addAll(final_recipes);
     
     if(recipes.size() == 0){
+      filter.clear();
       ADDSynthCore.log.error("No recipes of type "+getRecipeTypeName()+" exist!");
       return;
     }
     filter.set(recipes);
     ADDSynthCore.log.info(this.toString()+" was rebuilt.");
+  }
+
+  /** Override this to customize recipes. This will be
+   *  called everytime we need to rebuild the recipe cache.
+   * @param recipes
+   * @return
+   */
+  protected List<T> alter_recipes(final List<T> recipes){
+    return recipes;
   }
 
   /** Gets the filter for the first slot. Useful for recipes that only have 1 ingredient. */

@@ -32,6 +32,12 @@ public final class MachineFilter {
     }
   }
 
+  public final void clear(){
+    for(final ItemStackList item_list : ingredient_list){
+      item_list.clear();
+    }
+  }
+
   public final <T extends Recipe<?>> void set(final Collection<T> recipes){
     // clear arrays
     for(final ItemStackList item_list : ingredient_list){

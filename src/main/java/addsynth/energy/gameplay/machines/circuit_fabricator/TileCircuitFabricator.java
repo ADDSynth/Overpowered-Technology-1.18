@@ -32,7 +32,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
   private final RecipeFilter filter = new RecipeFilter(8);
 
   public final Predicate<ItemStack> getFilter(final int slot){
-    return filter.get(slot);
+    return filter.getFilter(slot);
   }
 
   // NBT Labels
@@ -41,6 +41,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
 
   public TileCircuitFabricator(BlockPos position, BlockState blockstate){
     super(Tiles.CIRCUIT_FABRICATOR.get(), position, blockstate, 8, null, 1, Config.circuit_fabricator);
+    inventory.getInputInventory().isItemStackValid = filter::test;
     inventory.setRecipeProvider(CircuitFabricatorRecipes.INSTANCE);
     rebuild_filters(); // sets default filter, before we load the previously saved selected recipe.
   }

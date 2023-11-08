@@ -50,11 +50,27 @@ public final class RecipeFilter {
     }
   }
   
-  public final Predicate<ItemStack> get(final int index){
+  /** You can use this to get a Predicate filter of a specific slot.
+   *  It will work correctly as the filter gets updated.
+   * @param slot
+   * @return
+   */
+  public final Predicate<ItemStack> getFilter(final int slot){
+    return (ItemStack stack) -> test(slot, stack);
+  }
+  
+  /** Since the internal ingredient list changes on every recipe change,
+   *  we can't return a Predicate of a single Ingredient, so instead you
+   *  can call {@link #getFilter(int)} to get the Predicate filter.
+   * @param index
+   * @param stack
+   * @return
+   */
+  public final boolean test(final int index, final ItemStack stack){
     if(ArrayUtil.isInsideBounds(index, ingredients_length)){
-      return ingredients.get(index)::test;
+      return ingredients.get(index).test(stack);
     }
-    return (ItemStack) -> false;
+    return false;
   }
 
   public final Ingredient getIngredient(final int index){

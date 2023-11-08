@@ -124,7 +124,7 @@ public final class InputInventory extends CommonInventory {
 
   /** Checks all slots in this inventory and returns invalid ItemStacks to the player. */
   public final void ejectInvalidItems(final Player player){
-    final ItemStack[] ejected_itemStacks = getInvalidItemStacks();
+    final ArrayList<ItemStack> ejected_itemStacks = getInvalidItemStacks();
     for(ItemStack stack : ejected_itemStacks){
       PlayerUtil.add_to_player_inventory(player, stack);
     }
@@ -133,22 +133,22 @@ public final class InputInventory extends CommonInventory {
   /** Checks all slots in this inventory, removes invalid ItemStacks that don't
    *  match the filter, and spawns them in the world. */
   public final void ejectInvalidItems(final Level world, final BlockPos pos){
-    final ItemStack[] ejected_itemStacks = getInvalidItemStacks();
+    final ArrayList<ItemStack> ejected_itemStacks = getInvalidItemStacks();
     for(ItemStack stack : ejected_itemStacks){
       WorldUtil.spawnItemStack(world, pos, stack, false);
     }
   }
 
-  private final ItemStack[] getInvalidItemStacks(){
+  private final ArrayList<ItemStack> getInvalidItemStacks(){
     final int size = stacks.size();
     final ArrayList<ItemStack> ejected_itemStacks = new ArrayList<>(size);
     int i;
     for(i = 0; i < size; i++){
-      if(slot_data[i].is_item_valid(getStackInSlot(i)) == false){
+      if(isItemStackValid.apply(i, getStackInSlot(i)) == false){
         ejected_itemStacks.add(extractItemStack(i));
       }
     }
-    return ejected_itemStacks.toArray(new ItemStack[ejected_itemStacks.size()]);
+    return ejected_itemStacks;
   }
 
 }

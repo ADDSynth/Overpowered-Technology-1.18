@@ -11,10 +11,8 @@ import addsynth.core.gameplay.commands.ADDSynthCommands;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.recipe.FurnaceRecipes;
-import addsynth.core.recipe.RecipeUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -67,9 +65,6 @@ public final class ADDSynthCore {
     MinecraftForge.EVENT_BUS.addListener(TeamData::serverTick);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthCommands::tick);
     
-    MinecraftForge.EVENT_BUS.addListener(RecipeUtil::tags_updated);
-    MinecraftForge.EVENT_BUS.addListener(RecipeUtil::recipes_updated);
-    
     ADDSynthCore.log.info("Done constructing ADDSynthCore class object.");
   }
 
@@ -107,10 +102,6 @@ public final class ADDSynthCore {
   }
 
   public static void onServerStarted(final ServerStartedEvent event){
-    @SuppressWarnings("resource")
-    final MinecraftServer server = event.getServer();
-    FurnaceRecipes.INSTANCE.rebuild(server.getRecipeManager());
-
     if(Compatibility.PROJECT_E.loaded){
       EMCValue.check_internal_emc_values();
       if(DEV_STAGE.isDevelopment){

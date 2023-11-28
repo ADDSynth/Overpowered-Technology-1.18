@@ -100,9 +100,6 @@ public class OverpoweredTechnology {
     @SuppressWarnings("resource")
     final MinecraftServer server = event.getServer();
     
-    // set recipe caches
-    MagicInfuserRecipes.INSTANCE.rebuild(server.getRecipeManager());
-    
     // load world saved data
     OverpoweredSavedData.load(server);
 

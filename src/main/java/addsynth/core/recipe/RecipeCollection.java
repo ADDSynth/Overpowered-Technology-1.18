@@ -18,14 +18,14 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.server.ServerStartedEvent;
+import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /** The RecipeCollection keeps a list of recipes of the {@link RecipeType}
  *  that you passed into the constructor. It also maintains an item
  *  filter that only allows an item in that slot if there's a recipe that
- *  needs an item in that slot.The recipe cache and item filter are
- *  automatically updated whenever resource are reloaded.
+ *  needs an item in that slot. The recipe cache and item filter are
+ *  automatically updated whenever resources are reloaded.
  */
 public class RecipeCollection<T extends Recipe<Container>> {
 
@@ -43,7 +43,8 @@ public class RecipeCollection<T extends Recipe<Container>> {
    *  are reloaded.
    *  <p>I've discovered that the server isn't available when the TagsUpdatedEvent is first
    *  sent on the server side, so we can't get the RecipeManager and upate the recipes.
-   *  You need to call {@link #rebuild(RecipeManager)} in the {@link ServerStartedEvent}.
+   *  You need to call {@link #rebuild(RecipeManager)} in the {@link ServerAboutToStartEvent}.
+   *  This is literally the first moment the server is available, before a world loads.
    */
   public final void register(){
     RecipeUtil.addResponder(this::rebuild);
@@ -51,18 +52,22 @@ public class RecipeCollection<T extends Recipe<Container>> {
 
   /** This rebuilds the recipe cache and ingredient filter. */
   public final void rebuild(final RecipeManager recipe_manager){
-    // rebuild recipe cache
-    recipes.clear();
-    final List<T> final_recipes = alter_recipes(recipe_manager.getAllRecipesFor(type));
-    recipes.addAll(final_recipes);
-    
-    if(recipes.size() == 0){
-      filter.clear();
-      ADDSynthCore.log.error("No recipes of type "+getRecipeTypeName()+" exist!");
-      return;
+    if(recipe_manager != null){
+      // rebuild recipe cache
+      recipes.clear();
+      final List<T> final_recipes = alter_recipes(recipe_manager.getAllRecipesFor(type));
+      recipes.addAll(final_recipes);
+      if(recipes.isEmpty()){
+        filter.clear();
+        ADDSynthCore.log.error("No recipes of type "+getRecipeTypeName()+" exist!");
+        return;
+      }
+      filter.set(recipes);
+      ADDSynthCore.log.info(this.toString()+" was rebuilt.");
     }
-    filter.set(recipes);
-    ADDSynthCore.log.info(this.toString()+" was rebuilt.");
+    else{
+      ADDSynthCore.log.error(this.toString()+" failed to build recipes because the supplied RecipeManager was null.");
+    }
   }
 
   /** Override this to customize recipes. This will be

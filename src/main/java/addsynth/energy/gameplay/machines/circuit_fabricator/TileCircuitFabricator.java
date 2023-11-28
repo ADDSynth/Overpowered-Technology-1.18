@@ -43,7 +43,7 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
     super(Tiles.CIRCUIT_FABRICATOR.get(), position, blockstate, 8, null, 1, Config.circuit_fabricator);
     inventory.getInputInventory().isItemStackValid = filter::test;
     inventory.setRecipeProvider(CircuitFabricatorRecipes.INSTANCE);
-    rebuild_filters(); // sets default filter, before we load the previously saved selected recipe.
+    rebuild_filters(); // sets default filter for new TileEntities.
   }
 
   public final void change_recipe(final int circuit_id){
@@ -128,15 +128,16 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
     }
     
     // handle new saves
-    final String recipe = nbt.getString(saveTag);
+    final String recipe_string = nbt.getString(saveTag);
     // handle if tag doesn't exist
-    if(recipe.equals("")){
+    if(recipe_string.equals("")){
       change_recipe(defaultRecipe);
       return;
     }
     // handle if item doesn't exist
-    if(ForgeRegistries.ITEMS.containsKey(new ResourceLocation(recipe)) == false){
-      ADDSynthEnergy.log.warn("Loading CircuitFabricator data: Item '"+recipe+"' doesn't exist anymore. Loading default recipe.");
+    final ResourceLocation recipe = new ResourceLocation(recipe_string);
+    if(ForgeRegistries.ITEMS.containsKey(recipe) == false){
+      ADDSynthEnergy.log.warn("Loading CircuitFabricator data: Item '"+recipe_string+"' doesn't exist anymore. Loading default recipe.");
       change_recipe(defaultRecipe);
       return;
     }

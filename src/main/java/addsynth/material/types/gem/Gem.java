@@ -1,6 +1,5 @@
 package addsynth.material.types.gem;
 
-import javax.annotation.Nullable;
 import addsynth.material.ADDSynthMaterials;
 import addsynth.material.types.AbstractMaterial;
 import addsynth.material.types.OreMaterial;
@@ -21,7 +20,6 @@ public abstract class Gem extends AbstractMaterial implements OreMaterial {
 
   public abstract Item getGem();
 
-  @Nullable
   public final Item getGemShard(){
     if(shard.isPresent()){
       return shard.get();

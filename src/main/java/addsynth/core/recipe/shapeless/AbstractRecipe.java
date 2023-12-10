@@ -1,5 +1,6 @@
 package addsynth.core.recipe.shapeless;
 
+import addsynth.core.util.java.StringUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -16,13 +17,13 @@ public abstract class AbstractRecipe implements Recipe<Container> {
    private final ResourceLocation id;
    private final String group;
    private final ItemStack result;
-   private final NonNullList<Ingredient> recipeItems;
+   protected final NonNullList<Ingredient> ingredients;
 
   public AbstractRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> input){
     this.id = id;
     this.group = group;
     this.result = output;
-    this.recipeItems = input;
+    this.ingredients = input;
     // this.isSimple = input.stream().allMatch(Ingredient::isSimple);
   }
 
@@ -33,22 +34,28 @@ public abstract class AbstractRecipe implements Recipe<Container> {
 
   @Override
   public NonNullList<Ingredient> getIngredients(){
-    return recipeItems; // what are the consequences of returning the EXACT list object? it can be manipulated from an external source.
+    return ingredients; // what are the consequences of returning the EXACT list object? it can be manipulated from an external source.
   }
 
   /** Gets all valid ItemStacks for each Ingredient in this recipe. */
   public final ItemStack[][] getItemStackIngredients(){
-    final int number_of_ingredients = recipeItems.size();
-    final ItemStack[][] stacks = new ItemStack[number_of_ingredients][];
-    int i;
-    for(i = 0; i < number_of_ingredients; i++){
-      stacks[i] = recipeItems.get(i).getItems();
+    if(ingredients != null){
+      final int number_of_ingredients = ingredients.size();
+      final ItemStack[][] stacks = new ItemStack[number_of_ingredients][];
+      int i;
+      for(i = 0; i < number_of_ingredients; i++){
+        stacks[i] = ingredients.get(i).getItems();
+      }
+      return stacks;
     }
-    return stacks;
+    return new ItemStack[0][];
   }
 
   @Override
   public boolean matches(Container inv, Level world){
+    if(ingredients == null){
+      return false;
+    }
     final StackedContents recipeitemhelper = new StackedContents();
     int items_in_inventory = 0;
     int j;
@@ -61,12 +68,12 @@ public abstract class AbstractRecipe implements Recipe<Container> {
       }
     }
 
-    return items_in_inventory == this.recipeItems.size() && recipeitemhelper.canCraft(this, (IntList)null);
+    return items_in_inventory == this.ingredients.size() && recipeitemhelper.canCraft(this, (IntList)null);
   }
 
   @Override
   public boolean canCraftInDimensions(int width, int height){
-    return width * height >= this.recipeItems.size();
+    return width * height >= this.ingredients.size();
   }
 
   /** @return A copy of the output ItemStack. */
@@ -88,7 +95,12 @@ public abstract class AbstractRecipe implements Recipe<Container> {
 
   @Override
   public String toString(){
-    return getClass().getSimpleName()+"(Ingredients: "+recipeItems.size()+", Output: "+result.toString()+")";
+    final String name = getClass().getSimpleName();
+    final int number_of_ingredients = ingredients != null ? ingredients.size() : 0;
+    if(number_of_ingredients != 0){
+      return StringUtil.build(name, '(', "Ingredients: ", number_of_ingredients, ", Output: ", result.toString(), ')');
+    }
+    return StringUtil.build(name, "(Output: ", result.toString(), ')');
   }
 
 }

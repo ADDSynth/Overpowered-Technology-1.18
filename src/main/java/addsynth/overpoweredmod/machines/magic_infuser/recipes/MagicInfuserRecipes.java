@@ -22,10 +22,10 @@ public final class MagicInfuserRecipes {
    * @param input
    */
   public static final ItemStack getResult(final ItemStack input){
-    final ArrayList<ItemStack> output = new ArrayList<>(10);
+    final ArrayList<MagicInfuserRecipe> output = new ArrayList<>(10);
     for(final MagicInfuserRecipe recipe : INSTANCE.getRecipes()){
-      if(recipe.getIngredients().get(1).test(input)){
-        output.add(recipe.getResultItem());
+      if(recipe.main_ingredient.test(input)){
+        output.add(recipe);
       }
     }
     final int size = output.size();
@@ -34,7 +34,7 @@ public final class MagicInfuserRecipes {
       return ItemStack.EMPTY;
     }
     final Random random = new Random();
-    return output.get(random.nextInt(size));
+    return output.get(random.nextInt(size)).getResultItem();
   }
 
 }

@@ -5,12 +5,9 @@ import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.game.reference.Names;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -34,12 +31,7 @@ public final class MagicInfuserRecipeSerializer extends ForgeRegistryEntry<Recip
     
     final String group = GsonHelper.getAsString(json, "group", "");
     
-    final NonNullList<Ingredient> nonnulllist = NonNullList.create();
-    nonnulllist.add(Ingredient.of(new ItemStack(Items.BOOK, 1)));
     final Ingredient input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
-    if(!input.isEmpty()){
-      nonnulllist.add(input);
-    }
     
     final String enchantment_string = GsonHelper.getAsString(json, "enchantment", null);
     if(enchantment_string == null){
@@ -48,30 +40,26 @@ public final class MagicInfuserRecipeSerializer extends ForgeRegistryEntry<Recip
     final ResourceLocation enchantment_id = new ResourceLocation(enchantment_string);
     final Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(enchantment_id);
     if(enchantment == null){
-      OverpoweredTechnology.log.warn("While parsing recipe "+recipeId.toString()+", Enchantment '"+enchantment_id.toString()+"' does not exist or is not registered.");
+      OverpoweredTechnology.log.error("While parsing recipe "+recipeId.toString()+", Enchantment '"+enchantment_string+"' does not exist or is not registered.");
       return null;
     }
-    return new MagicInfuserRecipe(recipeId, group, enchantment, nonnulllist);
+    return new MagicInfuserRecipe(recipeId, group, enchantment, input);
   }
 
   @Override
   @Nullable
-  public MagicInfuserRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer){
-    final String group = buffer.readUtf(32767);
-    final NonNullList<Ingredient> nonnulllist = NonNullList.withSize(2, Ingredient.EMPTY);
-    nonnulllist.set(0, Ingredient.fromNetwork(buffer));
-    nonnulllist.set(1, Ingredient.fromNetwork(buffer));
-    final ItemStack result = buffer.readItem();
-    return new MagicInfuserRecipe(recipeId, group, result, nonnulllist);
+  public final MagicInfuserRecipe fromNetwork(final ResourceLocation recipeId, final FriendlyByteBuf buffer){
+    final String group = buffer.readUtf();
+    final Ingredient ingredient = Ingredient.fromNetwork(buffer);
+    final String enchantment = buffer.readUtf();
+    return new MagicInfuserRecipe(recipeId, group, enchantment, ingredient);
   }
 
   @Override
-  public void toNetwork(FriendlyByteBuf buffer, MagicInfuserRecipe recipe){
+  public final void toNetwork(final FriendlyByteBuf buffer, final MagicInfuserRecipe recipe){
     buffer.writeUtf(recipe.getGroup());
-    final NonNullList<Ingredient> nonnulllist = recipe.getIngredients();
-    nonnulllist.get(0).toNetwork(buffer);
-    nonnulllist.get(1).toNetwork(buffer);
-    buffer.writeItemStack(recipe.getResultItem(), false);
+    recipe.main_ingredient.toNetwork(buffer);
+    buffer.writeUtf(recipe.enchantment_id.toString());
   }
 
 }

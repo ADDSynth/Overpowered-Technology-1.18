@@ -47,7 +47,7 @@ public final class DebugBlockNetwork {
   }
 
   static final void UPDATED(final BlockNetwork network, final BlockPos pos){
-    ADDSynthCore.log.debug(networkName(network)+" started a new Update at position "+position(pos)+".");
+    ADDSynthCore.log.debug(networkName(network)+" started a new Update at "+position(pos)+".");
   }
   
   static final void BLOCKS_CHANGED(final BlockNetwork network, final int old_size, final int new_size){

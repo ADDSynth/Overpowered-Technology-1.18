@@ -309,11 +309,9 @@ public final class BlockArea implements Iterable<BlockPos>, Cloneable {
   // Setters
 
   /** I think normally it wouldn't matter if you set a BlockArea = to another, but
-   *  it would matter you have two references that are meant to describe the same
-   *  area but be separate, if it's the same reference then changes to one will
-   *  affect the other.
-   *  This also saves memory by not having the Garbage Collector collect the free
-   *  BlockArea that no longer has any references pointed to it. */
+   *  it would matter if you have two references that are meant to describe the same
+   *  area but are separate variables because they're used for different purposes.
+   *  If they're the same reference, then changes to one will affect the other. */
   public final void set(final BlockArea other){
     min_x = other.min_x;
     min_y = other.min_y;

@@ -1,4 +1,4 @@
-v1.5.1 - TBD
+v1.5.1 - February 2, 2024
 NEW:
   Added JEI info for Dimensional Flux.
   Added an Auto Shutoff feature to the Plasma Generator.

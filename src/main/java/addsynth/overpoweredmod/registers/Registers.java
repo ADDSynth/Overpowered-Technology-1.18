@@ -101,9 +101,9 @@ public final class Registers {
     game.register(new DataCable());
     game.register(new CrystalEnergyExtractorBlock());
     game.register(new GemConverterBlock());
+    game.register(new IdentifierBlock());
     game.register(new InverterBlock());
     game.register(new MagicInfuserBlock());
-    game.register(new IdentifierBlock());
     
     game.register(new EnergySuspensionBridgeBlock());
     game.register(new EnergyBridge(DeviceColor.WHITE));
@@ -194,9 +194,9 @@ public final class Registers {
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.data_cable));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.crystal_energy_extractor));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.gem_converter));
+    game.register(new OverpoweredBlockItem(OverpoweredBlocks.identifier));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.inverter));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.magic_infuser));
-    game.register(new OverpoweredBlockItem(OverpoweredBlocks.identifier));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.energy_suspension_bridge));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.portal_control_panel));
     game.register(new OverpoweredBlockItem(OverpoweredBlocks.portal_frame));
@@ -273,9 +273,9 @@ public final class Registers {
 
     game.register(RegistryUtil.createBlockEntityType(TileCrystalEnergyExtractor::new, OverpoweredBlocks.crystal_energy_extractor));
     game.register(RegistryUtil.createBlockEntityType(TileGemConverter::new,           OverpoweredBlocks.gem_converter));
+    game.register(RegistryUtil.createBlockEntityType(TileIdentifier::new,             OverpoweredBlocks.identifier));
     game.register(RegistryUtil.createBlockEntityType(TileInverter::new,               OverpoweredBlocks.inverter));
     game.register(RegistryUtil.createBlockEntityType(TileMagicInfuser::new,           OverpoweredBlocks.magic_infuser));
-    game.register(RegistryUtil.createBlockEntityType(TileIdentifier::new,             OverpoweredBlocks.identifier));
     game.register(RegistryUtil.createBlockEntityType(TileSuspensionBridge::new,       OverpoweredBlocks.energy_suspension_bridge));
     game.register(RegistryUtil.createBlockEntityType(TileLaserHousing::new,           OverpoweredBlocks.laser_housing));
     game.register(RegistryUtil.createBlockEntityType(TileDataCable::new,              OverpoweredBlocks.data_cable));
@@ -297,8 +297,8 @@ public final class Registers {
     
     game.register(RegistryUtil.createContainerType(ContainerCrystalEnergyExtractor::new, Names.CRYSTAL_ENERGY_EXTRACTOR));
     game.register(RegistryUtil.createContainerType(ContainerGemConverter::new,           Names.GEM_CONVERTER));
-    game.register(RegistryUtil.createContainerType(ContainerInverter::new,               Names.INVERTER));
     game.register(RegistryUtil.createContainerType(ContainerIdentifier::new,             Names.IDENTIFIER));
+    game.register(RegistryUtil.createContainerType(ContainerInverter::new,               Names.INVERTER));
     game.register(RegistryUtil.createContainerType(ContainerMagicInfuser::new,           Names.MAGIC_INFUSER));
     game.register(RegistryUtil.createContainerType(ContainerSuspensionBridge::new,       Names.ENERGY_SUSPENSION_BRIDGE));
     game.register(RegistryUtil.createContainerType(ContainerLaserHousing::new,           Names.LASER_HOUSING));

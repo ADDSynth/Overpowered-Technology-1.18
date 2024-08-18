@@ -1,3 +1,8 @@
+v1.5.2 - TBD
+
+
+
+
 v1.5.1 - February 2, 2024
 NEW:
   Added JEI info for Dimensional Flux.

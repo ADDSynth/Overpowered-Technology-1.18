@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "addsynth_materials:amethyst_ore"
   },
-  "result": "addsynth_materials:amethyst",
+  "result": "minecraft:amethyst_shard",
   "experience": 1.0,
   "cookingtime": 100
 }

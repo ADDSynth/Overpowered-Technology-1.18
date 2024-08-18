@@ -11,7 +11,9 @@ import addsynth.material.compat.MaterialsCompat;
 import addsynth.material.config.WorldgenConfig;
 import addsynth.material.worldgen.OreGenerator;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
@@ -54,6 +56,8 @@ public final class ADDSynthMaterials {
     bus.addListener(ADDSynthMaterials::process_imc_messages);
     MinecraftForge.EVENT_BUS.addListener(ADDSynthMaterials::onServerStarted);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ADDSynthMaterials::loadBiomes);
+    MinecraftForge.EVENT_BUS.addGenericListener(Block.class, MaterialsRegister::onMissingBlockEntries);
+    MinecraftForge.EVENT_BUS.addGenericListener(Item.class, MaterialsRegister::onMissingItemEntries);
     init_config();
   }
 

@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MaterialColor;
 
 /**
- *  <p>Please try to avoid using these! You should be trying to use {@link MaterialTag Tags}
+ *  <p>Please try to avoid using these! You should be using {@link MaterialTag Tags}
  *  as much as possible, especially if you're checking for input.
  * 
  *  <p>These materials are based on their real-world counterparts, and thus will adhere to
@@ -18,22 +18,21 @@ import net.minecraft.world.level.material.MaterialColor;
 public final class Material {
 
   // vanilla
-  public static final VanillaMaterial COAL         = new VanillaMaterial("coal",     Items.COAL,         Blocks.COAL_BLOCK,    Blocks.COAL_ORE);
-  public static final VanillaMetal    IRON         = new VanillaMetal(   "iron",     Items.IRON_INGOT,   Blocks.IRON_BLOCK,    Blocks.IRON_ORE,   Items.IRON_NUGGET);
-  public static final VanillaMetal    COPPER       = new VanillaMetal(   "copper",   Items.COPPER_INGOT, Blocks.COPPER_BLOCK,  Blocks.COPPER_ORE, null);
-  public static final VanillaMetal    GOLD         = new VanillaMetal(   "gold",     Items.GOLD_INGOT,   Blocks.GOLD_BLOCK,    Blocks.GOLD_ORE,   Items.GOLD_NUGGET);
-  public static final VanillaGem      LAPIS_LAZULI = new VanillaGem(     "lapis",    Items.LAPIS_LAZULI, Blocks.LAPIS_BLOCK,   Blocks.LAPIS_ORE); // OreDictionary Name
-  public static final VanillaMaterial REDSTONE     = new VanillaMaterial("redstone", Items.REDSTONE,     Blocks.REDSTONE_BLOCK,Blocks.REDSTONE_ORE);
-  public static final VanillaGem      DIAMOND      = new VanillaGem(     "diamond",  Items.DIAMOND,      Blocks.DIAMOND_BLOCK, Blocks.DIAMOND_ORE);
-  public static final VanillaGem      EMERALD      = new VanillaGem(     "emerald",  Items.EMERALD,      Blocks.EMERALD_BLOCK, Blocks.EMERALD_ORE);
-  public static final VanillaGem      QUARTZ       = new VanillaGem(     "quartz",   Items.QUARTZ,       Blocks.QUARTZ_BLOCK,  Blocks.NETHER_QUARTZ_ORE);
-  // TODO: Add Vanilla Amethyst material
+  public static final VanillaMaterial COAL         = new VanillaMaterial("coal",     Items.COAL,           Blocks.COAL_BLOCK,     Blocks.COAL_ORE);
+  public static final VanillaMetal    IRON         = new VanillaMetal(   "iron",     Items.IRON_INGOT,     Blocks.IRON_BLOCK,     Blocks.IRON_ORE,   Items.IRON_NUGGET);
+  public static final VanillaMetal    COPPER       = new VanillaMetal(   "copper",   Items.COPPER_INGOT,   Blocks.COPPER_BLOCK,   Blocks.COPPER_ORE, null);
+  public static final VanillaMetal    GOLD         = new VanillaMetal(   "gold",     Items.GOLD_INGOT,     Blocks.GOLD_BLOCK,     Blocks.GOLD_ORE,   Items.GOLD_NUGGET);
+  public static final VanillaGem      LAPIS_LAZULI = new VanillaGem(     "lapis",    Items.LAPIS_LAZULI,   Blocks.LAPIS_BLOCK,    Blocks.LAPIS_ORE); // OreDictionary Name
+  public static final VanillaMaterial REDSTONE     = new VanillaMaterial("redstone", Items.REDSTONE,       Blocks.REDSTONE_BLOCK, Blocks.REDSTONE_ORE);
+  public static final VanillaGem      DIAMOND      = new VanillaGem(     "diamond",  Items.DIAMOND,        Blocks.DIAMOND_BLOCK,  Blocks.DIAMOND_ORE);
+  public static final VanillaGem      EMERALD      = new VanillaGem(     "emerald",  Items.EMERALD,        Blocks.EMERALD_BLOCK,  Blocks.EMERALD_ORE);
+  public static final VanillaGem      QUARTZ       = new VanillaGem(     "quartz",   Items.QUARTZ,         Blocks.QUARTZ_BLOCK,   Blocks.NETHER_QUARTZ_ORE);
+  public static final VanillaGem      AMETHYST     = new VanillaGem(     "amethyst", Items.AMETHYST_SHARD, Blocks.AMETHYST_BLOCK, null);
 
   // New in MC 1.18: Game will crash if you create Blocks and Items, But don't register them! Because in the
   //    class constructors, they create Intrusive Holders, using Registry.[CLASS].createInstrusiveHolder(this).
 
   // gems
-  public static final CustomGem AMETHYST    = new CustomGem("amethyst",    MaterialColor.COLOR_MAGENTA, 3, 7);
   // public static final CustomGem AMBER       = new CustomGem("amber",       MaterialColor.COLOR_ORANGE,  3, 7);
   public static final CustomGem CITRINE     = new CustomGem("citrine",     MaterialColor.COLOR_YELLOW,  3, 7);
   // public static final CustomGem MALACHITE   = new CustomGem("malachite",   MaterialColor.DIAMOND,       3, 7);

@@ -1,5 +1,10 @@
 v1.5.2 - TBD
-
+REMOVED:
+  Amethyst.
+   - We use vanilla Amethyst now.
+   - We still spawn Amethyst Ore, and it drops a vanilla Amethyst Shard when mined.
+   - If your world previously contained ADDSynth Material Amethyst or Amethyst Blocks,
+      those will be replaced with vanilla Amethyst Shards and Amethyst Blocks.
 
 
 

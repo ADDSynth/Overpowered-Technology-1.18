@@ -1,12 +1,21 @@
 package addsynth.material;
 
+import java.util.List;
+import addsynth.core.game.RegistryUtil;
+import addsynth.material.blocks.OreBlock;
 import addsynth.material.compat.recipe.BronzeModAbsentCondition;
 import addsynth.material.compat.recipe.SteelModAbsentCondition;
+import addsynth.material.reference.Names;
+import addsynth.material.reference.MaterialBlocks;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -23,7 +32,7 @@ public final class MaterialsRegister {
     Material.TOPAZ.registerBlocks(game);
     Material.CITRINE.registerBlocks(game);
     Material.SAPPHIRE.registerBlocks(game);
-    Material.AMETHYST.registerBlocks(game);
+    game.register(new OreBlock(Names.AMETHYST_ORE, 3, 7));
     Material.ROSE_QUARTZ.registerBlocks(game);
     
     // metals
@@ -50,6 +59,7 @@ public final class MaterialsRegister {
     Material.EMERALD.registerItems(game);
     Material.DIAMOND.registerItems(game);
     Material.SAPPHIRE.registerItems(game);
+    game.register(RegistryUtil.createItemBlock(MaterialBlocks.amethyst_ore, ADDSynthMaterials.creative_tab));
     Material.AMETHYST.registerItems(game);
     Material.QUARTZ.registerItems(game);
     Material.ROSE_QUARTZ.registerItems(game);
@@ -78,6 +88,27 @@ public final class MaterialsRegister {
   public static final void registerRecipeSerializers(final RegistryEvent.Register<RecipeSerializer<?>> event){
     CraftingHelper.register(SteelModAbsentCondition.Serializer.INSTANCE);
     CraftingHelper.register(BronzeModAbsentCondition.Serializer.INSTANCE);
+  }
+
+  public static final void onMissingBlockEntries(MissingMappings<Block> event){
+    final List<Mapping<Block>> missing_blocks = event.getMappings(ADDSynthMaterials.MOD_ID);
+    for(Mapping<Block> map : missing_blocks){
+      if(map.key.equals(Names.AMETHYST_BLOCK_LEGACY)){
+        map.remap(Blocks.AMETHYST_BLOCK);
+      }
+    }
+  }
+
+  public static final void onMissingItemEntries(MissingMappings<Item> event){
+    final List<Mapping<Item>> missing_items = event.getMappings(ADDSynthMaterials.MOD_ID);
+    for(Mapping<Item> map : missing_items){
+      if(map.key.equals(Names.AMETHYST_BLOCK_LEGACY)){
+        map.remap(Items.AMETHYST_BLOCK);
+      }
+      if(map.key.equals(Names.AMETHYST_LEGACY)){
+        map.remap(Items.AMETHYST_SHARD);
+      }
+    }
   }
 
 }

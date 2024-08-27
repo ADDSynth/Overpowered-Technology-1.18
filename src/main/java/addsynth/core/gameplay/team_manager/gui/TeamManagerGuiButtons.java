@@ -5,24 +5,35 @@ import addsynth.core.gameplay.reference.GuiReference;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
 import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
-import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerGuiButtons {
 
-  private static final Minecraft minecraft = Minecraft.getInstance();
-  public final static int player_button_size = 20;
+  private static final TranslatableComponent add            = new TranslatableComponent("gui.addsynthcore.team_manager.common.add");
+  private static final TranslatableComponent edit           = new TranslatableComponent("gui.addsynthcore.team_manager.common.edit");
+  private static final TranslatableComponent delete         = new TranslatableComponent("gui.addsynthcore.team_manager.common.delete");
+  private static final TranslatableComponent done           = new TranslatableComponent("gui.addsynthcore.team_manager.common.done");
+  private static final TranslatableComponent cancel         = new TranslatableComponent("gui.addsynthcore.team_manager.common.cancel");
+  private static final TranslatableComponent add_score      = new TranslatableComponent("gui.addsynthcore.team_manager.score.add");
+  private static final TranslatableComponent subtract_score = new TranslatableComponent("gui.addsynthcore.team_manager.score.subtract");
+  private static final TranslatableComponent set_score      = new TranslatableComponent("gui.addsynthcore.team_manager.score.set");
+  private static final TranslatableComponent reset          = new TranslatableComponent("gui.addsynthcore.team_manager.score.reset");
+  private static final TranslatableComponent assign         = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.assign");
+  private static final TranslatableComponent clear          = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.clear");
 
+  private static final Minecraft minecraft = Minecraft.getInstance(); // TEST: probably not a good idea
+  public final static int player_button_size = 20;
   public final static int display_slot_button_width = 50;
   public final static int display_slot_button_height = 14;
 
   public static final class AddTeamButton extends AdjustableButton {
     public AddTeamButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.add"));
+      super(x, y, width, height, add);
     }
     @Override
     public void onPress(){
@@ -32,7 +43,7 @@ public final class TeamManagerGuiButtons {
 
   public static final class EditTeamButton extends AdjustableButton {
     public EditTeamButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.edit"));
+      super(x, y, width, height, edit);
     }
     @Override
     public void onPress(){
@@ -42,7 +53,7 @@ public final class TeamManagerGuiButtons {
 
   public static final class DeleteTeamButton extends AdjustableButton {
     public DeleteTeamButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.delete"));
+      super(x, y, width, height, delete);
     }
     @Override
     public void onPress(){
@@ -57,7 +68,7 @@ public final class TeamManagerGuiButtons {
     private final int texture_y = 184;
 
     public MovePlayerToTeamButton(int xIn, int yIn){
-      super(xIn, yIn, player_button_size, player_button_size, new TextComponent(""));
+      super(xIn, yIn, player_button_size, player_button_size, TextComponent.EMPTY);
     }
 
     @Override
@@ -67,11 +78,7 @@ public final class TeamManagerGuiButtons {
 
     @Override
     public final void onPress(){
-      // ensure team is selected
-      // ensure player is not part of a team
-      // if(){
-        NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.AddPlayerToTeam(TeamManagerGui.getPlayerSelected(), TeamManagerGui.getTeamSelected()));
-      // }
+      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.AddPlayerToTeam(TeamManagerGui.getPlayerSelected(), TeamManagerGui.getTeamSelected()));
     }
 
     @Override
@@ -86,7 +93,7 @@ public final class TeamManagerGuiButtons {
     private final int texture_y = 184;
 
     public RemovePlayerFromTeamButton(int xIn, int yIn){
-      super(xIn, yIn, player_button_size, player_button_size, new TextComponent(""));
+      super(xIn, yIn, player_button_size, player_button_size, TextComponent.EMPTY);
     }
 
     @Override
@@ -96,9 +103,7 @@ public final class TeamManagerGuiButtons {
 
     @Override
     public final void onPress(){
-      // if(StringUtil.StringExists(TeamManagerGui.team_selected) && StringUtil.StringExists(TeamManagerGui.player_selected)){
-        NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.RemovePlayerFromTeam(TeamManagerGui.getPlayerSelected(), TeamManagerGui.getTeamSelected()));
-      // }
+      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.RemovePlayerFromTeam(TeamManagerGui.getPlayerSelected(), TeamManagerGui.getTeamSelected()));
     }
 
     @Override
@@ -109,7 +114,7 @@ public final class TeamManagerGuiButtons {
 
   public static final class AddObjectiveButton extends AdjustableButton {
     public AddObjectiveButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.add"));
+      super(x, y, width, height, add);
     }
     @Override
     public void onPress(){
@@ -119,7 +124,7 @@ public final class TeamManagerGuiButtons {
 
   public static final class EditObjectiveButton extends AdjustableButton {
     public EditObjectiveButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.edit"));
+      super(x, y, width, height, edit);
     }
     @Override
     public void onPress(){
@@ -129,7 +134,7 @@ public final class TeamManagerGuiButtons {
 
   public static final class DeleteObjectiveButton extends AdjustableButton {
     public DeleteObjectiveButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.delete"));
+      super(x, y, width, height, delete);
     }
     @Override
     public void onPress(){
@@ -143,7 +148,7 @@ public final class TeamManagerGuiButtons {
     private final Runnable onClick;
 
     public FinishButton(int x, int y, int width, int height, Runnable onClick){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.done"));
+      super(x, y, width, height, done);
       this.onClick = onClick;
     }
 
@@ -157,7 +162,7 @@ public final class TeamManagerGuiButtons {
   public static final class CancelButton extends AdjustableButton {
 
     public CancelButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.common.cancel"));
+      super(x, y, width, height, cancel);
     }
 
     @Override
@@ -171,7 +176,7 @@ public final class TeamManagerGuiButtons {
     private final Runnable onClick;
     
     public SubtractScoreButton(int x, int y, int width, int height, Runnable onClick){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.score.subtract"));
+      super(x, y, width, height, subtract_score);
       this.onClick = onClick;
     }
     @Override
@@ -185,7 +190,7 @@ public final class TeamManagerGuiButtons {
     private final Runnable onClick;
     
     public AddScoreButton(int x, int y, int width, int height, Runnable onClick){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.score.add"));
+      super(x, y, width, height, add_score);
       this.onClick = onClick;
     }
     @Override
@@ -199,7 +204,7 @@ public final class TeamManagerGuiButtons {
     private final Runnable onClick;
     
     public SetScoreButton(int x, int y, int width, int height, Runnable onClick){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.score.set"));
+      super(x, y, width, height, set_score);
       this.onClick = onClick;
     }
     @Override
@@ -211,7 +216,7 @@ public final class TeamManagerGuiButtons {
   public static final class ResetScoreButton extends AdjustableButton {
   
     public ResetScoreButton(int x, int y, int width, int height){
-      super(x, y, width, height, StringUtil.translate("gui.addsynthcore.team_manager.score.reset"));
+      super(x, y, width, height, reset);
     }
     @Override
     public void onPress(){
@@ -229,7 +234,7 @@ public final class TeamManagerGuiButtons {
     private final int display_slot;
   
     public SetDisplaySlotButton(int x, int y, int display_slot){
-      super(x, y, display_slot_button_width, display_slot_button_height, StringUtil.translate("gui.addsynthcore.team_manager.display_slot.assign"));
+      super(x, y, display_slot_button_width, display_slot_button_height, assign);
       this.display_slot = display_slot;
     }
     @Override
@@ -243,7 +248,7 @@ public final class TeamManagerGuiButtons {
     private final int display_slot;
   
     public ClearDisplaySlotButton(int x, int y, int display_slot){
-      super(x, y, display_slot_button_width, display_slot_button_height, StringUtil.translate("gui.addsynthcore.team_manager.display_slot.clear"));
+      super(x, y, display_slot_button_width, display_slot_button_height, clear);
       this.display_slot = display_slot;
     }
     @Override

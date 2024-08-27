@@ -1,8 +1,8 @@
 package addsynth.energy.gameplay.machines.universal_energy_interface;
 
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.gameplay.reference.GuiReference;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
@@ -11,9 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUniversalEnergyInterface, ContainerUniversalEnergyInterface> {
-
-  private final String mode_text   = StringUtil.translate("gui.addsynth_energy.common.mode");
-  private final String energy_text = StringUtil.translate("gui.addsynth_energy.common.energy");
 
   private static final int button_width = 90;
   private final EnergyProgressBar energy_bar = new EnergyProgressBar(156, 18, 12, 34, 206, 28);
@@ -63,8 +60,8 @@ public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUnivers
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
-    draw_text_left(matrix, mode_text+":", 6, line_1);
-    draw_text_left(matrix, energy_text+":", 6, line_2);
+    draw_text_left(matrix, EnergyText.mode_text+":", 6, line_1);
+    draw_text_left(matrix, EnergyText.energy_text+":", 6, line_2);
     draw_text_right(matrix, energy.getEnergy() + " / "+energy.getCapacity(), 130, line_2);
   }
 

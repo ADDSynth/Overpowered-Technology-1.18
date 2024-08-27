@@ -21,7 +21,7 @@ public abstract class Slider extends AbstractWidget {
   // private static final int draw_y;
 
   public Slider(int x, int y, int width, int height, int min_value, int max_value, int default_value){
-    super(x, y, width, height, new TextComponent(""));
+    super(x, y, width, height, TextComponent.EMPTY);
     this.min_value = min_value;
     this.max_value = max_value;
     this.default_value = default_value;

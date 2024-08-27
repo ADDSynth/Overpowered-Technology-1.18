@@ -26,7 +26,7 @@ public final class TeamDataUnit {
   
   public final void encode(final FriendlyByteBuf data){
     data.writeUtf(name);
-    data.writeUtf(display_name.getString());
+    data.writeComponent(display_name);
     data.writeByte(color);
     data.writeBoolean(pvp);
     data.writeBoolean(see_invisible_allys);
@@ -46,7 +46,7 @@ public final class TeamDataUnit {
   public static final TeamDataUnit decode(final FriendlyByteBuf data){
     final TeamDataUnit team = new TeamDataUnit();
     team.name = data.readUtf();
-    team.display_name = new TextComponent(data.readUtf());
+    team.display_name = data.readComponent();
     team.color = data.readByte();
     team.pvp = data.readBoolean();
     team.see_invisible_allys = data.readBoolean();

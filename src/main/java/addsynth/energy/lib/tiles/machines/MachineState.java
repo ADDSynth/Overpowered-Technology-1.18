@@ -1,8 +1,9 @@
 package addsynth.energy.lib.tiles.machines;
 
 import addsynth.core.util.color.ColorCode;
-import addsynth.core.util.java.StringUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public enum MachineState {
 
@@ -17,24 +18,21 @@ public enum MachineState {
 
   public static final MachineState[] value = MachineState.values();
 
-  private final String translation_key;
+  private final MutableComponent status;
   private final ChatFormatting color;
 
   private MachineState(final String translation_key){
-    this.translation_key = translation_key;
+    this.status = new TranslatableComponent(translation_key);
     this.color = null;
   }
 
   private MachineState(final ChatFormatting color, final String translation_key){
-    this.translation_key = translation_key;
+    this.status = new TranslatableComponent(translation_key);
     this.color = color;
   }
 
   public final String getStatus(){
-    if(color != null){
-      return color.toString() + StringUtil.translate(translation_key);
-    }
-    return StringUtil.translate(translation_key);
+    return (color != null ? status.withStyle(color) : status).getString();
   }
 
 }

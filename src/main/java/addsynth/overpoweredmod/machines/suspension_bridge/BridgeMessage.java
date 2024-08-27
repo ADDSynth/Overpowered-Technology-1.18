@@ -1,8 +1,10 @@
 package addsynth.overpoweredmod.machines.suspension_bridge;
 
 import addsynth.core.util.color.ColorCode;
-import addsynth.core.util.java.StringUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public enum BridgeMessage {
 
@@ -16,18 +18,18 @@ public enum BridgeMessage {
   OFF           (null,            "gui.overpowered.bridge_message.off",           true),
   ACTIVE        (ColorCode.GOOD,  "gui.overpowered.bridge_message.active",        true);
 
-  private final String translation_key;
-  private final String formatting_code;
+  private final MutableComponent bridge_message;
+  private final ChatFormatting color;
   private final boolean valid;
   
   private BridgeMessage(final ChatFormatting code, final String translation_key, final boolean valid){
-    this.translation_key = translation_key;
-    this.formatting_code = code != null ? code.toString() : "";
+    this.bridge_message = new TranslatableComponent(translation_key);
+    this.color = code;
     this.valid = valid;
   }
 
-  public final String getMessage(){
-    return formatting_code + StringUtil.translate(translation_key);
+  public final Component getMessage(){
+    return color != null ? bridge_message.withStyle(color) : bridge_message;
   }
 
   public final boolean is_valid(){

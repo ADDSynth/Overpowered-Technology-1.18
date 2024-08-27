@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.machines.energy_extractor;
 
-import addsynth.core.util.java.StringUtil;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
 import addsynth.overpoweredmod.game.reference.GuiReference;
@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiCrystalEnergyExtractor extends GuiEnergyBase<TileCrystalEnergyExtractor, ContainerCrystalEnergyExtractor> {
 
-  private final String input_text   = StringUtil.translate("gui.overpowered.crystal_energy_generator.input");
   private final EnergyProgressBar energy_progress_bar = new EnergyProgressBar(8, 80, 168, 20, 8, 194);
 
   private static final int input_text_y = 24;
@@ -31,7 +30,7 @@ public final class GuiCrystalEnergyExtractor extends GuiEnergyBase<TileCrystalEn
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
-    draw_text_right(matrix, input_text+":", 79, input_text_y);
+    draw_text_right(matrix, EnergyText.input_text+":", 79, input_text_y);
     
     draw_energy(matrix, 6, line_1);
     draw_energy_extraction(matrix, line_2);

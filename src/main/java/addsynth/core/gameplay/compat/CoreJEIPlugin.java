@@ -2,7 +2,7 @@ package addsynth.core.gameplay.compat;
 
 import addsynth.core.ADDSynthCore;
 import addsynth.core.gameplay.Core;
-import addsynth.core.gameplay.reference.TextReference;
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import mezz.jei.api.IModPlugin;
@@ -26,8 +26,8 @@ public final class CoreJEIPlugin  implements IModPlugin {
   }
 
   private static final void add_information(IRecipeRegistration registry){
-    registry.addIngredientInfo(new ItemStack(Core.music_box.get()), VanillaTypes.ITEM_STACK, TextReference.music_box_description);
-    registry.addIngredientInfo(new ItemStack(Core.music_sheet.get()), VanillaTypes.ITEM_STACK, TextReference.music_sheet_description);
+    registry.addIngredientInfo(new ItemStack(Core.music_box.get()), VanillaTypes.ITEM_STACK, ADDSynthCoreText.music_box_description);
+    registry.addIngredientInfo(new ItemStack(Core.music_sheet.get()), VanillaTypes.ITEM_STACK, ADDSynthCoreText.music_sheet_description);
     // registry.addIngredientInfo(new ItemStack(Core.team_manager.get()), VanillaTypes.ITEM_STACK, TextReference.team_manager_description);
   }
 

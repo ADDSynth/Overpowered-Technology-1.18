@@ -21,7 +21,7 @@ public abstract class AbstractListEntry<E> extends AbstractButton {
   protected AbstractScrollbar responder;
 
   public AbstractListEntry(int x, int y, int width, int height){
-    super(x, y, width, height, new TextComponent(""));
+    super(x, y, width, height, TextComponent.EMPTY);
   }
 
   public final void setScrollbar(final AbstractScrollbar scrollbar){

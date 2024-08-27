@@ -5,7 +5,7 @@ import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.EnergyItems;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipes;
 import addsynth.energy.gameplay.machines.compressor.recipe.CompressorRecipes;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -46,16 +46,16 @@ public final class EnergyJEIPlugin implements IModPlugin {
   }
 
   private static void add_information(IRecipeRegistration registry){
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.wire.get()),               VanillaTypes.ITEM_STACK, TextReference.wire_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.generator.get()),          VanillaTypes.ITEM_STACK, TextReference.generator_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.energy_storage.get()),     VanillaTypes.ITEM_STACK, TextReference.energy_storage_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.electric_furnace.get()),   VanillaTypes.ITEM_STACK, TextReference.electric_furnace_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.compressor.get()),         VanillaTypes.ITEM_STACK, TextReference.compressor_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.circuit_fabricator.get()), VanillaTypes.ITEM_STACK, TextReference.circuit_fabricator_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.universal_energy_machine.get()), VanillaTypes.ITEM_STACK, TextReference.energy_interface_description);
-    registry.addIngredientInfo(new ItemStack(EnergyBlocks.energy_diagnostics_block.get()), VanillaTypes.ITEM_STACK, TextReference.energy_diagnostics_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.wire.get()),               VanillaTypes.ITEM_STACK, EnergyText.wire_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.generator.get()),          VanillaTypes.ITEM_STACK, EnergyText.generator_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.energy_storage.get()),     VanillaTypes.ITEM_STACK, EnergyText.energy_storage_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.electric_furnace.get()),   VanillaTypes.ITEM_STACK, EnergyText.electric_furnace_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.compressor.get()),         VanillaTypes.ITEM_STACK, EnergyText.compressor_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.circuit_fabricator.get()), VanillaTypes.ITEM_STACK, EnergyText.circuit_fabricator_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.universal_energy_machine.get()), VanillaTypes.ITEM_STACK, EnergyText.energy_interface_description);
+    registry.addIngredientInfo(new ItemStack(EnergyBlocks.energy_diagnostics_block.get()), VanillaTypes.ITEM_STACK, EnergyText.energy_diagnostics_description);
     
-    registry.addIngredientInfo(new ItemStack(EnergyItems.power_regulator.get()), VanillaTypes.ITEM_STACK, TextReference.power_regulator_description);
+    registry.addIngredientInfo(new ItemStack(EnergyItems.power_regulator.get()), VanillaTypes.ITEM_STACK, EnergyText.power_regulator_description);
   }
 
   @Override

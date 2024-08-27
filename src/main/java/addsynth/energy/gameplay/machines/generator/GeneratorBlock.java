@@ -3,8 +3,8 @@ package addsynth.energy.gameplay.machines.generator;
 import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.util.game.MinecraftUtility;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.gameplay.reference.Names;
-import addsynth.energy.gameplay.reference.TextReference;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.energy.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -34,7 +34,7 @@ public final class GeneratorBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(TextReference.generator_subtitle);
+    tooltip.add(EnergyText.generator_subtitle);
   }
 
   @Override

@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.core.util.game.tileentity.TileEntityUtil;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.game.reference.Names;
@@ -50,7 +50,7 @@ public final class EnergySuspensionBridgeBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(TextReference.class_3_machine);
+    tooltip.add(EnergyText.class_3_machine);
   }
 
   @Override

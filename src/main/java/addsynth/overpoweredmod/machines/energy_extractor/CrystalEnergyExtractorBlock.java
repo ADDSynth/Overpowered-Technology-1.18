@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.machines.energy_extractor;
 import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -34,7 +34,7 @@ public final class CrystalEnergyExtractorBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn){
-    tooltip.add(TextReference.energy_source);
+    tooltip.add(EnergyText.energy_source);
   }
 
   @Override

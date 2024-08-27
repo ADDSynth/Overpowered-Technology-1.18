@@ -1,6 +1,5 @@
 package addsynth.overpoweredmod.machines.laser.machine;
 
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.AutoShutoffCheckbox;
 import addsynth.energy.lib.gui.widgets.EnergyProgressBar;
@@ -13,6 +12,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, ContainerLaserHousing> {
@@ -21,10 +21,10 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
   //       GuiEnergyBase, but that means that I need to extract all the common helper functions from GuiEnergyBase
   //       into a GuiEnergyUtil. I can have that extend GuiUtil, then pass that as a reference through the Gui constructors.
 
-  private final String required_energy_text = StringUtil.translate("gui.overpowered.laser_housing.required_energy");
-  private final String current_energy_text  = StringUtil.translate("gui.overpowered.laser_housing.current_energy");
-  private final String lasers_text          = StringUtil.translate("gui.overpowered.laser_housing.lasers");
-  private final String distance_text        = StringUtil.translate("gui.overpowered.laser_housing.distance");
+  private static final TranslatableComponent required_energy_text = new TranslatableComponent("gui.overpowered.laser_housing.required_energy");
+  private static final TranslatableComponent current_energy_text  = new TranslatableComponent("gui.overpowered.laser_housing.current_energy");
+  private static final TranslatableComponent lasers_text          = new TranslatableComponent("gui.overpowered.laser_housing.lasers");
+  private static final TranslatableComponent distance_text        = new TranslatableComponent("gui.overpowered.laser_housing.distance");
 
   private EditBox text_box;
   private final EnergyProgressBar energy_bar = new EnergyProgressBar(9, 79, 163, 16, 22, 162);
@@ -55,7 +55,7 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
     private final TileLaserHousing tile;
 
     public LaserDistanceTextField(Font fontIn, int x, int y, int width, int height, TileLaserHousing tile){
-      super(fontIn, x, y, width, height, new TextComponent(""));
+      super(fontIn, x, y, width, height, TextComponent.EMPTY);
       this.tile = tile;
       setValue(Integer.toString(tile.getLaserDistance()));
       setMaxLength(4); // FEATURE: add a numbers-only textbox to ADDSynthCore. Also add Unsigned textbox. Set text to red if input is invalid.

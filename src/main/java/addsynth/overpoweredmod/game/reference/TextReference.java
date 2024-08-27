@@ -2,6 +2,13 @@ package addsynth.overpoweredmod.game.reference;
 
 import net.minecraft.network.chat.TranslatableComponent;
 
+/** The TextReference class should only be used for common words
+ *  or commonly used text that can be used in multiple projects.
+ *  Text that is only used in one place, should be defined there.
+ *  
+ *  Also, keep in mind that just because a word has multiple
+ *  meanings in my language, does not mean it has the same meanings
+ *  in other languages. */
 public final class TextReference {
 
   // Tooltip Subtitles:

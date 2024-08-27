@@ -113,7 +113,7 @@ public abstract class AbstractScrollbar<E, L extends AbstractListEntry<E>> exten
   private BiConsumer<E, Integer> onSelected;
 
   public AbstractScrollbar(int x, int y, int height, L[] list_items, E[] values){
-    super(x, y, scrollbar_gui_width, height, new TextComponent(""));
+    super(x, y, scrollbar_gui_width, height, TextComponent.EMPTY);
     if(height > max_scrollbar_height - 8){
       ADDSynthCore.log.error("Requested Scrollbar height is bigger than Max Scrollbar height!");
     }

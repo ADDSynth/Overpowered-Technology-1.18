@@ -1,6 +1,5 @@
 package addsynth.core.util.constants;
 
-import addsynth.core.util.color.ColorCode;
 import net.minecraft.world.level.block.Blocks;
 
 /** @see addsynth.core.game.item.constants.HarvestLevel
@@ -14,9 +13,6 @@ import net.minecraft.world.level.block.Blocks;
  *  @see addsynth.core.util.time.WorldTime
  */
 public final class Constants {
-
-/** Default error string to show, if attempting to get a status message from TileEntities. */
-public static final String null_error = ColorCode.ERROR.toString() + "[Null Error]";
 
 @SuppressWarnings("deprecation")
 public static final float block_resistance = Blocks.STONE.getExplosionResistance(); //6.0f; // same as Stone

@@ -3,9 +3,7 @@ package addsynth.core.gui.util;
 import java.util.List;
 import java.util.Optional;
 import addsynth.core.gui.widgets.WidgetUtil;
-import addsynth.core.util.math.common.CommonMath;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -21,21 +19,38 @@ public final class GuiUtil {
 
   public static final int text_color = 4210752;
 
-  @SuppressWarnings("resource")
-  @Deprecated
-  public static final int getMaxStringWidth(final String ... text){
-    final Minecraft minecraft = Minecraft.getInstance();
-    return getMaxStringWidth(minecraft.font, text);
-  }
-  
   public static final int getMaxStringWidth(final Font font, final String ... text){
+    if(text == null){
+      return 0;
+    }
     final int length = text.length;
-    final int[] width = new int[length];
+    int temp;
+    int max_length = 0;
     int i;
     for(i = 0; i < length; i++){
-      width[i] = font.width(text[i]);
+      temp = font.width(text[i]);
+      if(temp > max_length){
+        max_length = temp;
+      }
     }
-    return CommonMath.getMax(width);
+    return max_length;
+  }
+
+  public static final int getMaxStringWidth(final Font font, final Component ... text){
+    if(text == null){
+      return 0;
+    }
+    final int length = text.length;
+    int temp;
+    int max_length = 0;
+    int i;
+    for(i = 0; i < length; i++){
+      temp = font.width(text[i]);
+      if(temp > max_length){
+        max_length = temp;
+      }
+    }
+    return max_length;
   }
 
 // ========================================================================================================

@@ -1,9 +1,10 @@
 package addsynth.core.gameplay.team_manager.gui;
 
 import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
-import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.gameplay.team_manager.data.TeamData;
 import addsynth.core.gameplay.team_manager.network_messages.RequestPlayerScoreMessage;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
@@ -14,42 +15,43 @@ import addsynth.core.gui.widgets.scrollbar.ListEntry;
 import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
 import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerGui extends GuiBase {
 
-  private final String         team_header_text = StringUtil.translate("gui.addsynthcore.team_manager.main.teams");
-  private final String  all_players_header_text = StringUtil.translate("gui.addsynthcore.team_manager.main.all_players");
-  private final String team_players_header_text = StringUtil.translate("gui.addsynthcore.team_manager.main.players_in_team");
-  private final String    objective_header_text = StringUtil.translate("gui.addsynthcore.team_manager.main.objectives");
-  private final String       team_selected_text = StringUtil.translate("gui.addsynthcore.team_manager.main.team_selected");
-  private final String     player_selected_text = StringUtil.translate("gui.addsynthcore.team_manager.main.player_selected");
-  private final String  objective_selected_text = StringUtil.translate("gui.addsynthcore.team_manager.main.objective_selected");
-  private final String       current_score_text = StringUtil.translate("gui.addsynthcore.team_manager.score.current_score");
-  private final String         input_value_text = StringUtil.translate("gui.addsynthcore.team_manager.score.input");
-  private final String display_slot_header_text = StringUtil.translate("gui.addsynthcore.team_manager.display_slot.header");
-  private final String      display_slot_text_1 = StringUtil.translate("gui.addsynthcore.team_manager.display_slot.player_list");
-  private final String      display_slot_text_2 = StringUtil.translate("gui.addsynthcore.team_manager.display_slot.sidebar");
-  private final String      display_slot_text_3 = StringUtil.translate("gui.addsynthcore.team_manager.display_slot.nametag");
+  private static final TranslatableComponent         team_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.teams");
+  private static final TranslatableComponent  all_players_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.all_players");
+  private static final TranslatableComponent team_players_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.players_in_team");
+  private static final TranslatableComponent    objective_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.objectives");
+  private static final TranslatableComponent       team_selected_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.team_selected");
+  private static final TranslatableComponent     player_selected_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.player_selected");
+  private static final TranslatableComponent  objective_selected_text = new TranslatableComponent("gui.addsynthcore.team_manager.main.objective_selected");
+  private static final TranslatableComponent       current_score_text = new TranslatableComponent("gui.addsynthcore.team_manager.score.current_score");
+  private static final TranslatableComponent         input_value_text = new TranslatableComponent("gui.addsynthcore.team_manager.score.input");
+  private static final TranslatableComponent display_slot_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.header");
+  private static final TranslatableComponent      display_slot_text_1 = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.player_list");
+  private static final TranslatableComponent      display_slot_text_2 = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.sidebar");
+  private static final TranslatableComponent      display_slot_text_3 = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.nametag");
 
-  private static String team_selected;
-  private static String player_selected;
-  private static String objective_selected;
+  @Nonnull
+  private static Component team_selected = TextComponent.EMPTY;
+  @Nonnull
+  private static Component player_selected = TextComponent.EMPTY;
+  @Nonnull
+  private static Component objective_selected = TextComponent.EMPTY;
   private static boolean team_is_selected;
   private static boolean player_is_selected;
   private static boolean player_selected_position;
   private static boolean objective_is_selected;
 
-  public static final String getPlayerSelected(){ return player_selected; }
-  public static final String getTeamSelected(){ return team_selected; }
-  public static final String getObjectiveSelected(){ return objective_selected; }
-  public static final void unSelectTeam(){ team_selected = ""; }
-  public static final void unSelectObjective(){ objective_selected = ""; }
-  // public static final boolean is_team_selected(){ return team_is_selected; }
-  // public static final boolean is_player_selected(){ return player_is_selected; }
-  // public static final boolean is_objective_selected(){ return objective_is_selected; }
+  public static final String getPlayerSelected(){ return player_selected.getString(); }
+  public static final String getTeamSelected(){ return team_selected.getString(); }
+  public static final String getObjectiveSelected(){ return objective_selected.getString(); }
+  public static final void unSelectTeam(){ team_selected = TextComponent.EMPTY; }
+  public static final void unSelectObjective(){ objective_selected = TextComponent.EMPTY; }
 
   private static final int        team_list_size = 8;
   private static final int   objective_list_size = 8;
@@ -68,26 +70,26 @@ public final class TeamManagerGui extends GuiBase {
   private final ListEntry[] objectives_entries = new ListEntry[objective_list_size];
   private TextScrollbar objectives_list;
 
-  private final BiConsumer<String, Integer> onTeamSelected = (String value, Integer id) -> {
-    team_selected = ChatFormatting.stripFormatting(value);
+  private final BiConsumer<Component, Integer> onTeamSelected = (Component value, Integer id) -> {
+    team_selected = value.plainCopy();
     updateTeamPlayerList();
   };
-  private final BiConsumer<String, Integer> onPlayerSelected = (String value, Integer id) -> {
+  private final BiConsumer<Component, Integer> onPlayerSelected = (Component value, Integer id) -> {
     if(value != null){
-      player_selected = ChatFormatting.stripFormatting(value);
+      player_selected = value.plainCopy();
       player_selected_position = true;
       team_players_list.unSelect();
     }
   };
-  private final BiConsumer<String, Integer> onTeamPlayerSelected = (String value, Integer id) -> {
+  private final BiConsumer<Component, Integer> onTeamPlayerSelected = (Component value, Integer id) -> {
     if(value != null){
-      player_selected = ChatFormatting.stripFormatting(value);
+      player_selected = value.plainCopy();
       player_selected_position = false;
       all_players_list.unSelect();
     }
   };
-  private static final BiConsumer<String, Integer> onObjectiveSelected = (String value, Integer id) -> {
-    objective_selected = ChatFormatting.stripFormatting(value);
+  private static final BiConsumer<Component, Integer> onObjectiveSelected = (Component value, Integer id) -> {
+    objective_selected = value.plainCopy();
   };
 
   private TeamManagerGuiButtons.MovePlayerToTeamButton player_to_team_button;
@@ -106,10 +108,7 @@ public final class TeamManagerGui extends GuiBase {
   private static boolean player_score_can_be_changed;
 
   public TeamManagerGui(){
-    super(442, 326, TextReference.team_manager, GuiReference.team_manager);
-    // team_selected = null;
-    // player_selected = null;
-    // objective_selected = null;
+    super(442, 326, Core.team_manager.get().getName(), GuiReference.team_manager);
     TeamData.changed = true;
   }
 
@@ -144,8 +143,8 @@ public final class TeamManagerGui extends GuiBase {
   private static final int players_text_line = player_buttons_y + TeamManagerGuiButtons.player_button_size + button_x_spacing;
   
 
-  private final int selected_text_left  = text_x2 + GuiUtil.getMaxStringWidth(team_selected_text, player_selected_text, objective_selected_text);
-  private final int selected_text_right = selected_text_left + 5;
+  private int selected_text_left;
+  private int selected_text_right;
 
   private static final int selected_text_y = line_1 + text_space + team_list_height + button_y_spacing + button_height + 8 + button_y_spacing;
   private static final int score_spacing = 6;
@@ -167,9 +166,8 @@ public final class TeamManagerGui extends GuiBase {
   private static final int last_x = text_x3 + list_width + scrollbar_width;
   private static final int display_slot_button_x2 = last_x - TeamManagerGuiButtons.display_slot_button_width;
   private static final int display_slot_button_x1 = display_slot_button_x2 - TeamManagerGuiButtons.display_slot_button_width - 6;
-  private final int display_slot_x1 = text_x2 + GuiUtil.getMaxStringWidth(display_slot_text_1, display_slot_text_2, display_slot_text_3);
-  private final int display_slot_x2 = (display_slot_x1 + 5 + display_slot_button_x1) / 2;
-  // private static final int last_y = 
+  private int display_slot_x1;
+  private int display_slot_x2;
 
   @Override
   protected final void init(){
@@ -181,6 +179,10 @@ public final class TeamManagerGui extends GuiBase {
     final int x_position_1 = guiBox.left + text_x1;
     final int x_position_2 = guiBox.left + text_x2;
     final int x_position_3 = guiBox.left + text_x3;
+
+    // Selected
+    selected_text_left  = text_x2 + GuiUtil.getMaxStringWidth(font, team_selected_text, player_selected_text, objective_selected_text);
+    selected_text_right = selected_text_left + 5;
 
     // Player Controls
     final int player_x_center = x_position_1 + (list_width / 2);
@@ -253,6 +255,8 @@ public final class TeamManagerGui extends GuiBase {
     addRenderableWidget(set_score_button);
     
     // Display Slot widgets
+    display_slot_x1 = text_x2 + GuiUtil.getMaxStringWidth(font, display_slot_text_1, display_slot_text_2, display_slot_text_3);
+    display_slot_x2 = (display_slot_x1 + 5 + display_slot_button_x1) / 2;
     display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
     display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
     display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
@@ -269,14 +273,14 @@ public final class TeamManagerGui extends GuiBase {
   @Override
   public void tick(){
     super.tick();
-    team_is_selected = StringUtil.StringExists(team_selected);
-    player_is_selected = StringUtil.StringExists(player_selected);
-    objective_is_selected = StringUtil.StringExists(objective_selected);
-    player_score_can_be_changed = objective_is_selected && player_is_selected && TeamData.canObjectiveBeModified(objective_selected);
+    team_is_selected = StringUtil.StringExists(team_selected.getContents());
+    player_is_selected = StringUtil.StringExists(player_selected.getContents());
+    objective_is_selected = StringUtil.StringExists(objective_selected.getContents());
+    player_score_can_be_changed = objective_is_selected && player_is_selected && TeamData.canObjectiveBeModified(objective_selected.getString());
     updateButtons();
     updateLists();
     if(player_is_selected && objective_is_selected){
-      NetworkHandler.INSTANCE.sendToServer(new RequestPlayerScoreMessage(player_selected, objective_selected));
+      NetworkHandler.INSTANCE.sendToServer(new RequestPlayerScoreMessage(player_selected.getString(), objective_selected.getString()));
     }
     new_score.tick();
   }
@@ -309,26 +313,35 @@ public final class TeamManagerGui extends GuiBase {
   }
 
   private final void updateTeamPlayerList(){
-    team_players_list.updateScrollbar(TeamData.getTeamPlayers(team_selected));
+    team_players_list.updateScrollbar(TeamData.getTeamPlayers(team_selected.getString()));
   }
 
   private final void set_score(){
     try{
-      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SetScore(objective_selected, player_selected, Integer.parseInt(new_score.getValue())));
+      final String objective = objective_selected.getString();
+      final String player = player_selected.getString();
+      final int score = Integer.parseInt(new_score.getValue());
+      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SetScore(objective, player, score));
     }
     catch(NumberFormatException e){}
   }
 
   private final void add_score(){
     try{
-      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.AddScore(objective_selected, player_selected, Integer.parseInt(new_score.getValue())));
+      final String objective = objective_selected.getString();
+      final String player = player_selected.getString();
+      final int score = Integer.parseInt(new_score.getValue());
+      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.AddScore(objective, player, score));
     }
     catch(NumberFormatException e){}
   }
 
   private final void subtract_score(){
     try{
-      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SubtractScore(objective_selected, player_selected, Integer.parseInt(new_score.getValue())));
+      final String objective = objective_selected.getString();
+      final String player = player_selected.getString();
+      final int score = Integer.parseInt(new_score.getValue());
+      NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SubtractScore(objective, player, score));
     }
     catch(NumberFormatException e){}
   }
@@ -356,9 +369,9 @@ public final class TeamManagerGui extends GuiBase {
     draw_text_right(matrix,      team_selected_text+":", selected_text_left, selected_text_y);
     draw_text_right(matrix,    player_selected_text+":", selected_text_left, selected_text_y + 10);
     draw_text_right(matrix, objective_selected_text+":", selected_text_left, selected_text_y + 20);
-    draw_text_left(matrix,      team_selected != null ? team_selected      : "", selected_text_right, selected_text_y);
-    draw_text_left(matrix,    player_selected != null ? player_selected    : "", selected_text_right, selected_text_y + 10);
-    draw_text_left(matrix, objective_selected != null ? objective_selected : "", selected_text_right, selected_text_y + 20);
+    draw_text_left(matrix,      team_selected, selected_text_right, selected_text_y);
+    draw_text_left(matrix,    player_selected, selected_text_right, selected_text_y + 10);
+    draw_text_left(matrix, objective_selected, selected_text_right, selected_text_y + 20);
     // Score Text
     draw_text_left(matrix, current_score_text+": "+player_score, text_x2, line_2);
     draw_text_left(matrix, input_value_text+":", text_x2, line_3);

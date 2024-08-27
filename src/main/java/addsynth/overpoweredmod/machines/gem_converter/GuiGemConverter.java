@@ -10,6 +10,7 @@ import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
@@ -45,7 +46,7 @@ public final class GuiGemConverter extends GuiEnergyBase<TileGemConverter, Conta
     private final boolean direction;
 
     public CycleGemButton(int xIn, int yIn, boolean direction, TileGemConverter tile){
-      super(xIn, yIn, cycle_button_width, cycle_button_height, direction ? ">" : "<"); // true goes right
+      super(xIn, yIn, cycle_button_width, cycle_button_height, new TextComponent(direction ? ">" : "<")); // true goes right
       this.tile = tile;
       this.direction = direction;
     }

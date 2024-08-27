@@ -2,10 +2,11 @@ package addsynth.core.gameplay.team_manager.network_messages;
 
 import java.util.function.Supplier;
 import addsynth.core.gameplay.team_manager.data.TeamData;
-import addsynth.core.util.game.MessageUtil;
+import addsynth.core.util.game.chat.MessageUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.scores.Objective;
@@ -523,7 +524,8 @@ public final class TeamManagerCommand {
                                       final boolean pvp, final boolean see_invisible_allys, final int team_color, final int nametag_option,
                                       final int death_message_option, final String member_prefix, final String member_suffix){
     if(team_name.isEmpty()){
-      MessageUtil.send_to_player(player, "gui.addsynthcore.team_manager.message.create_team_failed");
+      final TranslatableComponent message = new TranslatableComponent("gui.addsynthcore.team_manager.message.create_team_failed");
+      MessageUtil.send_to_player(player, message);
       return;
     }
     PlayerTeam team = scoreboard.getPlayerTeam(team_name);
@@ -546,7 +548,8 @@ public final class TeamManagerCommand {
 
   private static final void edit_objective(final Scoreboard scoreboard, final ServerPlayer player, final String objective_name, final String display_name, final String criteria_name){
     if(objective_name.isEmpty()){
-      MessageUtil.send_to_player(player, "gui.addsynthcore.team_manager.message.create_objective_failed");
+      final TranslatableComponent message = new TranslatableComponent("gui.addsynthcore.team_manager.message.create_objective_failed");
+      MessageUtil.send_to_player(player, message);
       return;
     }
     final Objective existing_objective = scoreboard.getObjective(objective_name);

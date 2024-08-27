@@ -81,6 +81,12 @@ public abstract class GuiBase extends Screen {
     font.draw(matrix, text, x, y, GuiUtil.text_color);
   }
 
+  /** This will render the string in a different color if you prefix the string with
+   *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
+  protected final void draw_text_left(final PoseStack matrix, final Component text, final int x, final int y){
+    font.draw(matrix, text, x, y, GuiUtil.text_color);
+  }
+
   /** Draws center-aligned text at the center of the gui.<br />
    *  This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
@@ -111,6 +117,13 @@ public abstract class GuiBase extends Screen {
    *  This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
   protected final void draw_text_right(final PoseStack matrix, final String text, final int x, final int y){
+    font.draw(matrix, text, x - font.width(text), y, GuiUtil.text_color);
+  }
+
+  /** Draws the text right-aligned.
+   *  This will render the string in a different color if you prefix the string with
+   *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
+  protected final void draw_text_right(final PoseStack matrix, final Component text, final int x, final int y){
     font.draw(matrix, text, x - font.width(text), y, GuiUtil.text_color);
   }
 

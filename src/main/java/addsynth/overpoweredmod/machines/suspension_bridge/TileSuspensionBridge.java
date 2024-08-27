@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.inventory.SlotData;
-import addsynth.core.util.constants.Constants;
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.util.constants.DirectionConstant;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.energy.lib.tiles.TileBasicMachine;
@@ -136,13 +136,12 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
     bridge_data[5].message = messages[5];
   }
 
-  public final String getBridgeMessage(){
-    if(bridge_message == null){ return Constants.null_error; }
-    return bridge_message.getMessage();
+  public final Component getBridgeMessage(){
+    return bridge_message != null ? bridge_message.getMessage() : ADDSynthCoreText.null_error;
   }
 
-  public final String getMessage(final int index){
-    if(bridge_data[index].message == null){ return Constants.null_error; }
+  public final Component getMessage(final int index){
+    if(bridge_data[index].message == null){ return ADDSynthCoreText.null_error; }
     return bridge_data[index].message.getMessage();
   }
 

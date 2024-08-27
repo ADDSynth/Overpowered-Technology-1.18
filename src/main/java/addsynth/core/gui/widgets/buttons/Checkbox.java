@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 public abstract class Checkbox extends AbstractButton {
 
@@ -18,8 +18,8 @@ public abstract class Checkbox extends AbstractButton {
   private static final int texture_height = 24;
   public static final int gui_size = 12;
 
-  public Checkbox(final int x, final int y, String label){
-    super(x, y, gui_size, gui_size, new TextComponent(label));
+  public Checkbox(final int x, final int y, final Component text_component){
+    super(x, y, gui_size, gui_size, text_component);
   }
 
   protected abstract boolean get_toggle_state();

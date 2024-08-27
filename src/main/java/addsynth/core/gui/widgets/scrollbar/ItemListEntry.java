@@ -34,7 +34,7 @@ public final class ItemListEntry extends AbstractListEntry<ItemStack> {
   public void set(final int entry_id, final ItemStack item){
     this.entry_id = entry_id;
     this.item = item;
-    setMessage(item != null ? new TranslatableComponent(item.getDescriptionId()) : new TextComponent(""));
+    setMessage(item != null ? new TranslatableComponent(item.getDescriptionId()) : TextComponent.EMPTY);
   }
 
   public void set(final int entry_id, final ItemStack item, final String message){

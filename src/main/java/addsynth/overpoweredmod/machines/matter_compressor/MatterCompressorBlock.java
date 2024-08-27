@@ -3,7 +3,7 @@ package addsynth.overpoweredmod.machines.matter_compressor;
 import java.util.List;
 import javax.annotation.Nullable;
 import addsynth.core.util.game.MinecraftUtility;
-import addsynth.energy.gameplay.reference.TextReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.blocks.MachineBlock;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.registers.Tiles;
@@ -34,7 +34,7 @@ public final class MatterCompressorBlock extends MachineBlock {
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag){
-    tooltip.add(TextReference.class_5_machine);
+    tooltip.add(EnergyText.class_5_machine);
   }
 
   @Override

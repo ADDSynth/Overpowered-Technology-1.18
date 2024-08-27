@@ -32,12 +32,12 @@ public final class ColorButtons extends AbstractButton {
   private final Consumer<Integer> responder;
 
   public ColorButtons(final int x_position, final int y_position){
-    super(x_position, y_position, gui_width, gui_height, new TextComponent(""));
+    super(x_position, y_position, gui_width, gui_height, TextComponent.EMPTY);
     responder = null;
   }
 
   public ColorButtons(final int x_position, final int y_position, final Consumer<Integer> responder){
-    super(x_position, y_position, gui_width, gui_height, new TextComponent(""));
+    super(x_position, y_position, gui_width, gui_height, TextComponent.EMPTY);
     this.responder = responder;
   }
 

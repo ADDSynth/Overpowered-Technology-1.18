@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.game;
 
-import addsynth.core.util.game.MessageUtil;
+import addsynth.core.util.game.chat.MessageUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import net.minecraft.server.MinecraftServer;

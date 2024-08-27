@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
 public final class RadialButtonGroup extends AbstractButton {
@@ -24,7 +25,7 @@ public final class RadialButtonGroup extends AbstractButton {
   
   private static final int line_height = radial_gui_size + line_spacing;
 
-  private final String[] options;
+  private final Component[] options;
   private int buttons;
   public int option_selected = 0;
   private int i;
@@ -32,19 +33,19 @@ public final class RadialButtonGroup extends AbstractButton {
 
   private Consumer<Integer> onSelectionChanged;
 
-  public RadialButtonGroup(int x, int y, String[] options){
+  public RadialButtonGroup(int x, int y, Component[] options){
     this(x, y, options, 0, null);
   }
   
-  public RadialButtonGroup(int x, int y, String[] options, int default_option){
+  public RadialButtonGroup(int x, int y, Component[] options, int default_option){
     this(x, y, options, default_option, null);
   }
   
-  public RadialButtonGroup(int x, int y, String[] options, Consumer<Integer> responder){
+  public RadialButtonGroup(int x, int y, Component[] options, Consumer<Integer> responder){
     this(x, y, options, 0, responder);
   }
-  public RadialButtonGroup(int x, int y, String[] options, int default_option, Consumer<Integer> responder){
-    super(x, y, radial_gui_size, line_height*options.length, new TextComponent(""));
+  public RadialButtonGroup(int x, int y, Component[] options, int default_option, Consumer<Integer> responder){
+    super(x, y, radial_gui_size, line_height*options.length, TextComponent.EMPTY);
     this.options = options;
     this.option_selected = default_option;
     this.onSelectionChanged = responder;

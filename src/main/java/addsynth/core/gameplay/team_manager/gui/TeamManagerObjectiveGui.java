@@ -2,7 +2,6 @@ package addsynth.core.gameplay.team_manager.gui;
 
 import addsynth.core.gameplay.NetworkHandler;
 import addsynth.core.gameplay.reference.GuiReference;
-import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.gameplay.team_manager.data.CriteriaData;
 import addsynth.core.gameplay.team_manager.data.CriteriaType;
 import addsynth.core.gameplay.team_manager.data.ObjectiveDataUnit;
@@ -14,10 +13,11 @@ import addsynth.core.gui.widgets.WidgetUtil;
 import addsynth.core.gui.widgets.buttons.RadialButtonGroup;
 import addsynth.core.gui.widgets.scrollbar.ListEntry;
 import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
-import addsynth.core.util.java.StringUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public final class TeamManagerObjectiveGui extends GuiBase {
 
@@ -25,30 +25,26 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   private final boolean new_objective;
 
-  public TeamManagerObjectiveGui(boolean new_objective){
-    super(473, gui_height, TextReference.objective_gui, GuiReference.edit_objective_gui);
-    this.new_objective = new_objective;
-  }
-
-  private final String      objective_id_name_text = StringUtil.translate("gui.addsynthcore.team_manager.objective_edit.id_name");
-  private final String objective_display_name_text = StringUtil.translate("gui.addsynthcore.team_manager.objective_edit.display_name");
-  private final String          criteria_type_text = StringUtil.translate("gui.addsynthcore.team_manager.objective_edit.type");
-  private final String        criteria_header_text = StringUtil.translate("gui.addsynthcore.team_manager.objective_edit.criteria_header");
-  private final String[] criteria_options = {
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.standard"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.team_kill"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.killed_by_team"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.statistic"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.block_mined"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.item_broken"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.item_crafted"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.item_used"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.item_picked_up"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.item_dropped"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.killed"),
-    StringUtil.translate("gui.addsynthcore.team_manager.criteria_type.killed_by")
+  private static final TranslatableComponent               objective_gui = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.gui_title");
+  private static final TranslatableComponent      objective_id_name_text = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.id_name");
+  private static final TranslatableComponent objective_display_name_text = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.display_name");
+  private static final TranslatableComponent          criteria_type_text = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.type");
+  private static final TranslatableComponent        criteria_header_text = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.criteria_header");
+  private static final TranslatableComponent[] criteria_options = {
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.standard"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.team_kill"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.killed_by_team"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.statistic"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.block_mined"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.item_broken"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.item_crafted"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.item_used"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.item_picked_up"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.item_dropped"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.killed"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria_type.killed_by")
   };
-  private String message;
+  private Component message;
 
   private EditBox objective_id_name;
   private EditBox objective_display_name;
@@ -81,6 +77,11 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private final int list_height = entry_height*criteria_list_length;
   private final ListEntry[] objective_entries = new ListEntry[criteria_list_length];
 
+  public TeamManagerObjectiveGui(boolean new_objective){
+    super(473, gui_height, objective_gui, GuiReference.edit_objective_gui);
+    this.new_objective = new_objective;
+  }
+
   @Override
   protected void init(){
     super.init();
@@ -94,9 +95,9 @@ public final class TeamManagerObjectiveGui extends GuiBase {
      right_section.setBox(middle_section.right + 6, widget_line_1, guiBox.right       - 6 - scrollbar_width,      guiBox.bottom - 6);
     
     // Name TextBoxes
-    objective_id_name = new EditBox(this.font, left_section.x, left_section.y, left_section_width, text_box_height, new TextComponent(""));
+    objective_id_name = new EditBox(this.font, left_section.x, left_section.y, left_section_width, text_box_height, TextComponent.EMPTY);
     addWidget(objective_id_name);
-    objective_display_name = new EditBox(this.font, left_section.x, widget_line_2, left_section_width, text_box_height, new TextComponent(""));
+    objective_display_name = new EditBox(this.font, left_section.x, widget_line_2, left_section_width, text_box_height, TextComponent.EMPTY);
     addWidget(objective_display_name);
 
     // Criteria Type Selection
@@ -141,7 +142,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     criteria_list.setSelected(-1, false, false);
     switch(type){
     case CriteriaType.STANDARD:
-      criteria_list.updateScrollbar(CriteriaData.getStandardCriteria());
+      criteria_list.updateScrollbar(CriteriaData.standard_criteria);
       break;
     case CriteriaType.TEAM_KILL:
       criteria_list.updateScrollbar(CriteriaData.getColors());
@@ -208,28 +209,28 @@ public final class TeamManagerObjectiveGui extends GuiBase {
       criteria = CriteriaType.STATISTICS_PREFIX + CriteriaData.getStatisticID(criteria_list.getSelectedIndex()).replace(':', '.');
       break;
     case CriteriaType.BLOCK_MINED:
-      criteria = CriteriaType.BLOCK_MINED_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.BLOCK_MINED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.ITEM_BROKEN:
-      criteria = CriteriaType.ITEM_BROKEN_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.ITEM_BROKEN_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.ITEM_CRAFTED:
-      criteria = CriteriaType.ITEM_CRAFTED_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.ITEM_CRAFTED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.ITEM_DROPPED:
-      criteria = CriteriaType.ITEM_DROPPED_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.ITEM_DROPPED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.ITEM_PICKED_UP:
-      criteria = CriteriaType.ITEM_PICKED_UP_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.ITEM_PICKED_UP_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.ITEM_USED:
-      criteria = CriteriaType.ITEM_USED_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.ITEM_USED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.KILLED:
-      criteria = CriteriaType.KILLED_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.KILLED_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     case CriteriaType.KILLED_BY:
-      criteria = CriteriaType.KILLED_BY_PREFIX + criteria_list.getSelected().replace(':', '.');
+      criteria = CriteriaType.KILLED_BY_PREFIX + criteria_list.getSelected().getString().replace(':', '.');
       break;
     }
     return criteria;
@@ -244,13 +245,13 @@ public final class TeamManagerObjectiveGui extends GuiBase {
         criteria_list.setSelected(TeamData.getStandardCriteriaIndex(criteria));
         break;
       case CriteriaType.TEAM_KILL: case CriteriaType.KILLED_BY_TEAM:
-        criteria_list.setSelected(criteria.substring(criteria.indexOf('.')+1));
+        criteria_list.setSelected(new TextComponent(criteria.substring(criteria.indexOf('.')+1)));
         break;
       case CriteriaType.STATISTICS:
         criteria_list.setSelected(CriteriaData.getStatisticIndex(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
         break;
       default:
-        criteria_list.setSelected(criteria.substring(criteria.indexOf(':')+1).replace('.', ':'));
+        criteria_list.setSelected(new TextComponent(criteria.substring(criteria.indexOf(':')+1).replace('.', ':')));
         break;
       }
     }
@@ -269,26 +270,26 @@ public final class TeamManagerObjectiveGui extends GuiBase {
 
   private final void validate(){
     if(objective_id_name.getValue().isEmpty()){
-      message = TeamManagerMessage.must_specify_name();
+      message = TeamManagerMessage.must_specify_name;
       finish_button.active = false;
       return;
     }
     if(objective_id_name.getValue().contains(" ")){
-      message = TeamManagerMessage.cannot_contain_spaces();
+      message = TeamManagerMessage.cannot_contain_spaces;
       finish_button.active = false;
       return;
     }
     if(objective_id_name.getValue().length() > 16){
-      message = TeamManagerMessage.must_be_shorter();
+      message = TeamManagerMessage.must_be_shorter;
       finish_button.active = false;
       return;
     }
     if(criteria_list.hasValidSelection() == false){
-      message = TeamManagerMessage.must_specify_criteria();
+      message = TeamManagerMessage.must_specify_criteria;
       finish_button.active = false;
       return;
     }
-    message = "";
+    message = TextComponent.EMPTY;
     finish_button.active = true;
   }
 

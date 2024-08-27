@@ -3,11 +3,9 @@ package addsynth.core.util.java;
 import java.util.Arrays;
 import java.util.Collection;
 import addsynth.core.ADDSynthCore;
-import addsynth.core.util.game.MessageUtil;
 import addsynth.core.util.math.common.CommonMath;
 import addsynth.core.util.math.common.RoundMode;
 import addsynth.core.util.time.TimeConstants;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -76,18 +74,6 @@ public final class StringUtil {
   // https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toLowerCase-java.util.Locale-
   public static final String Capitalize(final String input_string){
     return Character.toUpperCase(input_string.charAt(0)) + input_string.substring(1);
-  }
-
-  /** <p>Most of the time you're going to want to use {@link MessageUtil#send_to_player} instead.
-   *  <p><b>Note:</b> This should ONLY be called from the client-side!
-   * @param translation_key
-   */
-  public static final String translate(final String translation_key){
-    if(I18n.exists(translation_key)){
-      return I18n.get(translation_key);
-    }
-    ADDSynthCore.log.warn("Missing translated text for: "+translation_key);
-    return translation_key;
   }
 
   @Deprecated

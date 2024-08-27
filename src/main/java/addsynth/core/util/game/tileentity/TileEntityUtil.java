@@ -3,7 +3,7 @@ package addsynth.core.util.game.tileentity;
 import javax.annotation.Nonnull;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.game.tiles.TileAbstractBase;
-import addsynth.core.util.game.MessageUtil;
+import addsynth.core.util.game.chat.MessageUtil;
 import addsynth.core.util.world.WorldUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -55,9 +55,6 @@ public class TileEntityUtil {
   }
 
   private static final void report_ticking_error(final Level level, final BlockPos position, @Nonnull final BlockEntity tile, final Throwable e){
-    // @SuppressWarnings("resource")
-    // final Level level = tile.getLevel();
-    // final BlockPos position = tile.getBlockPos();
     final String class_name = tile.getClass().getSimpleName();
     
     ADDSynthCore.log.error(

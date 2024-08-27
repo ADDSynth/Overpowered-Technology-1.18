@@ -38,6 +38,7 @@
 "gui.addsynth_energy.common.no_energy_change": "Ingen energiförändring",
 "gui.addsynth_energy.common.tick": "tick",
 "gui.addsynth_energy.common.auto_shutoff": "Automatisk inaktivering",
+"gui.addsynth_energy.common.total": "Total",
 "gui.addsynth_energy.tooltip.energy": "%s Energy",
 "gui.addsynth_energy.tooltip.class_1_machine": "Class 1 Machine",
 "gui.addsynth_energy.tooltip.class_2_machine": "Class 2 Machine",

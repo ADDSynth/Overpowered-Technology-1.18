@@ -2,6 +2,8 @@ package addsynth.core.gui.widgets.scrollbar;
 
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 /** <p>A Scrollbar is a widget that goes beside a list of values which the player can
  *     move up or down to scroll a list of values. It automatically adjusts its position
@@ -22,20 +24,33 @@ import javax.annotation.Nonnull;
  *  <p>Call {@link #unSelect} or {@link #setSelected(int)} with any negative value to unselect.
  * @author ADDSynth
  */
-public final class TextScrollbar extends AbstractScrollbar<String, ListEntry> {
+public final class TextScrollbar extends AbstractScrollbar<Component, ListEntry> {
 
   public TextScrollbar(int x, int y, int height, ListEntry[] list_items){
     super(x, y, height, list_items, null);
   }
 
-  public TextScrollbar(int x, int y, int height, ListEntry[] list_items, String[] values){
+  public TextScrollbar(int x, int y, int height, ListEntry[] list_items, Component[] values){
     super(x, y, height, list_items, values);
   }
   
   @Override
   @Nonnull
-  protected String[] createEmptyValueArray(){
-    return new String[0];
+  protected Component[] createEmptyValueArray(){
+    return new Component[0];
   }
-  
+
+  public final void updateScrollbar(final String[] values){
+    if(values != null){
+      final int length = values.length;
+      final Component[] components = new Component[length];
+      int i;
+      for(i = 0; i < length; i++){
+        components[i] = new TextComponent(values[i]);
+      }
+      updateScrollbar(components);
+    }
+    updateScrollbar(new Component[0]);
+  }
+
 }

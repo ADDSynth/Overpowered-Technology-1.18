@@ -5,12 +5,12 @@ import javax.annotation.Nullable;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.items.CoreItem;
 import addsynth.core.gameplay.reference.Names;
-import addsynth.core.gameplay.reference.TextReference;
-import addsynth.core.util.game.MessageUtil;
+import addsynth.core.util.game.chat.MessageUtil;
 import addsynth.core.util.player.PlayerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -34,6 +34,12 @@ public final class MusicSheet extends CoreItem {
 
   // See how vanilla handles the Ender Eye, an item that is used on blocks and by itself.
 
+  private static final TranslatableComponent music_sheet_clear    = new TranslatableComponent("gui.addsynthcore.music_sheet.clear");
+  private static final TranslatableComponent music_sheet_paste    = new TranslatableComponent("gui.addsynthcore.music_sheet.paste");
+  private static final TranslatableComponent music_sheet_copy     = new TranslatableComponent("gui.addsynthcore.music_sheet.copy");
+  private static final TranslatableComponent music_sheet_no_data  = new TranslatableComponent("gui.addsynthcore.music_sheet.no_data");
+  private static final TranslatableComponent music_sheet_has_data = new TranslatableComponent("gui.addsynthcore.music_sheet.has_data");
+
   public MusicSheet(){
     super(Names.MUSIC_SHEET);
   }
@@ -54,7 +60,7 @@ public final class MusicSheet extends CoreItem {
     if(world.isClientSide == false){
       if(player.isCrouching()){
         stack.setTag(null);
-        MessageUtil.send_to_player(player, TextReference.music_sheet_clear);
+        MessageUtil.send_to_player(player, music_sheet_clear);
         return new InteractionResultHolder<ItemStack>(InteractionResult.SUCCESS, stack);
       }
     }
@@ -79,7 +85,7 @@ public final class MusicSheet extends CoreItem {
           if(nbt != null){
             tile.getMusicGrid().load_from_nbt(nbt);
             tile.changed = true;
-            MessageUtil.send_to_player(player, TextReference.music_sheet_paste);
+            MessageUtil.send_to_player(player, music_sheet_paste);
             return InteractionResult.SUCCESS;
           }
         }
@@ -105,16 +111,16 @@ public final class MusicSheet extends CoreItem {
       PlayerUtil.add_to_player_inventory(player, music_sheet);
     }
       
-    MessageUtil.send_to_player(player, TextReference.music_sheet_copy);
+    MessageUtil.send_to_player(player, music_sheet_copy);
   }
 
   @Override
   public final void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag){
     if(stack.getTag() == null){
-      tooltip.add(TextReference.music_sheet_no_data);
+      tooltip.add(music_sheet_no_data);
     }
     else{
-      tooltip.add(TextReference.music_sheet_has_data);
+      tooltip.add(music_sheet_has_data);
     }
   }
 

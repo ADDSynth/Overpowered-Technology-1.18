@@ -3,7 +3,6 @@ package addsynth.energy.gameplay.machines.energy_diagnostics;
 import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -42,7 +41,7 @@ public final class GuiEnergyDiagnostics extends GuiBase {
 
   private static final class LeftArrowButton extends AbstractButton {
     public LeftArrowButton(int x, int y){
-      super(x, y, 30, 20, new TextComponent(""));
+      super(x, y, 30, 20, TextComponent.EMPTY);
     }
     @Override
     public void updateNarration(NarrationElementOutput p_169152_){
@@ -54,7 +53,7 @@ public final class GuiEnergyDiagnostics extends GuiBase {
 
   private static final class RightArrowButton extends AbstractButton {
     public RightArrowButton(int x, int y){
-      super(x, y, 30, 20, new TextComponent(""));
+      super(x, y, 30, 20, TextComponent.EMPTY);
     }
     @Override
     public void updateNarration(NarrationElementOutput p_169152_){
@@ -90,7 +89,7 @@ public final class GuiEnergyDiagnostics extends GuiBase {
       for(draw_i = 0; draw_i < draw_end_i; draw_i++){
         diag_line = tile.diagnostics_data.get(begin + draw_i);
         draw_y = text_y + y_space + (draw_i * y_space);
-        draw_text_left(matrix, StringUtil.translate(diag_line.name), name_column.left, draw_y);
+        draw_text_left(matrix, diag_line.name, name_column.left, draw_y);
         draw_text_center(matrix, diag_line.type.toString(), type_column.horizontal_center, draw_y);
         draw_text_right(matrix, String.format("%.2f", diag_line.energy),     energy_column.right, draw_y);
         draw_text_right(matrix, String.format("%.2f", diag_line.capacity), capacity_column.right, draw_y);

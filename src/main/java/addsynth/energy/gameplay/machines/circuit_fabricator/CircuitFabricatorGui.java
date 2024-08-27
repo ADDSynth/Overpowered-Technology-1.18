@@ -4,22 +4,22 @@ import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.widgets.item.IngredientWidgetGroup;
 import addsynth.core.gui.widgets.scrollbar.ItemListEntry;
 import addsynth.core.gui.widgets.scrollbar.ItemListScrollbar;
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipes;
 import addsynth.energy.gameplay.reference.GuiReference;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.energy.lib.gui.widgets.WorkProgressBar;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabricator, CircuitFabricatorContainer> {
 
-  private final String selected_text = StringUtil.translate("gui.addsynth_energy.common.selected");
-  private String selected_item;
+  private Component selected_item;
 
   private final WorkProgressBar work_progress_bar = new WorkProgressBar(239, 125, 58, 5, 8, 245);
 
@@ -70,7 +70,7 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
     // setup data
     tile.updateGui(); // update displayed recipe, in case player opens another Circuit Fabricator
     final ItemStack output = tile.getRecipeOutput();
-    selected_item = StringUtil.translate(output.getDescriptionId());
+    selected_item = new TranslatableComponent(output.getDescriptionId());
     item_scrollbar.setSelected(output, false);
   }
 
@@ -79,7 +79,7 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
       @SuppressWarnings("null")
       final String item_name = item.getItem().getRegistryName().toString();
       NetworkHandler.INSTANCE.sendToServer(new ChangeCircuitFabricatorRecipe(tile.getBlockPos(), item_name));
-      selected_item = StringUtil.translate(item.getDescriptionId());
+      selected_item = new TranslatableComponent(item.getDescriptionId());
     }
   }
 
@@ -139,7 +139,7 @@ public final class CircuitFabricatorGui extends GuiEnergyBase<TileCircuitFabrica
     draw_title(matrix);
     draw_energy_usage(matrix);
     draw_status(matrix, tile.getStatus());
-    draw_text_left(matrix, selected_text+": "+selected_item, 6, 39);
+    draw_text_left(matrix, EnergyText.selected_text+": "+selected_item, 6, 39);
     // itemRenderer.renderGuiItem(circuit_stack[tile.getCircuitID()], 102, 29);
     draw_text_center(matrix, work_progress_bar.getWorkTimeProgress(), 270, 113);
     draw_time_left_center(matrix, 145);

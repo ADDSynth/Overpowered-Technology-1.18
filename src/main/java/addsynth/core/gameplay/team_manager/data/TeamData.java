@@ -251,61 +251,47 @@ public final class TeamData {
     return CriteriaType.STANDARD;
   }
 
-  public static final String[] getTeams(){
+  public static final Component[] getTeams(){
     if(teams != null){
       int i;
-      final String[] t = new String[teams.length];
-      for(i = 0; i < teams.length; i++){
-        t[i] = teams[i].name;
+      final int length = teams.length;
+      final Component[] t = new Component[length];
+      for(i = 0; i < length; i++){
+        t[i] = teams[i].display_name;
       }
       return t;
     }
-    return new String[0];
+    return new Component[0];
   }
 
-  public static final String[] getPlayers(){
-    if(non_team_players != null){
-      int i;
-      final int length = non_team_players.size();
-      final String[] p = new String[length];
-      for(i = 0; i < length; i++){
-        p[i] = non_team_players.get(i).getString();
-      }
-      return p;
-    }
-    return new String[0];
+  public static final Component[] getPlayers(){
+    return non_team_players != null ? (Component[])non_team_players.toArray() : new Component[0];
   }
 
   /** Used to build the Objectives List on the Main Screen. */
-  public static final String[] getObjectives(){
+  public static final Component[] getObjectives(){
     if(objectives != null){
       int i;
-      final String[] o = new String[objectives.length];
+      final int length = objectives.length;
+      final Component[] o = new Component[length];
       for(i = 0; i < objectives.length; i++){
-        o[i] = objectives[i].name;
+        o[i] = objectives[i].display_name;
       }
       return o;
     }
-    return new String[0];
+    return new Component[0];
   }
 
-  public static final String[] getTeamPlayers(final String team_selected){
+  public static final Component[] getTeamPlayers(final String team_selected){
     if(StringUtil.StringExists(team_selected)){
-      int i;
-      String[] tp = null;
       for(final TeamDataUnit t : teams){
         if(t.name.equals(team_selected)){
-          final int length = t.players.size();
-          tp = new String[length];
-          for(i = 0; i < length; i++){
-            tp[i] = t.players.get(i).getString();
-          }
-          break;
+          return (Component[])t.players.toArray();
         }
       }
-      return tp;
+      return new Component[0];
     }
-    return new String[0];
+    return new Component[0];
   }
 
   public static final TeamDataUnit getTeamData(final String team_name){

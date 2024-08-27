@@ -1,28 +1,23 @@
 package addsynth.overpoweredmod.machines.suspension_bridge;
 
+import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.gui.section.GuiSection;
 import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.buttons.AdjustableButton;
 import addsynth.core.util.constants.DirectionConstant;
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.lib.gui.GuiEnergyBase;
 import addsynth.overpoweredmod.game.NetworkHandler;
 import addsynth.overpoweredmod.game.reference.GuiReference;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 
 public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensionBridge, ContainerSuspensionBridge> {
 
-  // translation strings
-  private final String lens_string = StringUtil.translate("gui.overpowered.energy_suspension_bridge.lens");
-  private final String down  = StringUtil.translate("gui.addsynthcore.direction.down");
-  private final String up    = StringUtil.translate("gui.addsynthcore.direction.up");
-  private final String north = StringUtil.translate("gui.addsynthcore.direction.north");
-  private final String south = StringUtil.translate("gui.addsynthcore.direction.south");
-  private final String west  = StringUtil.translate("gui.addsynthcore.direction.west");
-  private final String east  = StringUtil.translate("gui.addsynthcore.direction.east");
-  private final String length = StringUtil.translate("gui.overpowered.energy_suspension_bridge.length");
+  private static final TranslatableComponent lens_string = new TranslatableComponent("gui.overpowered.energy_suspension_bridge.lens");
+  private static final TranslatableComponent length      = new TranslatableComponent("gui.overpowered.energy_suspension_bridge.length");
+  private static final TranslatableComponent rotate      = new TranslatableComponent("gui.overpowered.energy_suspension_bridge.rotate");
 
   private static final int gui_width = 312;
 
@@ -53,7 +48,7 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
     private final TileSuspensionBridge tile;
 
     public RotateButton(int x, int y, TileSuspensionBridge tile){
-      super(x, y, button_width, 20, StringUtil.translate("gui.overpowered.energy_suspension_bridge.rotate"));
+      super(x, y, button_width, 20, rotate);
       this.tile = tile;
     }
 
@@ -73,9 +68,9 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
     super.init();
     rotate_button = new RotateButton(this.leftPos + button_x, this.topPos + button_y, tile);
     addRenderableWidget(rotate_button);
-    message_x[0] =    up_section.horizontal_center + GuiUtil.getMaxStringWidth(font,  west+":",    up+":") / 2;
-    message_x[1] = north_section.horizontal_center + GuiUtil.getMaxStringWidth(font, south+":", north+":") / 2;
-    message_x[2] =  down_section.horizontal_center + GuiUtil.getMaxStringWidth(font,  east+":",  down+":") / 2;
+    message_x[0] =    up_section.horizontal_center + GuiUtil.getMaxStringWidth(font,  ADDSynthCoreText.west+":",    ADDSynthCoreText.up+":") / 2;
+    message_x[1] = north_section.horizontal_center + GuiUtil.getMaxStringWidth(font, ADDSynthCoreText.south+":", ADDSynthCoreText.north+":") / 2;
+    message_x[2] =  down_section.horizontal_center + GuiUtil.getMaxStringWidth(font,  ADDSynthCoreText.east+":",  ADDSynthCoreText.down+":") / 2;
   }
 
   @Override
@@ -93,27 +88,27 @@ public final class GuiEnergySuspensionBridge extends GuiEnergyBase<TileSuspensio
     draw_title(matrix);
     draw_text_right(matrix, lens_string+":", lens_text_x, lens_text_y);
 
-    draw_text_left(matrix, up+":",       up_section.x,    up_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.up+":",       up_section.x,    up_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.UP),    message_x[0],    up_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.UP), up_section.horizontal_center, up_section.y + 11);
 
-    draw_text_left(matrix, west+":",   west_section.x,  west_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.west+":",   west_section.x,  west_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.WEST),  message_x[0],  west_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.WEST), west_section.horizontal_center, west_section.y + 11);
 
-    draw_text_left(matrix, north+":", north_section.x, north_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.north+":", north_section.x, north_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.NORTH), message_x[1], north_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.NORTH), north_section.horizontal_center, north_section.y + 11);
 
-    draw_text_left(matrix, south+":", south_section.x, south_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.south+":", south_section.x, south_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.SOUTH), message_x[1], south_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.SOUTH), south_section.horizontal_center, south_section.y + 11);
 
-    draw_text_left(matrix, down+":",   down_section.x,  down_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.down+":",   down_section.x,  down_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.DOWN),  message_x[2],  down_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.DOWN), down_section.horizontal_center, down_section.y + 11);
 
-    draw_text_left(matrix, east+":",   east_section.x,  east_section.y);
+    draw_text_left(matrix, ADDSynthCoreText.east+":",   east_section.x,  east_section.y);
     draw_text_center(matrix, tile.getMessage(DirectionConstant.EAST),  message_x[2],  east_section.y);
     draw_text_center(matrix, length+": "+tile.getLength(DirectionConstant.EAST), east_section.horizontal_center, east_section.y + 11);
 

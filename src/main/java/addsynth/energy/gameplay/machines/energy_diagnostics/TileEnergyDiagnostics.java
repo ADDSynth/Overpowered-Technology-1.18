@@ -5,6 +5,7 @@ import addsynth.core.game.tiles.TileBaseNoData;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
 import addsynth.core.util.network.NetworkUtil;
 import addsynth.energy.gameplay.NetworkHandler;
+import addsynth.energy.gameplay.reference.EnergyText;
 import addsynth.energy.lib.energy_network.EnergyNetwork;
 import addsynth.energy.lib.energy_network.EnergyNode;
 import addsynth.energy.lib.energy_network.tiles.BasicEnergyNetworkTile;
@@ -19,7 +20,7 @@ public final class TileEnergyDiagnostics extends TileBaseNoData implements ITick
   /** The gui uses this to draw the data. */
   public boolean network_exists = false;
   public final ArrayList<EnergyDiagnosticData> diagnostics_data = new ArrayList<>(20);
-  public final EnergyDiagnosticData totals = new EnergyDiagnosticData("Total:");
+  public final EnergyDiagnosticData totals = new EnergyDiagnosticData(EnergyText.total);
 
   public TileEnergyDiagnostics(BlockPos position, BlockState blockstate){
     super(Tiles.ENERGY_DIAGNOSTICS_BLOCK.get(), position, blockstate);

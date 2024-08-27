@@ -8,19 +8,37 @@ import java.util.Set;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.java.ArrayUtil;
-import addsynth.core.util.java.StringUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 public final class CriteriaData {
 
-  private static String[] statistics;
-  private static String[] blocks;
-  private static String[] items_with_durability;
-  private static String[] items;
-  private static String[] entities;
+  private static final ArrayList<String> statistics = new ArrayList<String>(); // OPTIMIZE: replace with ResourceLocation alphabetical sorter, there's one in Debug class.
+  private static final ArrayList<Component> blocks = new ArrayList<Component>();
+  private static final ArrayList<Component> items_with_durability = new ArrayList<Component>();
+  private static final ArrayList<Component> items = new ArrayList<Component>();
+  private static final ArrayList<Component> entities = new ArrayList<Component>();
+  public static final Component[] standard_criteria = {
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.dummy"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.trigger"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.death_count"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.player_kills"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.total_kills"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.health"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.xp"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.xp_level"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.air"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.food"),
+    new TranslatableComponent("gui.addsynthcore.team_manager.criteria.armor")
+  };
+
+  // TODO: Add ability to use ID names or translatable names, not sure if it will be helpful or not.
+  public static boolean translate_names;
 
   public static final void calculate(){
     try{
@@ -42,146 +60,139 @@ public final class CriteriaData {
       block_list.add(id.toString());
     }
     Collections.sort(block_list);
-    CriteriaData.blocks = block_list.toArray(new String[size]);
+    CriteriaData.blocks.clear();
+    CriteriaData.blocks.ensureCapacity(size);
+    for(String id : block_list){
+      CriteriaData.blocks.add(new TextComponent(id));
+    }
   }
   
   @SuppressWarnings("null")
   private static final void calculateItems(){
     final Collection<Item> items = CommonUtil.getAllItems();
     final int size = items.size();
+    // create new lists
     final ArrayList<String> item_list = new ArrayList<String>(size);
     final ArrayList<String> item_with_durability_list = new ArrayList<String>();
+    // add items
     for(Item item : items){
       item_list.add(item.getRegistryName().toString());
       if(item.canBeDepleted()){
         item_with_durability_list.add(item.getRegistryName().toString());
       }
     }
+    // sort alphabetically
     Collections.sort(item_list);
     Collections.sort(item_with_durability_list);
-    CriteriaData.items = item_list.toArray(new String[size]);
-    CriteriaData.items_with_durability = item_with_durability_list.toArray(new String[item_with_durability_list.size()]);
+    // create components.
+    CriteriaData.items.clear();
+    CriteriaData.items.ensureCapacity(size);
+    for(String name : item_list){
+      CriteriaData.items.add(new TextComponent(name));
+    }
+    CriteriaData.items_with_durability.clear();
+    CriteriaData.items_with_durability.ensureCapacity(item_with_durability_list.size());
+    for(String name : item_with_durability_list){
+      CriteriaData.items_with_durability.add(new TextComponent(name));
+    }
   }
   
   private static final void calculateStatistics(){
     // since I can only get the Display Name from the id, not the other way around,
-    // I have to sort the ids alphebetically, then construc the display names.
+    // I have to sort the ids alphebetically, then construct the display names.
     final Set<ResourceLocation> stats = Registry.CUSTOM_STAT.keySet();
-    final int size = stats.size();
-    final ArrayList<String> stat_list = new ArrayList<String>(size);
+    statistics.clear();
+    statistics.ensureCapacity(stats.size());
     for(ResourceLocation stat_id : stats){
-      stat_list.add(stat_id.toString());
+      statistics.add(stat_id.toString());
     }
-    Collections.sort(stat_list);
-    CriteriaData.statistics = stat_list.toArray(new String[size]);
+    Collections.sort(statistics);
   }
   
   private static final void calculateEntities(){
-    final Set<ResourceLocation> entities = CommonUtil.getAllEntityIDs();
-    final int size = entities.size();
+    final Set<ResourceLocation> all_entities = CommonUtil.getAllEntityIDs();
+    final int size = all_entities.size();
     final ArrayList<String> entity_list = new ArrayList<String>(size);
-    for(ResourceLocation entity : entities){
+    for(ResourceLocation entity : all_entities){
+      // entities.add(entity.getDescription());
       entity_list.add(entity.toString());
     }
+    // sort alphabetically
     Collections.sort(entity_list);
-    CriteriaData.entities = entity_list.toArray(new String[size]);
+    entities.clear();
+    entities.ensureCapacity(size);
+    for(String id : entity_list){
+      entities.add(new TextComponent(id));
+    }
   }
   
   
   
-  
-  public static final String[] getStandardCriteria(){
-    return new String[] {
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.dummy"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.trigger"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.death_count"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.player_kills"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.total_kills"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.health"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.xp"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.xp_level"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.air"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.food"),
-      StringUtil.translate("gui.addsynthcore.team_manager.criteria.armor")
-    };
-  }
   
   // Statistics have a client-translated Display Name, so they must be calculated each time,
   // in case the player changes the language in-game.
-  public static final String[] getStatistics(){
-    if(statistics == null){
-      calculateStatistics();
-    }
-    final String[] statistic_names = new String[statistics.length];
+  public static final Component[] getStatistics(){
+    final int length = statistics.size();
+    final Component[] statistic_names = new Component[length];
     Optional<ResourceLocation> statistic;
     int i;
-    for(i = 0; i < statistics.length; i++){
-      statistic = Registry.CUSTOM_STAT.getOptional(new ResourceLocation(CriteriaData.statistics[i]));
+    for(i = 0; i < length; i++){
+      statistic = Registry.CUSTOM_STAT.getOptional(new ResourceLocation(statistics.get(i)));
       if(statistic.isPresent()){
-        statistic_names[i] = StringUtil.translate("stat."+(statistic.get().toString().replace(':', '.')));
+        statistic_names[i] = new TranslatableComponent("stat."+(statistic.get().toString().replace(':', '.')));
       }
       else{
-        statistic_names[i] = "stat."+(CriteriaData.statistics[i].replace(':', '.'));
+        statistic_names[i] = new TextComponent("stat."+(statistics.get(i).replace(':', '.')));
       }
     }
     return statistic_names;
   }
   
-  @SuppressWarnings("deprecation")
   public static final String getStatisticID(int id){
-    // if(statistics == null){
-    //   calculateStatistics();
-    // }
-    return ArrayUtil.getArrayValue(statistics, id);
+    return ArrayUtil.isInsideBounds(id, statistics.size()) ? statistics.get(id) : "null";
   }
   
   public static final int getStatisticIndex(String statistic_id){
-    int i;
-    for(i = 0; i < statistics.length; i++){
-      if(statistics[i].equals(statistic_id)){
-        break;
-      }
-    }
-    return i == statistics.length ? -1 : i;
+    return statistics.indexOf(statistic_id);
   }
   
-  public static final String[] getAllBlocks(){
-    return blocks != null ? blocks : new String[0];
+  public static final Component[] getAllBlocks(){
+    return (Component[])blocks.toArray();
   }
   
-  public static final String[] getAllItems(){
-    return items != null ? items : new String[0];
+  public static final Component[] getAllItems(){
+    return (Component[])items.toArray();
   }
   
-  public static final String[] getItemsWithDurability(){
-    return items_with_durability != null ? items_with_durability : new String[0];
+  public static final Component[] getItemsWithDurability(){
+    return (Component[])items_with_durability.toArray();
   }
 
   @SuppressWarnings("null")
-  public static final String[] getColors(){
+  public static final Component[] getColors(){
     // the Minecraft colors are translated, however the teams use the TextFormatting colors.
-    return new String[] {
-      ChatFormatting.getById(0).getName(),
-      ChatFormatting.getById(1).getName(),
-      ChatFormatting.getById(2).getName(),
-      ChatFormatting.getById(3).getName(),
-      ChatFormatting.getById(4).getName(),
-      ChatFormatting.getById(5).getName(),
-      ChatFormatting.getById(6).getName(),
-      ChatFormatting.getById(7).getName(),
-      ChatFormatting.getById(8).getName(),
-      ChatFormatting.getById(9).getName(),
-      ChatFormatting.getById(10).getName(),
-      ChatFormatting.getById(11).getName(),
-      ChatFormatting.getById(12).getName(),
-      ChatFormatting.getById(13).getName(),
-      ChatFormatting.getById(14).getName(),
-      ChatFormatting.getById(15).getName(),
+    return new Component[] {
+      new TextComponent(ChatFormatting.getById(0).getName()),
+      new TextComponent(ChatFormatting.getById(1).getName()),
+      new TextComponent(ChatFormatting.getById(2).getName()),
+      new TextComponent(ChatFormatting.getById(3).getName()),
+      new TextComponent(ChatFormatting.getById(4).getName()),
+      new TextComponent(ChatFormatting.getById(5).getName()),
+      new TextComponent(ChatFormatting.getById(6).getName()),
+      new TextComponent(ChatFormatting.getById(7).getName()),
+      new TextComponent(ChatFormatting.getById(8).getName()),
+      new TextComponent(ChatFormatting.getById(9).getName()),
+      new TextComponent(ChatFormatting.getById(10).getName()),
+      new TextComponent(ChatFormatting.getById(11).getName()),
+      new TextComponent(ChatFormatting.getById(12).getName()),
+      new TextComponent(ChatFormatting.getById(13).getName()),
+      new TextComponent(ChatFormatting.getById(14).getName()),
+      new TextComponent(ChatFormatting.getById(15).getName()),
     };
   }
 
-  public static final String[] getEntities(){
-    return entities != null ? entities : new String[0];
+  public static final Component[] getEntities(){
+    return (Component[])entities.toArray();
   }
 
 }

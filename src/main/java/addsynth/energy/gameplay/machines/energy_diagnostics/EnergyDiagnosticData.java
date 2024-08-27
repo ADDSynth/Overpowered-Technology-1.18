@@ -3,11 +3,13 @@ package addsynth.energy.gameplay.machines.energy_diagnostics;
 import addsynth.energy.lib.main.Energy;
 import addsynth.energy.lib.main.EnergyType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public final class EnergyDiagnosticData implements Comparable<EnergyDiagnosticData> {
 
-  public String name;
+  public Component name;
   public EnergyType type;
   public double energy;
   public double capacity;
@@ -20,12 +22,12 @@ public final class EnergyDiagnosticData implements Comparable<EnergyDiagnosticDa
   public EnergyDiagnosticData(){
   }
   
-  public EnergyDiagnosticData(final String name){
+  public EnergyDiagnosticData(final Component name){
     this.name = name;
   }
   
   public EnergyDiagnosticData(final FriendlyByteBuf data){
-    name = data.readUtf();
+    name = data.readComponent();
     type = EnergyType.values()[data.readInt()];
     energy       = data.readDouble();
     capacity     = data.readDouble();
@@ -37,7 +39,7 @@ public final class EnergyDiagnosticData implements Comparable<EnergyDiagnosticDa
   }
 
   public final void set(final BlockEntity tile, final Energy energy){
-    this.name = tile.getBlockState().getBlock().getDescriptionId();
+    this.name = tile.getBlockState().getBlock().getName();
     this.type = EnergyType.determine(tile);
     this.energy       = energy.getEnergy();
     this.capacity     = energy.getCapacity();
@@ -61,7 +63,7 @@ public final class EnergyDiagnosticData implements Comparable<EnergyDiagnosticDa
   }
 
   public final void clear(){
-    name = "";
+    name = TextComponent.EMPTY;
     type = EnergyType.GENERATOR;
     energy = 0;
     capacity = 0;
@@ -73,7 +75,7 @@ public final class EnergyDiagnosticData implements Comparable<EnergyDiagnosticDa
   }
 
   public final void save(final FriendlyByteBuf data){
-    data.writeUtf(name);
+    data.writeComponent(name);
     data.writeInt(type.ordinal());
     data.writeDouble(energy);
     data.writeDouble(capacity);

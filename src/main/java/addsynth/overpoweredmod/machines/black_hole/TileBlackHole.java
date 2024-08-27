@@ -1,6 +1,6 @@
 package addsynth.overpoweredmod.machines.black_hole;
 
-import addsynth.core.util.game.MessageUtil;
+import addsynth.core.util.game.chat.MessageUtil;
 import addsynth.core.util.game.data.AdvancementUtil;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
 import addsynth.core.util.math.block.BlockMath;
@@ -16,6 +16,7 @@ import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.items.DimensionalAnchor;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
@@ -99,7 +100,8 @@ public final class TileBlackHole extends BlockEntity implements ITickingTileEnti
                              center_x + radius, center_y + radius, center_z + radius);
       // MAYBE: play sound?
       if(Config.alert_players_of_black_hole.get()){
-        MessageUtil.send_to_all_players_in_world(level, "gui.overpowered.black_hole.notify_players", worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
+        final TranslatableComponent message = new TranslatableComponent("gui.overpowered.black_hole.notify_players", worldPosition.getX(), worldPosition.getY(), worldPosition.getZ());
+        MessageUtil.send_to_all_players_in_world(level, message);
       }
     }
     first_tick = false;

@@ -1,8 +1,34 @@
 package addsynth.energy.gameplay.reference;
 
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
-public final class TextReference {
+/** The TextReference class should only be used for common words
+ *  or commonly used text that can be used in multiple projects.
+ *  Text that is only used in one place, should be defined there.
+ *  
+ *  Also, keep in mind that just because a word has multiple
+ *  meanings in my language, does not mean it has the same meanings
+ *  in other languages. */
+public final class EnergyText {
+
+  public static final TextComponent null_energy_reference = new TextComponent("[Error: Null Energy Reference]");
+
+  // Common
+  public static final TranslatableComponent energy_text           = new TranslatableComponent("gui.addsynth_energy.common.energy");
+  public static final TranslatableComponent energy_usage_text     = new TranslatableComponent("gui.addsynth_energy.common.energy_usage");
+  public static final TranslatableComponent tick_text             = new TranslatableComponent("gui.addsynth_energy.common.tick");
+  public static final TranslatableComponent efficiency_text       = new TranslatableComponent("gui.addsynth_energy.common.efficiency");
+  public static final TranslatableComponent max_extract_text      = new TranslatableComponent("gui.addsynth_energy.common.max_extract");
+  public static final TranslatableComponent extraction_text       = new TranslatableComponent("gui.addsynth_energy.common.extraction");
+  public static final TranslatableComponent status_text           = new TranslatableComponent("gui.addsynth_energy.common.status");
+  public static final TranslatableComponent time_left_text        = new TranslatableComponent("gui.addsynth_energy.common.time_remaining");
+  public static final TranslatableComponent charge_remaining_text = new TranslatableComponent("gui.addsynth_energy.common.charge_time_remaining");
+  public static final TranslatableComponent full_charge_time_text = new TranslatableComponent("gui.addsynth_energy.common.time_to_full_charge");
+  public static final TranslatableComponent no_energy_change_text = new TranslatableComponent("gui.addsynth_energy.common.no_energy_change");
+  public static final TranslatableComponent energy_stored_text    = new TranslatableComponent("gui.addsynth_energy.common.energy_stored");
+  public static final TranslatableComponent input_text            = new TranslatableComponent("gui.addsynth_energy.generator.input");
+  public static final TranslatableComponent mode_text             = new TranslatableComponent("gui.addsynth_energy.common.mode");
 
   // Tooltip Subtitles:
   public static final TranslatableComponent energy_machine     = new TranslatableComponent("gui.addsynth_energy.tooltip.energy_machine");
@@ -15,15 +41,9 @@ public final class TextReference {
   public static final TranslatableComponent class_4_machine    = new TranslatableComponent("gui.addsynth_energy.tooltip.class_4_machine");
   public static final TranslatableComponent class_5_machine    = new TranslatableComponent("gui.addsynth_energy.tooltip.class_5_machine");
 
-  // Interface Modes:
-  public static final class transfer_mode {
-    public static final TranslatableComponent bi_directional = new TranslatableComponent("gui.addsynth_energy.transfer_mode.bi_directional");
-    public static final TranslatableComponent receive        = new TranslatableComponent("gui.addsynth_energy.transfer_mode.receive");
-    public static final TranslatableComponent extract        = new TranslatableComponent("gui.addsynth_energy.transfer_mode.extract");
-    public static final TranslatableComponent external       = new TranslatableComponent("gui.addsynth_energy.transfer_mode.external");
-    public static final TranslatableComponent internal       = new TranslatableComponent("gui.addsynth_energy.transfer_mode.internal");
-    public static final TranslatableComponent none           = new TranslatableComponent("gui.addsynth_energy.transfer_mode.no_transfer");
-  }
+  // Machines
+  public static final TranslatableComponent selected_text = new TranslatableComponent("gui.addsynth_energy.common.selected");
+  public static final TranslatableComponent total         = new TranslatableComponent("gui.addsynth_energy.common.total");
 
   // Descriptions:
   public static final TranslatableComponent wire_description               = new TranslatableComponent("gui.addsynth_energy.jei_description.wire");

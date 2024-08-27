@@ -1,20 +1,22 @@
 package addsynth.energy.lib.gui.widgets;
 
 import addsynth.core.gui.widgets.buttons.Checkbox;
-import addsynth.core.util.java.StringUtil;
 import addsynth.energy.gameplay.NetworkHandler;
 import addsynth.energy.lib.network_messages.ToggleAutoShutoffMessage;
 import addsynth.energy.lib.tiles.machines.IAutoShutoff;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 /** A special checkbox that toggles the {@code auto_shutoff} state of a
  *  TileEntity that implements the {@link IAutoShutoff} interface. */
 public final class AutoShutoffCheckbox<T extends BlockEntity & IAutoShutoff> extends Checkbox {
 
+  private static final TranslatableComponent auto_shutoff_checkbox = new TranslatableComponent("gui.addsynth_energy.common.auto_shutoff");
+
   private final T tile;
   
   public AutoShutoffCheckbox(int x, int y, T tile){
-    super(x, y, StringUtil.translate("gui.addsynth_energy.common.auto_shutoff"));
+    super(x, y, auto_shutoff_checkbox);
     this.tile = tile;
   }
   

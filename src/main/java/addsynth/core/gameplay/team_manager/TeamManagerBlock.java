@@ -2,11 +2,10 @@ package addsynth.core.gameplay.team_manager;
 
 import addsynth.core.gameplay.client.GuiProvider;
 import addsynth.core.gameplay.reference.Names;
-import addsynth.core.gameplay.reference.TextReference;
 import addsynth.core.util.command.PermissionLevel;
 import addsynth.core.util.constants.Constants;
-import addsynth.core.util.game.MessageUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +18,8 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 public final class TeamManagerBlock extends Block {
+
+  private static final TranslatableComponent you_dont_have_permission = new TranslatableComponent("gui.addsynthcore.team_manager.message.you_do_not_have_permission", PermissionLevel.COMMANDS);
 
   public TeamManagerBlock(){
     super(Block.Properties.of(Material.STONE, MaterialColor.METAL).sound(SoundType.STONE).strength(2.0f, Constants.block_resistance));
@@ -33,7 +34,7 @@ public final class TeamManagerBlock extends Block {
         GuiProvider.openTeamManagerGui();
       }
       else{
-        MessageUtil.send_to_player(player, TextReference.you_dont_have_permission);
+        player.displayClientMessage(you_dont_have_permission, true);
       }
     }
     return InteractionResult.SUCCESS;

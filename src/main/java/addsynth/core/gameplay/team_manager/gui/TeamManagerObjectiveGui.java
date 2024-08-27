@@ -145,10 +145,10 @@ public final class TeamManagerObjectiveGui extends GuiBase {
       criteria_list.updateScrollbar(CriteriaData.standard_criteria);
       break;
     case CriteriaType.TEAM_KILL:
-      criteria_list.updateScrollbar(CriteriaData.getColors());
+      criteria_list.updateScrollbar(CriteriaData.chat_colors);
       break;
     case CriteriaType.KILLED_BY_TEAM:
-      criteria_list.updateScrollbar(CriteriaData.getColors());
+      criteria_list.updateScrollbar(CriteriaData.chat_colors);
       break;
     case CriteriaType.STATISTICS:
       criteria_list.updateScrollbar(CriteriaData.getStatistics());

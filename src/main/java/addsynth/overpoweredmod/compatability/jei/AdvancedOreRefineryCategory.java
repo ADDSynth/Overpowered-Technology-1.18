@@ -4,18 +4,18 @@ import addsynth.overpoweredmod.game.reference.GuiReference;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
 import addsynth.overpoweredmod.machines.advanced_ore_refinery.OreRefineryRecipe;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRefineryRecipe> {
 
@@ -61,17 +61,15 @@ public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRe
   }
 
   @Override
-  public void setIngredients(OreRefineryRecipe recipe, IIngredients ingredients){
-    ingredients.setInput(VanillaTypes.ITEM_STACK, recipe.itemStack);
-    ingredients.setOutput(VanillaTypes.ITEM_STACK, recipe.output);
+  public void setRecipe(IRecipeLayoutBuilder builder, OreRefineryRecipe recipe, IFocusGroup focuses){
+    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addItemStack(recipe.itemStack);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 0).addItemStack(recipe.output);
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, OreRefineryRecipe recipe, IIngredients ingredients){
-    final IGuiItemStackGroup gui_item_stacks =  recipeLayout.getItemStacks();
-    gui_item_stacks.init(0, true,   0, 0);
-    gui_item_stacks.init(1, false, 56, 0);
-    gui_item_stacks.set(ingredients);
+  @Nullable
+  public final ResourceLocation getRegistryName(final OreRefineryRecipe recipe){
+    return recipe.getId();
   }
 
 }

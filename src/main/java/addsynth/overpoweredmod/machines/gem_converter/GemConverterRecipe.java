@@ -2,9 +2,9 @@ package addsynth.overpoweredmod.machines.gem_converter;
 
 import java.util.ArrayList;
 import addsynth.material.Material;
-import addsynth.overpoweredmod.game.tags.OverpoweredItemTags;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.registries.ForgeRegistries;
 
 /** This is only used to display Gem Converter recipes in JEI. */
 public final class GemConverterRecipe {
@@ -13,12 +13,6 @@ public final class GemConverterRecipe {
 
   private GemConverterRecipe(final ItemStack output){
     this.result = output;
-  }
-
-  public static final ArrayList<Ingredient> getIngredient(){
-    final ArrayList<Ingredient> ingredient_list = new ArrayList<Ingredient>();
-    ingredient_list.add(Ingredient.of(OverpoweredItemTags.convertable_gems));
-    return ingredient_list;
   }
 
   public static final ArrayList<GemConverterRecipe> getRecipes(){
@@ -32,6 +26,10 @@ public final class GemConverterRecipe {
     recipes.add(new GemConverterRecipe(new ItemStack(Material.AMETHYST.getGem())));
     recipes.add(new GemConverterRecipe(new ItemStack(Material.QUARTZ.getGem())));
     return recipes;
+  }
+
+  public final ResourceLocation getId(){
+    return ForgeRegistries.ITEMS.getKey(result.getItem());
   }
 
 }

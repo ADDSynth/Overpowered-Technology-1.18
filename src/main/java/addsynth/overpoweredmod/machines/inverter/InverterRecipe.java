@@ -2,8 +2,10 @@ package addsynth.overpoweredmod.machines.inverter;
 
 import java.util.ArrayList;
 import addsynth.overpoweredmod.game.reference.OverpoweredItems;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public final class InverterRecipe {
 
@@ -22,6 +24,10 @@ public final class InverterRecipe {
     list.add(new InverterRecipe(energy_crystal, void_crystal));
     list.add(new InverterRecipe(void_crystal, energy_crystal));
     return list;
+  }
+
+  public final ResourceLocation getId(){
+    return ForgeRegistries.ITEMS.getKey(result.getItem());
   }
 
 }

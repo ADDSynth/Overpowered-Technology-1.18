@@ -1,7 +1,6 @@
 package addsynth.energy.compat.jei;
 
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.machines.compressor.recipe.CompressorRecipe;
@@ -11,9 +10,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.ingredients.IIngredients;
+import org.jetbrains.annotations.Nullable;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
@@ -62,19 +62,15 @@ public final class CompressorRecipeCategory implements IRecipeCategory<Compresso
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, CompressorRecipe recipe, IIngredients ingredients){
-    final IGuiItemStackGroup gui_item_stacks = recipeLayout.getItemStacks();
-    
-    gui_item_stacks.init(0, true,   0, 0);
-    gui_item_stacks.init(1, false, 55, 0);
-    
-    gui_item_stacks.set(ingredients);
+  public void setRecipe(IRecipeLayoutBuilder builder, CompressorRecipe recipe, IFocusGroup focuses){
+    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addIngredients(recipe.getIngredients().get(0));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 55, 0).addItemStack(recipe.getResultItem());
   }
 
   @Override
-  public void setIngredients(CompressorRecipe recipe, IIngredients ingredients){
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.ITEM_STACK, recipe.getResultItem());
+  @Nullable
+  public final ResourceLocation getRegistryName(final CompressorRecipe recipe){
+    return recipe.getId();
   }
 
 }

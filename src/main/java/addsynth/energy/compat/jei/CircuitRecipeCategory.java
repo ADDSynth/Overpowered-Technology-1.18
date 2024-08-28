@@ -1,5 +1,6 @@
 package addsynth.energy.compat.jei;
 
+import addsynth.core.compat.JeiUtil;
 import addsynth.energy.gameplay.EnergyBlocks;
 import addsynth.energy.gameplay.machines.circuit_fabricator.recipe.CircuitFabricatorRecipe;
 import addsynth.energy.gameplay.reference.GuiReference;
@@ -8,13 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.gui.IRecipeLayout;
+import org.jetbrains.annotations.Nullable;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableBuilder;
-import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
@@ -65,24 +67,25 @@ public final class CircuitRecipeCategory implements IRecipeCategory<CircuitFabri
   }
 
   @Override
-  public void setIngredients(CircuitFabricatorRecipe recipe, IIngredients ingredients){
-    ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setOutput(VanillaTypes.ITEM_STACK, recipe.getResultItem());
+  public void setRecipe(IRecipeLayoutBuilder builder, CircuitFabricatorRecipe recipe, IFocusGroup focuses){
+    final IRecipeSlotBuilder[] slots = {
+      builder.addSlot(RecipeIngredientRole.INPUT,  8,  8),
+      builder.addSlot(RecipeIngredientRole.INPUT, 26,  8),
+      builder.addSlot(RecipeIngredientRole.INPUT, 44,  8),
+      builder.addSlot(RecipeIngredientRole.INPUT, 62,  8),
+      builder.addSlot(RecipeIngredientRole.INPUT,  8, 26),
+      builder.addSlot(RecipeIngredientRole.INPUT, 26, 26),
+      builder.addSlot(RecipeIngredientRole.INPUT, 44, 26),
+      builder.addSlot(RecipeIngredientRole.INPUT, 62, 26)
+    };
+    JeiUtil.addInputSlotIngredients(recipe, slots);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 114, 17).addItemStack(recipe.getResultItem());
   }
 
   @Override
-  public void setRecipe(IRecipeLayout recipeLayout, CircuitFabricatorRecipe recipe, IIngredients ingredients){
-    final IGuiItemStackGroup itemStackgroup = recipeLayout.getItemStacks();
-    itemStackgroup.init(0, true,  8,  8);
-    itemStackgroup.init(1, true, 26,  8);
-    itemStackgroup.init(2, true, 44,  8);
-    itemStackgroup.init(3, true, 62,  8);
-    itemStackgroup.init(4, true,  8, 26);
-    itemStackgroup.init(5, true, 26, 26);
-    itemStackgroup.init(6, true, 44, 26);
-    itemStackgroup.init(7, true, 62, 26);
-    itemStackgroup.init(8, false, 114, 17);
-    itemStackgroup.set(ingredients);
+  @Nullable
+  public final ResourceLocation getRegistryName(final CircuitFabricatorRecipe recipe){
+    return recipe.getId();
   }
 
 }

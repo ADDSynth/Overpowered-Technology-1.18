@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 import addsynth.core.ADDSynthCore;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.java.ArrayUtil;
+import addsynth.core.util.java.list.Sorters;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.Item;
 
 public final class CriteriaData {
 
-  private static final ArrayList<String> statistics = new ArrayList<String>(); // OPTIMIZE: replace with ResourceLocation alphabetical sorter, there's one in Debug class.
+  private static final ArrayList<ResourceLocation> statistics = new ArrayList<ResourceLocation>();
   private static final ArrayList<Component> blocks = new ArrayList<Component>();
   private static final ArrayList<Component> items_with_durability = new ArrayList<Component>();
   private static final ArrayList<Component> items = new ArrayList<Component>();
@@ -53,17 +53,12 @@ public final class CriteriaData {
   }
   
   private static final void calculateBlocks(){
-    final Set<ResourceLocation> blocks = CommonUtil.getAllBlockIDs();
-    final int size = blocks.size();
-    final ArrayList<String> block_list = new ArrayList<String>(size);
-    for(ResourceLocation id : blocks){
-      block_list.add(id.toString());
-    }
-    Collections.sort(block_list);
-    CriteriaData.blocks.clear();
-    CriteriaData.blocks.ensureCapacity(size);
-    for(String id : block_list){
-      CriteriaData.blocks.add(new TextComponent(id));
+    final ArrayList<ResourceLocation> all_blocks = new ArrayList<ResourceLocation>(CommonUtil.getAllBlockIDs());
+    Collections.sort(all_blocks, Sorters.NameComparer);
+    blocks.clear();
+    blocks.ensureCapacity(all_blocks.size());
+    for(ResourceLocation id : all_blocks){
+      blocks.add(new TextComponent(id.toString()));
     }
   }
   
@@ -98,31 +93,18 @@ public final class CriteriaData {
   }
   
   private static final void calculateStatistics(){
-    // since I can only get the Display Name from the id, not the other way around,
-    // I have to sort the ids alphebetically, then construct the display names.
-    final Set<ResourceLocation> stats = Registry.CUSTOM_STAT.keySet();
     statistics.clear();
-    statistics.ensureCapacity(stats.size());
-    for(ResourceLocation stat_id : stats){
-      statistics.add(stat_id.toString());
-    }
-    Collections.sort(statistics);
+    statistics.addAll(Registry.CUSTOM_STAT.keySet());
+    Collections.sort(statistics, Sorters.NameComparer);
   }
   
   private static final void calculateEntities(){
-    final Set<ResourceLocation> all_entities = CommonUtil.getAllEntityIDs();
-    final int size = all_entities.size();
-    final ArrayList<String> entity_list = new ArrayList<String>(size);
-    for(ResourceLocation entity : all_entities){
-      // entities.add(entity.getDescription());
-      entity_list.add(entity.toString());
-    }
-    // sort alphabetically
-    Collections.sort(entity_list);
+    final ArrayList<ResourceLocation> all_entities = new ArrayList<ResourceLocation>(CommonUtil.getAllEntityIDs());
+    Collections.sort(all_entities, Sorters.NameComparer);
     entities.clear();
-    entities.ensureCapacity(size);
-    for(String id : entity_list){
-      entities.add(new TextComponent(id));
+    entities.ensureCapacity(all_entities.size());
+    for(ResourceLocation id : all_entities){
+      entities.add(new TextComponent(id.toString()));
     }
   }
   
@@ -134,26 +116,30 @@ public final class CriteriaData {
   public static final Component[] getStatistics(){
     final int length = statistics.size();
     final Component[] statistic_names = new Component[length];
+    ResourceLocation id;
+    String name;
     Optional<ResourceLocation> statistic;
     int i;
     for(i = 0; i < length; i++){
-      statistic = Registry.CUSTOM_STAT.getOptional(new ResourceLocation(statistics.get(i)));
+      id = statistics.get(i);
+      name = id.toString();
+      statistic = Registry.CUSTOM_STAT.getOptional(id);
       if(statistic.isPresent()){
-        statistic_names[i] = new TranslatableComponent("stat."+(statistic.get().toString().replace(':', '.')));
+        statistic_names[i] = new TranslatableComponent("stat."+(name.replace(':', '.')));
       }
       else{
-        statistic_names[i] = new TextComponent("stat."+(statistics.get(i).replace(':', '.')));
+        statistic_names[i] = new TextComponent("stat."+(name.replace(':', '.')));
       }
     }
     return statistic_names;
   }
   
   public static final String getStatisticID(int id){
-    return ArrayUtil.isInsideBounds(id, statistics.size()) ? statistics.get(id) : "null";
+    return ArrayUtil.isInsideBounds(id, statistics.size()) ? statistics.get(id).toString() : "null";
   }
   
   public static final int getStatisticIndex(String statistic_id){
-    return statistics.indexOf(statistic_id);
+    return statistics.indexOf(new ResourceLocation(statistic_id));
   }
   
   public static final Component[] getAllBlocks(){

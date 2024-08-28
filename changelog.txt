@@ -1,4 +1,6 @@
 v1.5.2 - TBD
+NEW:
+  It is now possible to get a Soul Speed Enchanted Book by inserting an Amethyst in the Magic Infuser.
 CHANGES:
   If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
     now sorted alphabetically, but also lists vanilla minecraft tags first, followed

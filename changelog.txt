@@ -11,6 +11,8 @@ REMOVED:
    - We still spawn Amethyst Ore, and it drops a vanilla Amethyst Shard when mined.
    - If your world previously contained ADDSynth Material Amethyst or Amethyst Blocks,
       those will automatically be replaced with vanilla Amethyst Shards and Amethyst Blocks.
+  Removed Null Block back to Void Crystals crafting recipe.
+   - Since you're probably not supposed to interact with an ethereal object.
 
 
 

@@ -1,7 +1,7 @@
 package addsynth.material;
 
 import java.util.List;
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.material.blocks.OreBlock;
 import addsynth.material.compat.recipe.BronzeModAbsentCondition;
 import addsynth.material.compat.recipe.SteelModAbsentCondition;

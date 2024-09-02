@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.core.util.CommonUtil;
 import addsynth.core.util.constants.DevStage;
 import addsynth.energy.compat.ADDSynthEnergyCompat;

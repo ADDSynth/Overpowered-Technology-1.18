@@ -38,11 +38,11 @@ import net.minecraftforge.server.ServerLifecycleHooks;
  */
 public class RecipeCollection<T extends Recipe<Container>> {
 
-  public final RecipeType<T> type;
+  private final RecipeType<T> type;
   private final ArrayList<T> recipes = new ArrayList<T>();
   private final MachineFilter filter;
 
-  public RecipeCollection(RecipeType<T> type, int recipe_max_size){
+  public RecipeCollection(final RecipeType<T> type, final int recipe_max_size){
     this.type = type;
     filter = new MachineFilter(recipe_max_size);
   }
@@ -89,7 +89,7 @@ public class RecipeCollection<T extends Recipe<Container>> {
       recipes.addAll(final_recipes);
       if(recipes.isEmpty()){
         filter.clear();
-        ADDSynthCore.log.error("No recipes of type "+getRecipeTypeName()+" exist!");
+        ADDSynthCore.log.error("No recipes of type "+type.toString()+" exist!");
         return;
       }
       filter.set(recipes);
@@ -196,17 +196,9 @@ public class RecipeCollection<T extends Recipe<Container>> {
     return recipe;
   }
 
-  public final String getRecipeTypeName(){
-    if(type == null){
-      return "null";
-    }
-    final String type_name = type.getClass().getSimpleName();
-    return type_name.isEmpty() ? StringUtil.Capitalize(type.toString()) : type_name;
-  }
-
   @Override
   public String toString(){
-    return StringUtil.build(getRecipeTypeName(), ' ', RecipeCollection.class.getSimpleName());
+    return StringUtil.build(type.toString(), " RecipeCollection");
   }
 
 }

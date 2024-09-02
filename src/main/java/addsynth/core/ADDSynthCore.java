@@ -3,7 +3,7 @@ package addsynth.core;
 import java.io.File;
 import addsynth.core.compat.Compatibility;
 import addsynth.core.compat.EMCValue;
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.core.gameplay.Config;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.NetworkHandler;

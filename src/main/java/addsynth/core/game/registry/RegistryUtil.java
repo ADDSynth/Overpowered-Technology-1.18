@@ -1,6 +1,7 @@
-package addsynth.core.game;
+package addsynth.core.game.registry;
 
 import javax.annotation.Nonnull;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -8,6 +9,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -67,6 +70,17 @@ public final class RegistryUtil {
     final SoundEvent sound = new SoundEvent(name);
     sound.setRegistryName(name);
     return sound;
+  }
+
+  public static final <T extends Recipe<?>> RecipeType<T> createRecipeType(final ResourceLocation name){
+    return Registry.register(Registry.RECIPE_TYPE, name,
+      new RecipeType<T>() {
+        @Override
+        public final String toString(){
+          return name.getPath();
+        }
+      }
+    );
   }
 
 //============================================================================================================

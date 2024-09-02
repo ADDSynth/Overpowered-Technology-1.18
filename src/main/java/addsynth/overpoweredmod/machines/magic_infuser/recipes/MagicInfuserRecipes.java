@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import addsynth.core.recipe.RecipeCollection;
 import addsynth.overpoweredmod.OverpoweredTechnology;
+import addsynth.overpoweredmod.game.core.RecipeTypes;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 
 public final class MagicInfuserRecipes {
 
-  public static final class MagicInfuserRecipeType implements RecipeType<MagicInfuserRecipe> {
-  }
-
   public static final RecipeCollection<MagicInfuserRecipe> INSTANCE =
-    new RecipeCollection<MagicInfuserRecipe>(new MagicInfuserRecipeType(), 2);
+    new RecipeCollection<MagicInfuserRecipe>(RecipeTypes.MAGIC_INFUSER, 2);
 
   /** The standard function {@link RecipeCollection#getResult(ItemStack)} only returns
    *  the first recipe we find that matches the input. Here, we want to find all recipes

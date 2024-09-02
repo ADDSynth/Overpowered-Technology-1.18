@@ -2,6 +2,7 @@ package addsynth.energy.gameplay.machines.circuit_fabricator.recipe;
 
 import addsynth.core.recipe.shapeless.AbstractRecipe;
 import addsynth.energy.gameplay.EnergyBlocks;
+import addsynth.energy.gameplay.reference.RecipeTypes;
 import addsynth.energy.registers.RecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,7 @@ public final class CircuitFabricatorRecipe extends AbstractRecipe {
 
   @Override
   public RecipeType<?> getType(){
-    return CircuitFabricatorRecipes.INSTANCE.type;
+    return RecipeTypes.CIRCUIT_FABRICATOR;
   }
 
 }

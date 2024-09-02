@@ -1,7 +1,7 @@
 package addsynth.material.types.metal;
 
 import addsynth.core.compat.Compatibility;
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.material.ADDSynthMaterials;
 import addsynth.material.blocks.MetalBlock;
 import addsynth.material.blocks.OreBlock;

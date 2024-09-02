@@ -2,6 +2,7 @@ package addsynth.energy.gameplay.machines.compressor.recipe;
 
 import addsynth.core.recipe.shapeless.AbstractRecipe;
 import addsynth.energy.gameplay.EnergyBlocks;
+import addsynth.energy.gameplay.reference.RecipeTypes;
 import addsynth.energy.registers.RecipeSerializers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,7 @@ public final class CompressorRecipe extends AbstractRecipe {
 
   @Override
   public RecipeType<?> getType(){
-    return CompressorRecipes.INSTANCE.type;
+    return RecipeTypes.COMPRESSOR;
   }
 
 }

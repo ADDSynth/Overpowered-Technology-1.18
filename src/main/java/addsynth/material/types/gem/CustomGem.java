@@ -1,6 +1,6 @@
 package addsynth.material.types.gem;
 
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.material.ADDSynthMaterials;
 import addsynth.material.blocks.GemBlock;
 import addsynth.material.blocks.OreBlock;

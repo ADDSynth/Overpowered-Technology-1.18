@@ -1,7 +1,7 @@
 package addsynth.core.gameplay.registers;
 
 import addsynth.core.ADDSynthCore;
-import addsynth.core.game.RegistryUtil;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.core.gameplay.Core;
 import addsynth.core.gameplay.Trophy;
 import addsynth.core.gameplay.blocks.CautionBlock;

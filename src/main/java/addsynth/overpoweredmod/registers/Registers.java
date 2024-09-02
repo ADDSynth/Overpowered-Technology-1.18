@@ -1,9 +1,9 @@
 package addsynth.overpoweredmod.registers;
 
 import addsynth.core.compat.Compatibility;
-import addsynth.core.game.RegistryUtil;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.core.game.item.constants.EquipmentType;
+import addsynth.core.game.registry.RegistryUtil;
 import addsynth.overpoweredmod.OverpoweredTechnology;
 import addsynth.overpoweredmod.assets.Sounds;
 import addsynth.overpoweredmod.blocks.*;

@@ -85,7 +85,7 @@ public final class LaserHousingBlock extends MachineBlock {
   }
 
   @Override
-  public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack){
+  public final void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack){
     TileEntityUtil.setOwner(world, placer, pos);
   }
 

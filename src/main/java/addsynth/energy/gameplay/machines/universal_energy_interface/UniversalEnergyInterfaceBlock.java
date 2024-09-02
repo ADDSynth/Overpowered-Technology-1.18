@@ -65,7 +65,7 @@ public final class UniversalEnergyInterfaceBlock extends MachineBlock {
   }
 
   @Override
-  public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
+  public final void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving){
     BlockNetworkUtil.onRemove(super::onRemove, AbstractEnergyNetworkTile.class, EnergyNetwork::new, state, world, pos, newState, isMoving);
   }
 

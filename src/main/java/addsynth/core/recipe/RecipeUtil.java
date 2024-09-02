@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 
 /** The Recipe Utility class is now only used for simple / generic recipe queries.
- *  For more specific control over recipes use the {@link RecipeManager}. If you
+ *  For more specific control over recipes, use the {@link RecipeManager}. If you
  *  need to keep a list of your recipes, or filter slots based on your recipes,
  *  then you can use a {@link RecipeCollection}.
  *  @see Level#getRecipeManager()

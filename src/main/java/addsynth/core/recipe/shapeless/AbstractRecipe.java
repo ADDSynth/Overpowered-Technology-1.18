@@ -14,10 +14,10 @@ import it.unimi.dsi.fastutil.ints.IntList;
 /** REPLICA: Nearly all of this code was copied from {@link net.minecraft.world.item.crafting.ShapelessRecipe} */
 public abstract class AbstractRecipe implements Recipe<Container> {
 
-   private final ResourceLocation id;
-   private final String group;
-   private final ItemStack result;
-   protected final NonNullList<Ingredient> ingredients;
+  private final ResourceLocation id;
+  private final String group;
+  private final ItemStack result;
+  protected final NonNullList<Ingredient> ingredients;
 
   public AbstractRecipe(ResourceLocation id, String group, ItemStack output, NonNullList<Ingredient> input){
     this.id = id;
@@ -98,7 +98,7 @@ public abstract class AbstractRecipe implements Recipe<Container> {
     final String name = getClass().getSimpleName();
     final int number_of_ingredients = ingredients != null ? ingredients.size() : 0;
     if(number_of_ingredients != 0){
-      return StringUtil.build(name, '(', "Ingredients: ", number_of_ingredients, ", Output: ", result.toString(), ')');
+      return StringUtil.build(name, "(Ingredients: ", number_of_ingredients, ", Output: ", result.toString(), ')');
     }
     return StringUtil.build(name, "(Output: ", result.toString(), ')');
   }

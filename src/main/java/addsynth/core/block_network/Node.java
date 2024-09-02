@@ -67,9 +67,9 @@ public class Node {
   @Override
   public String toString(){
     if(tile == null){
-      return "Node{Position: "+position.toString()+", Block: "+StringUtil.getName(block)+"}";
+      return StringUtil.build("Node{Position: ", StringUtil.print(position), ", Block: ", StringUtil.getName(block), "}");
     }
-    return "Node{TileEntity: "+tile.getClass().getSimpleName()+", Position: "+position.toString()+"}";
+    return StringUtil.build("Node{TileEntity: ", tile.getClass().getSimpleName(), ", Position: ", StringUtil.print(position), "}");
   }
 
   @Override

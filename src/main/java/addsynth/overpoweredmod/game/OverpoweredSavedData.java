@@ -14,7 +14,7 @@ public final class OverpoweredSavedData extends SavedData {
 
   private static OverpoweredSavedData overpowered_savedata;
   
-  /** This should be called in the {@link FMLServerStartedEvent}. */
+  /** This should be called in the {@link ServerStartedEvent}. */
   public static final void load(final MinecraftServer server){
     @SuppressWarnings("resource")
     final ServerLevel overworld = server.overworld();

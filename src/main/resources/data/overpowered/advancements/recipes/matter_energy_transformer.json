@@ -13,13 +13,13 @@
         ]
       }
     },
-    "matter_energy_converter": {
+    "matter_energy_core": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "overpowered:matter_energy_converter"
+              "overpowered:matter_energy_core"
             ]
           }
         ]
@@ -47,7 +47,7 @@
   "requirements": [
     [
       "scanning_laser",
-      "matter_energy_converter",
+      "matter_energy_core",
       "has_recipe",
       "has_matter_energy_transformer"
     ]

@@ -42,7 +42,7 @@
   "rewards": {
     "recipes": [
       "overpowered:energy_crystal",
-      "overpowered:matter_energy_converter",
+      "overpowered:matter_energy_core",
       "overpowered:plasma_generator"
     ]
   }

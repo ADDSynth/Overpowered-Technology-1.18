@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {"item": "overpowered:scanning_laser"},
-    {"item": "overpowered:matter_energy_converter"}
+    {"item": "overpowered:matter_energy_core"}
   ],
   "result": {
     "item": "overpowered:matter_energy_transformer"

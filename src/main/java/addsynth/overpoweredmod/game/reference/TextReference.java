@@ -33,7 +33,7 @@ public final class TextReference {
   public static final TranslatableComponent matter_energy_transformer_description = new TranslatableComponent("gui.overpowered.jei_description.matter_energy_transformer");
 
   public static final TranslatableComponent plasma_description                  = new TranslatableComponent("gui.overpowered.jei_description.plasma");
-  public static final TranslatableComponent matter_energy_converter_description = new TranslatableComponent("gui.overpowered.jei_description.matter_energy_converter");
+  public static final TranslatableComponent matter_energy_core_description      = new TranslatableComponent("gui.overpowered.jei_description.matter_energy_core");
   public static final TranslatableComponent vacuum_container_description        = new TranslatableComponent("gui.overpowered.jei_description.vacuum_container");
   public static final TranslatableComponent reinforced_container_description    = new TranslatableComponent("gui.overpowered.jei_description.reinforced_container");
   public static final TranslatableComponent dimensional_flux_description        = new TranslatableComponent("gui.overpowered.jei_description.dimensional_flux");

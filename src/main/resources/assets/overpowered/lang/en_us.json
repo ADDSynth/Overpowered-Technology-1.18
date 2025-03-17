@@ -37,7 +37,7 @@
 
 "item.overpowered.plasma": "Plasma",
 "item.overpowered.fusion_core": "Fusion Core",
-"item.overpowered.matter_energy_converter": "Matter/Energy Converter",
+"item.overpowered.matter_energy_core": "Matter/Energy Core",
 "item.overpowered.dimensional_flux": "Dimensional Flux",
 "item.overpowered.dimensional_anchor": "Dimensional Anchor",
 "item.overpowered.unimatter": "Unimatter",
@@ -157,7 +157,7 @@
 "gui.overpowered.jei_description.heavy_light_emitter": "Emits a special light that is so fast and thick with energy, that you can actually feel it hitting you as you touch it. With enough pressure, this light won't let anything pass through it.",
 "gui.overpowered.jei_description.matter_energy_transformer": "A Scanning Laser combined with a Matter/Energy Converter. This can scan objects and transform its atoms into energy or manipulate them in some other way.",
 "gui.overpowered.jei_description.plasma": "A concentrated form of energy in plasma state, kept together in a magnetic field.",
-"gui.overpowered.jei_description.matter_energy_converter": "By experimenting with the unique energy emitted from the Energy Crystal, you are able to create this, the special device that allows matter/energy manipulation.",
+"gui.overpowered.jei_description.matter_energy_core": "By experimenting with the unique energy emitted from the Energy Crystal, you are able to create this, the special device that allows matter/energy manipulation.",
 "gui.overpowered.jei_description.vacuum_container": "A sealed container that keeps objects inside a vacuum.",
 "gui.overpowered.jei_description.reinforced_container": "A sealed vacuum container, reinforced with Titanium. Used when experimenting with objects that involve extreme pressures or stress.",
 "gui.overpowered.jei_description.dimensional_flux": "Mysterious dimensional energy that is often encountered when traversing different dimensions. Prolonged exposure could disrupt your physical being.",
@@ -237,8 +237,8 @@
 
 "advancements.overpowered.plasma_generator.title": "Plasma Generator",
 "advancements.overpowered.plasma_generator.description": "Craft a Plasma Generator",
-"advancements.overpowered.matter_energy_converter.title": "Matter/Energy Converter",
-"advancements.overpowered.matter_energy_converter.description": "Craft a Matter/Energy Converter",
+"advancements.overpowered.matter_energy_core.title": "Matter/Energy Core",
+"advancements.overpowered.matter_energy_core.description": "Craft a Matter/Energy Core",
 
 "advancements.overpowered.craft_laser.title": "Laser",
 "advancements.overpowered.craft_laser.description": "Craft a Laser Housing",

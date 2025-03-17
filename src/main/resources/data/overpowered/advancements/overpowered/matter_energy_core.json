@@ -1,25 +1,25 @@
 {
   "display": {
     "icon": {
-      "item": "overpowered:matter_energy_converter"
+      "item": "overpowered:matter_energy_core"
     },
     "title": {
-      "translate": "advancements.overpowered.matter_energy_converter.title"
+      "translate": "advancements.overpowered.matter_energy_core.title"
     },
     "description": {
-      "translate": "advancements.overpowered.matter_energy_converter.description"
+      "translate": "advancements.overpowered.matter_energy_core.description"
     },
     "frame": "goal"
   },
   "parent": "overpowered:overpowered/plasma_generator",
   "criteria": {
-    "matter_energy_converter": {
+    "matter_energy_core": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "overpowered:matter_energy_converter"
+              "overpowered:matter_energy_core"
             ]
           }
         ]

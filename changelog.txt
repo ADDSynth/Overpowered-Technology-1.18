@@ -5,6 +5,7 @@ CHANGES:
   If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
     now sorted alphabetically, but also lists vanilla minecraft tags first, followed
     by forge tags, then tags from other mods.
+  Renamed Matter/Energy Converter to Matter/Energy Core.
 REMOVED:
   Amethyst.
    - We use vanilla Amethyst Shards now.

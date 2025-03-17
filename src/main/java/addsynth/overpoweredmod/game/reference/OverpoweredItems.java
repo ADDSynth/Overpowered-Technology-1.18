@@ -40,7 +40,7 @@ public final class OverpoweredItems {
   
   public static final RegistryObject<Item> plasma                    = RegistryObject.create(Names.PLASMA,                    ForgeRegistries.ITEMS);
   public static final RegistryObject<Item> fusion_core               = RegistryObject.create(Names.FUSION_CORE,               ForgeRegistries.ITEMS);
-  public static final RegistryObject<Item> matter_energy_converter   = RegistryObject.create(Names.MATTER_ENERGY_CONVERTER,   ForgeRegistries.ITEMS);
+  public static final RegistryObject<Item> matter_energy_core        = RegistryObject.create(Names.MATTER_ENERGY_CORE,        ForgeRegistries.ITEMS);
   public static final RegistryObject<Item> dimensional_flux          = RegistryObject.create(Names.DIMENSIONAL_FLUX,          ForgeRegistries.ITEMS);
   public static final RegistryObject<Item> dimensional_anchor        = RegistryObject.create(Names.DIMENSIONAL_ANCHOR,        ForgeRegistries.ITEMS);
   public static final RegistryObject<Item> unimatter                 = RegistryObject.create(Names.UNIMATTER,                 ForgeRegistries.ITEMS);

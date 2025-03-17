@@ -29,6 +29,7 @@ import addsynth.overpoweredmod.machines.portal.control_panel.GuiPortalControlPan
 import addsynth.overpoweredmod.machines.portal.frame.GuiPortalFrame;
 import addsynth.overpoweredmod.machines.suspension_bridge.GuiEnergySuspensionBridge;
 import addsynth.overpoweredmod.registers.Containers;
+import addsynth.overpoweredmod.registers.Registers;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -65,6 +66,7 @@ public class OverpoweredTechnology {
     bus.addListener(OverpoweredTechnology::client_setup);
     bus.addListener(CompatabilityManager::inter_mod_communications);
     MinecraftForge.EVENT_BUS.addListener(OverpoweredTechnology::serverStarted);
+    MinecraftForge.EVENT_BUS.addListener(Registers::onMissingItemEntries);
     init_config();
     OverpoweredTechnology.log.info("Done constructing "+OverpoweredTechnology.class.getSimpleName()+" class object.");
   }

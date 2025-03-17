@@ -10,7 +10,7 @@
       "translate": "advancements.overpowered.craft_portal.description"
     }
   },
-  "parent": "overpowered:overpowered/matter_energy_converter",
+  "parent": "overpowered:overpowered/matter_energy_core",
   "criteria": {
     "portal": {
       "trigger": "minecraft:inventory_changed",

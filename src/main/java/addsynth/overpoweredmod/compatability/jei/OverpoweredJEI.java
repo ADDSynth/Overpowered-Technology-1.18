@@ -105,7 +105,7 @@ public final class OverpoweredJEI implements IModPlugin {
 
     // Items
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.plasma.get()),                  VanillaTypes.ITEM_STACK, TextReference.plasma_description);
-    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_converter.get()), VanillaTypes.ITEM_STACK, TextReference.matter_energy_converter_description);
+    registry.addIngredientInfo(new ItemStack(OverpoweredItems.matter_energy_core.get()),      VanillaTypes.ITEM_STACK, TextReference.matter_energy_core_description);
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.vacuum_container.get()),        VanillaTypes.ITEM_STACK, TextReference.vacuum_container_description);
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.reinforced_container.get()),    VanillaTypes.ITEM_STACK, TextReference.reinforced_container_description);
     registry.addIngredientInfo(new ItemStack(OverpoweredItems.dimensional_flux.get()),        VanillaTypes.ITEM_STACK, TextReference.dimensional_flux_description);

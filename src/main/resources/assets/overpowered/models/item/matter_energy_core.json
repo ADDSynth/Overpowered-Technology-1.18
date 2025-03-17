@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "overpowered:items/matter_energy_converter"
+    "layer0": "overpowered:items/matter_energy_core"
   }
 }

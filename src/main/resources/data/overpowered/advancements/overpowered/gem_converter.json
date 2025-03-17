@@ -10,7 +10,7 @@
       "translate": "advancements.overpowered.gem_converter.description"
     }
   },
-  "parent": "overpowered:overpowered/matter_energy_converter",
+  "parent": "overpowered:overpowered/matter_energy_core",
   "criteria": {
     "gem_converter": {
       "trigger": "minecraft:inventory_changed",

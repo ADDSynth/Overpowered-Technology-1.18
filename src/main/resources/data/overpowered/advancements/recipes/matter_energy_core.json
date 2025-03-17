@@ -50,16 +50,16 @@
     "has_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "overpowered:matter_energy_converter"
+        "recipe": "overpowered:matter_energy_core"
       }
     },
-    "has_matter_energy_converter": {
+    "has_matter_energy_core": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "overpowered:matter_energy_converter"
+              "overpowered:matter_energy_core"
             ]
           }
         ]
@@ -73,12 +73,12 @@
       "steel_plate",
       "plasma",
       "has_recipe",
-      "has_matter_energy_converter"
+      "has_matter_energy_core"
     ]
   ],
   "rewards": {
     "recipes": [
-      "overpowered:matter_energy_converter"
+      "overpowered:matter_energy_core"
     ]
   }
 }

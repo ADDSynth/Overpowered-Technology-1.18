@@ -37,7 +37,7 @@ public final class Names {
 
   public static final ResourceLocation PLASMA                  = new ResourceLocation(OverpoweredTechnology.MOD_ID, "plasma");
   public static final ResourceLocation FUSION_CORE             = new ResourceLocation(OverpoweredTechnology.MOD_ID, "fusion_core");
-  public static final ResourceLocation MATTER_ENERGY_CONVERTER = new ResourceLocation(OverpoweredTechnology.MOD_ID, "matter_energy_converter");
+  public static final ResourceLocation MATTER_ENERGY_CORE      = new ResourceLocation(OverpoweredTechnology.MOD_ID, "matter_energy_core");
   public static final ResourceLocation DIMENSIONAL_FLUX        = new ResourceLocation(OverpoweredTechnology.MOD_ID, "dimensional_flux");
   public static final ResourceLocation DIMENSIONAL_ANCHOR      = new ResourceLocation(OverpoweredTechnology.MOD_ID, "dimensional_anchor");
   public static final ResourceLocation UNIMATTER               = new ResourceLocation(OverpoweredTechnology.MOD_ID, "unimatter");
@@ -94,4 +94,8 @@ public final class Names {
     new ResourceLocation(OverpoweredTechnology.MOD_ID, "magic_ring_3")
   };
 
+
+  // Legacy
+  public static final ResourceLocation MATTER_ENERGY_CORE_LEGACY = new ResourceLocation(OverpoweredTechnology.MOD_ID, "matter_energy_converter");
+  
 }

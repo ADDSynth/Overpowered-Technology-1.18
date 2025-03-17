@@ -1,5 +1,6 @@
 package addsynth.overpoweredmod.registers;
 
+import java.util.List;
 import addsynth.core.compat.Compatibility;
 import addsynth.core.game.item.constants.ArmorMaterial;
 import addsynth.core.game.item.constants.EquipmentType;
@@ -11,6 +12,7 @@ import addsynth.overpoweredmod.blocks.dimension.tree.*;
 import addsynth.overpoweredmod.game.core.*;
 import addsynth.overpoweredmod.game.reference.Names;
 import addsynth.overpoweredmod.game.reference.OverpoweredBlocks;
+import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.items.*;
 import addsynth.overpoweredmod.items.basic.*;
 import addsynth.overpoweredmod.items.register.*;
@@ -80,6 +82,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -186,7 +190,7 @@ public final class Registers {
     
     game.register(new PlasmaItem());
     game.register(new FusionCore());
-    game.register(new OverpoweredItem(Names.MATTER_ENERGY_CONVERTER));
+    game.register(new OverpoweredItem(Names.MATTER_ENERGY_CORE));
     game.register(new DimensionalFlux());
     game.register(new DimensionalAnchor());
     game.register(new OverpoweredItem(Names.UNIMATTER));
@@ -327,6 +331,15 @@ public final class Registers {
   public static final void registerBiomes(final RegistryEvent.Register<Biome> event){
     final IForgeRegistry<Biome> game = event.getRegistry();
     // game.register(WeirdDimension.weird_biome);
+  }
+
+  public static final void onMissingItemEntries(MissingMappings<Item> event){
+    final List<Mapping<Item>> missing_items = event.getMappings(OverpoweredTechnology.MOD_ID);
+    for(Mapping<Item> map : missing_items){
+      if(map.key.equals(Names.MATTER_ENERGY_CORE_LEGACY)){
+        map.remap(OverpoweredItems.matter_energy_core.get());
+      }
+    }
   }
 
 }

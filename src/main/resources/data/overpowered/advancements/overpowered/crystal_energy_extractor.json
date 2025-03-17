@@ -11,7 +11,7 @@
     },
     "frame": "goal"
   },
-  "parent": "overpowered:overpowered/matter_energy_converter",
+  "parent": "overpowered:overpowered/matter_energy_core",
   "criteria": {
     "crystal_energy_extractor": {
       "trigger": "minecraft:inventory_changed",

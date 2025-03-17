@@ -65,12 +65,9 @@ public final class InventoryUtil {
     
 
   public static final void drop_inventories(final BlockPos pos, final Level world, final CommonInventory ... inventories){
-    final double x = pos.getX();
-    final double y = pos.getY();
-    final double z = pos.getZ();
     for(final CommonInventory inventory : inventories){
       if(inventory != null){
-        inventory.drop_in_world(world, x, y, z);
+        inventory.drop_in_world(world, pos);
       }
     }
   }

@@ -157,7 +157,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public final void drop_inventory(){
     if(network.getCount() == 1){
-      super.drop_inventory();
+      inventory.drop_in_world(level, worldPosition);
     }
   }
 

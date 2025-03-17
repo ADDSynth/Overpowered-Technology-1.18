@@ -103,13 +103,9 @@ public class CommonInventory extends ItemStackHandler {
   }
 
   public final void drop_in_world(final Level world, final BlockPos pos){
-    drop_in_world(world, pos.getX(), pos.getY(), pos.getZ());
-  }
-
-  public final void drop_in_world(final Level world, final double x, final double y, final double z){
     for(final ItemStack stack : stacks){
       if(stack.isEmpty() == false){
-        Block.popResource(world, new BlockPos(x, y, z), stack);
+        Block.popResource(world, pos, stack);
       }
     }
   }

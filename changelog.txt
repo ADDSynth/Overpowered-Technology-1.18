@@ -37,9 +37,9 @@ FIXED:
         in the config and load a world with an Energy Suspension Bridge already active,
         it will check if the new maximum length is shorter and shut itself off.
     - Now bridges that are 1 block wide and powered will properly shut themselves off if removed.
-    - If two bridges along the same area are powered, the bridge that was powered first takes
-        priority, and thus the bridge will be that color lens. Now the bridge's color will
-        be maintained after world reload.
+    - If two bridges along the same area are powered, the bridge that was powered first will
+        determine the color of the bridge and 'own' the bridge. Bridge Relation is now saved,
+        meaning they maintain their color after world reload.
   Fixed elements in a gui window was not being repositioned after the game window was resized.
   Fixed not being able to insert items into the proper slots in the Magic Infuser machine.
   Fixed duplicate recipes appearing in JEI if you pressed F3 + T to reload resources.

@@ -34,6 +34,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -66,7 +67,7 @@ public class OverpoweredTechnology {
     bus.addListener(OverpoweredTechnology::client_setup);
     bus.addListener(CompatabilityManager::inter_mod_communications);
     MinecraftForge.EVENT_BUS.addListener(OverpoweredTechnology::serverStarted);
-    MinecraftForge.EVENT_BUS.addListener(Registers::onMissingItemEntries);
+    MinecraftForge.EVENT_BUS.addGenericListener(Item.class, Registers::onMissingItemEntries);
     init_config();
     OverpoweredTechnology.log.info("Done constructing "+OverpoweredTechnology.class.getSimpleName()+" class object.");
   }

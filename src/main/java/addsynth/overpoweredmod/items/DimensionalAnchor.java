@@ -8,6 +8,8 @@ import addsynth.overpoweredmod.game.reference.OverpoweredItems;
 import addsynth.overpoweredmod.items.register.OverpoweredItem;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -45,14 +47,22 @@ public final class DimensionalAnchor extends OverpoweredItem {
   */
 
   @SubscribeEvent
-  public static final void playerChangingDimension(final EntityTravelToDimensionEvent event){
-    if(event.getEntity() instanceof ServerPlayer){
-      final ServerPlayer player = (ServerPlayer)event.getEntity();
+  public static final void onEntityChangingDimension(final EntityTravelToDimensionEvent event){
+    final Entity entity = event.getEntity();
+    if(entity instanceof ServerPlayer){
+      final ServerPlayer player = (ServerPlayer)entity;
       if(player_has_dimensional_anchor(player)){
         // TODO: should probably check for Galacticraft planets here, and allow the Player to travel to them,
         //       since player travels to that dimension via a Rocket ship.
         event.setCanceled(true);
         player.displayClientMessage(anchored_in_this_dimension, true);
+      }
+    }
+    else if(entity instanceof ItemEntity){
+      final ItemEntity item_entity = (ItemEntity)entity;
+      final Item item = item_entity.getItem().getItem();
+      if(item instanceof DimensionalAnchor){
+        event.setCanceled(true);
       }
     }
   }

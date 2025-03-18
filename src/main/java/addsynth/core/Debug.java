@@ -3,7 +3,6 @@ package addsynth.core;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import addsynth.core.gameplay.Config;
 import addsynth.core.util.color.ColorUtil;
@@ -84,12 +83,10 @@ public final class Debug {
       if(file != null){
         try(final FileWriter writer = new FileWriter(file)){
           writer.write(StringUtil.build("\n", type_name, " Tags: ", tag_list.size(), "\n\n"));
-          Iterator<T> iterator;
-          for(ITag<T> tag : tag_list){
+          for(final ITag<T> tag : tag_list){
             writer.write(tag.getKey().location().toString()+" {\n");
-            iterator = tag.iterator();
-            while(iterator.hasNext()){
-              writer.write("  "+registry.getKey(iterator.next())+'\n');
+            for(final T item : tag){
+              writer.write("  "+registry.getKey(item)+'\n');
             }
             writer.write("}\n\n");
           }

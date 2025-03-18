@@ -62,8 +62,8 @@ public final class AdvancedOreRefineryCategory  implements IRecipeCategory<OreRe
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, OreRefineryRecipe recipe, IFocusGroup focuses){
-    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addItemStack(recipe.itemStack);
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 0).addItemStack(recipe.output);
+    builder.addSlot(RecipeIngredientRole.INPUT,   1, 1).addItemStack(recipe.itemStack);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 1).addItemStack(recipe.output);
   }
 
   @Override

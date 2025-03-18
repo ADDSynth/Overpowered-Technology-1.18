@@ -63,8 +63,8 @@ public final class CompressorRecipeCategory implements IRecipeCategory<Compresso
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, CompressorRecipe recipe, IFocusGroup focuses){
-    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addIngredients(recipe.getIngredients().get(0));
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 55, 0).addItemStack(recipe.getResultItem());
+    builder.addSlot(RecipeIngredientRole.INPUT,   1, 1).addIngredients(recipe.getIngredients().get(0));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 1).addItemStack(recipe.getResultItem());
   }
 
   @Override

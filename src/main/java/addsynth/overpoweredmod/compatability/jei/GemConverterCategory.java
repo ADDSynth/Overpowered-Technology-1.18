@@ -64,8 +64,8 @@ public final class GemConverterCategory implements IRecipeCategory<GemConverterR
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, GemConverterRecipe recipe, IFocusGroup focuses){
-    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addIngredients(Ingredient.of(OverpoweredItemTags.convertable_gems));
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 0).addItemStack(recipe.result);
+    builder.addSlot(RecipeIngredientRole.INPUT,   1, 1).addIngredients(Ingredient.of(OverpoweredItemTags.convertable_gems));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 1).addItemStack(recipe.result);
   }
 
   @Override

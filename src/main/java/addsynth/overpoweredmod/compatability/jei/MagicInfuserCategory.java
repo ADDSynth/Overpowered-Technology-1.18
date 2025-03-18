@@ -65,9 +65,9 @@ public final class MagicInfuserCategory implements IRecipeCategory<MagicInfuserR
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, MagicInfuserRecipe recipe, IFocusGroup focuses){
     final NonNullList<Ingredient> ingredients = recipe.getIngredients();
-    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addIngredients(ingredients.get(0));
-    builder.addSlot(RecipeIngredientRole.INPUT,  18, 0).addIngredients(ingredients.get(1));
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 74, 0).addItemStack(recipe.getResultItem());
+    builder.addSlot(RecipeIngredientRole.INPUT,   1, 1).addIngredients(ingredients.get(0));
+    builder.addSlot(RecipeIngredientRole.INPUT,  19, 1).addIngredients(ingredients.get(1));
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 75, 1).addItemStack(recipe.getResultItem());
   }
 
   @Override

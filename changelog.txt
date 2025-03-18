@@ -1,7 +1,7 @@
 v1.5.2 - TBD
 NEW:
   It is now possible to get a Soul Speed Enchanted Book by inserting an Amethyst in the Magic Infuser.
-  Now, the Dimensional Anchor itself does not travel to other dimensions.
+  Now, the Dimensional Anchor itself will not travel to other dimensions.
 CHANGES:
   If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
     now sorted alphabetically, but also lists vanilla minecraft tags first, followed
@@ -15,6 +15,8 @@ REMOVED:
       those will automatically be replaced with vanilla Amethyst Shards and Amethyst Blocks.
   Removed Null Block back to Void Crystals crafting recipe.
    - Since you're probably not supposed to interact with an ethereal object.
+FIXED:
+  Fixed Jei recipes displaying items 1 pixel off in machine slots.
 
 
 

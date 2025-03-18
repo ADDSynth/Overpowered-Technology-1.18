@@ -62,8 +62,8 @@ public final class InverterCategory implements IRecipeCategory<InverterRecipe> {
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, InverterRecipe recipe, IFocusGroup focuses){
-    builder.addSlot(RecipeIngredientRole.INPUT,   0, 0).addItemStack(recipe.input);
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 56, 0).addItemStack(recipe.result);
+    builder.addSlot(RecipeIngredientRole.INPUT,   1, 1).addItemStack(recipe.input);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 57, 1).addItemStack(recipe.result);
   }
 
   @Override

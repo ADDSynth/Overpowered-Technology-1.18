@@ -69,17 +69,17 @@ public final class CircuitRecipeCategory implements IRecipeCategory<CircuitFabri
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, CircuitFabricatorRecipe recipe, IFocusGroup focuses){
     final IRecipeSlotBuilder[] slots = {
-      builder.addSlot(RecipeIngredientRole.INPUT,  8,  8),
-      builder.addSlot(RecipeIngredientRole.INPUT, 26,  8),
-      builder.addSlot(RecipeIngredientRole.INPUT, 44,  8),
-      builder.addSlot(RecipeIngredientRole.INPUT, 62,  8),
-      builder.addSlot(RecipeIngredientRole.INPUT,  8, 26),
-      builder.addSlot(RecipeIngredientRole.INPUT, 26, 26),
-      builder.addSlot(RecipeIngredientRole.INPUT, 44, 26),
-      builder.addSlot(RecipeIngredientRole.INPUT, 62, 26)
+      builder.addSlot(RecipeIngredientRole.INPUT,  9,  9),
+      builder.addSlot(RecipeIngredientRole.INPUT, 27,  9),
+      builder.addSlot(RecipeIngredientRole.INPUT, 45,  9),
+      builder.addSlot(RecipeIngredientRole.INPUT, 63,  9),
+      builder.addSlot(RecipeIngredientRole.INPUT,  9, 27),
+      builder.addSlot(RecipeIngredientRole.INPUT, 27, 27),
+      builder.addSlot(RecipeIngredientRole.INPUT, 45, 27),
+      builder.addSlot(RecipeIngredientRole.INPUT, 63, 27)
     };
     JeiUtil.addInputSlotIngredients(recipe, slots);
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 114, 17).addItemStack(recipe.getResultItem());
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 115, 18).addItemStack(recipe.getResultItem());
   }
 
   @Override

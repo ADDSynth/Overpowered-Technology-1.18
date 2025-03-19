@@ -9,11 +9,11 @@ import addsynth.core.util.math.common.CommonMath;
 import addsynth.core.util.player.PlayerUtil;
 import addsynth.core.util.time.TimeConstants;
 import addsynth.core.util.time.WorldTime;
-import addsynth.core.util.world.WorldConstants;
 import addsynth.core.util.world.WorldUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
@@ -54,11 +54,16 @@ public final class ZombieRaidCommand {
       Commands.literal(ADDSynthCore.MOD_ID).requires(
         (command_source) -> { return command_source.hasPermission(PermissionLevel.COMMANDS); }
       ).then(
-        Commands.literal("zombie_raid").executes(
-          (command_context) -> { return zombie_raid(command_context.getSource(), DEFAULT_ZOMBIES, DEFAULT_ZOMBIE_RADIUS, DEFAULT_DURATION); }
-        ).then(
-          Commands.literal("start").then(
-            Commands.argument("zombies", IntegerArgumentType.integer(MIN_ZOMBIES, MAX_ZOMBIES)
+        Commands.literal("zombie_raid").then(
+          Commands.literal("start").executes(
+            (command_context) -> { return zombie_raid(command_context.getSource(), DEFAULT_ZOMBIES, DEFAULT_ZOMBIE_RADIUS, DEFAULT_DURATION); }
+          ).then(
+            Commands.argument("zombies", IntegerArgumentType.integer(MIN_ZOMBIES, MAX_ZOMBIES)).executes(
+              (command_context) -> {
+                return zombie_raid(command_context.getSource(), IntegerArgumentType.getInteger(command_context, "zombies"),
+                                                                DEFAULT_ZOMBIE_RADIUS,
+                                                                DEFAULT_DURATION);
+              }
             ).then(
               Commands.argument("radius", IntegerArgumentType.integer(MIN_ZOMBIE_RADIUS, MAX_ZOMBIE_RADIUS)).executes(
                 (command_context) -> {
@@ -119,6 +124,12 @@ public final class ZombieRaidCommand {
 
   @SuppressWarnings("resource")
   private static final int zombie_raid(final CommandSourceStack command_source, final int number_of_zombies, final int radius, final int duration) throws CommandSyntaxException {
+    // check if zombie raid is already occurring
+    if(do_zombie_raid){
+      command_source.sendFailure(new TranslatableComponent("commands.addsynthcore.zombie_raid.already_occurring"));
+      return 0;
+    }
+    
     CommandUtil.check_argument("zombies", number_of_zombies, MIN_ZOMBIES, MAX_ZOMBIES);
     CommandUtil.check_argument("radius", radius, MIN_ZOMBIE_RADIUS, MAX_ZOMBIE_RADIUS);
     CommandUtil.check_argument("duration", duration, MIN_DURATION, MAX_DURATION);
@@ -164,7 +175,7 @@ public final class ZombieRaidCommand {
       round_z = (int)Math.floor(spawn_z);
       for(y_check = 0; y_check < y_level_adjust.length; y_check++){
         ground_level = WorldUtil.getTopMostFreeSpace(world, round_x, round_z);
-        y_level = Math.min(Math.max(position.getY() + y_level_adjust[y_check], WorldConstants.bottom_level + 1), ground_level);
+        y_level = Math.min(Math.max(position.getY() + y_level_adjust[y_check], world.getMinBuildHeight() + 1), ground_level);
         block_position = new BlockPos(round_x, y_level, round_z);
         if(WorldUtil.isAir(world, block_position) && WorldUtil.isAir(world, block_position.offset(0, 1, 0))){
           break;
@@ -211,7 +222,7 @@ public final class ZombieRaidCommand {
     for(ServerPlayer player : players){
       // give all players inside radius night vision
       player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, duration * TimeConstants.ticks_per_second, 0, false, false));
-      player.sendMessage(new TranslatableComponent("commands.addsynthcore.zombie_raid.start", number_of_zombies, duration, radius), null);
+      player.sendMessage(new TranslatableComponent("commands.addsynthcore.zombie_raid.start", number_of_zombies, duration, radius), Util.NIL_UUID);
     }
 
     return number_of_zombies;
@@ -259,7 +270,7 @@ public final class ZombieRaidCommand {
   private static final void message_all_players(final String translation_key){
     players.removeIf((ServerPlayer player) -> {return !player.isAlive(); });
     for(ServerPlayer player : players){
-      player.sendMessage(new TranslatableComponent(translation_key), null);
+      player.sendMessage(new TranslatableComponent(translation_key), Util.NIL_UUID);
     }
   }
   

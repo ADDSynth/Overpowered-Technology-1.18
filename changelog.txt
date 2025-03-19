@@ -17,6 +17,7 @@ REMOVED:
    - Since you're probably not supposed to interact with an ethereal object.
 FIXED:
   Fixed Jei recipes displaying items 1 pixel off in machine slots.
+  Minecraft 1.18 version only: Fixed the Zombie Raid command not sending messages to players correctly.
 
 
 

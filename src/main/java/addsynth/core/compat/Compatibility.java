@@ -295,13 +295,6 @@ public final class Compatibility {
     public static final ModType type = ModType.Tech;
   }
   
-  public static final class HWYLA {
-    public static final String name = "Hwyla";
-    public static final String modid = "waila";
-    public static final boolean loaded = ModList.get().isLoaded(modid);
-    public static final ModType type = ModType.Info;
-  }
-  
   public static final class IMMERSIVE_ENGINEERING {
     public static final String name = "Immersive Engineering";
     public static final String modid = "immersiveengineering"; // haven't you people ever heard of underscores?
@@ -660,6 +653,13 @@ public final class Compatibility {
     public static final ModType type = ModType.API;
   }
 
+  public static final class WTHIT { // What The Hell Is That? replacement of Hwyla for MC 1.16+
+    public static final String name = "WTHIT";
+    public static final String modid = "wthit";
+    public static final boolean loaded = ModList.get().isLoaded(modid);
+    public static final ModType type = ModType.Info;
+  }
+  
   public static final class XNET {
     public static final String name = "XNet";
     public static final String modid = "xnet";

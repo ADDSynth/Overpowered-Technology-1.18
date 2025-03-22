@@ -1,5 +1,6 @@
 package addsynth.core.gui;
 
+import javax.annotation.Nonnull;
 import addsynth.core.gui.util.GuiUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -92,7 +93,7 @@ public abstract class GuiContainerBase<T extends AbstractContainerMenu> extends 
 
   /** This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
-  protected final void draw_text_left(final PoseStack matrix, final Component text, final int x, final int y){
+  protected final void draw_text_left(final PoseStack matrix, @Nonnull final Component text, final int x, final int y){
     font.draw(matrix, text, x, y, GuiUtil.text_color);
   }
 
@@ -106,7 +107,7 @@ public abstract class GuiContainerBase<T extends AbstractContainerMenu> extends 
   /** Draws center-aligned text at the center of the gui.<br />
    *  This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
-  protected final void draw_text_center(final PoseStack matrix, final Component text, final int y){
+  protected final void draw_text_center(final PoseStack matrix, @Nonnull final Component text, final int y){
     font.draw(matrix, text, center_x - (font.width(text) / 2), y, GuiUtil.text_color);
   }
 
@@ -130,7 +131,7 @@ public abstract class GuiContainerBase<T extends AbstractContainerMenu> extends 
    * @param x
    * @param y
    */
-  protected final void draw_text_center(final PoseStack matrix, final Component text, final int x, final int y){
+  protected final void draw_text_center(final PoseStack matrix, @Nonnull final Component text, final int x, final int y){
     font.draw(matrix, text, x - (font.width(text) / 2), y, GuiUtil.text_color);
   }
 

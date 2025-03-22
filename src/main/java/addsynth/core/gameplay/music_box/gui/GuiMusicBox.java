@@ -210,14 +210,14 @@ public final class GuiMusicBox extends GuiBase {
   protected final void drawGuiForegroundLayer(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
     // draw tempo:
-    draw_text_center(matrix, tempo_text+":",         tempo_text_x_center,  6);
-    draw_text_center(matrix, ticks + " "+ticks_text, tempo_text_x_center, 17);
-    draw_text_center(matrix, bpm + " "+bpm_text,     tempo_text_x_center, 27);
+    draw_text_center(matrix, tempo_text.getString()+":",         tempo_text_x_center,  6);
+    draw_text_center(matrix, ticks + " "+ticks_text.getString(), tempo_text_x_center, 17);
+    draw_text_center(matrix, bpm + " "+bpm_text.getString(),     tempo_text_x_center, 27);
     
-    draw_text_center(matrix, next_text+":", right_edge - (next_direction_button_width / 2), 6);
+    draw_text_center(matrix, next_text.getString()+":", right_edge - (next_direction_button_width / 2), 6);
     
-    draw_text_left(matrix, current_note_text+": "+NoteButton.note[note_selected],            6, info_text_y);
-    draw_text_left(matrix, instrument_text+": "+instrument[instrument_selected], center_x - 10, info_text_y);
+    draw_text_left(matrix, current_note_text.getString()+": "+NoteButton.note[note_selected],            6, info_text_y);
+    draw_text_left(matrix, instrument_text.getString()+": "+instrument[instrument_selected].getString(), center_x - 10, info_text_y);
   }
 
   /**

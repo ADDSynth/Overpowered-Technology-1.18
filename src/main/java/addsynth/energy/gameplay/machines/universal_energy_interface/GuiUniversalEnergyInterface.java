@@ -60,8 +60,8 @@ public final class GuiUniversalEnergyInterface extends GuiEnergyBase<TileUnivers
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
-    draw_text_left(matrix, EnergyText.mode_text+":", 6, line_1);
-    draw_text_left(matrix, EnergyText.energy_text+":", 6, line_2);
+    draw_text_left(matrix, EnergyText.mode_text.getString()+":", 6, line_1);
+    draw_text_left(matrix, EnergyText.energy_text.getString()+":", 6, line_2);
     draw_text_right(matrix, energy.getEnergy() + " / "+energy.getCapacity(), 130, line_2);
   }
 

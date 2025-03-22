@@ -26,7 +26,7 @@ public final class GuiEnergyStorageContainer extends GuiEnergyBase<TileEnergySto
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
-    draw_text_center(matrix, EnergyText.energy_stored_text+":", center_x, 25);
+    draw_text_center(matrix, EnergyText.energy_stored_text.getString()+":", center_x, 25);
     draw_text_right(matrix, String.format("%.2f", energy.getEnergy()), 88, draw_energy_level_y);
     draw_text_left(matrix, "/ "+energy.getCapacity(), 93, draw_energy_level_y);
     draw_text_center(matrix, energy_bar.getEnergyPercentage(), center_x, 47);

@@ -143,15 +143,15 @@ public final class CriteriaData {
   }
   
   public static final Component[] getAllBlocks(){
-    return (Component[])blocks.toArray();
+    return blocks.toArray(new Component[blocks.size()]);
   }
   
   public static final Component[] getAllItems(){
-    return (Component[])items.toArray();
+    return items.toArray(new Component[items.size()]);
   }
   
   public static final Component[] getItemsWithDurability(){
-    return (Component[])items_with_durability.toArray();
+    return items_with_durability.toArray(new Component[items_with_durability.size()]);
   }
 
   public static final TextComponent[] chat_colors = {
@@ -175,7 +175,7 @@ public final class CriteriaData {
   };
 
   public static final Component[] getEntities(){
-    return (Component[])entities.toArray();
+    return entities.toArray(new Component[entities.size()]);
   }
 
 }

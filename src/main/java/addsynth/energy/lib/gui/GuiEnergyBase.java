@@ -51,7 +51,7 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
 
   protected final void draw_energy(final PoseStack matrix, final int draw_x, final int draw_y){
     if(energy != null){
-      draw_text_left(matrix, EnergyText.energy_text+":", draw_x, draw_y);
+      draw_text_left(matrix, EnergyText.energy_text.getString()+":", draw_x, draw_y);
       draw_text_right(matrix, String.format("%.2f", energy.getEnergy()) + " / " + energy.getCapacity(), draw_y);
     }
     else{
@@ -61,7 +61,7 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
 
   /** Draws Energy Extraction for Generators. */
   protected final void draw_energy_extraction(final PoseStack matrix, final int draw_y){
-    draw_text_left(matrix, EnergyText.extraction_text+":", 6, draw_y);
+    draw_text_left(matrix, EnergyText.extraction_text.getString()+":", 6, draw_y);
     draw_text_right(matrix, String.format("%.2f", energy.get_energy_out())+" / "+energy.getMaxExtract(), draw_y);
   }
 
@@ -82,7 +82,7 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
   
   protected final void draw_energy_usage(PoseStack matrix, final int draw_x, final int draw_y){
     if(energy != null){
-      draw_text_left(matrix, EnergyText.efficiency_text+":", draw_x, draw_y);
+      draw_text_left(matrix, EnergyText.efficiency_text.getString()+":", draw_x, draw_y);
       final String energy_usage = StringUtil.build(
         String.format("%.2f", energy.get_energy_in()),
         " / ",
@@ -99,23 +99,23 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
 
   /** Draws the status at the default location, below the energy capacity line. */
   protected final void draw_status(PoseStack matrix, final String status){
-    draw_text_left(matrix, EnergyText.status_text+": "+status, 6, 28);
+    draw_text_left(matrix, EnergyText.status_text.getString()+": "+status, 6, 28);
   }
 
   protected final void draw_status(PoseStack matrix, final String status, final int y){
-    draw_text_left(matrix, EnergyText.status_text+": "+status, 6, y);
+    draw_text_left(matrix, EnergyText.status_text.getString()+": "+status, 6, y);
   }
 
   protected final void draw_status(PoseStack matrix, final String status, final int x, final int y){
-    draw_text_left(matrix, EnergyText.status_text+": "+status, x, y);
+    draw_text_left(matrix, EnergyText.status_text.getString()+": "+status, x, y);
   }
 
   protected final void draw_status_after_switch(PoseStack matrix, final String status){
-    draw_text_left(matrix, EnergyText.status_text+": "+status, 50, 21);
+    draw_text_left(matrix, EnergyText.status_text.getString()+": "+status, 50, 21);
   }
 
   protected final void draw_status_below_switch(PoseStack matrix, final String status){
-    draw_text_left(matrix, EnergyText.status_text+": "+status, 6, 37);
+    draw_text_left(matrix, EnergyText.status_text.getString()+": "+status, 6, 37);
   }
 
   /** Draws machine time left at the bottom-left corner of the gui. */
@@ -129,10 +129,10 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
       else{
         time_left = StringUtil.print_time(energy.getEnergyNeeded(), rate);
       }
-      draw_text_left(matrix, EnergyText.time_left_text+": "+time_left, 6, draw_y);
+      draw_text_left(matrix, EnergyText.time_left_text.getString()+": "+time_left, 6, draw_y);
     }
     else{
-      draw_text_left(matrix, EnergyText.time_left_text+": "+EnergyText.null_energy_reference, 6, draw_y);
+      draw_text_left(matrix, EnergyText.time_left_text.getString()+": "+EnergyText.null_energy_reference.getString(), 6, draw_y);
     }
   }
 
@@ -148,10 +148,10 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
       else{
         time_left = StringUtil.print_time(energy.getEnergyNeeded(), rate);
       }
-      draw_text_center(matrix, EnergyText.time_left_text+": "+time_left, draw_x, draw_y);
+      draw_text_center(matrix, EnergyText.time_left_text.getString()+": "+time_left, draw_x, draw_y);
     }
     else{
-      draw_text_center(matrix, EnergyText.time_left_text+": "+EnergyText.null_energy_reference, draw_x, draw_y);
+      draw_text_center(matrix, EnergyText.time_left_text.getString()+": "+EnergyText.null_energy_reference.getString(), draw_x, draw_y);
     }
   }
 
@@ -164,10 +164,10 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
     final double difference = energy.getDifference();
     switch((int)Math.signum(difference)){
     case 1:
-      draw_text_left(matrix, EnergyText.full_charge_time_text+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergyNeeded() / difference)), 6, draw_y);
+      draw_text_left(matrix, EnergyText.full_charge_time_text.getString()+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergyNeeded() / difference)), 6, draw_y);
       break;
     case -1:
-      draw_text_left(matrix, EnergyText.charge_remaining_text+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergy() / (-difference))), 6, draw_y);
+      draw_text_left(matrix, EnergyText.charge_remaining_text.getString()+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergy() / (-difference))), 6, draw_y);
       break;
     case 0:
       draw_text_left(matrix, EnergyText.no_energy_change_text, 6, draw_y);
@@ -185,10 +185,10 @@ public abstract class GuiEnergyBase<T extends BlockEntity & IEnergyUser, C exten
     final double difference = energy.getDifference();
     switch((int)Math.signum(difference)){
     case 1:
-      draw_text_center(matrix, EnergyText.full_charge_time_text+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergyNeeded() / difference)), draw_x, draw_y);
+      draw_text_center(matrix, EnergyText.full_charge_time_text.getString()+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergyNeeded() / difference)), draw_x, draw_y);
       break;
     case -1:
-      draw_text_center(matrix, EnergyText.charge_remaining_text+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergy() / (-difference))), draw_x, draw_y);
+      draw_text_center(matrix, EnergyText.charge_remaining_text.getString()+": "+StringUtil.print_time((int)Math.ceil(energy.getEnergy() / (-difference))), draw_x, draw_y);
       break;
     case 0:
       draw_text_center(matrix, EnergyText.no_energy_change_text, draw_x, draw_y);

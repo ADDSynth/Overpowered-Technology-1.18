@@ -30,7 +30,7 @@ public final class GuiCrystalEnergyExtractor extends GuiEnergyBase<TileCrystalEn
   @Override
   protected final void renderLabels(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
-    draw_text_right(matrix, EnergyText.input_text+":", 79, input_text_y);
+    draw_text_right(matrix, EnergyText.input_text.getString()+":", 79, input_text_y);
     
     draw_energy(matrix, 6, line_1);
     draw_energy_extraction(matrix, line_2);

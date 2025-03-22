@@ -48,7 +48,7 @@ public final class TilePortalControlPanel extends TileManualMachine implements I
   private boolean auto_shutoff = true;
 
   // Gui methods:
-  public final String getMessage(){ return message.getMessage(); }
+  public final Component getMessage(){ return message.getMessage(); }
   public final boolean getPortalItem(final int index){ return portal_items[index]; }
   public final boolean isValid(){ return valid_portal; }
   @Override

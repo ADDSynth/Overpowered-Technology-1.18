@@ -1,5 +1,6 @@
 package addsynth.core.gui;
 
+import javax.annotation.Nonnull;
 import addsynth.core.gui.section.FixedSizeGuiSection;
 import addsynth.core.gui.util.GuiUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -83,7 +84,7 @@ public abstract class GuiBase extends Screen {
 
   /** This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
-  protected final void draw_text_left(final PoseStack matrix, final Component text, final int x, final int y){
+  protected final void draw_text_left(final PoseStack matrix, @Nonnull final Component text, final int x, final int y){
     font.draw(matrix, text, x, y, GuiUtil.text_color);
   }
 
@@ -123,7 +124,7 @@ public abstract class GuiBase extends Screen {
   /** Draws the text right-aligned.
    *  This will render the string in a different color if you prefix the string with
    *  {@link net.minecraft.ChatFormatting ChatFormatting.COLOR.toString()}. */
-  protected final void draw_text_right(final PoseStack matrix, final Component text, final int x, final int y){
+  protected final void draw_text_right(final PoseStack matrix, @Nonnull final Component text, final int x, final int y){
     font.draw(matrix, text, x - font.width(text), y, GuiUtil.text_color);
   }
 

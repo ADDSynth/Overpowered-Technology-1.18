@@ -265,7 +265,7 @@ public final class TeamData {
   }
 
   public static final Component[] getPlayers(){
-    return non_team_players != null ? (Component[])non_team_players.toArray() : new Component[0];
+    return non_team_players != null ? non_team_players.toArray(new Component[non_team_players.size()]) : new Component[0];
   }
 
   /** Used to build the Objectives List on the Main Screen. */
@@ -286,7 +286,7 @@ public final class TeamData {
     if(StringUtil.StringExists(team_selected)){
       for(final TeamDataUnit t : teams){
         if(t.name.equals(team_selected)){
-          return (Component[])t.players.toArray();
+          return t.players.toArray(new Component[t.players.size()]);
         }
       }
       return new Component[0];

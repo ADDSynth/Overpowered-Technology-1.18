@@ -361,22 +361,22 @@ public final class TeamManagerGui extends GuiBase {
   protected final void drawGuiForegroundLayer(PoseStack matrix, final int mouseX, final int mouseY){
     draw_title(matrix);
     // Main Labels
-    draw_text_left(matrix, team_players_header_text+":", text_x1, line_1);
-    draw_text_left(matrix,  all_players_header_text+":", text_x1, players_text_line);
-    draw_text_left(matrix,         team_header_text+":", text_x2, line_1);
-    draw_text_left(matrix,    objective_header_text+":", text_x3, line_1);
+    draw_text_left(matrix, team_players_header_text.getString()+":", text_x1, line_1);
+    draw_text_left(matrix,  all_players_header_text.getString()+":", text_x1, players_text_line);
+    draw_text_left(matrix,         team_header_text.getString()+":", text_x2, line_1);
+    draw_text_left(matrix,    objective_header_text.getString()+":", text_x3, line_1);
     // Selected
-    draw_text_right(matrix,      team_selected_text+":", selected_text_left, selected_text_y);
-    draw_text_right(matrix,    player_selected_text+":", selected_text_left, selected_text_y + 10);
-    draw_text_right(matrix, objective_selected_text+":", selected_text_left, selected_text_y + 20);
+    draw_text_right(matrix,      team_selected_text.getString()+":", selected_text_left, selected_text_y);
+    draw_text_right(matrix,    player_selected_text.getString()+":", selected_text_left, selected_text_y + 10);
+    draw_text_right(matrix, objective_selected_text.getString()+":", selected_text_left, selected_text_y + 20);
     draw_text_left(matrix,      team_selected, selected_text_right, selected_text_y);
     draw_text_left(matrix,    player_selected, selected_text_right, selected_text_y + 10);
     draw_text_left(matrix, objective_selected, selected_text_right, selected_text_y + 20);
     // Score Text
-    draw_text_left(matrix, current_score_text+": "+player_score, text_x2, line_2);
-    draw_text_left(matrix, input_value_text+":", text_x2, line_3);
+    draw_text_left(matrix, current_score_text.getString()+": "+player_score, text_x2, line_2);
+    draw_text_left(matrix, input_value_text.getString()+":", text_x2, line_3);
     // Display Slot text
-    draw_text_left(matrix, display_slot_header_text+":", text_x2, line_4);
+    draw_text_left(matrix, display_slot_header_text.getString()+":", text_x2, line_4);
     draw_text_right(matrix, display_slot_text_1, display_slot_x1, display_slot_text_y1);
     draw_text_right(matrix, display_slot_text_2, display_slot_x1, display_slot_text_y2);
     draw_text_right(matrix, display_slot_text_3, display_slot_x1, display_slot_text_y3);

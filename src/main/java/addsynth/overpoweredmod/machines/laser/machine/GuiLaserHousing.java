@@ -129,8 +129,8 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
     draw_title(matrix);
-    draw_text_left(matrix, lasers_text+": "+tile.number_of_lasers, 6, line_1);
-    draw_text_right(matrix, distance_text+": ", text_box_x - 2, line_1);
+    draw_text_left(matrix, lasers_text.getString()+": "+tile.number_of_lasers, 6, line_1);
+    draw_text_right(matrix, distance_text.getString()+": ", text_box_x - 2, line_1);
     draw_energy_requirements(matrix);
     draw_text_right(matrix, energy_bar.getEnergyPercentage(), line_4);
     draw_energy_difference_center(matrix, line_5);
@@ -138,20 +138,20 @@ public final class GuiLaserHousing extends GuiEnergyBase<TileLaserHousing, Conta
 
   private final void draw_energy_requirements(final PoseStack matrix){
     final String required_energy = Integer.toString((int)(energy.getCapacity()));
-    final String word_1 = required_energy_text+": "+required_energy;
+    final String word_1 = required_energy_text.getString()+": "+required_energy;
     final int word_1_width = font.width(word_1);
     
     final String current_energy = Integer.toString((int)(energy.getEnergy()));
-    final String word_2 = current_energy_text+": "+current_energy;
+    final String word_2 = current_energy_text.getString()+": "+current_energy;
     final int word_2_width = font.width(word_2);
     
     if(Math.max(word_1_width, word_2_width) == word_1_width){
       draw_text_left(matrix, word_1, 6, line_2);
-      draw_text_left(matrix, current_energy_text+":", 6, line_3);
+      draw_text_left(matrix, current_energy_text.getString()+":", 6, line_3);
       draw_text_right(matrix, current_energy, 6 + word_1_width, line_3);
     }
     else{
-      draw_text_left(matrix, required_energy_text+":", 6, line_2);
+      draw_text_left(matrix, required_energy_text.getString()+":", 6, line_2);
       draw_text_right(matrix, required_energy, 6 + word_2_width, line_2);
       draw_text_left(matrix, word_2, 6, line_3);
     }

@@ -32,11 +32,11 @@ public final class GuiMatterCompressor extends GuiEnergyBase<TileMatterCompresso
   @Override
   protected final void renderLabels(PoseStack matrix, int mouseX, int mouseY){
     draw_title(matrix);
-    draw_text_right(matrix, black_hole_text+":", 76, 27);
+    draw_text_right(matrix, black_hole_text.getString()+":", 76, 27);
     // final int slash = font.width("/"); // 6
     // final int space = font.width(" "); // 4
     
-    draw_text_left(matrix, matter_text+":", 6, 71);
+    draw_text_left(matrix, matter_text.getString()+":", 6, 71);
     draw_text_right(matrix, tile.getMatter(), center_x - 7, 71);
     draw_text_left(matrix, "/ "+Config.max_matter.get(), center_x - 3, 71);
     draw_text_right(matrix, StringUtil.toPercentageString(tile.getProgress(), RoundMode.Floor), 71);

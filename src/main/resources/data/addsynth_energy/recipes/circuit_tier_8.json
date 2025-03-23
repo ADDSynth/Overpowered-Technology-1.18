@@ -1,7 +1,7 @@
 {
   "type": "addsynth_energy:circuit_fabricator",
   "ingredients": [
-    {"tag": "forge:plates/aluminum"},
+    {"tag": "forge:ingots/aluminum"},
     {"tag": "forge:plates/iron"},
     {"tag": "forge:dyes/white"},
     {"item": "minecraft:comparator"},

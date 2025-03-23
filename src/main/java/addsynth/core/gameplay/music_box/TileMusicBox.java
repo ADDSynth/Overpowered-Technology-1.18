@@ -4,6 +4,7 @@ import addsynth.core.game.tiles.TileBase;
 import addsynth.core.gameplay.music_box.data.MusicGrid;
 import addsynth.core.gameplay.registers.Tiles;
 import addsynth.core.util.game.MinecraftUtility;
+import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ public final class TileMusicBox extends TileBase implements ITickingTileEntity {
   private final MusicGrid music_grid = new MusicGrid();
   public boolean changed;
   private boolean playing;
-  private boolean activated;
+  private final RedstoneDetector redstone = new RedstoneDetector();
   public byte playhead;
   private int count;
   public boolean keep_playing;
@@ -34,14 +35,9 @@ public final class TileMusicBox extends TileBase implements ITickingTileEntity {
 
   @Override
   public final void serverTick(){
-    if(level.hasNeighborSignal(worldPosition)){ // FIX: music boxes will play if block is powered when the world loads up.
-      if(activated == false){
-        play(true);
-      }
-      activated = true;
-    }
-    else{
-      activated = false;
+    changed = redstone.update(level, worldPosition, changed);
+    if(redstone.onRisingEdge()){
+      play(true);
     }
     if(playing){
       if(count == 0){
@@ -69,20 +65,22 @@ public final class TileMusicBox extends TileBase implements ITickingTileEntity {
 // ================================ MAIN FUNCTIONS ===================================
 
   @Override
-  public final void load(CompoundTag nbt){
+  public final void load(final CompoundTag nbt){
     super.load(nbt);
     next_direction = nbt.getInt("Next Direction");
     playing = nbt.getBoolean("Playing");
     playhead = nbt.getByte("Playhead Position");
+    redstone.load(nbt);
     music_grid.load_from_nbt(nbt);
   }
 
   @Override
-  protected final void saveAdditional(CompoundTag nbt){
+  protected final void saveAdditional(final CompoundTag nbt){
     super.saveAdditional(nbt);
     nbt.putInt("Next Direction", next_direction);
     nbt.putBoolean("Playing", playing);
     nbt.putByte("Playhead Position", playhead);
+    redstone.save(nbt);
     music_grid.save_to_nbt(nbt);
   }
 

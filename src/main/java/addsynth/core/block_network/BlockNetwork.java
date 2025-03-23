@@ -350,17 +350,6 @@ public abstract class BlockNetwork<T extends BlockEntity & IBlockNetworkUser> {
   protected void tick(final Level world){
   }
 
-  protected final boolean is_redstone_powered(final Level world){
-    boolean powered = false;
-    for(final BlockEntity tile : blocks.getTileEntities()){
-      if(world.hasNeighborSignal(tile.getBlockPos())){
-        powered = true;
-        break;
-      }
-    }
-    return powered;
-  }
-
   public final int getCount(){
     return blocks == null ? 0 : blocks.size();
   }

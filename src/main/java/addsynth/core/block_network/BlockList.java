@@ -58,7 +58,7 @@ public final class BlockList<T extends BlockEntity & IBlockNetworkUser> {
   }
 
   public final ArrayList<BlockPos> getBlockPositions(){
-    final ArrayList<BlockPos> positions = new ArrayList<>(100);
+    final ArrayList<BlockPos> positions = new ArrayList<>(list.size());
     for(final BlockEntity tile : list){
       if(tile.isRemoved() == false){
         positions.add(tile.getBlockPos());

@@ -13,8 +13,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -32,9 +32,8 @@ public final class MusicBox extends TileEntityBlock {
   }
 
   @Override
-  @SuppressWarnings("deprecation")
-  public final int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side){
-    return 0;
+  public final boolean shouldCheckWeakPower(BlockState state, LevelReader level, BlockPos pos, Direction side){
+    return false;
   }
 
   @Override

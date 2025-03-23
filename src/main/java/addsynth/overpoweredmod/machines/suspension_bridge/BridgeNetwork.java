@@ -6,6 +6,7 @@ import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.util.constants.DirectionConstant;
 import addsynth.core.util.game.MinecraftUtility;
 import addsynth.core.util.game.data.AdvancementUtil;
+import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.math.block.DirectionUtil;
 import addsynth.core.util.network.NetworkUtil;
@@ -25,7 +26,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   private int lens_index = -1;
 
-  private boolean powered;
+  private final RedstoneDetector redstone = new RedstoneDetector();
   /** Whether this Energy Suspension Bridge is active. */
   boolean active;
 
@@ -346,9 +347,9 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
   }
 
-  public final void load_data(final int lens_index, final boolean powered, final BridgeData[] bridge_data, final int maximum_length){
+  public final void load_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] bridge_data, final int maximum_length){
     this.lens_index = lens_index;
-    this.powered = powered;
+    this.redstone.setFrom(redstone);
     this.bridge_data[0].set(bridge_data[0]);
     this.bridge_data[1].set(bridge_data[1]);
     this.bridge_data[2].set(bridge_data[2]);
@@ -362,7 +363,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   private final void syncBridgeNetworkData(final Level world){
     blocks.remove_invalid();
     blocks.forAllTileEntities((TileSuspensionBridge tile) -> {
-      tile.save_block_network_data(lens_index, powered, bridge_data, maximum_length);
+      tile.save_block_network_data(lens_index, redstone, bridge_data, maximum_length);
     });
     // bridge messages do not need to be saved to the world, they only need to be sent to the client.
     final SyncClientBridgeMessage msg = new SyncClientBridgeMessage(blocks.getBlockPositions(), bridge_message, bridge_data);
@@ -371,10 +372,9 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   @Override
   protected final void tick(final Level world){
-    final boolean power_check = is_redstone_powered(world);
-    if(power_check != powered){
-      powered = power_check;
-      if(powered){
+    redstone.update(world, blocks.getBlockPositions());
+    if(redstone.changed()){
+      if(redstone.isPowered()){
         check_and_update(world);
       }
       else{
@@ -396,7 +396,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
 
   private final void update_active_state(final Level world){
     final boolean valid = valid_shape && lens_index >= 0;
-    set_active(world, valid && powered);
+    set_active(world, valid && redstone.isPowered());
   }
 
   public final void set_active(final Level world, final boolean active){

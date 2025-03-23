@@ -7,6 +7,7 @@ import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.inventory.SlotData;
 import addsynth.core.gameplay.reference.ADDSynthCoreText;
 import addsynth.core.util.constants.DirectionConstant;
+import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.energy.lib.tiles.TileBasicMachine;
 import addsynth.overpoweredmod.config.Config;
@@ -41,7 +42,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
     new BridgeData(3), new BridgeData(4), new BridgeData(5)
   };
   
-  private boolean powered;
+  private final RedstoneDetector redstone = new RedstoneDetector();
   private int maximum_length = Config.energy_bridge_max_distance.get();
 
   public TileSuspensionBridge(BlockPos position, BlockState blockstate){
@@ -56,7 +57,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   public final void load(final CompoundTag nbt){
     super.load(nbt);
-    powered = nbt.getBoolean("Powered");
+    redstone.load(nbt);
     if(nbt.contains("Maximum Length")){
       maximum_length = nbt.getInt("Maximum Length");
     }
@@ -75,7 +76,7 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   @Override
   protected final void saveAdditional(final CompoundTag nbt){
     super.saveAdditional(nbt);
-    nbt.putBoolean("Powered", powered);
+    redstone.save(nbt);
     nbt.putInt("Maximum Length", maximum_length);
     bridge_data[0].save(nbt);
     bridge_data[1].save(nbt);
@@ -87,12 +88,12 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
 
   @Override
   public void load_block_network_data(){
-    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), powered, bridge_data, maximum_length);
+    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), redstone, bridge_data, maximum_length);
   }
 
-  public final void save_block_network_data(final int lens_index, final boolean powered, final BridgeData[] data, final int maximum_length){
+  public final void save_block_network_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] data, final int maximum_length){
     inventory.setStackInSlot(0, lens_index < 0 ? ItemStack.EMPTY : new ItemStack(LensItem.get(lens_index)));
-    this.powered = powered;
+    this.redstone.setFrom(redstone);
     bridge_data[0].set(data[0]);
     bridge_data[1].set(data[1]);
     bridge_data[2].set(data[2]);

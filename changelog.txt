@@ -8,15 +8,19 @@ CHANGES:
     by forge tags, then tags from other mods.
   Renamed Matter/Energy Converter to Matter/Energy Core.
 REMOVED:
-  Amethyst.
+  Amethyst:
    - We use vanilla Amethyst Shards now.
    - We still spawn Amethyst Ore, and it drops a vanilla Amethyst Shard when mined.
    - If your world previously contained ADDSynth Material Amethyst or Amethyst Blocks,
       those will automatically be replaced with vanilla Amethyst Shards and Amethyst Blocks.
-  Removed Null Block back to Void Crystals crafting recipe.
-   - Since you're probably not supposed to interact with an ethereal object.
+  Removed Null Block to Void Crystals crafting recipe.
+   - Since you're probably not supposed to interact with ethereal objects.
 FIXED:
   Fixed Jei recipes displaying items 1 pixel off in machine slots.
+  FINALLY Fixed first two Music Boxes playing at once, if the first was directly powered.
+  Fixed Music Boxes and Lasers activating from an active redstone signal when the world loads.
+    - (They now remember the powered state.)
+    - These should only activate on Rising Edge, aka, first tick powered on from an OFF state.
   Minecraft 1.18 version only: Fixed the Zombie Raid command not sending messages to players correctly.
 
 

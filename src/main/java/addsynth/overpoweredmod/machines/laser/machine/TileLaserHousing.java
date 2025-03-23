@@ -5,6 +5,7 @@ import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.BlockNetworkUtil;
 import addsynth.core.block_network.IBlockNetworkUser;
 import addsynth.core.game.tiles.TileBase;
+import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.core.util.game.tileentity.ITickingTileEntity;
 import addsynth.energy.lib.main.Energy;
 import addsynth.energy.lib.main.IEnergyConsumer;
@@ -36,6 +37,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
    */
   public int number_of_lasers;
   private boolean auto_shutoff = true;
+  private final RedstoneDetector redstone_state = new RedstoneDetector();
 
   public TileLaserHousing(BlockPos position, BlockState blockstate){
     super(Tiles.LASER_MACHINE.get(), position, blockstate);
@@ -53,6 +55,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
     power_switch = nbt.getBoolean("Power Switch");
     laser_distance = nbt.getInt("Laser Distance");
     auto_shutoff = nbt.getBoolean("Auto Shutoff");
+    redstone_state.load(nbt);
     loadPlayerData(nbt);
   }
 
@@ -63,6 +66,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
     nbt.putBoolean("Power Switch", power_switch);
     nbt.putInt("Laser Distance", laser_distance);
     nbt.putBoolean("Auto Shutoff", auto_shutoff);
+    redstone_state.save(nbt);
     savePlayerData(nbt);
   }
 
@@ -85,11 +89,12 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
   @Override
   public final boolean get_switch_state(){ return power_switch; }
 
-  public final void setDataDirectlyFromNetwork(final Energy energy, final int laser_distance, final boolean running, final boolean shutoff){
+  public final void setDataDirectlyFromNetwork(final Energy energy, final int laser_distance, final boolean running, final boolean shutoff, final RedstoneDetector redstone){
     this.energy.set(energy);
     this.laser_distance = laser_distance;
     this.power_switch = running;
     this.auto_shutoff = shutoff;
+    this.redstone_state.setFrom(redstone);
     super.update_data();
   }
 
@@ -106,7 +111,7 @@ public final class TileLaserHousing extends TileBase implements IBlockNetworkUse
 
   @Override
   public final void load_block_network_data(){
-    network.load_data(energy, power_switch, laser_distance, auto_shutoff);
+    network.load_data(energy, power_switch, laser_distance, auto_shutoff, redstone_state);
   }
 
   /**

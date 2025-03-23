@@ -5,6 +5,7 @@ import java.util.HashSet;
 import addsynth.core.block_network.BlockNetwork;
 import addsynth.core.block_network.Node;
 import addsynth.core.util.game.data.AdvancementUtil;
+import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.core.util.math.block.BlockArea;
 import addsynth.core.util.math.block.DirectionUtil;
 import addsynth.core.util.network.NetworkUtil;
@@ -39,7 +40,7 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   public boolean changed;
   private final HashSet<BlockPos> lasers = new HashSet<BlockPos>(27);
   private int number_of_lasers;
-  private boolean activated;
+  private final RedstoneDetector redstone = new RedstoneDetector();
   private int laser_distance;
   public final Receiver energy = new Receiver(0, MachineValues.laser_max_receive.get()){
     @Override
@@ -102,11 +103,12 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
     check_if_lasers_changed(world);
   }
 
-  public final void load_data(Energy energy, boolean power_switch, int laser_distance, boolean auto_shutoff){
+  public final void load_data(Energy energy, boolean power_switch, int laser_distance, boolean auto_shutoff, RedstoneDetector redstone_state){
     this.energy.set(energy);
     this.running = power_switch;
     this.laser_distance = laser_distance;
     this.auto_shutoff = auto_shutoff;
+    this.redstone.setFrom(redstone_state);
   }
 
   public final int getLaserDistance(){
@@ -144,18 +146,13 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
    */
   @Override
   protected final void tick(final Level world){
-    if(is_redstone_powered(world)){
-      if(activated == false){
-        if(lasers.size() > 0 && laser_distance > 0){
-          if(energy.isFull()){
-            fire_lasers(world);
-          }
+    changed = redstone.update(world, blocks.getBlockPositions(), changed);
+    if(redstone.onRisingEdge()){
+      if(lasers.size() > 0 && laser_distance > 0){
+        if(energy.isFull()){
+          fire_lasers(world);
         }
       }
-      activated = true;
-    }
-    else{
-      activated = false;
     }
     if(energy.tick()){
       changed = true;
@@ -171,7 +168,7 @@ public final class LaserNetwork extends BlockNetwork<TileLaserHousing> {
   private final void updateLaserNetwork(){
     blocks.remove_invalid();
     blocks.forAllTileEntities((TileLaserHousing laser_housing) -> 
-      laser_housing.setDataDirectlyFromNetwork(energy, laser_distance, running, auto_shutoff)
+      laser_housing.setDataDirectlyFromNetwork(energy, laser_distance, running, auto_shutoff, redstone)
     );
   }
   

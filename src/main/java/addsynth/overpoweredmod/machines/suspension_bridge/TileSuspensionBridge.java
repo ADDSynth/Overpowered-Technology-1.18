@@ -10,7 +10,6 @@ import addsynth.core.util.constants.DirectionConstant;
 import addsynth.core.util.game.redstone.RedstoneDetector;
 import addsynth.energy.lib.main.Receiver;
 import addsynth.energy.lib.tiles.TileBasicMachine;
-import addsynth.overpoweredmod.config.Config;
 import addsynth.overpoweredmod.items.basic.LensItem;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
@@ -43,7 +42,6 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   };
   
   private final RedstoneDetector redstone = new RedstoneDetector();
-  private int maximum_length = Config.energy_bridge_max_distance.get();
 
   public TileSuspensionBridge(BlockPos position, BlockState blockstate){
     super(Tiles.ENERGY_SUSPENSION_BRIDGE.get(), position, blockstate, slot_data, new Receiver());
@@ -58,13 +56,6 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   public final void load(final CompoundTag nbt){
     super.load(nbt);
     redstone.load(nbt);
-    if(nbt.contains("Maximum Length")){
-      maximum_length = nbt.getInt("Maximum Length");
-    }
-    else{
-      // legacy data won't have the maximum length saved, so we use the same value as legacy would.
-      maximum_length = Config.energy_bridge_max_distance.get();
-    }
     bridge_data[0].load(nbt);
     bridge_data[1].load(nbt);
     bridge_data[2].load(nbt);
@@ -77,7 +68,6 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
   protected final void saveAdditional(final CompoundTag nbt){
     super.saveAdditional(nbt);
     redstone.save(nbt);
-    nbt.putInt("Maximum Length", maximum_length);
     bridge_data[0].save(nbt);
     bridge_data[1].save(nbt);
     bridge_data[2].save(nbt);
@@ -88,10 +78,10 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
 
   @Override
   public void load_block_network_data(){
-    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), redstone, bridge_data, maximum_length);
+    network.load_data(LensItem.get_index(inventory.getStackInSlot(0)), redstone, bridge_data);
   }
 
-  public final void save_block_network_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] data, final int maximum_length){
+  public final void save_block_network_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] data){
     inventory.setStackInSlot(0, lens_index < 0 ? ItemStack.EMPTY : new ItemStack(LensItem.get(lens_index)));
     this.redstone.setFrom(redstone);
     bridge_data[0].set(data[0]);
@@ -100,7 +90,6 @@ public final class TileSuspensionBridge extends TileBasicMachine implements IBlo
     bridge_data[3].set(data[3]);
     bridge_data[4].set(data[4]);
     bridge_data[5].set(data[5]);
-    this.maximum_length = maximum_length;
     update_data();
   }
 

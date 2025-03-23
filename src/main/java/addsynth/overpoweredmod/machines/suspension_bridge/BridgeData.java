@@ -71,7 +71,7 @@ public class BridgeData {
     rotation_axis = data.rotation_axis;
   }
   
-  public final void handleLegacy(final BlockArea area){
+  public final void handleLegacy(final BlockArea area){ // REMOVE: BridgeData.handleLegacy in 2028 (because I don't know if it even still works.)
     if(legacy){
       this.area.set(area);
       legacy = false;

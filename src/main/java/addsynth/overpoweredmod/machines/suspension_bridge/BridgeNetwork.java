@@ -48,7 +48,6 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
   /** This is the status of THIS bridge. */
   private BridgeMessage bridge_message;
   
-  /** Cached maximum bridge length. Must be loaded from TileEntity. */
   private int maximum_length;
 
   /** Used for the Maximum Bridge Length advancement. */
@@ -75,24 +74,24 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     check_neighbor_bridges(world);
   }
 
-  /** Main check function. Only run when needed, such as when you open the gui,
-   *  When it is redstone powered, or when the BlockNetwork changes. */
+  /** Main check function. Only runs when needed, such as when you open the gui,
+   *  When it is redstone powered, changed lenses, or when the BlockNetwork changes. */
   public final void check_and_update(final Level world){
     updating = true;
     bridge_message = BridgeMessage.PENDING;
     longest_distance = 0;
     
-    check_shape(world);
-    if(maximum_length != Config.energy_bridge_max_distance.get()){
-      maximum_length = Config.energy_bridge_max_distance.get();
-    }
+    check_shape(world); // Checks the Bridge Machine itself.
+
+    // Only changes the check area. Doesn't set the area until we activate a bridge.
+    maximum_length = Config.energy_bridge_max_distance.get();
     check_down(world);
     check_up(world);
     check_north(world);
     check_south(world);
     check_west(world);
     check_east(world);
-    update_active_state(world);
+    set_active(world, valid_shape && lens_index >= 0 && redstone.isPowered());
     
     if(bridge_message == BridgeMessage.PENDING){
       if(lens_index == -1){
@@ -347,7 +346,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
   }
 
-  public final void load_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] bridge_data, final int maximum_length){
+  public final void load_data(final int lens_index, final RedstoneDetector redstone, final BridgeData[] bridge_data){
     this.lens_index = lens_index;
     this.redstone.setFrom(redstone);
     this.bridge_data[0].set(bridge_data[0]);
@@ -356,14 +355,13 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     this.bridge_data[3].set(bridge_data[3]);
     this.bridge_data[4].set(bridge_data[4]);
     this.bridge_data[5].set(bridge_data[5]);
-    this.maximum_length = maximum_length;
   }
 
   /** This updates all TileEntities in the network whenever something changes that must be propogated to the rest of them. */
   private final void syncBridgeNetworkData(final Level world){
     blocks.remove_invalid();
     blocks.forAllTileEntities((TileSuspensionBridge tile) -> {
-      tile.save_block_network_data(lens_index, redstone, bridge_data, maximum_length);
+      tile.save_block_network_data(lens_index, redstone, bridge_data);
     });
     // bridge messages do not need to be saved to the world, they only need to be sent to the client.
     final SyncClientBridgeMessage msg = new SyncClientBridgeMessage(blocks.getBlockPositions(), bridge_message, bridge_data);
@@ -394,12 +392,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     }
   }
 
-  private final void update_active_state(final Level world){
-    final boolean valid = valid_shape && lens_index >= 0;
-    set_active(world, valid && redstone.isPowered());
-  }
-
-  public final void set_active(final Level world, final boolean active){
+  private final void set_active(final Level world, final boolean active){
     this.active = active;
     update_direction(world, 0); // down
     update_direction(world, 1); // up
@@ -408,7 +401,7 @@ public final class BridgeNetwork extends BlockNetwork<TileSuspensionBridge> {
     update_direction(world, 4); // west
     update_direction(world, 5); // east
     if(active){
-      if(longest_distance >= Config.energy_bridge_max_distance.get()){
+      if(longest_distance >= maximum_length){
         award_players(world);
       }
     }

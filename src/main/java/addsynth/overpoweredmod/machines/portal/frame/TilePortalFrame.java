@@ -22,10 +22,11 @@ import net.minecraftforge.registries.tags.ITagManager;
 
 public final class TilePortalFrame extends TileStorageMachine implements MenuProvider {
 
-  public static final TagFilter filter = new TagFilter(OverpoweredItemTags.portal_fuel);
+  private static final TagFilter filter = new TagFilter(OverpoweredItemTags.portal_fuel);
+  private static final SlotData[] slot_data = {new SlotData(filter, 1)};
 
   public TilePortalFrame(BlockPos position, BlockState blockstate){
-    super(Tiles.PORTAL_FRAME.get(), position, blockstate, new SlotData[]{new SlotData(filter, 1)});
+    super(Tiles.PORTAL_FRAME.get(), position, blockstate, slot_data);
   }
 
   public final int check_item(){

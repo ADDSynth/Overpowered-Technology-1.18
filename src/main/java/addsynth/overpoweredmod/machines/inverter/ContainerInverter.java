@@ -20,8 +20,8 @@ public final class ContainerInverter extends TileEntityContainer<TileInverter> {
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory,8,105);
-    addSlot(new  InputSlot(tile, 0, TileInverter.filter, 29, 44));
+    make_player_inventory(player_inventory, 8, 105);
+    addSlot(new  InputSlot(tile, 0,  29, 44));
     addSlot(new OutputSlot(tile, 0, 125, 44));
   }
 

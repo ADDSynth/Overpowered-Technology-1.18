@@ -3,7 +3,6 @@ package addsynth.energy.gameplay.machines.compressor;
 import addsynth.core.container.TileEntityContainer;
 import addsynth.core.container.slots.InputSlot;
 import addsynth.core.container.slots.OutputSlot;
-import addsynth.energy.gameplay.machines.compressor.recipe.CompressorRecipes;
 import addsynth.energy.registers.Containers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,8 +20,8 @@ public final class ContainerCompressor extends TileEntityContainer<TileCompresso
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory,8,100);
-    addSlot(new InputSlot( tile, 0, CompressorRecipes.INSTANCE.getFilter(), 32, 42));
+    make_player_inventory(player_inventory, 8, 100);
+    addSlot(new  InputSlot(tile, 0,  32, 42));
     addSlot(new OutputSlot(tile, 0, 128, 42));
   }
 

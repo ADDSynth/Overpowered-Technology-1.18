@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileCrystalEnergyExtractor extends TileStandardGenerator implements MenuProvider {
 
-  public static final BasicFilter input_filter = new BasicFilter(
+  private static final BasicFilter input_filter = new BasicFilter(
     OverpoweredItems.energy_crystal_shards,
     OverpoweredItems.energy_crystal,
     OverpoweredItems.light_block

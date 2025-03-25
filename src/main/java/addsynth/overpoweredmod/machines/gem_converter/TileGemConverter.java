@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileGemConverter extends TileStandardWorkMachine implements MenuProvider {
 
-  public static final TagFilter filter = new TagFilter(OverpoweredItemTags.convertable_gems);
+  private static final TagFilter filter = new TagFilter(OverpoweredItemTags.convertable_gems);
 
   private byte selection;
   private ItemStack gem_selected = new ItemStack(Material.RUBY.getGem(), 1);

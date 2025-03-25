@@ -20,7 +20,7 @@ public final class ContainerCrystalEnergyExtractor extends TileEntityContainer<T
 
   private final void common_setup(final Inventory player_inventory){
     make_player_inventory(player_inventory, 12, 106);
-    addSlot(new InputSlot(tile, 0, TileCrystalEnergyExtractor.input_filter, 84, 20));
+    addSlot(new InputSlot(tile, 0, 84, 20));
   }
 
 }

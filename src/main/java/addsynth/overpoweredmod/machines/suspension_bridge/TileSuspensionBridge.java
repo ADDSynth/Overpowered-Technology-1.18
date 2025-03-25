@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileSuspensionBridge extends TileBasicMachine implements IBlockNetworkUser<BridgeNetwork>, MenuProvider {
 
-  public static final Predicate<ItemStack> filter = (ItemStack stack) -> {
+  private static final Predicate<ItemStack> filter = (ItemStack stack) -> {
     final Item item = stack.getItem();
     return item instanceof LensItem;
   };

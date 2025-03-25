@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileInverter extends TileStandardWorkMachine implements MenuProvider {
 
-  public static final BasicFilter filter = new BasicFilter(
+  private static final BasicFilter filter = new BasicFilter(
     OverpoweredItems.energy_crystal,
     OverpoweredItems.void_crystal
   );

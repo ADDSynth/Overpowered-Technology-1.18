@@ -19,11 +19,8 @@ public final class InputInventory extends CommonInventory {
 
   @Nonnull
   private final SlotData[] slot_data;
-  public boolean custom_stack_limit_is_vanilla_dependant = true;
 
-  /** Override this to specify your own way of determining whether an item
-   *  is allowed in this inventory.
-   */
+  /** Override this to specify your own way of determining whether an item is allowed in this inventory. */
   @Nonnull
   public BiFunction<Integer, ItemStack, Boolean> isItemStackValid;
 
@@ -48,13 +45,11 @@ public final class InputInventory extends CommonInventory {
   }
 
   @Override
-  public @Nonnull ItemStack insertItem(final int slot, @Nonnull final ItemStack stack, final boolean simulate){
-    if(is_valid_slot(slot)){
-      if(isItemStackValid.apply(slot, stack)){
-        return super.insertItem(slot, stack, simulate);
-      }
+  public final boolean isItemValid(final int slot, final @Nonnull ItemStack stack){
+    if(isItemStackValid.apply(slot, stack)){
+      return is_valid_slot(slot);
     }
-    return stack;
+    return false;
   }
 
   @Override
@@ -102,14 +97,8 @@ public final class InputInventory extends CommonInventory {
   }
 
   @Override
-  protected final int getStackLimit(final int slot, @Nonnull final ItemStack stack){
-    if(this.slot_data[slot].stack_limit < 0){
-      return stack.getMaxStackSize();
-    }
-    if(custom_stack_limit_is_vanilla_dependant){
-      return Math.min(this.slot_data[slot].stack_limit, stack.getMaxStackSize());
-    }
-    return this.slot_data[slot].stack_limit;
+  public final int getSlotLimit(final int slot){
+    return is_valid_slot(slot) ? slot_data[slot].stack_limit : 0;
   }
 
   @Override

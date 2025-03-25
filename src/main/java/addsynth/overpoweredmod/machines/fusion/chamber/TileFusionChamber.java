@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class TileFusionChamber extends TileStorageMachine implements MenuProvider {
 
-  public static final SingleItemFilter filter = new SingleItemFilter(OverpoweredItems.fusion_core.get());
+  private static final SingleItemFilter filter = new SingleItemFilter(OverpoweredItems.fusion_core.get());
   private static final SlotData[] slot_data = {new SlotData(filter, 1)};
 
   /** A standard TNT explosion is size of 4. */

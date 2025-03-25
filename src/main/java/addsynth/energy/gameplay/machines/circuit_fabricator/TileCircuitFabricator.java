@@ -1,6 +1,5 @@
 package addsynth.energy.gameplay.machines.circuit_fabricator;
 
-import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import addsynth.core.game.inventory.filter.RecipeFilter;
@@ -30,10 +29,6 @@ public final class TileCircuitFabricator extends TileStandardWorkMachine impleme
   private ResourceLocation output_itemStack = defaultRecipe;
   // This RecipeFilter is different for every machine, therefore, it SHOULD NOT BE STATIC.
   private final RecipeFilter filter = new RecipeFilter(8);
-
-  public final Predicate<ItemStack> getFilter(final int slot){
-    return filter.getFilter(slot);
-  }
 
   // NBT Labels
   private static final String legacyNBTSaveTag = "Circuit to Craft";

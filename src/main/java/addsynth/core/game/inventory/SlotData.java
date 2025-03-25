@@ -2,6 +2,7 @@ package addsynth.core.game.inventory;
 
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
+import addsynth.core.game.item.constants.ItemConstants;
 import addsynth.core.recipe.RecipeCollection;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,23 +37,23 @@ public final class SlotData {
   /** This constructor uses the default Item filter, which allows everything. */
   public SlotData(){
     this.is_valid = (ItemStack) -> true;
-    this.stack_limit = -1; // stack size depends on the ItemStack
+    this.stack_limit = ItemConstants.stack_size;
   }
 
   /** This constructor uses the default Item filter, which allows everything. */
   public SlotData(final int slot_limit){
     this.is_valid = (ItemStack) -> true;
-    this.stack_limit = slot_limit;
+    this.stack_limit = Math.max(slot_limit, 1);
   }
 
   public SlotData(@Nonnull final Predicate<ItemStack> filter){
     this.is_valid = filter;
-    this.stack_limit = -1;
+    this.stack_limit = ItemConstants.stack_size;
   }
 
   public SlotData(@Nonnull final Predicate<ItemStack> filter, final int slot_limit){
     this.is_valid = filter;
-    this.stack_limit = slot_limit;
+    this.stack_limit = Math.max(slot_limit, 1);
   }
 
   public final boolean is_item_valid(@Nonnull final ItemStack stack){

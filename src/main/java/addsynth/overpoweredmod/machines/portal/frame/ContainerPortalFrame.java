@@ -20,7 +20,7 @@ public final class ContainerPortalFrame extends TileEntityContainer<TilePortalFr
 
   private final void common_setup(final Inventory player_inventory){
     make_player_inventory(player_inventory);
-    addSlot(new InputSlot(tile, 0, TilePortalFrame.filter, 80, 37));
+    addSlot(new InputSlot(tile, 0, 80, 37));
   }
 
 }

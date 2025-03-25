@@ -3,7 +3,6 @@ package addsynth.energy.gameplay.machines.electric_furnace;
 import addsynth.core.container.TileEntityContainer;
 import addsynth.core.container.slots.InputSlot;
 import addsynth.core.container.slots.OutputSlot;
-import addsynth.core.recipe.FurnaceRecipes;
 import addsynth.energy.registers.Containers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,8 +20,8 @@ public final class ContainerElectricFurnace extends TileEntityContainer<TileElec
   }
 
   private final void common_setup(final Inventory player_inventory){
-    make_player_inventory(player_inventory,8,90);
-    addSlot(new  InputSlot(tile, 0, FurnaceRecipes.INSTANCE.getFilter(), 32, 40));
+    make_player_inventory(player_inventory, 8, 90);
+    addSlot(new  InputSlot(tile, 0,  32, 40));
     addSlot(new OutputSlot(tile, 0, 128, 40));
   }
 

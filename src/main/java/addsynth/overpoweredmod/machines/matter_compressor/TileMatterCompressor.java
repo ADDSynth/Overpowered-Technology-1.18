@@ -25,10 +25,9 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
   private boolean changed;
   private int matter;
   private final Receiver energy;
-  private final Item black_hole_item;
 
-  public static final SingleItemFilter filter = new SingleItemFilter(OverpoweredItems.black_hole.get());
-  public static final SlotData[] slot_data = {
+  private static final SingleItemFilter filter = new SingleItemFilter(OverpoweredItems.black_hole.get());
+  private static final SlotData[] slot_data = {
     new SlotData(filter, 1),
     new SlotData()
   };
@@ -36,7 +35,6 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
   public TileMatterCompressor(final BlockPos position, final BlockState blockstate){
     super(Tiles.MATTER_COMPRESSOR.get(), position, blockstate, slot_data, 1);
     energy = new Receiver();
-    black_hole_item = OverpoweredItems.black_hole.get();
   }
 
   @Override
@@ -54,7 +52,7 @@ public final class TileMatterCompressor extends TileMachine implements ITickingT
         }
       }
       else{
-        if(input_inventory.getStackInSlot(0).getItem() == black_hole_item){
+        if(input_inventory.getStackInSlot(0).getItem() == OverpoweredItems.black_hole.get()){
           matter += input.getCount();
           input_inventory.setStackInSlot(1, ItemStack.EMPTY);
           changed = true;

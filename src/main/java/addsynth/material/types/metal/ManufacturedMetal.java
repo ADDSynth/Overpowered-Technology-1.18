@@ -38,7 +38,7 @@ public final class ManufacturedMetal extends Metal {
   public final void registerItems(final IForgeRegistry<Item> game){
     game.register(new MaterialItem(ingot.getId()));
     game.register(RegistryUtil.createItemBlock(block, ADDSynthMaterials.creative_tab));
-    if(Compatibility.ADDSYNTH_ENERGY.loaded){
+    if(Compatibility.ADDSYNTH_ENERGY.isLoaded()){
       game.register(new MaterialItem(plate_name));
     }
   }

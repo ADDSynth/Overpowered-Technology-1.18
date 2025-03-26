@@ -1,11 +1,8 @@
 package addsynth.energy.compat.energy;
 
 import java.util.ArrayList;
-import addsynth.core.compat.Compatibility;
 import addsynth.core.util.math.common.MathUtility;
 import addsynth.energy.compat.energy.forge.ForgeEnergy;
-import addsynth.energy.compat.energy.redstoneflux.RedstoneFluxEnergy;
-import addsynth.energy.compat.energy.tesla.TeslaEnergy;
 import addsynth.energy.lib.main.Energy;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,18 +14,11 @@ import net.minecraftforge.energy.IEnergyStorage;
 public final class EnergyCompat {
 
   public enum EnergySystem {
-    FORGE(true),
-    RF(Compatibility.REDSTONE_FLUX.loaded),
-    TESLA(Compatibility.TESLA.loaded);
-    
-    public final boolean exists;
+    FORGE;
     
     public final void setError(final Exception e){
     }
     
-    private EnergySystem(final boolean loaded){
-      this.exists = loaded;
-    }
   }
   
   public static final class CompatEnergyNode {
@@ -61,25 +51,6 @@ public final class EnergyCompat {
           continue;
         }
         
-        try{
-        
-          // RF Energy
-          if(EnergySystem.RF.exists){
-            if(RedstoneFluxEnergy.check(tile)){
-              nodes.add(new CompatEnergyNode(EnergySystem.RF, tile, capability_side));
-              continue;
-            }
-          }
-          
-          // Tesla Energy
-          if(EnergySystem.TESLA.exists){
-            if(TeslaEnergy.check(tile)){
-              continue;
-            }
-          }
-        }
-        catch(Exception e){
-        }
       }
     }
     return nodes.toArray(new CompatEnergyNode[nodes.size()]);
@@ -96,8 +67,6 @@ public final class EnergyCompat {
       try{
         switch(nodes[i].type){
         case FORGE: available_energy[i] = ForgeEnergy       .get(nodes[i].energy, energy_needed, true);                break;
-        case RF:    available_energy[i] = RedstoneFluxEnergy.get(nodes[i].energy, energy_needed, true, nodes[i].side); break;
-        case TESLA: available_energy[i] = TeslaEnergy       .get(nodes[i].energy, energy_needed, true);                break;
         }
       }
       catch(Exception e){
@@ -113,8 +82,6 @@ public final class EnergyCompat {
       try{
         switch(nodes[i].type){
         case FORGE: ForgeEnergy       .get(nodes[i].energy, energy_to_extract[i], false);                break;
-        case RF:    RedstoneFluxEnergy.get(nodes[i].energy, energy_to_extract[i], false, nodes[i].side); break;
-        case TESLA: TeslaEnergy       .get(nodes[i].energy, energy_to_extract[i], false);                break;
         }
         our_energy.receiveEnergy(energy_to_extract[i]);
       }
@@ -134,8 +101,6 @@ public final class EnergyCompat {
       try{
         switch(nodes[i].type){
         case FORGE: actual_energy_extracted = ForgeEnergy.send(       nodes[i].energy, energy_available[i]);                break;
-        case RF:    actual_energy_extracted = RedstoneFluxEnergy.send(nodes[i].energy, energy_available[i], nodes[i].side); break;
-        case TESLA: actual_energy_extracted = TeslaEnergy.send(       nodes[i].energy, energy_available[i]);                break;
         }
         // decrease internal energy by the amount that was actually transferred.
         our_energy.extractEnergy(actual_energy_extracted);

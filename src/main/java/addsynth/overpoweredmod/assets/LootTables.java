@@ -55,7 +55,7 @@ public final class LootTables {
     loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.CHESTPLATE)).setWeight(diamond_weight));
     loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.LEGGINGS  )).setWeight(diamond_weight));
     loot.add(LootItem.lootTableItem(UnidentifiedItem.get(ArmorMaterial.DIAMOND,   EquipmentType.BOOTS     )).setWeight(diamond_weight));
-    if(Compatibility.CURIOS.loaded){
+    if(Compatibility.CURIOS.isLoaded()){
       final int      ring_weight = Values.ring_drop_weight.get();
       loot.add(LootItem.lootTableItem(OverpoweredItems.ring_0.get()).setWeight(ring_weight));
       loot.add(LootItem.lootTableItem(OverpoweredItems.ring_1.get()).setWeight(ring_weight));

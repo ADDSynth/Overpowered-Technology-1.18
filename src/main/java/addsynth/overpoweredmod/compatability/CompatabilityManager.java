@@ -7,10 +7,10 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 public final class CompatabilityManager {
 
   public static final void inter_mod_communications(final InterModEnqueueEvent event){
-    if(Compatibility.PROJECT_E.loaded){
+    if(Compatibility.PROJECT_E.isLoaded()){
       ProjectE.register_emc_values();
     }
-    if(Compatibility.CURIOS.loaded){
+    if(Compatibility.CURIOS.isLoaded()){
       OverpoweredCurios.register_slots();
     }
   }

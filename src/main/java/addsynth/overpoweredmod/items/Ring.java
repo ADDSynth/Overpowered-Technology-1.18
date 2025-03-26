@@ -29,7 +29,7 @@ public final class Ring extends OverpoweredItem {
   @Override
   @Nullable
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt){
-    return Compatibility.CURIOS.loaded ? new CuriosCapabilityProvider(
+    return Compatibility.CURIOS.isLoaded() ? new CuriosCapabilityProvider(
       new ICurio(){
       
         @Override

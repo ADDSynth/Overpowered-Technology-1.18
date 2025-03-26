@@ -248,7 +248,7 @@ public final class Registers {
         }
       }
     }
-    if(Compatibility.CURIOS.loaded){
+    if(Compatibility.CURIOS.isLoaded()){
       game.register(new UnidentifiedItem(0));
       game.register(new UnidentifiedItem(1));
       game.register(new UnidentifiedItem(2));

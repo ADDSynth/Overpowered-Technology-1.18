@@ -62,8 +62,8 @@ public final class ProjectE {
       InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.BRONZE.getMetalPlate()),   EMCValue.strong_metal));
       InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.SILVER.getMetalPlate()),   EMCValue.uncommon_metal));
       InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.GOLD.getMetalPlate()),     EMCValue.uncommon_metal));
-      InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.PLATINUM.getMetalPlate()), EMCValue.rare_metal_block));
-      InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.TITANIUM.getMetalPlate()), EMCValue.rare_metal_block));
+      InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.PLATINUM.getMetalPlate()), EMCValue.rare_metal));
+      InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.TITANIUM.getMetalPlate()), EMCValue.rare_metal));
     }
     
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(Material.SILICON.getItem()), EMCValue.silicon));

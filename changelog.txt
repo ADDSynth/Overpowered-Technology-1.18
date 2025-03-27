@@ -3,9 +3,10 @@ NEW:
   It is now possible to get a Soul Speed Enchanted Book by inserting an Amethyst in the Magic Infuser.
   Now, the Dimensional Anchor itself will not travel to other dimensions.
   Now detects the WTHIT (What The Hell Is That) mod.
+  Added EMC value to Unimatter.
 CHANGES:
   If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
-    now sorted alphabetically, but also lists vanilla minecraft tags first, followed
+    now sorted alphabetically, but lists vanilla minecraft tags first, followed
     by forge tags, then tags from other mods.
   Renamed Matter/Energy Converter to Matter/Energy Core.
   Circuit Tier 8 and Circuit Tier 9 now use an Aluminum Ingot in their recipe instead of an
@@ -19,11 +20,13 @@ REMOVED:
   Removed Null Block to Void Crystals crafting recipe.
    - Since you're probably not supposed to interact with ethereal objects.
 FIXED:
-  Fixed Jei recipes displaying items 1 pixel off in machine slots.
+  Fixed JEI recipes displaying items 1 pixel off in machine slots.
   FINALLY Fixed first two Music Boxes playing at once, if the first was directly powered.
   Fixed Music Boxes and Lasers activating from an active redstone signal when the world loads.
     - (They now remember the powered state.)
     - These should only activate on Rising Edge, aka, first tick powered on from an OFF state.
+  Fix Plasma missing EMC value.
+  Fix Titanium Plates and Platinum Plates having the wrong EMC value.
   Minecraft 1.18 version only: Fixed the Zombie Raid command not sending messages to players correctly.
 
 

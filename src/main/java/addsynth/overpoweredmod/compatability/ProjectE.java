@@ -23,6 +23,9 @@ public final class ProjectE {
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(OverpoweredBlocks.light_block.get()),        589824L));
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(OverpoweredItems.void_crystal.get()),        131072L));
     InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(OverpoweredBlocks.null_block.get()),         524288L));
+    
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(OverpoweredItems.plasma.get()),               32768L));
+    InterModComms.sendTo(sender, mod, message, () -> new CustomEMCRegistration(NSSItem.createItem(OverpoweredItems.unimatter.get()),           524288L));
   }
 
 }

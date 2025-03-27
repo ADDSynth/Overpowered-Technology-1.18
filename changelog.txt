@@ -5,12 +5,12 @@ NEW:
   Now detects the WTHIT (What The Hell Is That) mod.
   Added EMC value to Unimatter.
 CHANGES:
-  If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
-    now sorted alphabetically, but lists vanilla minecraft tags first, followed
-    by forge tags, then tags from other mods.
   Renamed Matter/Energy Converter to Matter/Energy Core.
   Circuit Tier 8 and Circuit Tier 9 now use an Aluminum Ingot in their recipe instead of an
     Aluminum Plate.
+  If you enabled the Dump Tags config option in the ADDSynthCore config, the tags are
+    now sorted alphabetically, but lists vanilla minecraft tags first, followed
+    by forge tags, then tags from other mods.
 REMOVED:
   Amethyst:
    - We use vanilla Amethyst Shards now.
@@ -20,6 +20,7 @@ REMOVED:
   Removed Null Block to Void Crystals crafting recipe.
    - Since you're probably not supposed to interact with ethereal objects.
 FIXED:
+  Fixed Passive Machines (Plasma Generator and Crystal Matter Generator) not saving their inventory.
   Fixed JEI recipes displaying items 1 pixel off in machine slots.
   FINALLY Fixed first two Music Boxes playing at once, if the first was directly powered.
   Fixed Music Boxes and Lasers activating from an active redstone signal when the world loads.

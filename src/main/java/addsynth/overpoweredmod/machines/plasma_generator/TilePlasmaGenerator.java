@@ -21,6 +21,10 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TilePlasmaGenerator extends TilePassiveMachine implements IOutputInventory, IAutoShutoff, MenuProvider {
 
   private final OutputInventory output_inventory;
+  // FIX: Work for version 6: create a TileStandardPassiveMachine class, which has an OutputInventory and
+  //      provides a ForgeCapability for the DOWN direction so Hoppers can automatically take out items.
+  // PRIORITY: Passive Machines will continue to accept energy, even if it can't insert
+  //           any items into the output, also will force insert even though stack is full?
 
   private boolean auto_shutoff = false;
   public static final int DEFAULT_OUTPUT_NUMBER = 1;
@@ -45,6 +49,7 @@ public final class TilePlasmaGenerator extends TilePassiveMachine implements IOu
   @Override
   public final void load(final CompoundTag nbt){
     super.load(nbt);
+    output_inventory.load(nbt);
     auto_shutoff = nbt.getBoolean("Auto Shutoff");
     output_number = nbt.getInt("Output Threshold");
   }
@@ -52,6 +57,7 @@ public final class TilePlasmaGenerator extends TilePassiveMachine implements IOu
   @Override
   protected final void saveAdditional(final CompoundTag nbt){
     super.saveAdditional(nbt);
+    output_inventory.save(nbt);
     nbt.putBoolean("Auto Shutoff", auto_shutoff);
     nbt.putInt("Output Threshold", output_number);
   }
@@ -89,7 +95,7 @@ public final class TilePlasmaGenerator extends TilePassiveMachine implements IOu
 
   @Override
   public void onInventoryChanged(){
-    // no need to react to inventory change
+    changed = true;
   }
 
   @Override

@@ -9,6 +9,7 @@ import addsynth.overpoweredmod.config.MachineValues;
 import addsynth.overpoweredmod.game.core.Gems;
 import addsynth.overpoweredmod.registers.Tiles;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,6 +35,18 @@ public final class TileCrystalMatterGenerator extends TilePassiveMachine impleme
   }
 
   @Override
+  public final void load(final CompoundTag nbt){
+    super.load(nbt);
+    output_inventory.load(nbt);
+  }
+
+  @Override
+  protected final void saveAdditional(final CompoundTag nbt){
+    super.saveAdditional(nbt);
+    output_inventory.save(nbt);
+  }
+
+  @Override
   @Nullable
   public AbstractContainerMenu createMenu(int id, Inventory player_inventory, Player player){
     return new ContainerCrystalGenerator(id, player_inventory, this);
@@ -46,7 +59,7 @@ public final class TileCrystalMatterGenerator extends TilePassiveMachine impleme
 
   @Override
   public void onInventoryChanged(){
-    // no need to react to inventory change
+    changed = true;
   }
 
   @Override

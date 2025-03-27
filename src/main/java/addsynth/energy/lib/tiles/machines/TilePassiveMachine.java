@@ -60,8 +60,6 @@ public abstract class TilePassiveMachine extends TileSwitchableMachine {
     
     default:
       if(energy.isFull()){
-        // PRIORITY: Passive Machines will continue to accept energy, even if it can't insert
-        //           any items into the output, also will force insert even though stack is full?
         perform_work();
         energy.setEmpty();
         changed = true;

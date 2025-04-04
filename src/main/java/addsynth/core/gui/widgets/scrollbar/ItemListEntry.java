@@ -20,7 +20,7 @@ public final class ItemListEntry extends AbstractListEntry<ItemStack> {
 
   @Override
   @SuppressWarnings("resource")
-  public void renderButton(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
+  public final void renderButton(PoseStack matrix, int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_){
     Minecraft minecraft = Minecraft.getInstance();
     ItemRenderer itemRenderer = minecraft.getItemRenderer();
     Font fontrenderer = minecraft.font;

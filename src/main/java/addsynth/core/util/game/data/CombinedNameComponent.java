@@ -1,6 +1,7 @@
 package addsynth.core.util.game.data;
 
 import java.util.ArrayList;
+import addsynth.core.gameplay.team_manager.data.ObjectiveDataUnit;
 import addsynth.core.gameplay.team_manager.data.TeamDataUnit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -42,6 +43,11 @@ public final class CombinedNameComponent {
   public CombinedNameComponent(final Player player){
     displayName = player.getDisplayName();
     name = player.getScoreboardName();
+  }
+
+  public CombinedNameComponent(final ObjectiveDataUnit objective){
+    displayName = objective.display_name;
+    name = objective.name;
   }
 
   /// If this was constructed with a Team, returns the Team ID.

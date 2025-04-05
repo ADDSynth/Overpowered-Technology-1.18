@@ -24,6 +24,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private static final int gui_height = 314;
 
   private final boolean new_objective;
+  private final String existing_objective;
 
   private static final TranslatableComponent               objective_gui = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.gui_title");
   private static final TranslatableComponent      objective_id_name_text = new TranslatableComponent("gui.addsynthcore.team_manager.objective_edit.id_name");
@@ -72,14 +73,16 @@ public final class TeamManagerObjectiveGui extends GuiBase {
   private static final MutableGuiSection middle_section = new MutableGuiSection();
   private static final MutableGuiSection  right_section = new MutableGuiSection();
 
-  // Criteria List
-  private final int criteria_list_length = right_section.height / entry_height;
-  private final int list_height = entry_height*criteria_list_length;
-  private final ListEntry[] objective_entries = new ListEntry[criteria_list_length];
-
-  public TeamManagerObjectiveGui(boolean new_objective){
+  public TeamManagerObjectiveGui(){
     super(473, gui_height, objective_gui, GuiReference.edit_objective_gui);
-    this.new_objective = new_objective;
+    new_objective = true;
+    existing_objective = null;
+  }
+
+  public TeamManagerObjectiveGui(final String existing_objective){
+    super(473, gui_height, objective_gui, GuiReference.edit_objective_gui);
+    new_objective = false;
+    this.existing_objective = existing_objective;
   }
 
   @Override
@@ -105,7 +108,9 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     addRenderableWidget(criteria_types);
 
     // Criteria List
-    // final int scrollbar_x = right_section.right; right edge already has scrollbar width factored in
+    final int criteria_list_length = right_section.height / entry_height;
+    final int list_height = entry_height*criteria_list_length;
+    final ListEntry[] objective_entries = new ListEntry[criteria_list_length];
     int i;
     for(i = 0; i < criteria_list_length; i++){
       objective_entries[i] = new ListEntry(right_section.x, right_section.y + (entry_height*i), right_section.width, entry_height);
@@ -128,7 +133,7 @@ public final class TeamManagerObjectiveGui extends GuiBase {
     }
     else{
       // editting existing Objective, load all data
-      final ObjectiveDataUnit objective_data = TeamData.getObjectiveData(TeamManagerGui.getObjectiveSelected());
+      final ObjectiveDataUnit objective_data = TeamData.getObjectiveData(existing_objective);
       objective_id_name.setValue(objective_data.name);
       // objective_id_name.isEnabled = false;
       objective_display_name.setValue(objective_data.display_name.getString());

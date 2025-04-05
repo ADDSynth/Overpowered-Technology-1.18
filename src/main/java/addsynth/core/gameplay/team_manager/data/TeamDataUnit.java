@@ -1,10 +1,9 @@
 package addsynth.core.gameplay.team_manager.data;
 
 import java.util.ArrayList;
-import addsynth.core.util.network.NetworkUtil;
+import addsynth.core.util.game.data.CombinedNameComponent;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.scores.Team;
 
 public final class TeamDataUnit {
@@ -18,7 +17,7 @@ public final class TeamDataUnit {
   public boolean see_invisible_allys;
   public int nametag_option;
   public int death_message_option;
-  public ArrayList<Component> players = new ArrayList<Component>();
+  public ArrayList<CombinedNameComponent> players = new ArrayList<CombinedNameComponent>();
   
   public final boolean matches(final Team team){
     return name.equals(team.getName());
@@ -34,13 +33,7 @@ public final class TeamDataUnit {
     data.writeByte(death_message_option);
     data.writeComponent(prefix);
     data.writeComponent(suffix);
-    int i;
-    final int length = players.size();
-    final TextComponent[] player_names = new TextComponent[length];
-    for(i = 0; i < length; i++){
-      player_names[i] = (TextComponent)players.get(i);
-    }
-    NetworkUtil.writeTextComponentArray(data, player_names);
+    CombinedNameComponent.encodeArray(data, players);
   }
   
   public static final TeamDataUnit decode(final FriendlyByteBuf data){
@@ -54,8 +47,8 @@ public final class TeamDataUnit {
     team.death_message_option = data.readByte();
     team.prefix = data.readComponent();
     team.suffix = data.readComponent();
-    team.players = new ArrayList<Component>();
-    for(final Component t : NetworkUtil.readTextComponentArray(data)){
+    team.players = new ArrayList<CombinedNameComponent>();
+    for(final CombinedNameComponent t : CombinedNameComponent.decodeArray(data)){
       team.players.add(t);
     }
     return team;

@@ -11,12 +11,10 @@ import addsynth.core.gameplay.team_manager.gui.TeamManagerGui;
 import addsynth.core.gameplay.team_manager.gui.TeamManagerObjectiveGui;
 import addsynth.core.gameplay.team_manager.network_messages.TeamManagerSyncMessage;
 import addsynth.core.util.debug.DebugUtil;
+import addsynth.core.util.game.data.CombinedNameComponent;
 import addsynth.core.util.java.StringUtil;
-import addsynth.core.util.network.NetworkUtil;
 import addsynth.core.util.server.ServerUtils;
 import addsynth.core.util.time.TickHandler;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraft.world.scores.Scoreboard;
@@ -43,7 +41,7 @@ public final class TeamData {
 
   private static final TickHandler tick_handler = new TickHandler();
 
-  private static ArrayList<Component> non_team_players = new ArrayList<Component>();
+  private static ArrayList<CombinedNameComponent> non_team_players = new ArrayList<CombinedNameComponent>();
   private static TeamDataUnit[] teams;
   private static ObjectiveDataUnit[] objectives;
   /** This is set to true whenever the client is synced with the server data. Used to update guis that are open. */
@@ -79,7 +77,7 @@ public final class TeamData {
         teams[i] = new TeamDataUnit();
         teams[i].name = team_array[i].getName();
         teams[i].display_name = team_array[i].getDisplayName();
-        teams[i].color = team_array[i].getColor().getColor();
+        teams[i].color = team_array[i].getColor().getId();
         teams[i].prefix = team_array[i].getPlayerPrefix();
         teams[i].suffix = team_array[i].getPlayerSuffix();
         teams[i].pvp = team_array[i].isAllowFriendlyFire();
@@ -94,12 +92,12 @@ public final class TeamData {
       for(final Player player : all_players){
         team = player.getTeam();
         if(team == null){
-          non_team_players.add(player.getName());
+          non_team_players.add(new CombinedNameComponent(player));
         }
         else{
           for(final TeamDataUnit team_data : teams){
             if(team_data.matches(team)){
-              team_data.players.add(player.getName());
+              team_data.players.add(new CombinedNameComponent(player));
             }
           }
         }
@@ -127,47 +125,16 @@ public final class TeamData {
       o = scoreboard.getDisplayObjective(2);
       display_slot_objective[2] = o != null ? o.getName() : "";
   
-      NetworkHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), new TeamManagerSyncMessage());
+      TeamManagerSyncMessage message = new TeamManagerSyncMessage(non_team_players, teams, objectives, display_slot_objective);
+      NetworkHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
   }
 
-  /** Send data to Clients. */
-  public static final void encode(final FriendlyByteBuf data){
-    NetworkUtil.writeTextComponentArray(data, non_team_players.toArray(new Component[non_team_players.size()]));
-    data.writeInt(teams.length);
-    for(final TeamDataUnit t : teams){
-      t.encode(data);
-    }
-    data.writeInt(objectives.length);
-    for(final ObjectiveDataUnit o : objectives){
-      o.encode(data);
-    }
-    data.writeUtf(display_slot_objective[0]);
-    data.writeUtf(display_slot_objective[1]);
-    data.writeUtf(display_slot_objective[2]);
-  }
-
-  /** Receiving data on client side. */
-  public static final void decode(final FriendlyByteBuf data){
-    non_team_players = new ArrayList<Component>();
-    for(final Component t : NetworkUtil.readTextComponentArray(data)){
-      non_team_players.add(t);
-    }
-    int length = data.readInt();
-    teams = new TeamDataUnit[length];
-    int i;
-    for(i = 0; i < length; i++){
-      teams[i] = TeamDataUnit.decode(data);
-    }
-    length = data.readInt();
-    objectives = new ObjectiveDataUnit[length];
-    for(i = 0; i < length; i++){
-      objectives[i] = ObjectiveDataUnit.decode(data);
-    }
-    display_slot_objective[0] = data.readUtf();
-    display_slot_objective[1] = data.readUtf();
-    display_slot_objective[2] = data.readUtf();
-    
+  public static final void syncClientData(ArrayList<CombinedNameComponent> non_team_players, TeamDataUnit[] teams, ObjectiveDataUnit[] objectives, String[] display_slot_objectives){
+    TeamData.non_team_players = non_team_players;
+    TeamData.teams = teams;
+    TeamData.objectives = objectives;
+    TeamData.display_slot_objective = display_slot_objectives;
     changed = true;
   }
 
@@ -251,47 +218,47 @@ public final class TeamData {
     return CriteriaType.STANDARD;
   }
 
-  public static final Component[] getTeams(){
+  public static final CombinedNameComponent[] getTeams(){
     if(teams != null){
       int i;
       final int length = teams.length;
-      final Component[] t = new Component[length];
+      final CombinedNameComponent[] t = new CombinedNameComponent[length];
       for(i = 0; i < length; i++){
-        t[i] = teams[i].display_name;
+        t[i] = new CombinedNameComponent(teams[i]);
       }
       return t;
     }
-    return new Component[0];
+    return new CombinedNameComponent[0];
   }
 
-  public static final Component[] getPlayers(){
-    return non_team_players != null ? non_team_players.toArray(new Component[non_team_players.size()]) : new Component[0];
+  public static final CombinedNameComponent[] getPlayers(){
+    return non_team_players != null ? non_team_players.toArray(new CombinedNameComponent[non_team_players.size()]) : new CombinedNameComponent[0];
   }
 
   /** Used to build the Objectives List on the Main Screen. */
-  public static final Component[] getObjectives(){
+  public static final CombinedNameComponent[] getObjectives(){
     if(objectives != null){
       int i;
       final int length = objectives.length;
-      final Component[] o = new Component[length];
+      final CombinedNameComponent[] o = new CombinedNameComponent[length];
       for(i = 0; i < objectives.length; i++){
-        o[i] = objectives[i].display_name;
+        o[i] = new CombinedNameComponent(objectives[i]);
       }
       return o;
     }
-    return new Component[0];
+    return new CombinedNameComponent[0];
   }
 
-  public static final Component[] getTeamPlayers(final String team_selected){
+  public static final CombinedNameComponent[] getTeamPlayers(final String team_selected){
     if(StringUtil.StringExists(team_selected)){
       for(final TeamDataUnit t : teams){
         if(t.name.equals(team_selected)){
-          return t.players.toArray(new Component[t.players.size()]);
+          return t.players.toArray(new CombinedNameComponent[t.players.size()]);
         }
       }
-      return new Component[0];
+      return new CombinedNameComponent[0];
     }
-    return new Component[0];
+    return new CombinedNameComponent[0];
   }
 
   public static final TeamDataUnit getTeamData(final String team_name){

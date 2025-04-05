@@ -11,12 +11,11 @@ import addsynth.core.gameplay.team_manager.network_messages.TeamManagerCommand;
 import addsynth.core.gui.GuiBase;
 import addsynth.core.gui.util.GuiUtil;
 import addsynth.core.gui.widgets.WidgetUtil;
-import addsynth.core.gui.widgets.scrollbar.ListEntry;
-import addsynth.core.gui.widgets.scrollbar.TextScrollbar;
-import addsynth.core.util.java.StringUtil;
+import addsynth.core.gui.widgets.scrollbar.CombinedListEntry;
+import addsynth.core.gui.widgets.scrollbar.CombinedNameScrollbar;
+import addsynth.core.util.game.data.CombinedNameComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -37,59 +36,63 @@ public final class TeamManagerGui extends GuiBase {
   private static final TranslatableComponent      display_slot_text_3 = new TranslatableComponent("gui.addsynthcore.team_manager.display_slot.nametag");
 
   @Nonnull
-  private static Component team_selected = TextComponent.EMPTY;
+  private CombinedNameComponent team_selected = CombinedNameComponent.EMPTY;
   @Nonnull
-  private static Component player_selected = TextComponent.EMPTY;
+  private CombinedNameComponent player_selected = CombinedNameComponent.EMPTY;
   @Nonnull
-  private static Component objective_selected = TextComponent.EMPTY;
+  private CombinedNameComponent objective_selected = CombinedNameComponent.EMPTY;
   private static boolean team_is_selected;
   private static boolean player_is_selected;
   private static boolean player_selected_position;
   private static boolean objective_is_selected;
 
-  public static final String getPlayerSelected(){ return player_selected.getString(); }
-  public static final String getTeamSelected(){ return team_selected.getString(); }
-  public static final String getObjectiveSelected(){ return objective_selected.getString(); }
-  public static final void unSelectTeam(){ team_selected = TextComponent.EMPTY; }
-  public static final void unSelectObjective(){ objective_selected = TextComponent.EMPTY; }
+  public final String getPlayerSelected(){ return player_selected.getName(); }
+  public final String getTeamSelected(){ return team_selected.getName(); }
+  public final String getObjectiveSelected(){ return objective_selected.getName(); }
+  public final void unSelectPlayer(){ player_selected = CombinedNameComponent.EMPTY; }
+  public final void unSelectTeam(){ team_selected = CombinedNameComponent.EMPTY; }
+  public final void unSelectObjective(){ objective_selected = CombinedNameComponent.EMPTY; }
 
   private static final int        team_list_size = 8;
   private static final int   objective_list_size = 8;
   private static final int      player_list_size = 11;
   // private static final int team_player_list_size = 11;
 
-  private final ListEntry[] team_entries = new ListEntry[team_list_size];
-  private TextScrollbar team_list;
+  private final CombinedListEntry[] team_entries = new CombinedListEntry[team_list_size];
+  private CombinedNameScrollbar team_list;
 
-  private final ListEntry[] all_players = new ListEntry[player_list_size];
-  private TextScrollbar all_players_list;
+  private final CombinedListEntry[] all_players = new CombinedListEntry[player_list_size];
+  private CombinedNameScrollbar all_players_list;
 
-  private final ListEntry[] team_players = new ListEntry[player_list_size];
-  private TextScrollbar team_players_list;
+  private final CombinedListEntry[] team_players = new CombinedListEntry[player_list_size];
+  private CombinedNameScrollbar team_players_list;
 
-  private final ListEntry[] objectives_entries = new ListEntry[objective_list_size];
-  private TextScrollbar objectives_list;
+  private final CombinedListEntry[] objectives_entries = new CombinedListEntry[objective_list_size];
+  private CombinedNameScrollbar objectives_list;
 
-  private final BiConsumer<Component, Integer> onTeamSelected = (Component value, Integer id) -> {
-    team_selected = value.plainCopy();
+  private final BiConsumer<CombinedNameComponent, Integer> onTeamSelected = (CombinedNameComponent value, Integer id) -> {
+    team_selected = value; // PRIORITY: returns null if scrollbars are unselected! Need to unselect Team Players scrollbar when switching Teams!
+    if(!player_selected_position){
+      unSelectPlayer();
+    }
     updateTeamPlayerList();
   };
-  private final BiConsumer<Component, Integer> onPlayerSelected = (Component value, Integer id) -> {
+  private final BiConsumer<CombinedNameComponent, Integer> onPlayerSelected = (CombinedNameComponent value, Integer id) -> {
     if(value != null){
-      player_selected = value.plainCopy();
+      player_selected = value;
       player_selected_position = true;
       team_players_list.unSelect();
     }
   };
-  private final BiConsumer<Component, Integer> onTeamPlayerSelected = (Component value, Integer id) -> {
+  private final BiConsumer<CombinedNameComponent, Integer> onTeamPlayerSelected = (CombinedNameComponent value, Integer id) -> {
     if(value != null){
-      player_selected = value.plainCopy();
+      player_selected = value;
       player_selected_position = false;
       all_players_list.unSelect();
     }
   };
-  private static final BiConsumer<Component, Integer> onObjectiveSelected = (Component value, Integer id) -> {
-    objective_selected = value.plainCopy();
+  private final BiConsumer<CombinedNameComponent, Integer> onObjectiveSelected = (CombinedNameComponent value, Integer id) -> {
+    objective_selected = value;
   };
 
   private TeamManagerGuiButtons.MovePlayerToTeamButton player_to_team_button;
@@ -190,52 +193,52 @@ public final class TeamManagerGui extends GuiBase {
     final int player_button_x2 = player_x_center + 3;
     final int player_list_y = guiBox.top + players_text_line + text_space;
     for(i = 0; i < team_players.length; i++){
-      team_players[i] = new ListEntry(x_position_1, start_y + (entry_height * i), list_width, entry_height);
+      team_players[i] = new CombinedListEntry(x_position_1, start_y + (entry_height * i), list_width, entry_height);
       addRenderableWidget(team_players[i]);
     }
-    team_players_list = new TextScrollbar(x_position_1 + list_width, start_y, player_list_height, team_players);
+    team_players_list = new CombinedNameScrollbar(x_position_1 + list_width, start_y, player_list_height, team_players);
     team_players_list.setResponder(onTeamPlayerSelected);
     addRenderableWidget(team_players_list);
     
-    player_to_team_button   = new TeamManagerGuiButtons.MovePlayerToTeamButton(    player_button_x1, guiBox.top + player_buttons_y);
-    player_from_team_button = new TeamManagerGuiButtons.RemovePlayerFromTeamButton(player_button_x2, guiBox.top + player_buttons_y);
+    player_to_team_button   = new TeamManagerGuiButtons.MovePlayerToTeamButton(    this, player_button_x1, guiBox.top + player_buttons_y);
+    player_from_team_button = new TeamManagerGuiButtons.RemovePlayerFromTeamButton(this, player_button_x2, guiBox.top + player_buttons_y);
     addRenderableWidget(player_to_team_button);
     addRenderableWidget(player_from_team_button);
     
     for(i = 0; i < all_players.length; i++){
-      all_players[i] = new ListEntry(x_position_1, player_list_y + (entry_height * i), list_width, entry_height);
+      all_players[i] = new CombinedListEntry(x_position_1, player_list_y + (entry_height * i), list_width, entry_height);
       addRenderableWidget(all_players[i]);
     }
-    all_players_list = new TextScrollbar(x_position_1 + list_width, player_list_y, player_list_height, all_players);
+    all_players_list = new CombinedNameScrollbar(x_position_1 + list_width, player_list_y, player_list_height, all_players);
     all_players_list.setResponder(onPlayerSelected);
     addRenderableWidget(all_players_list);
     
     // Team controls
     final int team_buttons_y = start_y + team_list_height + button_y_spacing;
     for(i = 0; i < team_entries.length; i++){
-      team_entries[i] = new ListEntry(x_position_2, start_y + (entry_height * i), list_width, entry_height);
+      team_entries[i] = new CombinedListEntry(x_position_2, start_y + (entry_height * i), list_width, entry_height);
       addRenderableWidget(team_entries[i]);
     }
-    team_list = new TextScrollbar(x_position_2 + list_width, start_y, team_list_height, team_entries);
+    team_list = new CombinedNameScrollbar(x_position_2 + list_width, start_y, team_list_height, team_entries);
     team_list.setResponder(onTeamSelected);
     addRenderableWidget(team_list);
-      edit_team_button = new TeamManagerGuiButtons.EditTeamButton(  x_position_2 + 34, team_buttons_y, 30, button_height);
-    delete_team_button = new TeamManagerGuiButtons.DeleteTeamButton(x_position_2 + 68, team_buttons_y, 50, button_height);
-    addRenderableWidget(new TeamManagerGuiButtons.AddTeamButton(   x_position_2,      team_buttons_y, 30, button_height));
+      edit_team_button = new TeamManagerGuiButtons.EditTeamButton(  this, x_position_2 + 34, team_buttons_y, 30, button_height);
+    delete_team_button = new TeamManagerGuiButtons.DeleteTeamButton(this, x_position_2 + 68, team_buttons_y, 50, button_height);
+    addRenderableWidget( new TeamManagerGuiButtons.AddTeamButton(         x_position_2,      team_buttons_y, 30, button_height));
     addRenderableWidget(edit_team_button);
     addRenderableWidget(delete_team_button);
 
     // Objectives
     final int objective_buttons_y = start_y + objectives_list_height + button_y_spacing;
     for(i = 0; i < objectives_entries.length; i++){
-      objectives_entries[i] = new ListEntry(x_position_3, start_y + (entry_height * i), list_width, entry_height);
+      objectives_entries[i] = new CombinedListEntry(x_position_3, start_y + (entry_height * i), list_width, entry_height);
       addRenderableWidget(objectives_entries[i]);
     }
-    objectives_list = new TextScrollbar(x_position_3 + list_width, start_y, objectives_list_height, objectives_entries);
+    objectives_list = new CombinedNameScrollbar(x_position_3 + list_width, start_y, objectives_list_height, objectives_entries);
     objectives_list.setResponder(onObjectiveSelected);
     addRenderableWidget(objectives_list);
-    edit_objective_button   = new TeamManagerGuiButtons.EditObjectiveButton(  x_position_3 + 34, objective_buttons_y, 30, button_height);
-    delete_objective_button = new TeamManagerGuiButtons.DeleteObjectiveButton(x_position_3 + 68, objective_buttons_y, 50, button_height);
+    edit_objective_button   = new TeamManagerGuiButtons.EditObjectiveButton(  this, x_position_3 + 34, objective_buttons_y, 30, button_height);
+    delete_objective_button = new TeamManagerGuiButtons.DeleteObjectiveButton(this, x_position_3 + 68, objective_buttons_y, 50, button_height);
     addRenderableWidget(new TeamManagerGuiButtons.AddObjectiveButton(   x_position_3,      objective_buttons_y, 30, button_height));
     addRenderableWidget(edit_objective_button);
     addRenderableWidget(delete_objective_button);
@@ -257,9 +260,9 @@ public final class TeamManagerGui extends GuiBase {
     // Display Slot widgets
     display_slot_x1 = text_x2 + GuiUtil.getMaxStringWidth(font, display_slot_text_1, display_slot_text_2, display_slot_text_3);
     display_slot_x2 = (display_slot_x1 + 5 + display_slot_button_x1) / 2;
-    display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
-    display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
-    display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
+    display_slot_button[0] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y1, 0);
+    display_slot_button[1] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y2, 1);
+    display_slot_button[2] = new TeamManagerGuiButtons.SetDisplaySlotButton(this, guiBox.left + display_slot_button_x1, guiBox.top + display_slot_button_y3, 2);
     addRenderableWidget(display_slot_button[0]);
     addRenderableWidget(display_slot_button[1]);
     addRenderableWidget(display_slot_button[2]);
@@ -273,21 +276,19 @@ public final class TeamManagerGui extends GuiBase {
   @Override
   public void tick(){
     super.tick();
-    team_is_selected = StringUtil.StringExists(team_selected.getContents());
-    player_is_selected = StringUtil.StringExists(player_selected.getContents());
-    objective_is_selected = StringUtil.StringExists(objective_selected.getContents());
-    player_score_can_be_changed = objective_is_selected && player_is_selected && TeamData.canObjectiveBeModified(objective_selected.getString());
+    team_is_selected = team_selected != CombinedNameComponent.EMPTY;
+    player_is_selected = player_selected != CombinedNameComponent.EMPTY;
+    objective_is_selected = objective_selected != CombinedNameComponent.EMPTY;
+    player_score_can_be_changed = objective_is_selected && player_is_selected && TeamData.canObjectiveBeModified(objective_selected.getName());
     updateButtons();
     updateLists();
     if(player_is_selected && objective_is_selected){
-      NetworkHandler.INSTANCE.sendToServer(new RequestPlayerScoreMessage(player_selected.getString(), objective_selected.getString()));
+      NetworkHandler.INSTANCE.sendToServer(new RequestPlayerScoreMessage(player_selected.getName(), objective_selected.getName()));
     }
     new_score.tick();
   }
 
   private final void updateButtons(){
-    // TODO: It's nice that I set the active variable, but these buttons use WidgetUtil.renderButton, which doesn't
-    //       take that into account. Also, the texture doesn't have any darkened buttons to draw either.
     player_to_team_button.active = player_is_selected && player_selected_position && team_is_selected;
     player_from_team_button.active = player_is_selected && !player_selected_position && team_is_selected;
     edit_team_button.active = team_is_selected;
@@ -313,13 +314,13 @@ public final class TeamManagerGui extends GuiBase {
   }
 
   private final void updateTeamPlayerList(){
-    team_players_list.updateScrollbar(TeamData.getTeamPlayers(team_selected.getString()));
+    team_players_list.updateScrollbar(TeamData.getTeamPlayers(team_selected.getName()));
   }
 
   private final void set_score(){
     try{
-      final String objective = objective_selected.getString();
-      final String player = player_selected.getString();
+      final String objective = objective_selected.getName();
+      final String player = player_selected.getName();
       final int score = Integer.parseInt(new_score.getValue());
       NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SetScore(objective, player, score));
     }
@@ -328,8 +329,8 @@ public final class TeamManagerGui extends GuiBase {
 
   private final void add_score(){
     try{
-      final String objective = objective_selected.getString();
-      final String player = player_selected.getString();
+      final String objective = objective_selected.getName();
+      final String player = player_selected.getName();
       final int score = Integer.parseInt(new_score.getValue());
       NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.AddScore(objective, player, score));
     }
@@ -338,8 +339,8 @@ public final class TeamManagerGui extends GuiBase {
 
   private final void subtract_score(){
     try{
-      final String objective = objective_selected.getString();
-      final String player = player_selected.getString();
+      final String objective = objective_selected.getName();
+      final String player = player_selected.getName();
       final int score = Integer.parseInt(new_score.getValue());
       NetworkHandler.INSTANCE.sendToServer(new TeamManagerCommand.SubtractScore(objective, player, score));
     }
@@ -369,9 +370,9 @@ public final class TeamManagerGui extends GuiBase {
     draw_text_right(matrix,      team_selected_text.getString()+":", selected_text_left, selected_text_y);
     draw_text_right(matrix,    player_selected_text.getString()+":", selected_text_left, selected_text_y + 10);
     draw_text_right(matrix, objective_selected_text.getString()+":", selected_text_left, selected_text_y + 20);
-    draw_text_left(matrix,      team_selected, selected_text_right, selected_text_y);
-    draw_text_left(matrix,    player_selected, selected_text_right, selected_text_y + 10);
-    draw_text_left(matrix, objective_selected, selected_text_right, selected_text_y + 20);
+    draw_text_left(matrix,      team_selected.getPlainComponent(), selected_text_right, selected_text_y);
+    draw_text_left(matrix,    player_selected.getName(), selected_text_right, selected_text_y + 10);
+    draw_text_left(matrix, objective_selected.getPlainComponent(), selected_text_right, selected_text_y + 20);
     // Score Text
     draw_text_left(matrix, current_score_text.getString()+": "+player_score, text_x2, line_2);
     draw_text_left(matrix, input_value_text.getString()+":", text_x2, line_3);

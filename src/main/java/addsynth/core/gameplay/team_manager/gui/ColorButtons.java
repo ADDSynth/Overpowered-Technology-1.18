@@ -18,7 +18,7 @@ public final class ColorButtons extends AbstractButton {
   // private static final int texture_width  = button_texture_size * 8;
   // private static final int texture_height = button_texture_size * 2;
 
-  private int color;
+  private int color = -1;
 
   private int render_x;
   private int render_y;
@@ -69,14 +69,18 @@ public final class ColorButtons extends AbstractButton {
     }
   }
 
+  public final boolean validColor(){
+    return color >= 0 && color < 16;
+  }
+
   public final int getColor(){
     // White color in the top-left should be color 0, however the colors listed in
     // net.minecraft.util.text.TextFormatting are listed in reverse order.
-    return 15 - color;
+    return validColor() ? 15 - color : -1;
   }
   
   public final void setColor(int color){
-    this.color = 15 - color;
+    this.color = (color >= 0 && color < 16) ? 15 - color : -1;
   }
 
   @Override

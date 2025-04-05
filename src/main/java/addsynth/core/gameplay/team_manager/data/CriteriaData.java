@@ -119,8 +119,11 @@ public final class CriteriaData {
     ResourceLocation id;
     String name;
     Optional<ResourceLocation> statistic;
+    // String translation_key;
     int i;
     for(i = 0; i < length; i++){
+      // translation_key = "stat."+(statistics.get(i).toString().replace(':', '.'));
+      // statistic_names[i] = Component.translatable(translation_key);
       id = statistics.get(i);
       name = id.toString();
       statistic = Registry.CUSTOM_STAT.getOptional(id);
@@ -131,6 +134,7 @@ public final class CriteriaData {
         statistic_names[i] = new TextComponent("stat."+(name.replace(':', '.')));
       }
     }
+    // Arrays.sort(statistic_names, Sorters.ComponentComparer);
     return statistic_names;
   }
   
@@ -138,6 +142,7 @@ public final class CriteriaData {
     return ArrayUtil.isInsideBounds(id, statistics.size()) ? statistics.get(id).toString() : "null";
   }
   
+  // Used to set the scrollbar when returning to the Edit Objective screen.
   public static final int getStatisticIndex(String statistic_id){
     return statistics.indexOf(new ResourceLocation(statistic_id));
   }

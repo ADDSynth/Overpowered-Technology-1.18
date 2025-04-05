@@ -28,6 +28,7 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   private static final TranslatableComponent       member_suffix_text = new TranslatableComponent("gui.addsynthcore.team_manager.team_edit.member_suffix");
 
   private final boolean new_team;
+  private final String existing_team;
   private Component message = TextComponent.EMPTY;
   private EditBox team_id_name;
   private EditBox team_display_name;
@@ -64,9 +65,16 @@ public final class TeamManagerTeamEditGui extends GuiBase {
   private static final int line_5 = line_4 + 8 + widget_spacing + text_box_height + 6;
 
 
-  public TeamManagerTeamEditGui(final boolean new_team){
+  public TeamManagerTeamEditGui(){
     super(274, 244, team_gui, GuiReference.edit_team_gui);
-    this.new_team = new_team;
+    new_team = true;
+    existing_team = null;
+  }
+
+  public TeamManagerTeamEditGui(final String existing_team){
+    super(274, 244, team_gui, GuiReference.edit_team_gui);
+    new_team = false;
+    this.existing_team = existing_team;
   }
 
   @Override
@@ -119,7 +127,7 @@ public final class TeamManagerTeamEditGui extends GuiBase {
 
     if(new_team == false){
       // editing pre-existing team, load all data
-      final TeamDataUnit team = TeamData.getTeamData(TeamManagerGui.getTeamSelected());
+      final TeamDataUnit team = TeamData.getTeamData(existing_team);
       team_id_name.setValue(team.name);
       // team_id_name.isEnabled = false;
       team_display_name.setValue(team.display_name.getString());

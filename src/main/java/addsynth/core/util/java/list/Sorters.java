@@ -1,6 +1,7 @@
 package addsynth.core.util.java.list;
 
 import java.util.Comparator;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraftforge.registries.tags.ITag;
@@ -13,6 +14,10 @@ public final class Sorters {
 
   public static final Comparator<ResourceLocation> NameComparerMinecraftFirst = (final ResourceLocation o1, final ResourceLocation o2) -> {
     return compareMinecraftAndForge(o1, o2);
+  };
+
+  public static final Comparator<Component> ComponentComparer = (final Component c1, final Component c2) -> {
+    return c1.getString().compareTo(c2.getString());
   };
 
   public static final Comparator<TagKey<?>> KeyComparer = (final TagKey<?> k1, final TagKey<?> k2) -> {

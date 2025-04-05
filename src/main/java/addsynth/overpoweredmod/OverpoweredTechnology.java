@@ -54,8 +54,8 @@ public class OverpoweredTechnology {
   public static final String MOD_ID = "overpowered"; // FUTURE: version 1.6 will rename the modid to overpowered_technology. All assets must also be renamed.
   public static final String MOD_NAME = "Overpowered Technology";
   public static final String VERSION = "1.5.2";
-  public static final String VERSION_DATE = "February 2, 2024";
-  public static final DevStage DEV_STAGE = DevStage.DEVELOPMENT;
+  public static final String VERSION_DATE = "April 5, 2025";
+  public static final DevStage DEV_STAGE = DevStage.STABLE;
     
   public static final Logger log = LogManager.getLogger(MOD_NAME);
 

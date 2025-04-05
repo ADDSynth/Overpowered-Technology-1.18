@@ -23,7 +23,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 
 
-def mod_version = "v1.5.2-Beta"
+def mod_version = "v1.5.2"
 
 version = "Forge-1.18.2-"+mod_version
 

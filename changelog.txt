@@ -1,4 +1,4 @@
-v1.5.2 - TBD
+v1.5.2 - April 5, 2025
 NEW:
   It is now possible to get a Soul Speed Enchanted Book by inserting an Amethyst in the Magic Infuser.
   Now, the Dimensional Anchor itself will not travel to other dimensions.
